@@ -1,0 +1,20 @@
+ #video-container {
+            line-height: 0;
+            width: 100%;
+        }
+
+        #video-container.style-2 {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #video-container.style-2 .scan-region-highlight {
+            border-radius: 30px;
+            outline: rgba(0, 0, 0, 0.548) solid 50vmax;
+        }
+
+        #video-container.style-2 .scan-region-highlight-svg {
+            display: none;
+        }

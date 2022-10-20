@@ -1,34 +1,37 @@
- function selected(value) {
-     var select = document.getElementsByClassName('proceduraldate');
-     if (value != 0) {
-         select[0].style.display = 'block';
-     } else {
-         select[0].style.display = 'none';
-     }
- }
+function selectedata(value) {
+     var civil = $(".civil");
+     var op = $(".op");
+     var adm = $(".adm");
+    var oom = $(".oom");
 
- function selectedata(value) {
-     var reform = $(".reform");
-     var proceduraldate = $(".proceduraldate");
-     var type = $(".type");
-     var select = $(".hidediv");
-     var showdiv = $(".showdiv");
-     if (value != 1) {
-         type[0].style.display = 'block';
-         select[0].style.display = 'block';
-         showdiv[0].style.display = 'none';
-     } else {
-         proceduraldate[0].style.display = 'none';
-         type[0].style.display = 'none';
-         select[0].style.display = 'none';
-         showdiv[0].style.display = 'block';
-     }
 
-     if (value >= 5) {
-         reform[0].style.display = 'block';
+    switch (value) {
+        case '1':
 
-     } else {
-         reform[0].style.display = 'none';
+            op[0].style.display = 'block';
+            adm[0].style.display = 'none';
+            oom[0].style.display = 'none';
 
-     }
+            break;
+        case '2':
+            op[0].style.display = 'none';
+            oom[0].style.display = 'none';
+            adm[0].style.display = 'block';
+            break;
+        case '3':
+            op[0].style.display = 'none';
+            adm[0].style.display = 'none';
+            oom[0].style.display = 'block';
+            break;
+        case '4':
+            op[0].style.display = 'none';
+            adm[0].style.display = 'none';
+            oom[0].style.display = 'none';
+            break;
+        default:
+            op[0].style.display = 'none';
+            adm[0].style.display = 'none';
+            oom[0].style.display = 'none';
+            break;
+    }
  }
