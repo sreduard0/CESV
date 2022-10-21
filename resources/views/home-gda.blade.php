@@ -213,23 +213,34 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <span class="form-group col fs-20"><strong>Dados do veiculo:</strong></span>
-                        <div class="m-r-15">(Campos com * são obrigatórios)</div>
+                    <div class="col">
+                        <div class="d-flex justify-content-sm-end">
+                            <p class="f-s-13">(Campos com * são obrigatórios)</p>
+                        </div>
                     </div>
-
                     <div class="row">
-                        <input type="hidden" id="image_profile" name="image_profile" value="">
                         <div class="form-group col-md-4">
                             <label for="condition_id">Tipo de veiculo</label>
-                            <select onclick="selectedata(this.value)" id="condition_id" name="condition_id"
+                            <select onchange="selectedata(this.value)" id="condition_id" name="condition_id"
                                 class="form-control">
                                 <option selected>SELECIONE O TIPO DE VEICULO</option>
-                                <option value="1">CIVIL</option>
-                                <option value="2">Outra OM</option>
-                                <option value="3">ADMINISTRATIVA</option>
-                                <option value="4">OPERACIONAL</option>
+                                <option value="civil">CIVIL</option>
+                                <option value="oom">Outra OM</option>
+                                <option value="adm">ADMINISTRATIVA</option>
+                                <option value="op">OPERACIONAL</option>
                             </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="form-group">
+                                <label>Data/Hora de entrada</label>
+                                <div class="input-group" id="startDate_">
+                                    <input disabled name="startDate" id="_hora" type="text" class="form-control "
+                                        value="">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {{-- FORM CIVIL --}}
@@ -239,7 +250,7 @@
                                 <div class="form-group col">
                                     <label for="name">Nome do motorista *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Nome do motorista">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="name">CPF/RG/CNH *</label>
@@ -259,6 +270,11 @@
                                         placeholder="Nome">
                                 </div>
                                 <div class="form-group col-md-3">
+                                    <label for="name">Qtd de passageiros *</label>
+                                    <input id="name" name="name" type="number" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
                                     <label for="name">Destino *</label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome">
@@ -271,12 +287,51 @@
                     <div id="f-oom" style="display:none">
                         <form id="form-oom">
                             <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="pg">* Posto/Grad</label>
+                                    <select class="form-control" name="rank_id" id="rank_id">
+                                        <option value="">Selecione</option>
+                                        <option value="Gen">Gen</option>
+                                        <option value="Cel">Cel</option>
+                                        <option value="TC">TC</option>
+                                        <option value="Maj">Maj</option>
+                                        <option value="Cap">Cap</option>
+                                        <option value="1º Ten">1º Ten</option>
+                                        <option value="2º Ten">2º Ten</option>
+                                        <option value="Asp">Asp</option>
+                                        <option value="ST">ST</option>
+                                        <option value="1º Sgt">1º Sgt</option>
+                                        <option value="2º Sgt">2º Sgt</option>
+                                        <option value="3º Sgt">3º Sgt</option>
+                                        <option value="Cb">Cb</option>
+                                        <option value="Sd">Sd</option>
+                                    </select>
+                                </div>
                                 <div class="form-group col">
                                     <label for="name">Nome do motorista *</label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome">
                                 </div>
-
+                                <div class="form-group col-md-2">
+                                    <label for="pg">* Posto/Grad</label>
+                                    <select class="form-control" name="rank_id" id="rank_id">
+                                        <option value="">Selecione</option>
+                                        <option value="Gen">Gen</option>
+                                        <option value="Cel">Cel</option>
+                                        <option value="TC">TC</option>
+                                        <option value="Maj">Maj</option>
+                                        <option value="Cap">Cap</option>
+                                        <option value="1º Ten">1º Ten</option>
+                                        <option value="2º Ten">2º Ten</option>
+                                        <option value="Asp">Asp</option>
+                                        <option value="ST">ST</option>
+                                        <option value="1º Sgt">1º Sgt</option>
+                                        <option value="2º Sgt">2º Sgt</option>
+                                        <option value="3º Sgt">3º Sgt</option>
+                                        <option value="Cb">Cb</option>
+                                        <option value="Sd">Sd</option>
+                                    </select>
+                                </div>
                                 <div class="form-group col">
                                     <label for="name">Nome do segurança *</label>
                                     <input id="name" name="name" type="text" class="form-control"
@@ -285,12 +340,12 @@
 
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="name">Idt mil * </label> (do mais antigo)
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome">
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col">
                                     <label for="name">Modelo veiculo *</label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome">
@@ -300,8 +355,16 @@
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome">
                                 </div>
+
+                            </div>
+                            <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="name">Destino *</label>
+                                    <label for="name">OM *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Destino / Missão *</label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome">
                                 </div>
@@ -309,7 +372,94 @@
                         </form>
                     </div>
 
+                    {{-- FORM ADM/OP --}}
+                    <div id="f-vtr-om" style="display:none">
+                        <form id="form-vtr-om">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="pg">* Posto/Grad</label>
+                                    <select class="form-control" name="rank_id" id="rank_id">
+                                        <option value="">Selecione</option>
+                                        <option value="Gen">Gen</option>
+                                        <option value="Cel">Cel</option>
+                                        <option value="TC">TC</option>
+                                        <option value="Maj">Maj</option>
+                                        <option value="Cap">Cap</option>
+                                        <option value="1º Ten">1º Ten</option>
+                                        <option value="2º Ten">2º Ten</option>
+                                        <option value="Asp">Asp</option>
+                                        <option value="ST">ST</option>
+                                        <option value="1º Sgt">1º Sgt</option>
+                                        <option value="2º Sgt">2º Sgt</option>
+                                        <option value="3º Sgt">3º Sgt</option>
+                                        <option value="Cb">Cb</option>
+                                        <option value="Sd">Sd</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col">
+                                    <label for="name">Nome do motorista *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="pg">* Posto/Grad</label>
+                                    <select class="form-control" name="rank_id" id="rank_id">
+                                        <option value="">Selecione</option>
+                                        <option value="Gen">Gen</option>
+                                        <option value="Cel">Cel</option>
+                                        <option value="TC">TC</option>
+                                        <option value="Maj">Maj</option>
+                                        <option value="Cap">Cap</option>
+                                        <option value="1º Ten">1º Ten</option>
+                                        <option value="2º Ten">2º Ten</option>
+                                        <option value="Asp">Asp</option>
+                                        <option value="ST">ST</option>
+                                        <option value="1º Sgt">1º Sgt</option>
+                                        <option value="2º Sgt">2º Sgt</option>
+                                        <option value="3º Sgt">3º Sgt</option>
+                                        <option value="Cb">Cb</option>
+                                        <option value="Sd">Sd</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col">
+                                    <label for="name">Nome do segurança *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
 
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="name">Idt mil * </label> (do mais antigo)
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col">
+                                    <label for="name">Modelo veiculo *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Placa / EB *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="name">OM *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Destino / Missão *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -331,8 +481,9 @@
                 </div>
                 <div class="modal-body">
                     <div id="video-container" class="style-2">
-                        <video height="100%" id="qr-video"></video>
+                        <video id="qr-video"></video>
                     </div>
+
                     <div style="margin-top: 10px" class="d-flex justify-content-between">
 
                         <div class="form-group col-md-3">

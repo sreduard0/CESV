@@ -1,40 +1,45 @@
 function selectedata(value) {
-     var civil = $("#f-civil");
-    //  var op = $(".op");
-    //  var adm = $(".adm");
-    var oom = $("#f-oom");
+
+    var today = new Date();
+    var dmy = today.toLocaleDateString()
+    var h = today.getHours();
+    var m = today.getMinutes();
+    m = checkTime(m);
+
+    // alert(d.toLocaleString());
+    // Mostrando data no campo
+    $('#_hora').val(dmy+' '+h+':'+m)
+
 
 
     switch (value) {
-        case '1':
+        case 'civil':
 
-            civil[0].style.display = 'block';
-            // op[0].style.display = 'none';
-            oom[0].style.display = 'none';
-            // adm[0].style.display = 'none';
-
+            $("#f-civil").css("display", "block")
+            $("#f-oom").css("display", "none")
+            $("#f-vtr-om").css("display", "none")
             break;
-        case '2':
-            oom[0].style.display = 'block';
-            civil[0].style.display = 'none';
-            // op[0].style.display = 'none';
-            // adm[0].style.display = 'none';
+        case 'oom':
+            $("#f-oom").css("display", "block")
+            $("#f-civil").css("display", "none")
+            $("#f-vtr-om").css("display", "none")
             break;
-        case '3':
-           civil[0].style.display = 'none';
-            // op[0].style.display = 'none';
-            oom[0].style.display = 'none';
-            // adm[0].style.display = 'none';
+        case 'adm':
+            $("#f-civil").css("display", "none")
+            $("#f-oom").css("display", "none")
+            $("#f-vtr-om").css("display", "block")
             break;
-        case '4':
-            civil[0].style.display = 'none';
-            // op[0].style.display = 'none';
-            oom[0].style.display = 'none';
-            // adm[0].style.display = 'none';
+        case 'op':
+            $("#f-civil").css("display", "none")
+            $("#f-oom").css("display", "none")
+            $("#f-vtr-om").css("display", "block")
             break;
         default:
-
+            $("#f-civil").css("display", "none")
+            $("#f-oom").css("display", "none")
+            $("#f-vtr-om").css("display", "none")
 
             break;
     }
- }
+}
+
