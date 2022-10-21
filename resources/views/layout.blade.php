@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('meta')
-    <title>(Beta) CES Vtr - @yield('title')</title>
+    <title>{{ config('app.name') }} - @yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
     {{-- ==================================== CSS/JS ===================================== --}}
 
@@ -49,7 +49,7 @@
             <img class="animation__shake" src="{{ asset('img/logo.png') }}" alt="" height="180"
                 width="180">
             <br>
-            <h3 class="fs-40 bold">CES Vtr</h3>
+            <h3 class="fs-40 bold">{{ config('app.name') }}</h3>
         </div>
         <aside class="main-sidebar sidebar-dark-primary elevation-5">
             <div class="brand-link">
@@ -59,12 +59,10 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('img/people.png') }}"
-                            class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('img/people.png') }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="http://sistao.3bsup.eb.mil.br/profile/view"
-                            class="d-block">Cb Eduardo</a>
+                        <a href="http://sistao.3bsup.eb.mil.br/profile/view" class="d-block">Cb Eduardo</a>
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -178,9 +176,11 @@
         <footer class="main-footer align-items-center ">
             <footer>
                 <div class="text-center">
-                    &copy;CES Vtr {{ date('Y') }} (v1.0) | integrado com &copy;SisTAO {{ date('Y') }} (v1.5)
+                    &copy;{{ config('app.name') . ' ' . date('Y') }} (v1.0) | integrado com &copy;SisTAO
+                    {{ date('Y') }} (v1.5)
                     <br>
-                    Desenvolvido por: <a href="https://www.linkedin.com/in/eduardo-martins-a100b6211/" target="_blank" rel="noopener noreferrer">Eduardo Martins</a>
+                    Desenvolvido por: <a href="https://www.linkedin.com/in/eduardo-martins-a100b6211/" target="_blank"
+                        rel="noopener noreferrer">Eduardo Martins</a>
                 </div>
             </footer>
         </footer>
@@ -215,7 +215,7 @@
     <!-- date-range-picker -->
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     @yield('plugins')
-    {{-- @if (1== 1)
+    {{-- @if (1 == 1)
         <script>
             $("#event_list").DataTable({
 
@@ -241,7 +241,7 @@
                 }
             });
         </script>
-    @endif--}}
+    @endif --}}
     {{-- ====================================/ PLUGINS ===================================== --}}
 </body>
 

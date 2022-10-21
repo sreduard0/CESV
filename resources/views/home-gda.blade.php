@@ -218,43 +218,98 @@
                         <div class="m-r-15">(Campos com * são obrigatórios)</div>
                     </div>
 
-                    <form id="vtr-register-form">
-                        <div class="row">
-                            <input type="hidden" id="image_profile" name="image_profile" value="">
-                            <div class="form-group col-md-4">
-                                <label for="condition_id">Tipo de veiculo</label>
-                                <select onclick="selectedata(this.value)" id="condition_id" name="condition_id"
-                                    class="form-control">
-                                    <option selected>SELECIONE O TIPO DE VEICULO</option>
-                                    <option value="1">CIVIL</option>
-                                    <option value="2">Outra OM</option>
-                                    <option value="3">ADMINISTRATIVA</option>
-                                    <option value="4">OPERACIONAL</option>
-                                </select>
-                            </div>
+                    <div class="row">
+                        <input type="hidden" id="image_profile" name="image_profile" value="">
+                        <div class="form-group col-md-4">
+                            <label for="condition_id">Tipo de veiculo</label>
+                            <select onclick="selectedata(this.value)" id="condition_id" name="condition_id"
+                                class="form-control">
+                                <option selected>SELECIONE O TIPO DE VEICULO</option>
+                                <option value="1">CIVIL</option>
+                                <option value="2">Outra OM</option>
+                                <option value="3">ADMINISTRATIVA</option>
+                                <option value="4">OPERACIONAL</option>
+                            </select>
                         </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-2 oom" style="display:none">
-                                <label for="rank">P/G *</label>
-                                <select id="rank" name="rank" class="form-control">
-
-                                    <option selected disabled value="">Post/Grad</option>
-                                </select>
+                    </div>
+                    {{-- FORM CIVIL --}}
+                    <div id="f-civil" style="display:none">
+                        <form id="form-civil">
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="name">Nome do motorista *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">CPF/RG/CNH *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
                             </div>
-                            <div class="form-group col-md-3 op" style="display:none">
-                                <label for="professionalName">Nome de guerra *</label>
-                                <input id="professionalName" name="professionalName" type="text" class="form-control"
-                                    placeholder="Nome de guerra">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="name">Modelo veiculo *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Placa *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Destino *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
                             </div>
-                            <div class="form-group col adm" style="display:none">
-                                <label for="fullName">Nome completo *</label>
-                                <input id="fullName" name="fullName" type="text" class="form-control"
-                                    placeholder="Nome completo">
-                            </div>
-                        </div>
+                        </form>
+                    </div>
 
-                    </form>
+                    {{-- FORM OUTRA OM --}}
+                    <div id="f-oom" style="display:none">
+                        <form id="form-oom">
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="name">Nome do motorista *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+
+                                <div class="form-group col">
+                                    <label for="name">Nome do segurança *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="name">Idt mil * </label> (do mais antigo)
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Modelo veiculo *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Placa / EB *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Destino *</label>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                        placeholder="Nome">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -276,7 +331,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="video-container" class="style-2">
-                        <video width="100%" id="qr-video"></video>
+                        <video height="100%" id="qr-video"></video>
                     </div>
                     <div style="margin-top: 10px" class="d-flex justify-content-between">
 
