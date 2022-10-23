@@ -1,9 +1,14 @@
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
 function selectedata(value) {
 
     var today = new Date();
     var dmy = today.toLocaleDateString()
     var h = today.getHours();
     var m = today.getMinutes();
+    h = checkTime(h);
     m = checkTime(m);
 
     // alert(d.toLocaleString());
@@ -17,27 +22,23 @@ function selectedata(value) {
 
             $("#f-civil").css("display", "block")
             $("#f-oom").css("display", "none")
-            $("#f-vtr-om").css("display", "none")
+            $("#f-adm-op").css("display", "none")
             break;
         case 'oom':
             $("#f-oom").css("display", "block")
             $("#f-civil").css("display", "none")
-            $("#f-vtr-om").css("display", "none")
+            $("#f-adm-op").css("display", "none")
             break;
         case 'adm':
-            $("#f-civil").css("display", "none")
-            $("#f-oom").css("display", "none")
-            $("#f-vtr-om").css("display", "block")
-            break;
         case 'op':
-            $("#f-civil").css("display", "none")
+            $("#f-adm-op").css("display", "block")
+            $("#f-civil").css("display","none")
             $("#f-oom").css("display", "none")
-            $("#f-vtr-om").css("display", "block")
             break;
         default:
             $("#f-civil").css("display", "none")
             $("#f-oom").css("display", "none")
-            $("#f-vtr-om").css("display", "none")
+            $("##f-adm-op").css("display", "none")
 
             break;
     }

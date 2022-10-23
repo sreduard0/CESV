@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
-
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- Modal de registro manual -->
     <script src="{{ asset('js/hide-form.js') }}"></script>
     <style>
         .dataTables_wrapper .dataTables_filter {
@@ -31,7 +29,7 @@
 @section('content')
     <section class="col ">
         <div class="col">
-            <h4 style="width:350px" class="border-bottom border-success">Veiculos dentro e fora da OM</h4>
+            <h4 style="width:350px" class="border-bottom border-success">Veículos dentro e fora da OM</h4>
         </div>
         <div class="row ">
 
@@ -143,7 +141,7 @@
                             <th>Odômetro - Saída</th>
                             <th>OM</th>
                             <th>Missão/Destino</th>
-                            <th width="85px">Ações</th>
+                            <th width="40px"><i class="fs-20 fa fa-info-circle"></i></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -159,8 +157,7 @@
                             <td>3bsup</td>
                             <td>Comer Quenga</td>
                             <td>
-                                <button class="btn btn-primary"><i class="fa fa-user"></i></button>
-                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-primary"><i class="fa fa-car"></i></button>
                             </td>
                         <tr>
                             <td>OOM</td>
@@ -174,8 +171,7 @@
                             <td>8blog</td>
                             <td>Comer Quenga</td>
                             <td>
-                                <button class="btn btn-primary"><i class="fa fa-user"></i></button>
-                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-primary"><i class="fa fa-car"></i></button>
                             </td>
                         <tr>
                             <td>1010</td>
@@ -189,8 +185,7 @@
                             <td>cms</td>
                             <td>Comer Quenga</td>
                             <td>
-                                <button class="btn btn-primary"><i class="fa fa-user"></i></button>
-                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-primary"><i class="fa fa-car"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -201,13 +196,13 @@
     </section>
 @endsection
 @section('modal')
-    <!-- MODAL VTR -->
-    <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="registerLabel"
+    <!-- MODAL REGISTER VTR MANUAL-->
+    <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="register-vtrLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="registerLabel">Cadastrar viatura</h5>
+                    <h5 class="modal-title" id="register-vtrLabel">Registrar entrada/saida deviatura</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -220,10 +215,10 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label for="condition_id">Tipo de veiculo</label>
+                            <label for="condition_id">Tipo de veículo</label>
                             <select onchange="selectedata(this.value)" id="condition_id" name="condition_id"
                                 class="form-control">
-                                <option selected>SELECIONE O TIPO DE VEICULO</option>
+                                <option selected>SELECIONE O TIPO DE VEÍCULO</option>
                                 <option value="civil">CIVIL</option>
                                 <option value="oom">Outra OM</option>
                                 <option value="adm">ADMINISTRATIVA</option>
@@ -255,29 +250,29 @@
                                 <div class="form-group col-md-3">
                                     <label for="name">CPF/RG/CNH *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="CPF/RG/CNH">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="name">Modelo veiculo *</label>
+                                    <label for="name">Modelo veículo *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Modelo veículo">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="name">Placa *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Placa">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="name">Qtd de passageiros *</label>
                                     <input id="name" name="name" type="number" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Qtd de passageiros">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="name">Destino *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Destino">
                                 </div>
                             </div>
                         </form>
@@ -288,7 +283,7 @@
                         <form id="form-oom">
                             <div class="row">
                                 <div class="form-group col-md-2">
-                                    <label for="pg">* Posto/Grad</label>
+                                    <label for="pg">Posto/Grad *</label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
@@ -309,11 +304,11 @@
                                 </div>
                                 <div class="form-group col">
                                     <label for="name">Nome do motorista *</label>
-                                    <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                    <input id="name" name="name" typphp e="text" class="form-control"
+                                        placeholder="Nome do motorista">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="pg">* Posto/Grad</label>
+                                    <label for="pg">Posto/Grad *</label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
@@ -335,7 +330,7 @@
                                 <div class="form-group col">
                                     <label for="name">Nome do segurança *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Nome do segurança">
                                 </div>
 
                             </div>
@@ -343,17 +338,17 @@
                                 <div class="form-group col-md-4">
                                     <label for="name">Idt mil * </label> (do mais antigo)
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Idt mil">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="name">Modelo veiculo *</label>
+                                    <label for="name">Modelo veículo *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Modelo veículo">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="name">Placa / EB *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Placa / EB">
                                 </div>
 
                             </div>
@@ -361,23 +356,35 @@
                                 <div class="form-group col-md-3">
                                     <label for="name">OM *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="OM">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="name">Destino / Missão *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Destino / Missão">
                                 </div>
                             </div>
                         </form>
                     </div>
 
                     {{-- FORM ADM/OP --}}
-                    <div id="f-vtr-om" style="display:none">
-                        <form id="form-vtr-om">
+                    <div id="f-adm-op" style="display:none">
+                        <form id="form-adm-op">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="pg">Número da ficha *</label>
+                                    <select class="form-control" name="rank_id" id="rank_id">
+                                        <option value="">Selecione</option>
+                                        <option value="1580">1580 / Cb Jesse</option>
+                                        <option value="1581">1581 / Sd De Carvalho</option>
+                                        <option value="1582">1582 / Sgt Criss</option>
+                                        <option value="1583">1583 / Ten Melzin</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="form-group col-md-2">
-                                    <label for="pg">* Posto/Grad</label>
+                                    <label for="pg">Posto/Grad *</label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
@@ -399,10 +406,10 @@
                                 <div class="form-group col">
                                     <label for="name">Nome do motorista *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Nome do motorista">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="pg">* Posto/Grad</label>
+                                    <label for="pg">Posto/Grad *</label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
@@ -424,38 +431,37 @@
                                 <div class="form-group col">
                                     <label for="name">Nome do segurança *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Nome do segurança">
                                 </div>
 
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label for="name">Idt mil * </label> (do mais antigo)
+                                <div class="form-group col-md-3">
+                                    <label for="name">Modelo veículo *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
-                                </div>
-                                <div class="form-group col">
-                                    <label for="name">Modelo veiculo *</label>
-                                    <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Modelo veículo">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="name">Placa / EB *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Placa / EB">
                                 </div>
-
-                            </div>
-                            <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="name">OM *</label>
+                                    <label for="name">Odômetro *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Odômetro">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="name">Destino / Missão *</label>
                                     <input id="name" name="name" type="text" class="form-control"
-                                        placeholder="Nome">
+                                        placeholder="Destino / Missão">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="name">Observações</label>
+                                    <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
+                                        class="form-control"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -463,14 +469,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success" onclick="return add_adido()">Cadastrar</button>
+                    <button type="button" class="btn btn-success" onclick="">Registrar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal QR Code-->
-    <div class="modal fade" id="qr-code" tabindex="-1" role="dialog" aria-labelledby="registerLabel"
+    <!-- MODAL REGISTER VTR QR Code-->
+    <div class="modal fade" id="qr-code" tabindex="-1" role="dialog" aria-labelledby="qr-codeLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -479,7 +485,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height:550px">
                     <div id="video-container" class="style-2">
                         <video id="qr-video"></video>
                     </div>
@@ -506,23 +512,26 @@
         </div>
     </div>
 
-    {{-- Modal de envio de imagem --}}
-    <div id="uploadimage" class="modal" role="dialog">
-        <div class="modal-dialog">
+    <!-- MODAL INFORMAÇÕES DA VTR -->
+    <div class="modal fade" id="info-vtr" tabindex="-1" role="dialog" aria-labelledby="info-vtrLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Ajustar imagem</h4>
+                <div class="modal-header">Informações do veículo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <div id="image_demo"></div>
+                <div class="modal-body" style="max-height:550px">
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    <button class="btn btn-success crop_image">Enviar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
+
 
 
 @endsection
@@ -544,23 +553,20 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('js/actions.js') }}"></script>
-    <!-- Summernote -->
-    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
-    <script src="{{ asset('js/crop-img-profile.js') }}"></script>
     {{-- QrCode --}}
     <script type="module" src="{{ asset('plugins/qr-scanner/qr-code.js') }}"></script>
 
     <script>
-        $(function() {
-            var url = '/get_qtt_licensing';
-            $.get(url, function(result) {
-                document.getElementById('ata').innerText = result.ata;
-                document.getElementById('reintegrado').innerText = result.reintegrado;
-                document.getElementById('encostado').innerText = result.encostado;
-                document.getElementById('adido').innerText = result.adido;
-            })
-        });
+        // $(function() {
+        //     var url = '/get_qtt_licensing';
+        //     $.get(url, function(result) {
+        //         document.getElementById('ata').innerText = result.ata;
+        //         document.getElementById('reintegrado').innerText = result.reintegrado;
+        //         document.getElementById('encostado').innerText = result.encostado;
+        //         document.getElementById('adido').innerText = result.adido;
+        //     })
+        // });
 
         $(function() {
             $("#table").DataTable({
@@ -605,19 +611,6 @@
                         "text": "Exibir",
                     },
                 ],
-            });
-
-            // Summernote
-            $('.new_menu').summernote({
-                toolbar: [
-                    // [groupName, [list of button]]
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['font'],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table'],
-                ]
             });
 
         });
