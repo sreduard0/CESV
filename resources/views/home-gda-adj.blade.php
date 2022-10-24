@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Início')
+@section('title', 'Guarda')
 @section('home', 'active')
 @section('title-header', 'Controle de viaturas')
 @section('meta')
@@ -98,10 +98,10 @@
                                 <label for="condition_filter">Viatura</label>
                                 <select id="condition_filter" name="condition_filter" class="form-control">
                                     <option selected value="">TODAS AS VIATURAS</option>
-                                    <option selected value="">CIVIL</option>
-                                    <option selected value="">Outra OM</option>
-                                    <option selected value="">ADMINISTRATIVA</option>
-                                    <option selected value="">OPERACIONAL </option>
+                                    <option value="">CIVIL</option>
+                                    <option value="">Outra OM</option>
+                                    <option value="">ADMINISTRATIVA</option>
+                                    <option value="">OPERACIONAL </option>
                                 </select>
                             </div>
                             <button onclick="return search_condition()" style="height: 40px;"
@@ -113,9 +113,10 @@
                     <div class="d-flex justify-content-sm-end">
                         <div class="col">
                             <button class="btn btn-success" data-toggle="modal"
-                                data-target="#register-vtr">Adicionar</button>
+                                data-target="#register-vtr">Registrar</button>
 
-                            <button id="qr-read" class="btn btn-success" data-toggle="modal" data-target="#qr-code">QR
+                            <button id="qr-read" class="btn btn-success" data-toggle="modal" data-target="#qr-code"> <i
+                                    class="fa fa-qrcode"></i> Ler QR
                                 Code</button>
                         </div>
                     </div>
@@ -135,13 +136,11 @@
                             <th>Modelo Vtr</th>
                             <th>Motorista</th>
                             <th>Segurança</th>
-                            <th>Hora - Entrada</th>
-                            <th>Odômetro - Entrada</th>
                             <th>Hora - Saída</th>
                             <th>Odômetro - Saída</th>
                             <th>OM</th>
                             <th>Missão/Destino</th>
-                            <th width="40px"><i class="fs-20 fa fa-info-circle"></i></th>
+                            <th style="min-width:115px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -150,42 +149,57 @@
                             <td>Maarua</td>
                             <td>Sd De Carvalho</td>
                             <td>Cb Rocha</td>
-                            <td>{{ date('h:i') }}</td>
-                            <td>123456789</td>
                             <td>12:40 30-10-2022</td>
                             <td>999999999</td>
                             <td>3bsup</td>
                             <td>Comer Quenga</td>
                             <td>
-                                <button class="btn btn-primary"><i class="fa fa-car"></i></button>
+                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
+                                        class="fa fa-car"></i></button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
+                                        class="fa fa-list-alt"></i></button>
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-register"><i
+                                        class="fa fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
+                                        class="fa fa-trash"></i></button>
                             </td>
                         <tr>
                             <td>OOM</td>
                             <td>Maarua</td>
                             <td>Sd Bruno</td>
                             <td>Cb Jao</td>
-                            <td>10:40 30-10-2022</td>
-                            <td>123456789</td>
                             <td>12:40 30-10-2022</td>
                             <td>999999999</td>
                             <td>8blog</td>
                             <td>Comer Quenga</td>
                             <td>
-                                <button class="btn btn-primary"><i class="fa fa-car"></i></button>
+                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
+                                        class="fa fa-car"></i></button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
+                                        class="fa fa-list-alt"></i></button>
+                                <button class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="#edit-register"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
+                                        class="fa fa-trash"></i></button>
                             </td>
                         <tr>
                             <td>1010</td>
                             <td>Maarua</td>
                             <td>Sd CUca</td>
                             <td>Cb Pinto</td>
-                            <td>10:40 30-10-2022</td>
-                            <td>123456789</td>
                             <td>12:40 30-10-2022</td>
                             <td>999999999</td>
                             <td>cms</td>
                             <td>Comer Quenga</td>
                             <td>
-                                <button class="btn btn-primary"><i class="fa fa-car"></i></button>
+                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
+                                        class="fa fa-car"></i></button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
+                                        class="fa fa-list-alt"></i></button>
+                                <button class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="#edit-register"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
+                                        class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -513,25 +527,10 @@
     </div>
 
     <!-- MODAL INFORMAÇÕES DA VTR -->
-    <div class="modal fade" id="info-vtr" tabindex="-1" role="dialog" aria-labelledby="info-vtrLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">Informações do veículo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="max-height:550px">
+    @include('component.info-vtr')
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    {{--  INFORMÇOES DO REGISTRO DE ENTRADA E SAIDA --}}
+    @include('component.info-register')
 
 
 @endsection
