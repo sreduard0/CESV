@@ -3,8 +3,8 @@
 @endsection
 <!-- Perfil usuario -->
 <div class="modal fade" id="info-register" tabindex="-1" role="dialog" aria-labelledby="info-register" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ">
             <div class="modal-header">
                 <h5 class="modal-title" id="info-register">Informações do registro de entrada/saida</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -19,75 +19,318 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title card-title-background "> <i class="fas fa-car mr-1"></i>
-                                            Marrua</h3>
+                                            Civil</h3>
+                                        <button id="btnEdit" onclick="return activeEdit()"
+                                            class="btn btn-primary float-r"><i class="fa fa-edit"></i></button>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="card-body">
-                                            <input type="hidden" id="v_id" value="">
-                                            <input type="hidden" id="enterprise_id" value="">
-                                            <div class="  float-l col-md-6">
-                                                <strong> Nome completo</strong>
-
-                                                <p id="fullname" class="text-muted"></p>
-
-                                                <hr>
-
-                                                <strong>Contato</strong>
-
-                                                <p id="phone_mil" class="text-muted"></p>
-
-                                                <hr>
-
-                                                <strong>CPF</strong>
-
-                                                <p id="cpf" class="text-muted"></p>
-
-                                                <hr>
-
-                                                <strong>Data de praça</strong>
-
-                                                <p id="joinedarmy_mil" class="text-muted"></p>
-                                                <hr>
-
-                                                <strong>Substituto do padrinho</strong>
-
-                                                <p id="godfather2_mil" class="text-muted"></p>
+                                    <div class="card-body" id="panelInfo" style="display: block">
 
 
+
+
+                                        <div id="infoCivil" style="display: none">
+
+                                        </div>
+                                        <div id="infoOom" style="display: none">
+
+                                        </div>
+                                        <div id="infoVtrOm" style="display: none">
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                    <div class="card-body" id="panelEditInfo" style="display: none">
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <label for="name">Horário de entrada<span
+                                                        style="color:red">*</span></label>
+                                                <input disabled id="name" name="name" type="text"
+                                                    class="form-control" placeholder="Horário de entrada">
                                             </div>
-                                            <div class=" float-r col-md-6">
-                                                <strong>Situação</strong>
-
-                                                <p id="situation_mil" class="text-muted"></p>
-
-                                                <hr>
-
-                                                <strong>Contato</strong>
-
-                                                <p id="phone2_mil" class="text-muted"></p>
-
-                                                <hr>
-
-                                                <strong>PREC-CP</strong>
-
-                                                <p id="prec_mil" class="text-muted"></p>
-
-                                                <hr>
-
-                                                <strong>Padrinho</strong>
-
-                                                <p id="godfather_mil" class="text-muted"></p>
-
-                                                <hr>
-
-                                                <strong>Dados processuais</strong>
-
-                                                <p id="proceduraldata_mil" class="text-muted"></p>
-
-
-
+                                            <div class="form-group col">
+                                                <label for="name">Horário de saída <span
+                                                        style="color:red">*</span></label>
+                                                <input disabled id="name" name="name" type="text"
+                                                    class="form-control" placeholder="Horário de saída">
                                             </div>
                                         </div>
+
+                                        {{-- FORM CIVIL --}}
+                                        <div id="f-civil" style="display:block">
+
+                                            <form id="form-civil">
+                                                <div class="row">
+                                                    <div class="form-group col">
+                                                        <label for="name">Nome do motorista <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Nome do motorista">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">CPF/RG/CNH <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="CPF/RG/CNH">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Modelo veículo <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Modelo veículo">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Placa <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Placa">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Qtd de passageiros <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="number"
+                                                            class="form-control" placeholder="Qtd de passageiros">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Destino <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Destino">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col">
+                                                        <label for="name">Observações</label>
+                                                        <textarea name="" id="" rows="8" placeholder="Ex: Carro com impressoras."
+                                                            class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        {{-- FORM OUTRA OM --}}
+                                        <div id="f-oom" style="display:none">
+                                            <form id="form-oom">
+                                                <div class="row">
+                                                    <div class="form-group col-md-2">
+                                                        <label for="pg">Posto/Grad <span
+                                                                style="color:red">*</span></label>
+                                                        <select class="form-control" name="rank_id" id="rank_id">
+                                                            <option value="">Selecione</option>
+                                                            <option value="Gen">Gen</option>
+                                                            <option value="Cel">Cel</option>
+                                                            <option value="TC">TC</option>
+                                                            <option value="Maj">Maj</option>
+                                                            <option value="Cap">Cap</option>
+                                                            <option value="1º Ten">1º Ten</option>
+                                                            <option value="2º Ten">2º Ten</option>
+                                                            <option value="Asp">Asp</option>
+                                                            <option value="ST">ST</option>
+                                                            <option value="1º Sgt">1º Sgt</option>
+                                                            <option value="2º Sgt">2º Sgt</option>
+                                                            <option value="3º Sgt">3º Sgt</option>
+                                                            <option value="Cb">Cb</option>
+                                                            <option value="Sd">Sd</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="name">Nome do motorista <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" typphp e="text"
+                                                            class="form-control" placeholder="Nome do motorista">
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="pg">Posto/Grad <span
+                                                                style="color:red">*</span></label>
+                                                        <select class="form-control" name="rank_id" id="rank_id">
+                                                            <option value="">Selecione</option>
+                                                            <option value="Gen">Gen</option>
+                                                            <option value="Cel">Cel</option>
+                                                            <option value="TC">TC</option>
+                                                            <option value="Maj">Maj</option>
+                                                            <option value="Cap">Cap</option>
+                                                            <option value="1º Ten">1º Ten</option>
+                                                            <option value="2º Ten">2º Ten</option>
+                                                            <option value="Asp">Asp</option>
+                                                            <option value="ST">ST</option>
+                                                            <option value="1º Sgt">1º Sgt</option>
+                                                            <option value="2º Sgt">2º Sgt</option>
+                                                            <option value="3º Sgt">3º Sgt</option>
+                                                            <option value="Cb">Cb</option>
+                                                            <option value="Sd">Sd</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="name">Nome do segurança <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Nome do segurança">
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="name">Idt mil <span style="color:red">*</span>
+                                                        </label> (do mais
+                                                        antigo)
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Idt mil">
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="name">Modelo veículo <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Modelo veículo">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Placa / EB <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Placa / EB">
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">OM <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="OM">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Destino / Missão <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Destino / Missão">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col">
+                                                        <label for="name">Observações</label>
+                                                        <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
+                                                            class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        {{-- FORM ADM/OP --}}
+                                        <div id="f-adm-op" style="display:none">
+                                            <form id="form-adm-op">
+                                                <div class="row">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="pg">Número da ficha <span
+                                                                style="color:red">*</span></label>
+                                                        <select class="form-control" name="rank_id" id="rank_id">
+                                                            <option value="">Selecione</option>
+                                                            <option value="1580">1580 / Cb Jesse</option>
+                                                            <option value="1581">1581 / Sd De Carvalho</option>
+                                                            <option value="1582">1582 / Sgt Criss</option>
+                                                            <option value="1583">1583 / Ten Melzin</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-2">
+                                                        <label for="pg">Posto/Grad <span
+                                                                style="color:red">*</span></label>
+                                                        <select class="form-control" name="rank_id" id="rank_id">
+                                                            <option value="">Selecione</option>
+                                                            <option value="Gen">Gen</option>
+                                                            <option value="Cel">Cel</option>
+                                                            <option value="TC">TC</option>
+                                                            <option value="Maj">Maj</option>
+                                                            <option value="Cap">Cap</option>
+                                                            <option value="1º Ten">1º Ten</option>
+                                                            <option value="2º Ten">2º Ten</option>
+                                                            <option value="Asp">Asp</option>
+                                                            <option value="ST">ST</option>
+                                                            <option value="1º Sgt">1º Sgt</option>
+                                                            <option value="2º Sgt">2º Sgt</option>
+                                                            <option value="3º Sgt">3º Sgt</option>
+                                                            <option value="Cb">Cb</option>
+                                                            <option value="Sd">Sd</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="name">Nome do motorista <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Nome do motorista">
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="pg">Posto/Grad <span
+                                                                style="color:red">*</span></label>
+                                                        <select class="form-control" name="rank_id" id="rank_id">
+                                                            <option value="">Selecione</option>
+                                                            <option value="Gen">Gen</option>
+                                                            <option value="Cel">Cel</option>
+                                                            <option value="TC">TC</option>
+                                                            <option value="Maj">Maj</option>
+                                                            <option value="Cap">Cap</option>
+                                                            <option value="1º Ten">1º Ten</option>
+                                                            <option value="2º Ten">2º Ten</option>
+                                                            <option value="Asp">Asp</option>
+                                                            <option value="ST">ST</option>
+                                                            <option value="1º Sgt">1º Sgt</option>
+                                                            <option value="2º Sgt">2º Sgt</option>
+                                                            <option value="3º Sgt">3º Sgt</option>
+                                                            <option value="Cb">Cb</option>
+                                                            <option value="Sd">Sd</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="name">Nome do segurança <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Nome do segurança">
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Modelo veículo <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Modelo veículo">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Placa / EB <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Placa / EB">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Odômetro <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Odômetro">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="name">Destino / Missão <span
+                                                                style="color:red">*</span></label>
+                                                        <input id="name" name="name" type="text"
+                                                            class="form-control" placeholder="Destino / Missão">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col">
+                                                        <label for="name">Observações</label>
+                                                        <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
+                                                            class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -104,6 +347,24 @@
 </div>
 {{-- SCRIPTS --}}
 <script>
+    var showEdit = true;
+
+    function activeEdit() {
+        if (showEdit == false) {
+            $("#panelInfo").css("display", "block")
+            $("#panelEditInfo").css("display", "none")
+            $("#btnEdit").addClass('btn-primary')
+            $("#btnEdit").removeClass('btn-danger')
+
+            showEdit = true
+        } else {
+            $("#panelInfo").css("display", "none")
+            $("#panelEditInfo").css("display", "block")
+            $("#btnEdit").addClass('btn-danger')
+            $("#btnEdit").removeClass('btn-primary')
+            showEdit = false
+        }
+    }
     // $('#visitor_profile').on('show.bs.modal', function(event) {
     //     var button = $(event.relatedTarget);
     //     var id = button.data('id');

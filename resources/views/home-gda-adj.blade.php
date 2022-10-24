@@ -140,7 +140,7 @@
                             <th>Odômetro - Saída</th>
                             <th>OM</th>
                             <th>Missão/Destino</th>
-                            <th style="min-width:115px"><i class="fs-20 fa fa-info-circle"></i> info</th>
+                            <th style="min-width:70px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,8 +158,7 @@
                                         class="fa fa-car"></i></button>
                                 <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
                                         class="fa fa-list-alt"></i></button>
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-register"><i
-                                        class="fa fa-edit"></i></button>
+
                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
                                         class="fa fa-trash"></i></button>
                             </td>
@@ -177,8 +176,7 @@
                                         class="fa fa-car"></i></button>
                                 <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
                                         class="fa fa-list-alt"></i></button>
-                                <button class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#edit-register"><i class="fa fa-edit"></i></button>
+
                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
                                         class="fa fa-trash"></i></button>
                             </td>
@@ -196,8 +194,7 @@
                                         class="fa fa-car"></i></button>
                                 <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
                                         class="fa fa-list-alt"></i></button>
-                                <button class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#edit-register"><i class="fa fa-edit"></i></button>
+
                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
                                         class="fa fa-trash"></i></button>
                             </td>
@@ -216,7 +213,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="register-vtrLabel">Registrar entrada/saida deviatura</h5>
+                    <h5 class="modal-title" id="register-vtrLabel">Registrar entrada/saída deviatura</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -224,7 +221,7 @@
                 <div class="modal-body">
                     <div class="col">
                         <div class="d-flex justify-content-sm-end">
-                            <p class="f-s-13">(Campos com * são obrigatórios)</p>
+                            <p class="f-s-13">(Campos com <span style="color:red">*</span> são obrigatórios)</p>
                         </div>
                     </div>
                     <div class="row">
@@ -257,36 +254,43 @@
                         <form id="form-civil">
                             <div class="row">
                                 <div class="form-group col">
-                                    <label for="name">Nome do motorista *</label>
+                                    <label for="name">Nome do motorista <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome do motorista">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">CPF/RG/CNH *</label>
+                                    <label for="name">CPF/RG/CNH <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="CPF/RG/CNH">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="name">Modelo veículo *</label>
+                                    <label for="name">Modelo veículo <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Modelo veículo">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">Placa *</label>
+                                    <label for="name">Placa <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Placa">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">Qtd de passageiros *</label>
+                                    <label for="name">Qtd de passageiros <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="number" class="form-control"
                                         placeholder="Qtd de passageiros">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">Destino *</label>
+                                    <label for="name">Destino <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Destino">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="name">Observações</label>
+                                    <textarea name="" id="" rows="8" placeholder="Ex: Carro com impressoras."
+                                        class="form-control"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -297,7 +301,7 @@
                         <form id="form-oom">
                             <div class="row">
                                 <div class="form-group col-md-2">
-                                    <label for="pg">Posto/Grad *</label>
+                                    <label for="pg">Posto/Grad <span style="color:red">*</span></label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
@@ -317,12 +321,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group col">
-                                    <label for="name">Nome do motorista *</label>
+                                    <label for="name">Nome do motorista <span style="color:red">*</span></label>
                                     <input id="name" name="name" typphp e="text" class="form-control"
                                         placeholder="Nome do motorista">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="pg">Posto/Grad *</label>
+                                    <label for="pg">Posto/Grad <span style="color:red">*</span></label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
@@ -342,7 +346,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col">
-                                    <label for="name">Nome do segurança *</label>
+                                    <label for="name">Nome do segurança <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome do segurança">
                                 </div>
@@ -350,17 +354,18 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <label for="name">Idt mil * </label> (do mais antigo)
+                                    <label for="name">Idt mil <span style="color:red">*</span> </label> (do mais
+                                    antigo)
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Idt mil">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="name">Modelo veículo *</label>
+                                    <label for="name">Modelo veículo <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Modelo veículo">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">Placa / EB *</label>
+                                    <label for="name">Placa / EB <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Placa / EB">
                                 </div>
@@ -368,14 +373,21 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="name">OM *</label>
+                                    <label for="name">OM <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="OM">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">Destino / Missão *</label>
+                                    <label for="name">Destino / Missão <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Destino / Missão">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="name">Observações</label>
+                                    <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
+                                        class="form-control"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -386,7 +398,7 @@
                         <form id="form-adm-op">
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <label for="pg">Número da ficha *</label>
+                                    <label for="pg">Número da ficha <span style="color:red">*</span></label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="1580">1580 / Cb Jesse</option>
@@ -398,7 +410,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-2">
-                                    <label for="pg">Posto/Grad *</label>
+                                    <label for="pg">Posto/Grad <span style="color:red">*</span></label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
@@ -418,12 +430,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group col">
-                                    <label for="name">Nome do motorista *</label>
+                                    <label for="name">Nome do motorista <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome do motorista">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="pg">Posto/Grad *</label>
+                                    <label for="pg">Posto/Grad <span style="color:red">*</span></label>
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
@@ -443,7 +455,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col">
-                                    <label for="name">Nome do segurança *</label>
+                                    <label for="name">Nome do segurança <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Nome do segurança">
                                 </div>
@@ -451,22 +463,22 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="name">Modelo veículo *</label>
+                                    <label for="name">Modelo veículo <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Modelo veículo">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">Placa / EB *</label>
+                                    <label for="name">Placa / EB <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Placa / EB">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">Odômetro *</label>
+                                    <label for="name">Odômetro <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Odômetro">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="name">Destino / Missão *</label>
+                                    <label for="name">Destino / Missão <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Destino / Missão">
                                 </div>
@@ -529,7 +541,7 @@
     <!-- MODAL INFORMAÇÕES DA VTR -->
     @include('component.info-vtr')
 
-    {{--  INFORMÇOES DO REGISTRO DE ENTRADA E SAIDA --}}
+    {{--  INFORMÇOES DO REGISTRO DE ENTRADA E saída --}}
     @include('component.info-register')
 
 

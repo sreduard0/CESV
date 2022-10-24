@@ -22,17 +22,15 @@
                                 style="background: url('{{ asset('img/bg-visitors.png') }}') center center;background-size:100%">
                             </div>
                             <div class="widget-user-image">
-                                <a type="button" id="profile_link" href=""
-                                    class="float-r m-r-5 btn btn-success">Ver perfil completo</a>
                                 <img id="edit_img" class="img-circle" src="{{ asset('img/people.png') }}"
                                     alt="User Avatar">
                             </div>
                             <div class="card-footer m-t-30">
                                 <div class="description-block">
                                     <h3 id="adido_name" class="widget-user-desc text-center">
-                                        Nome</h3>
+                                        Modelo</h3>
                                     <h4 id="name_cia" class="widget-user-username text-center text-muted">
-                                        Cia </h4>
+                                        EB/Placa </h4>
                                 </div>
                             </div>
                         </div>
@@ -45,8 +43,8 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title card-title-background "> <i
-                                                    class="fas fa-user mr-1"></i>
-                                                Informações pessoais</h3>
+                                                    class="fas fa-car mr-1"></i>
+                                                Informações do veículo</h3>
                                         </div>
                                         <div class="card-body">
                                             <div class="card-body">
