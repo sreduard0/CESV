@@ -51,7 +51,7 @@
                                                 <input type="hidden" id="v_id" value="">
                                                 <input type="hidden" id="enterprise_id" value="">
                                                 <div class="  float-l col-md-6">
-                                                    <strong> Nome completo</strong>
+                                                    <strong> </strong>
 
                                                     <p id="fullname" class="text-muted"></p>
 

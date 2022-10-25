@@ -21,46 +21,188 @@
                                         <h3 class="card-title card-title-background "> <i class="fas fa-car mr-1"></i>
                                             Civil</h3>
                                         <button id="btnEdit" onclick="return activeEdit()"
-                                            class="btn btn-primary float-r"><i class="fa fa-edit"></i></button>
+                                            class="btn btn-primary float-r"><i id="icoEdit"
+                                                class="fa fa-edit"></i></button>
                                     </div>
                                     <div class="card-body" id="panelInfo" style="display: block">
-
-
-
-
                                         <div id="infoCivil" style="display: none">
+                                            <div class="  float-l col-md-6">
+                                                <strong>Nome do motorista</strong>
 
+                                                <p id="fullname" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Modelo veículo</strong>
+
+                                                <p id="phone_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Placa</strong>
+
+                                                <p id="cpf" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>CPF/RG/CNH</strong>
+
+                                                <p id="joinedarmy_mil" class="text-muted">-</p>
+                                                <hr>
+
+                                                <strong>Qtd. passageiros</strong>
+
+                                                <p id="godfather2_mil" class="text-muted">-</p>
+
+
+                                            </div>
+                                            <div class=" float-r col-md-6">
+                                                <strong>Destino</strong>
+
+                                                <p id="situation_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Horário de entrada</strong>
+
+                                                <p id="phone2_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Horário de saída</strong>
+
+                                                <p id="prec_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Obs</strong>
+
+                                                <p id="godfather_mil" class="text-muted">-</p>
+                                            </div>
                                         </div>
+
                                         <div id="infoOom" style="display: none">
+                                            <div class="  float-l col-md-6">
+                                                <strong>Nome do motorista</strong>
 
+                                                <p id="fullname" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Nome do segurança</strong>
+
+                                                <p id="phone_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Modelo veículo</strong>
+
+                                                <p id="phone_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Placa/EB</strong>
+
+                                                <p id="cpf" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Idt militar mais antigo</strong>
+
+                                                <p id="joinedarmy_mil" class="text-muted">-</p>
+
+
+                                            </div>
+                                            <div class=" float-r col-md-6">
+                                                <strong>OM</strong>
+
+                                                <p id="situation_mil" class="text-muted">-</p>
+
+                                                <hr>
+                                                <strong>Destino</strong>
+
+                                                <p id="situation_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Horário de entrada</strong>
+
+                                                <p id="phone2_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Horário de saída</strong>
+
+                                                <p id="prec_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Obs</strong>
+
+                                                <p id="godfather_mil" class="text-muted">-</p>
+                                            </div>
                                         </div>
+
                                         <div id="infoVtrOm" style="display: none">
+                                            <div class="  float-l col-md-6">
+                                                <strong>Ficha</strong>
 
+                                                <p id="joinedarmy_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Nome do motorista</strong>
+
+                                                <p id="fullname" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Nome do segurança</strong>
+
+                                                <p id="phone_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Modelo veículo</strong>
+
+                                                <p id="phone_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Placa/EB</strong>
+
+                                                <p id="cpf" class="text-muted">-</p>
+
+                                            </div>
+                                            <div class=" float-r col-md-6">
+                                                <strong>Destino</strong>
+
+                                                <p id="situation_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Horário de entrada</strong>
+
+                                                <p id="phone2_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Horário de saída</strong>
+
+                                                <p id="prec_mil" class="text-muted">-</p>
+
+                                                <hr>
+
+                                                <strong>Obs</strong>
+
+                                                <p id="godfather_mil" class="text-muted">-</p>
+                                            </div>
                                         </div>
-
-
-
-
                                     </div>
 
                                     <div class="card-body" id="panelEditInfo" style="display: none">
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <label for="name">Horário de entrada<span
-                                                        style="color:red">*</span></label>
-                                                <input disabled id="name" name="name" type="text"
-                                                    class="form-control" placeholder="Horário de entrada">
-                                            </div>
-                                            <div class="form-group col">
-                                                <label for="name">Horário de saída <span
-                                                        style="color:red">*</span></label>
-                                                <input disabled id="name" name="name" type="text"
-                                                    class="form-control" placeholder="Horário de saída">
-                                            </div>
-                                        </div>
-
                                         {{-- FORM CIVIL --}}
-                                        <div id="f-civil" style="display:block">
+                                        <div id="f-civil" style="display:none">
 
                                             <form id="form-civil">
                                                 <div class="row">
@@ -354,14 +496,18 @@
             $("#panelInfo").css("display", "block")
             $("#panelEditInfo").css("display", "none")
             $("#btnEdit").addClass('btn-primary')
-            $("#btnEdit").removeClass('btn-danger')
+            $("#btnEdit").removeClass('btn-success')
+            $("#icoEdit").removeClass('fa-check')
+            $("#icoEdit").addClass('fa-edit')
 
             showEdit = true
         } else {
             $("#panelInfo").css("display", "none")
             $("#panelEditInfo").css("display", "block")
-            $("#btnEdit").addClass('btn-danger')
+            $("#btnEdit").addClass('btn-success')
             $("#btnEdit").removeClass('btn-primary')
+            $("#icoEdit").removeClass('fa-edit')
+            $("#icoEdit").addClass('fa-check')
             showEdit = false
         }
     }

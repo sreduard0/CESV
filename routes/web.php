@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home-gda-adj');
 });
+Route::get('/gestor', function () {
+    return view('home-gest');
+});

@@ -7,7 +7,11 @@
         const camQrResult = document.getElementById('cam-qr-result');
 
         function setResult(label, result) {
-           alert(result.data)
+            $("#qr-code").modal('hide')
+            $("#register-vtr").modal('show');
+            scanner.stop();
+
+
         }
 
         // ####### Web Cam Scanning #######
