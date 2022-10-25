@@ -511,43 +511,63 @@
             showEdit = false
         }
     }
-    // $('#visitor_profile').on('show.bs.modal', function(event) {
-    //     var button = $(event.relatedTarget);
-    //     var id = button.data('id');
-    //     var modal = $(this);
-    //     var url = '/get_profile/' + id;
-    //     modal.find('#phone2_visitor').text('')
-    //     modal.find('#prec_mil').text('')
-    //     modal.find('#godfather2_mil').text('Não consta.')
-    //     modal.find('#joinedarmy_mil').text('Não consta.')
-    //     modal.find('#proceduraldata_mil').text('Não consta.')
-    //     $('#phone_mil').mask('(00) 0 0000-0000');
-    //     $('#phone2_mil').mask('(00) 0 0000-0000');
-    //     $('#cpf').mask('000.000.000-00');
-    //     $('#prec_mil').mask('00 0000000');
-    //     $("#profile_link").attr("href", '');
-    //     $.get(url, function(result) {
-    //         $("#profile_link").attr("href", "/profile/" + result.id);
-    //         modal.find('#edit_img').attr("src", result.photo)
-    //         modal.find('#adido_name').text(result.rank.rankAbbreviation + ' ' + result
-    //             .professionalName)
-    //         modal.find('#name_cia').text(result.company.name)
-    //         modal.find('#fullname').text(result.fullName)
-    //         modal.find('#cpf').text($('#cpf').masked(result.cpf))
-    //         modal.find('#phone_mil').text($('#phone_mil').masked(result.phone))
-    //         modal.find('#phone2_mil').text($('#phone2_mil').masked(result.phone2))
-    //         modal.find('#prec_mil').text($('#prec_mil').masked(result.preccp))
-    //         modal.find('#joinedarmy_mil').text(moment(result.joinedArmy).format('DD-MM-YYYY'))
-    //         if (result.proceduraldata) {
-    //             modal.find('#proceduraldata_mil').text('Há dados processuais.')
-    //         }
-    //         modal.find('#situation_mil').text(result.condition.condition)
-    //         modal.find('#godfather_mil').text(result.godfather.rank.rankAbbreviation + ' ' +
-    //             result
-    //             .godfather.professionalName)
-    //         modal.find('#godfather2_mil').text(result.godfather2.rank.rankAbbreviation +
-    //             ' ' + result
-    //             .godfather2.professionalName)
-    //     })
-    // });
+    $('#info-register').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var modal = $(this);
+
+        switch (id) {
+            case 5:
+                $("#infoVtrOm").css("display", "block")
+                $("#infoOom").css("display", "none")
+                $("#infoCivil").css("display", "none")
+                break;
+            case 13:
+                $("#infoVtrOm").css("display", "none")
+                $("#infoOom").css("display", "block")
+                $("#infoCivil").css("display", "none")
+                break;
+            case 1:
+                $("#infoVtrOm").css("display", "none")
+                $("#infoOom").css("display", "none")
+                $("#infoCivil").css("display", "block")
+                break;
+        }
+        //     var url = '/get_profile/' + id;
+        //     modal.find('#phone2_visitor').text('')
+        //     modal.find('#prec_mil').text('')
+        //     modal.find('#godfather2_mil').text('Não consta.')
+        //     modal.find('#joinedarmy_mil').text('Não consta.')
+        //     modal.find('#proceduraldata_mil').text('Não consta.')
+        //     $('#phone_mil').mask('(00) 0 0000-0000');
+        //     $('#phone2_mil').mask('(00) 0 0000-0000');
+        //     $('#cpf').mask('000.000.000-00');
+        //     $('#prec_mil').mask('00 0000000');
+        //     $("#profile_link").attr("href", '');
+        //     $.get(url, function(result) {
+        //         $("#profile_link").attr("href", "/profile/" + result.id);
+        //         modal.find('#edit_img').attr("src", result.photo)
+        //         modal.find('#adido_name').text(result.rank.rankAbbreviation + ' ' + result
+        //             .professionalName)
+        //         modal.find('#name_cia').text(result.company.name)
+        //         modal.find('#fullname').text(result.fullName)
+        //         modal.find('#cpf').text($('#cpf').masked(result.cpf))
+        //         modal.find('#phone_mil').text($('#phone_mil').masked(result.phone))
+        //         modal.find('#phone2_mil').text($('#phone2_mil').masked(result.phone2))
+        //         modal.find('#prec_mil').text($('#prec_mil').masked(result.preccp))
+        //         modal.find('#joinedarmy_mil').text(moment(result.joinedArmy).format('DD-MM-YYYY'))
+        //         if (result.proceduraldata) {
+        //             modal.find('#proceduraldata_mil').text('Há dados processuais.')
+        //         }
+        //         modal.find('#situation_mil').text(result.condition.condition)
+        //         modal.find('#godfather_mil').text(result.godfather.rank.rankAbbreviation + ' ' +
+        //             result
+        //             .godfather.professionalName)
+        //         modal.find('#godfather2_mil').text(result.godfather2.rank.rankAbbreviation +
+        //             ' ' + result
+        //             .godfather2.professionalName)
+        //     })
+
+
+    });
 </script>

@@ -74,7 +74,6 @@
 
                 </div>
             </div>
-
             <div class="col-lg-3 col-6">
 
                 <div class="small-box bg-info">
@@ -115,8 +114,8 @@
                             <button class="btn btn-success" data-toggle="modal"
                                 data-target="#register-vtr">Registrar</button>
 
-                            <button id="qr-read" class="btn btn-success" data-toggle="modal" data-target="#qr-code"> <i
-                                    class="fa fa-qrcode"></i> Ler QR
+                            <button id="qr-read" class="btn btn-success" data-toggle="modal" data-target="#qr-code-modal">
+                                <i class="fa fa-qrcode"></i> Ler QR
                                 Code</button>
                         </div>
                     </div>
@@ -156,8 +155,8 @@
                             <td>
                                 <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
                                         class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
-                                        class="fa fa-list-alt"></i></button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"
+                                    data-id='1'><i class="fa fa-list-alt"></i></button>
 
                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
                                         class="fa fa-trash"></i></button>
@@ -174,8 +173,8 @@
                             <td>
                                 <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
                                         class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
-                                        class="fa fa-list-alt"></i></button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"
+                                    data-id='5'><i class="fa fa-list-alt"></i></button>
 
                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
                                         class="fa fa-trash"></i></button>
@@ -192,8 +191,8 @@
                             <td>
                                 <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
                                         class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"><i
-                                        class="fa fa-list-alt"></i></button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"
+                                    data-id='13'><i class="fa fa-list-alt"></i></button>
 
                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
                                         class="fa fa-trash"></i></button>
@@ -207,13 +206,52 @@
     </section>
 @endsection
 @section('modal')
+    <!-- MODAL REGISTER VTR QR Code-->
+    <div class="modal fade" id="qr-code-modal" tabindex="-1" role="dialog" aria-labelledby="qr-codeLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">Escaneie o QR Code da viatura</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height:550px">
+                    <div id="video-container" class="style-2">
+                        <video id="qr-video"></video>
+                    </div>
+
+                    <div style="margin-top: 10px" class="d-flex justify-content-between">
+
+                        <div class="form-group col-md-3">
+                            <select id="cam-list" class="form-control">
+                                <option value="environment" selected>Câmera traseira
+                                </option>
+                                <option value="user">Camera frontal</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex justify-content-sm-end">
+                                <button id='flash-btn' class='btn btn-secondary'><i class="fa fa-bolt"></i></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="qr-stop" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL REGISTER VTR MANUAL-->
     <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="register-vtrLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="register-vtrLabel">Registrar entrada/saída deviatura</h5>
+                    <h5 class="modal-title" id="register-vtrLabel">Registrar entrada/saída
+                        de viatura</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -221,13 +259,14 @@
                 <div class="modal-body">
                     <div class="col">
                         <div class="d-flex justify-content-sm-end">
-                            <p class="f-s-13">(Campos com <span style="color:red">*</span> são obrigatórios)</p>
+                            <p class="f-s-13">(Campos com <span style="color:red">*</span>
+                                são obrigatórios)</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label for="condition_id">Tipo de veículo</label>
-                            <select onchange="selectedata(this.value)" id="condition_id" name="condition_id"
+                            <label for="vicle_type">Tipo de veículo</label>
+                            <select onchange="selectedata(this.value)" id="vicle_type" name="vicle_type"
                                 class="form-control">
                                 <option selected>SELECIONE O TIPO DE VEÍCULO</option>
                                 <option value="civil">CIVIL</option>
@@ -402,7 +441,8 @@
                                     <select class="form-control" name="rank_id" id="rank_id">
                                         <option value="">Selecione</option>
                                         <option value="1580">1580 / Cb Jesse</option>
-                                        <option value="1581">1581 / Sd De Carvalho</option>
+                                        <option value="1581">1581 / Sd De Carvalho
+                                        </option>
                                         <option value="1582">1582 / Sgt Criss</option>
                                         <option value="1583">1583 / Ten Melzin</option>
                                     </select>
@@ -500,44 +540,6 @@
             </div>
         </div>
     </div>
-
-    <!-- MODAL REGISTER VTR QR Code-->
-    <div class="modal fade" id="qr-code" tabindex="-1" role="dialog" aria-labelledby="qr-codeLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">Escaneie o QR Code da viatura</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="max-height:550px">
-                    <div id="video-container" class="style-2">
-                        <video id="qr-video"></video>
-                    </div>
-
-                    <div style="margin-top: 10px" class="d-flex justify-content-between">
-
-                        <div class="form-group col-md-3">
-                            <select id="cam-list" class="form-control">
-                                <option value="environment" selected>Câmera traseira</option>
-                                <option value="user">Camera frontal</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <div class="d-flex justify-content-sm-end">
-                                <button id='flash-btn' class='btn btn-secondary'><i class="fa fa-bolt"></i></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="qr-stop" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- MODAL INFORMAÇÕES DA VTR -->
     @include('component.info-vtr')
 

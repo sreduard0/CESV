@@ -7,9 +7,16 @@
         const camQrResult = document.getElementById('cam-qr-result');
 
         function setResult(label, result) {
-            $("#qr-code").modal('hide')
-            $("#register-vtr").modal('show');
+            $("#qr-code-modal").modal('hide')
             scanner.stop();
+            $("#register-vtr").modal('show');
+
+            $('#vicle_type').val('adm')
+            selectedata('adm')
+
+
+
+
 
 
         }
