@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>EasyQRCodeJS Demo</title>
+		<script src="../dist/easy.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<style type="text/css">
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			
+			#header{
+				text-align: left;
+				margin: 0;
+				line-height: 80px;
+				background-color: #007bff;
+				color: #fff;
+				padding-left: 20px;
+				font-size: 36px;
+			}
+			
+			#header a{color: #FFFF00;}
+			#header a:hover{color: #FF9933;}
+			#container {
+				width: 1030px;
+				margin: 10px auto;
+			}
+
+			.imgblock {
+				margin: 10px 0;
+				text-align: center;
+				float: left;
+				min-height: 420px;
+				border-bottom: 1px solid #B4B7B4;
+			}
+
+			.qr table {
+				
+			}
+
+			.title {
+				font-size: 15px;
+				font-weight: bold;
+				color: #fff;
+				text-align: center;
+				width: 330px;
+				margin: 10px 5px;
+				height: 60px;
+				background-color: #0084C6;
+				line-height: 60px;
+			}
+		
+			#footer {
+				margin-top: 20px;
+				border-top: 1px solid gainsboro;
+				line-height: 40px;
+				clear: both;
+				text-align: center;
+			}
+
+			#footer a {
+				color: #0084C6;
+				text-decoration: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">
+			
+			EasyQRCodeJS Demo
+			
+			
+			<div style="float: right;margin-right: 100px;">
+				<a href="http://www.easyproject.cn/easyqrcodejs/tryit.html">Try It!</a>
+			</div>
+		</div>
+
+		<div id="container">
+
+		</div>
+		
+
+		<div id="footer">
+
+			<a href="www.easyproject.cn/donation">www.easyproject.cn/donation</a>
+
+		</div>
+		
+		
+<a href="https://github.com/ushelp/EasyQRCodeJS" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	</body>
+
+</html>
+<script type="text/template" id="qrcodeTpl">
+			<div class="imgblock">
+				<div class="title">{title}</div>
+				<div class="qr" id="qrcode_{i}"></div>
+			</div>
+		</script>
+		<script type="text/javascript">
+			var demoParams = [
+				
+				{
+					title: "Normal",
+					config: {
+						text: "www.easyproject.cn/donation",
+
+						width: 240,
+						height: 240,
+						quietZone: 0,
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+
+						//PI: '#f55066',
+
+						correctLevel: QRCode.CorrectLevel.H // L, M, Q, H
+					}
+				},
+				{
+					title: "Color",
+					config: {
+						text: "www.easyproject.cn/donation",
+
+						width: 240,
+						height: 240,
+						colorDark: "#473C8B",
+						colorLight: "#FFFACD",
+
+						//PI: '#f55066',
+
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+                        version: 5
+					}
+				},
+				{
+					title: "DotScale",
+					config: {
+						text: "www.easyproject.cn/donation",
+				
+						width: 240,
+						height: 240,
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+				
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+				
+						
+						dotScale: 0.4
+					}
+				
+				},
+				{
+					title: "Position Color + Alignment Color",
+					config: {
+						text: "www.easyproject.cn/donation",
+				
+						width: 240,
+						height: 240,
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+				
+						PI: '#BF3030',
+						PO: '#269926', 
+						
+						AI: '#009ACD',
+						AO: '#B03060',
+						
+				
+						correctLevel: QRCode.CorrectLevel.H // L, M, Q, H
+				
+					}
+				
+				},
+				{
+					title: "Position Color + DotScale",
+					config: {
+						text: "www.easyproject.cn/donation",
+				
+						width: 240,
+						height: 240,
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+				
+						PI: '#f55066',
+						PI_TL: '#b7d28d', // Position Inner - Top Left 
+						PO_TL: '#aa5b71', // Position Outer - Top Right
+						
+				
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+				
+						
+						dotScale: 0.5
+					}
+				
+				},
+				{
+					title: "Timing + DotScale",
+					config: {
+						text: "www.easyproject.cn/donation",
+						width: 240,
+						height: 240,
+
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+
+
+						AO: '#A67C00', // Position Outer - Top Right
+						AI: '#A67C00',  // Position Outer - Bottom Right
+
+						// === Timing Pattern Color
+						timing: '#e1622f',
+						timing_V: '#00C12B',
+
+						correctLevel: QRCode.CorrectLevel.H, //  L, M, Q, H
+
+						
+						dotScale: 0.4
+
+					}
+				},
+
+
+				{
+					title: "BackgroundImage",
+					config: {
+						text: "www.easyproject.cn/donation",
+
+						width: 240,
+						height: 240,
+						colorDark: "#000000",
+
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+
+						backgroundImage: 'logo.png',
+						backgroundImageAlpha: 1,
+						autoColor: false,
+
+						
+						dotScale: 1
+
+					}
+
+				},
+				
+				{
+					title: "Auto Color + BackgroundImage + DotScale",
+					config: {
+						text: "www.easyproject.cn/donation",
+				
+						width: 240,
+						height: 240,
+						colorDark: "#000000",
+				
+						PI: '#f55066',
+				
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+				
+						backgroundImage: 'logo.png',
+						autoColor: true,
+						
+						
+						dotScale: 0.5
+					}
+				
+				},
+				
+				{
+					title: "AutoColor + backgroundImageAlpha",
+					config: {
+						text: "www.easyproject.cn/donation",
+				
+						width: 240,
+						height: 240,
+						colorDark: "#000000",
+				
+						PI: '#f55066',
+				
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+				
+						// backgroundImage: 'logo.png',
+						backgroundImage: 'data:image/png;base64,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',
+						backgroundImageAlpha: 0.3,
+						autoColor: true,
+				
+						
+						dotScale: 0.5,
+						
+						binarize: true
+				
+						
+					}
+				
+				},
+				
+				
+				
+				{
+					title: "Logo + DotScale",
+					config: {
+						text: "www.easyproject.cn/donation", // Content
+				
+						width: 240, // Widht
+						height: 240, // Height
+						colorDark: "#000000", // Dark color
+						colorLight: "#ffffff", // Light color
+				
+				
+						// === Logo
+						logo: "logo-transparent.png", // LOGO
+						//					logo:"http://127.0.0.1:8020/easy-qrcodejs/demo/logo.png",  
+						//					logoWidth:80, 
+						//					logoHeight:80,
+						logoBackgroundColor: '#ffffff', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+						logoBackgroundTransparent: false, // Whether use transparent image, default is false
+				
+					
+						timing_V: '#00B2EE',
+				
+				
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+				
+						
+						dotScale: 0.5
+					}
+				
+				},
+				{
+					title: "Logo + Colorful",
+					config: {
+						text: "www.easyproject.cn/donation", // Content
+				
+						width: 240, // Widht
+						height: 240, // Height
+						colorDark: "#27408B", // Dark color
+						colorLight: "#FFF8DC", // Light color
+				
+						// === Logo
+						logo: "logo-transparent.png", // LOGO
+						//					logo:"http://127.0.0.1:8020/easy-qrcodejs/demo/logo.png",  
+						//					logoWidth:80, 
+						//					logoHeight:80,
+						logoBackgroundColor: '#FFF8DC', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+						logoBackgroundTransparent: false, // Whether use transparent image, default is false
+				
+						// === Posotion Pattern(Eye) Color
+						PO: '#e1622f', // Global Position Outer color. if not set, the defaut is `colorDark`
+						PI: '#aa5b71', // Global Position Inner color. if not set, the defaut is `colorDark`
+						//					PO_TL:'', // Position Outer - Top Left 
+						PI_TL: '#b7d28d', // Position Inner - Top Left 
+						PO_TR: '#aa5b71', // Position Outer - Top Right 
+						PI_TR: '#c17e61', // Position Inner - Top Right 
+						//					PO_BL:'', // Position Outer - Bottom Left 
+						//					PI_BL:'' // Position Inner - Bottom Left 
+				
+						// === Timing Pattern Color
+						//	timing: '#e1622f', // Global Timing color. if not set, the defaut is `colorDark`
+						timing_H: '#ff6600', // Horizontal timing color
+						timing_V: '#cc0033', // Vertical timing color
+				
+				
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+				
+						
+						dotScale: 0.5
+					}
+				
+				},
+               
+				{
+					title: "QuietZone + Logo + Background",
+					config: {
+						text: "www.easyproject.cn/donation", // Content
+				
+						width: 240, // Widht
+						height: 240, // Height
+						quietZone: 30, 
+						colorDark: "#27408B", // Dark color
+						colorLight: "#FFF8DC", // Light color
+				
+						// === Logo
+						logo: "https://avatars1.githubusercontent.com/u/4082017?s=160&v=4", // LOGO
+						//					logo:"http://127.0.0.1:8020/easy-qrcodejs/demo/logo.png",  
+						//					logoWidth:80, 
+						//					logoHeight:80,
+						logoBackgroundColor: '#FFF8DC', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+						logoBackgroundTransparent: false, // Whether use transparent image, default is false
+				
+				
+						backgroundImage: 'logo.png',
+						backgroundImageAlpha: 0.3,
+						autoColor: true,
+						
+						// === Posotion Pattern(Eye) Color
+						PO: '#e1622f', // Global Position Outer color. if not set, the defaut is `colorDark`
+						PI: '#aa5b71', // Global Position Inner color. if not set, the defaut is `colorDark`
+						//					PO_TL:'', // Position Outer - Top Left 
+						PI_TL: '#b7d28d', // Position Inner - Top Left 
+						PO_TR: '#aa5b71', // Position Outer - Top Right 
+						PI_TR: '#c17e61', // Position Inner - Top Right 
+						//					PO_BL:'', // Position Outer - Bottom Left 
+						//					PI_BL:'' // Position Inner - Bottom Left 
+				
+						// === Timing Pattern Color
+						//	timing: '#e1622f', // Global Timing color. if not set, the defaut is `colorDark`
+						timing_H: '#ff6600', // Horizontal timing color
+						timing_V: '#cc0033', // Vertical timing color
+				
+				
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+				
+						
+						dotScale: 0.5
+					}
+				
+				},
+				{
+					title: "Title",
+					config: {
+						text: "www.easyproject.cn/donation",
+						width: 240,
+						height: 240,
+
+						title: 'Title',
+						titleFont: "normal normal bold 18px Arial",
+						titleColor: "#fff",
+						titleBackgroundColor: "#3074B4",
+						titleHeight: 40,
+						titleTop: 25,
+
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+
+
+						// === Timing Pattern Color
+						timing: '#e1622f',
+
+						correctLevel: QRCode.CorrectLevel.H, //  L, M, Q, H
+
+						
+						dotScale: 0.4
+					}
+
+				},
+
+
+
+				// All
+				{
+					title: "Title + SubTitle + Colorful - SVG",
+					config: {
+						text: "www.easyproject.cn/donation", // Content
+
+						width: 240, // Widht
+						height: 240, // Height
+						colorDark: "#000000", // Dark color
+						colorLight: "#FFFACD", // Light color
+                        
+                        // quietZone
+                        quietZone:0,
+
+						// === Title
+						title: 'Title', // Title
+						titleFont: "normal normal bold 18px Arial", // Title font
+						titleColor: "#004284", // Title Color
+						titleBackgroundColor: "#fff", // Title Background
+						titleHeight: 70, // Title height, include subTitle
+						titleTop: 25, // Title draw position(Y coordinate), default is 30
+
+
+						// === SubTitle
+						subTitle: 'subTitle', // Subtitle content
+						subTitleFont: "normal normal normal 14px Arial", // Subtitle font
+						subTitleColor: "#004284", // Subtitle color
+						subTitleTop: 40, // Subtitle drwa position(Y coordinate), default is 50
+
+
+						// === Logo
+						logo: "hamburger.png", // LOGO
+						//					logo:"http://127.0.0.1:8020/easy-qrcodejs/demo/logo.png",  
+						//					logoWidth:80, 
+						//					logoHeight:80,
+						logoBackgroundColor: '#ffffff', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+						logoBackgroundTransparent: false, // Whether use transparent image, default is false
+
+						// === Posotion Pattern(Eye) Color
+						PO: '#e1622f', // Global Position Outer color. if not set, the defaut is `colorDark`
+						PI: '#aa5b71', // Global Position Inner color. if not set, the defaut is `colorDark`
+						//					PO_TL:'', // Position Outer - Top Left 
+						PI_TL: '#b7d28d', // Position Inner - Top Left 
+						PO_TR: '#aa5b71', // Position Outer - Top Right 
+						PI_TR: '#c17e61', // Position Inner - Top Right 
+						//					PO_BL:'', // Position Outer - Bottom Left 
+						//					PI_BL:'' // Position Inner - Bottom Left 
+
+						// === Timing Pattern Color
+						//	timing: '#e1622f', // Global Timing color. if not set, the defaut is `colorDark`
+						timing_H: '#ff6600', // Horizontal timing color
+						timing_V: '#cc0033', // Vertical timing color
+
+						// === Aligment color
+						AI:'#27408B',
+						AO:'#7D26CD',
+
+						correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+
+						
+						dotScale: 0.5,
+						
+						onRenderingEnd:function(options, dataURL){
+							console.info(dataURL);
+						},
+                        
+                        drawer: 'svg'
+					}
+
+				}
+
+			]
+
+
+
+			var qrcodeTpl = document.getElementById("qrcodeTpl").innerHTML;
+			var container = document.getElementById('container');
+
+			for (var i = 0; i < demoParams.length; i++) {
+				var qrcodeHTML = qrcodeTpl.replace(/\{title\}/, demoParams[i].title).replace(/{i}/, i);
+				container.innerHTML+=qrcodeHTML;
+			}
+			for (var i = 0; i < demoParams.length; i++) {
+				 var t=new QRCode(document.getElementById("qrcode_"+i), demoParams[i].config);
+			}
+		</script>

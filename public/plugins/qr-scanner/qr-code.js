@@ -14,6 +14,8 @@
             $('#vicle_type').val('adm')
             selectedata('adm')
 
+            alert(result.data)
+
 
 
 
