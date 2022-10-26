@@ -35,7 +35,7 @@
 
             <div class="col-lg-3 col-6">
 
-                <div class="small-box bg-danger">
+                <div class="small-box bg-primary">
                     <div class="inner">
                         <h3 id="ata">05 </h3>
                         <p class="bold">Outra OM</p>
@@ -76,7 +76,7 @@
             </div>
             <div class="col-lg-3 col-6">
 
-                <div class="small-box bg-info">
+                <div class="small-box bg-success">
                     <div class="inner">
                         <h3 id="adido">02</h3>
                         <p class=" bold">OPERACIONAL</p>
@@ -111,7 +111,7 @@
 
                     <div class="d-flex justify-content-sm-end">
                         <div class="col">
-                            <button class="btn btn-success" data-toggle="modal"
+                            <button class="btn btn-primary" data-toggle="modal"
                                 data-target="#register-vtr">Registrar</button>
 
                             <button id="qr-read" class="btn btn-success" data-toggle="modal" data-target="#qr-code-modal">
@@ -207,38 +207,42 @@
 @endsection
 @section('modal')
     <!-- MODAL REGISTER VTR QR Code-->
-    <div class="modal fade" id="qr-code-modal" tabindex="-1" role="dialog" aria-labelledby="qr-codeLabel"
+    <div class="modal fade" id="qr-code-modal" tabindex="-1" role="dialog" aria-labelledby="qr-code-modalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">Escaneie o QR Code da viatura</h5>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="qr-code-modalLabel">Escaneie o QR Code da viatura</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" style="max-height:550px">
-                    <div id="video-container" class="style-2">
-                        <video id="qr-video"></video>
-                    </div>
-
-                    <div style="margin-top: 10px" class="d-flex justify-content-between">
-
-                        <div class="form-group col-md-3">
-                            <select id="cam-list" class="form-control">
-                                <option value="environment" selected>Câmera traseira
-                                </option>
-                                <option value="user">Camera frontal</option>
-                            </select>
+                <div class="modal-body">
+                    <div class="modal-body" style="max-height:550px">
+                        <div id="video-container" class="style-2">
+                            <video id="qr-video"></video>
                         </div>
-                        <div class="col">
-                            <div class="d-flex justify-content-sm-end">
-                                <button id='flash-btn' class='btn btn-secondary'><i class="fa fa-bolt"></i></i></button>
+
+                        <div style="margin-top: 10px" class="d-flex justify-content-between">
+
+                            <div class="form-group col-md-3">
+                                <select id="cam-list" class="form-control">
+                                    <option value="environment" selected>Câmera traseira
+                                    </option>
+                                    <option value="user">Camera frontal</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex justify-content-sm-end">
+                                    <button id='flash-btn' class='btn btn-secondary'><i
+                                            class="fa fa-bolt"></i></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="qr-stop" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>

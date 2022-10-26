@@ -22,8 +22,10 @@
 // });
 
 $('.date').datetimepicker({
-    format: 'DD-MM-YYYY',
+    format: 'DD-MM-YYYY HH:mm',
     locale: 'pt-br',
+    timePicker: true,
+    timePickerIncrement: 30,
 
 });
 
@@ -32,11 +34,12 @@ $('[data-mask]').inputmask()
 
 //Date and time picker
 $('.time').datetimepicker({
-    format: 'HH:mm',
-    pickDate: false,
-    pickSeconds: false,
-    pick12HourFormat: false
-});
+    timePicker: true,
+    timePickerIncrement: 30,
+    locale: {
+        format: 'DD/MM/YYYY'
+    }
+})
 
 // }
 

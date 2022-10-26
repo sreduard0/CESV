@@ -13,7 +13,7 @@ function selectedata(value) {
 
     // alert(d.toLocaleString());
     // Mostrando data no campo
-    $('#_hora').val(dmy+' '+h+':'+m)
+    $('#_hora').val(dmy + ' ' + h + ':' + m)
 
 
 
