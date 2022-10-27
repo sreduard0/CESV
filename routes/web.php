@@ -22,3 +22,6 @@ Route::get('/gestor', function () {
 Route::get('/vtr', function () {
     return view('vtr-list');
 });
+Route::get('/vtr', function () {
+    return view('vtr-list');
+});

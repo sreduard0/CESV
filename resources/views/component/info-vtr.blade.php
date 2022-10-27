@@ -1,6 +1,7 @@
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
+
 <!-- Perfil usuario -->
 <div class="modal fade" id="info-vtr" tabindex="-1" role="dialog" aria-labelledby="info-vtr" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -20,10 +21,10 @@
                             <!-- Add the bg color to the header using any of the bg-* classes -->
                             <div class="widget-user-header text-white"
                                 style="background: url('{{ asset('img/bg-visitors.png') }}') center center;background-size:100%">
+
                             </div>
                             <div class="widget-user-image">
-                                <img id="edit_img" class="img-circle" src="{{ asset('img/people.png') }}"
-                                    alt="User Avatar">
+                                <img class="img-circle" src="{{ asset('img/viatura.jpg') }}" alt="User Avatar">
                             </div>
                             <div class="card-footer m-t-30">
                                 <div class="description-block">
@@ -35,7 +36,6 @@
                             </div>
                         </div>
                     </div>
-
                     <section class="content">
                         <div class="container-fluid">
                             <div class="row">
@@ -45,11 +45,11 @@
                                             <h3 class="card-title card-title-background "> <i
                                                     class="fas fa-car mr-1"></i>
                                                 Informações do veículo</h3>
+                                            <button class="float-r btn btn-success" onclick="qr_vtr('5526465682')"><i
+                                                    class=" fa fa-qrcode"></i></button>
                                         </div>
                                         <div class="card-body">
                                             <div class="card-body">
-                                                <input type="hidden" id="v_id" value="">
-                                                <input type="hidden" id="enterprise_id" value="">
                                                 <div class="  float-l col-md-6">
                                                     <strong> </strong>
 
@@ -128,8 +128,9 @@
         </div>
     </div>
 </div>
-{{-- SCRIPTS --}}
-<script>
+
+@include('component.modal-qrcode')
+<script type="text/javascript">
     // $('#visitor_profile').on('show.bs.modal', function(event) {
     //     var button = $(event.relatedTarget);
     //     var id = button.data('id');

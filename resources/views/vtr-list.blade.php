@@ -1,7 +1,7 @@
 @extends('layout')
 @section('title', 'Transporte')
 @section('home', 'active')
-@section('title-header', 'Controle de viaturas')
+@section('title-header', 'Viaturas')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -29,104 +29,37 @@
     <section class="col ">
         <div class="card">
             <div class="card-header">
-                <div class="row d-flex justify-content-between">
-                    <div class="col-md-5">
-                        <div class="row ">
-                            <div class="form-group col">
-                                <label for="condition_filter">Viatura</label>
-                                <select id="condition_filter" name="condition_filter" class="form-control">
-                                    <option selected value="">TODAS AS VIATURAS</option>
-                                    <option value="">ADMINISTRATIVA</option>
-                                    <option value="">OPERACIONAL </option>
-                                </select>
-                            </div>
-                            <button onclick="return search_condition()" style="height: 40px;"
-                                class="btn btn-success m-t-30"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-
-
-                    <div class="d-flex justify-content-sm-end">
-                        <div class="col">
-                            <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#register-mission">Cadastrar</button>
-                        </div>
-                    </div>
+                <div class=" col d-flex justify-content-sm-end">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#register-vtr">Cadastrar</button>
                 </div>
-
-
                 <div id="button-print"></div>
-
-
-
             </div>
             <div class="card-body">
                 <table id="table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th width="30px">Ficha</th>
+                            <th width="30px">Nr</th>
                             <th>Modelo Vtr</th>
-                            <th>Motorista</th>
-                            <th>Segurança</th>
-                            <th>Hora - Saída</th>
-                            <th>Odômetro - Saída</th>
-                            <th>OM</th>
-                            <th>Missão/Destino</th>
-                            <th style="min-width:70px"><i class="fs-20 fa fa-info-circle"></i> info</th>
+                            <th>EB/Placa</th>
+                            <th>Ton</th>
+                            <th>M <sup>3</sup></th>
+                            <th>Status</th>
+                            <th style="width:85px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1010</td>
-                            <td>Maarua</td>
-                            <td>Sd De Carvalho</td>
-                            <td>Cb Rocha</td>
-                            <td>12:40 30-10-2022</td>
-                            <td>999999999</td>
-                            <td>3bsup</td>
-                            <td>Comer Quenga</td>
+                            <td>1</td>
+                            <td>Marrua</td>
+                            <td>EB3434535353</td>
+                            <td>2</td>
+                            <td>50</td>
+                            <td>Disponível</td>
                             <td>
-                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
-                                        class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"
-                                    data-id='1'><i class="fa fa-check"></i></button>
-
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
-                                        class="fa fa-trash"></i></button>
-                            </td>
-                        <tr>
-                            <td>OOM</td>
-                            <td>Maarua</td>
-                            <td>Sd Bruno</td>
-                            <td>Cb Jao</td>
-                            <td>12:40 30-10-2022</td>
-                            <td>999999999</td>
-                            <td>8blog</td>
-                            <td>Comer Quenga</td>
-                            <td>
-                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
-                                        class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"
-                                    data-id='5'><i class="fa fa-check"></i></button>
-
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
-                                        class="fa fa-trash"></i></button>
-                            </td>
-                        <tr>
-                            <td>1010</td>
-                            <td>Maarua</td>
-                            <td>Sd CUca</td>
-                            <td>Cb Pinto</td>
-                            <td>12:40 30-10-2022</td>
-                            <td>999999999</td>
-                            <td>cms</td>
-                            <td>Comer Quenga</td>
-                            <td>
-                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
-                                        class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"
-                                    data-id='13'><i class="fa fa-check"></i></button>
-
+                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"
+                                    data-id='1'><i class="fa fa-car"></i></button>
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#register-vtr"
+                                    data-id='1'><i class="fa fa-edit"></i></button>
                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
                                         class="fa fa-trash"></i></button>
                             </td>
@@ -139,187 +72,76 @@
     </section>
 @endsection
 @section('modal')
-    <!-- MODAL REGISTRAR MISSÃO-->
-    <div class="modal fade" id="register-mission" tabindex="-1" role="dialog" aria-labelledby="register-missionLabel"
+    <!-- MODAL CADASTRO VTR-->
+    <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="register-vtrLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="register-missionLabel">Cadastrar missão</h5>
+                    <h5 class="modal-title" id="register-vtrLabel">Cadastrar viatura</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form-mission">
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="pg">Tipo de missão <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="OP">OP</option>
-                                    <option value="OM">OM</option>
-                                </select>
-                            </div>
-                        </div>
+                    <form id="form-vtr">
                         <div class="row">
                             <div class="form-group col">
-                                <label for="name">Missão <span style="color:red">*</span></label>
+                                <label for="name">Nr <span style="color:red">*</span></label>
                                 <input id="name" name="name" typphp e="text" class="form-control"
-                                    placeholder="Ex: Feno e Aveia">
+                                    placeholder="Ex: 15">
                             </div>
                             <div class="form-group col">
-                                <label for="name">Destino <span style="color:red">*</span></label>
+                                <label for="name">Modelo vtr <span style="color:red">*</span></label>
                                 <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Destino da missão (OM ou local).">
+                                    placeholder="Ex: VTE CAVALO MECÂNICO MERCEDES BENZ AXOR 2644 ">
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="pg">Classe <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option selected value="">Selecione</option>
-                                    <option value="1">I</option>
-                                    <option value="2">II</option>
-                                    <option value="3">III</option>
-                                    <option value="4">IV</option>
-                                    <option value="51">V (A)</option>
-                                    <option value="52">V (M)</option>
-                                    <option value="6">VI</option>
-                                    <option value="7">VII</option>
-                                    <option value="8">VIII</option>
-                                    <option value="9">IX</option>
-                                    <option value="10">X</option>
-                                </select>
+                                <label for="pg">EB/Placa <span style="color:red">*</span></label>
+                                <input id="name" name="name" type="text" class="form-control"
+                                    placeholder="Ex: 252627662 ">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label for="pg">Viatura<span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option selected value="">Selecione</option>
-                                    <option value="1">I</option>
-                                    <option value="2">II</option>
-                                </select>
+                                <label for="pg">Toneladas<span style="color:red">*</span></label>
+                                <input id="name" name="name" type="text" class="form-control"
+                                    placeholder="Ex: 20">
+
                             </div>
                             <div class="form-group col">
-                                <label for="name">Documento <span style="color:red">*</span> </label>
+                                <label for="name">M<sup>3</sup> <span style="color:red">*</span> </label>
                                 <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="documento que deu ordem para a realizar a missão.">
+                                    placeholder="Ex: 102">
                             </div>
                             <div class="form-group colmd-3">
-                                <label for="name">Origem <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="De onde parte a missão.">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <label for="pg">Posto/Grad <span style="color:red">*</span></label>
+                                <label for="name">Status <span style="color:red">*</span></label>
                                 <select class="form-control" name="rank_id" id="rank_id">
                                     <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
+                                    <option value="Gen">Disponível</option>
+                                    <option value="Cel">Indisponível</option>
                                 </select>
                             </div>
-                            <div class="form-group col">
-                                <label for="name">Nome do motorista <span style="color:red">*</span></label>
-                                <input id="name" name="name" typphp e="text" class="form-control"
-                                    placeholder="Nome do motorista">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col">
-                                <label for="name">Nome do cmt da missão <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Nome do cmt da missão">
-                            </div>
-
-                        </div>
-                        <div class="row">
-
-                            <div class="form-group col">
-                                <label>Prev. do dia e horário da partida</label>
-                                <div class="input-group date" id="prev_part" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#prev_part" id="prev_part" name="prev_part" value="">
-                                    <div class="input-group-append" data-target="#prev_part"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col">
-                                <label>Prev. do dia e horário da chegada</label>
-                                <div class="input-group date" id="prev_chgd" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#prev_chgd" id="prev_chgd" name="prev_chgd" value="">
-                                    <div class="input-group-append" data-target="#prev_chgd"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label for="name">Telefone de contato <span style="color:red">*</span> </label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Ex: (51) 980514188">
-                            </div>
-                            {{-- <span class="form-group  fs-12">(Inserir o
-                                telefone celular do Cmt da Missão (COM DDD), visando contato de coordenação)</span> --}}
                         </div>
                         <div class="row">
                             <div class="form-group col">
                                 <label for="name">Observações</label>
                                 <textarea name="" id="" rows="8"
-                                    placeholder="Detalhes importantes da missão. Exemplo: Para Eixo Sul PGT" class="form-control"></textarea>
+                                    placeholder="Detalhes importantes sobre a viatura, como falta de peças, etc." class="form-control"></textarea>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success" onclick="">Cadastrar</button>
+                    <button type="button" class="btn btn-success" onclick="">Salvar</button>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- MODAL INFORMAÇÕES DA VTR -->
     @include('component.info-vtr')
-
 @endsection
 @section('plugins')
     <!-- Select2 -->
@@ -340,9 +162,6 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('js/actions.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
-
-    {{-- QrCode --}}
-    <script type="module" src="{{ asset('plugins/qr-scanner/qr-code.js') }}"></script>
 
     <script>
         // $(function() {
