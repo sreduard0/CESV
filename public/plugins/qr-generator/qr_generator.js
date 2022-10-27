@@ -36,9 +36,9 @@ function qr_vtr(content) {
 
 function printQR() {
     var divContents = document.getElementById("qr_vtr_generate").innerHTML;
-    var a = window.open('', '', 'height=500, width=500');
+    var a = window.open('', '', 'height=700, width=700');
     a.document.write('<html>');
-    a.document.write('<body > <h1>Div contents are <br>');
+    a.document.write('<body><h1>3º B Sup</h1><br>');
     a.document.write(divContents);
     a.document.write('</body></html>');
     a.document.close();

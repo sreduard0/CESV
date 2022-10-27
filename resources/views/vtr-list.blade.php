@@ -118,8 +118,8 @@
                                 <label for="name">Status <span style="color:red">*</span></label>
                                 <select class="form-control" name="rank_id" id="rank_id">
                                     <option value="">Selecione</option>
-                                    <option value="Gen">Disponível</option>
-                                    <option value="Cel">Indisponível</option>
+                                    <option value="1">Disponível</option>
+                                    <option value="0">Indisponível</option>
                                 </select>
                             </div>
                         </div>

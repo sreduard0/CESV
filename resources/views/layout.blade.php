@@ -52,16 +52,18 @@
         </div>
         <aside class="main-sidebar sidebar-dark-primary elevation-5">
             <div class="brand-link">
-                <img src="{{ asset('img/logo.png') }}" alt="CoMiLMed" class="brand-image img-circle">
+                <img src="{{ asset('img/logo.png') }}" alt="CESV" class="brand-image img-circle">
                 <span class="bold">CES Vtr</span>
             </div>
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('img/people.png') }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset(session('user')['photo']) }}" class="img-circle elevation-2"
+                            alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="http://sistao.3bsup.eb.mil.br/profile/view" class="d-block">Cb Eduardo</a>
+                        <a href="http://sistao.3bsup.eb.mil.br/profile/view"
+                            class="d-block">{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</a>
                     </div>
                 </div>
                 <nav class="mt-2">

@@ -15,13 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home-gda-adj');
-});
+})->middleware('auth');
 Route::get('/gestor', function () {
     return view('home-gest');
-});
+})->middleware('auth');
 Route::get('/vtr', function () {
     return view('vtr-list');
-});
-Route::get('/vtr', function () {
-    return view('vtr-list');
-});
+})->middleware('auth');
