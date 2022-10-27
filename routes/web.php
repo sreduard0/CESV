@@ -19,3 +19,6 @@ Route::get('/', function () {
 Route::get('/gestor', function () {
     return view('home-gest');
 });
+Route::get('/vtr', function () {
+    return view('vtr-list');
+});

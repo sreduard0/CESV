@@ -36,8 +36,6 @@
                                 <label for="condition_filter">Viatura</label>
                                 <select id="condition_filter" name="condition_filter" class="form-control">
                                     <option selected value="">TODAS AS VIATURAS</option>
-                                    <option value="">CIVIL</option>
-                                    <option value="">Outra OM</option>
                                     <option value="">ADMINISTRATIVA</option>
                                     <option value="">OPERACIONAL </option>
                                 </select>
@@ -141,48 +139,6 @@
     </section>
 @endsection
 @section('modal')
-    <!-- MODAL REGISTER VTR QR Code-->
-    <div class="modal fade" id="qr-code-modal" tabindex="-1" role="dialog" aria-labelledby="qr-code-modalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="qr-code-modalLabel">Escaneie o QR Code da viatura</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-body" style="max-height:550px">
-                        <div id="video-container" class="style-2">
-                            <video id="qr-video"></video>
-                        </div>
-
-                        <div style="margin-top: 10px" class="d-flex justify-content-between">
-
-                            <div class="form-group col-md-3">
-                                <select id="cam-list" class="form-control">
-                                    <option value="environment" selected>Câmera traseira
-                                    </option>
-                                    <option value="user">Camera frontal</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <div class="d-flex justify-content-sm-end">
-                                    <button id='flash-btn' class='btn btn-secondary'><i
-                                            class="fa fa-bolt"></i></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- MODAL REGISTRAR MISSÃO-->
     <div class="modal fade" id="register-mission" tabindex="-1" role="dialog" aria-labelledby="register-missionLabel"
         aria-hidden="true">
@@ -356,7 +312,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success" onclick="">Registrar</button>
+                    <button type="button" class="btn btn-success" onclick="">Cadastrar</button>
                 </div>
             </div>
         </div>
