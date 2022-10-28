@@ -77,6 +77,23 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item ">
+                            <a href=" " class="nav-link @yield('ficha')">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Fichas
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href=" " class="nav-link @yield('vtr')">
+                                <i class="nav-icon fas fa-car"></i>
+                                <p>
+                                    Viaturas
+                                </p>
+                            </a>
+                        </li>
+
                 </nav>
             </div>
         </aside>
@@ -106,49 +123,47 @@
 
                         {{-- /CONTEUDO --}}
                         <section class="col-lg-3">
-                            @if (1 == 1)
-                                <div class="card bg-default">
-                                    <div class="card-header border-0 bg-success">
+                            <div class="card bg-default">
+                                <div class="card-header border-0 bg-success">
 
-                                        <h3 class="card-title">
-                                            <i class="far fa-list-alt"></i>
-                                            Fichas abertas
-                                        </h3>
-                                        <!-- /. tools -->
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body pt-0">
-                                        <!--The calendar -->
-                                        <table id="event_list" class="table fs-14">
-                                            <thead height="20">
-                                                <tr>
-                                                    <th>N°</th>
-                                                    <th>Motorista</th>
-                                                    <th>Fim</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1010</td>
-                                                    <td>Cb Rocha</td>
-                                                    <td>13/11/2022</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1090</td>
-                                                    <td>Cb Jesse</td>
-                                                    <td>13/11/2022</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1011</td>
-                                                    <td>Cb Curioso</td>
-                                                    <td>13/11/2022</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.card-body -->
+                                    <h3 class="card-title">
+                                        <i class="far fa-list-alt"></i>
+                                        Fichas abertas
+                                    </h3>
+                                    <!-- /. tools -->
                                 </div>
-                            @endif
+                                <!-- /.card-header -->
+                                <div class="card-body pt-0">
+                                    <!--The calendar -->
+                                    <table id="event_list" class="table fs-14">
+                                        <thead height="20">
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Motorista</th>
+                                                <th>Fim</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1010</td>
+                                                <td>Cb Rocha</td>
+                                                <td>13/11/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1090</td>
+                                                <td>Cb Jesse</td>
+                                                <td>13/11/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1011</td>
+                                                <td>Cb Curioso</td>
+                                                <td>13/11/2022</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
                             @yield('content-add')
                             <div class="card bg-default">
                                 <div class="card-header border-0 bg-success">
