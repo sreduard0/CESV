@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 
 class MissionController extends Controller
 {
+
+    // INFORMAÇÕES DA MISSÃO SOLICITADA
     public function infoMission($id){
         return MissionModel::find($id)->with('vtr');
     }
 
-    public function missionList(Request $request){
+
+    // TABELA DAS MISSÕES
+    public function listMission(Request $request){
 
        //Receber a requisão da pesquisa
        $requestData = $request->all();
@@ -83,6 +87,17 @@ class MissionController extends Controller
         );
 
         return json_encode($json_data);  //enviar dados como formato json
+
+    }
+
+
+    // CRUD DAS MISSÕES
+
+    public function registerMission(Request $request){
+        $data = $request->all(); //Buscando todos campos enviados do formato
+
+
+        print_r($data) ;
 
     }
 }

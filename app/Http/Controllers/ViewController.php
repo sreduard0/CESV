@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\VtrModel;
 use Illuminate\Http\Request;
 
 class ViewController extends Controller
@@ -14,7 +15,10 @@ class ViewController extends Controller
                 return view('home-gda-adj');
                 break;
             case 1:
-                return view('home-gest');
+                $data = [
+                    'viaturas' => VtrModel::where('status', 1)->orderBy('nr_vtr','asc')->get()
+                ];
+                return view('home-gest' , $data);
                 break;
         }
     }
