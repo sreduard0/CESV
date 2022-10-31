@@ -4,7 +4,7 @@
     <script src="{{ asset('plugins/qr-generator/qr_generator.js') }}" type="text/javascript" charset="utf-8"></script>
 @endsection
 
-<!-- Perfil usuario -->
+<!-- DIV QR CODE-->
 <div class="modal fade" id="modal_qr" tabindex="-1" role="dialog" aria-labelledby="info-vtr" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

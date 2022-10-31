@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class VtrModel extends Model
 {
     use HasFactory;
+    protected $table = 'viatura';
+    protected $primarykey = 'id';
 }

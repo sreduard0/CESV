@@ -1,7 +1,3 @@
-@section('meta')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-@endsection
-
 <!-- Perfil usuario -->
 <div class="modal fade" id="info-vtr" tabindex="-1" role="dialog" aria-labelledby="info-vtr" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -28,10 +24,10 @@
                             </div>
                             <div class="card-footer m-t-30">
                                 <div class="description-block">
-                                    <h3 id="adido_name" class="widget-user-desc text-center">
+                                    <h3 id="mod_vtr" class="widget-user-desc text-center">
                                         Modelo</h3>
-                                    <h4 id="name_cia" class="widget-user-username text-center text-muted">
-                                        EB/Placa </h4>
+                                    <h4 id="ebplaca" class="widget-user-username text-center text-muted">
+                                        2292827 </h4>
                                 </div>
                             </div>
                         </div>
@@ -42,72 +38,46 @@
                                 <div class="col">
                                     <div class="card">
                                         <div class="card-header">
+                                            <input type="hidden" id="eb_placa" value="">
                                             <h3 class="card-title card-title-background "> <i
                                                     class="fas fa-car mr-1"></i>
                                                 Informações do veículo</h3>
-                                            <button class="float-r btn btn-success" onclick="qr_vtr('5526465682')"><i
+                                            <button disabled class="float-r btn btn-success ger-qr"
+                                                onclick="qr_vtr($('#eb_placa').val())"><i
                                                     class=" fa fa-qrcode"></i></button>
                                         </div>
                                         <div class="card-body">
                                             <div class="card-body">
-                                                <div class="  float-l col-md-6">
-                                                    <strong> </strong>
+                                                <div class="col">
+                                                    <strong>Nº da viatura</strong>
 
-                                                    <p id="fullname" class="text-muted"></p>
+                                                    <p id="nr_vtr" class="text-muted">xx</p>
+                                                    <hr>
+                                                    <strong>tipo de viatura</strong>
+
+                                                    <p id="type_vtr" class="text-muted">xx</p>
+                                                    <hr>
+                                                    <strong>Ton</strong>
+
+                                                    <p id="ton" class="text-muted">0</p>
 
                                                     <hr>
 
-                                                    <strong>Contato</strong>
+                                                    <strong>M <sup>3</sup></strong>
 
-                                                    <p id="phone_mil" class="text-muted"></p>
-
-                                                    <hr>
-
-                                                    <strong>CPF</strong>
-
-                                                    <p id="cpf" class="text-muted"></p>
+                                                    <p id="vol" class="text-muted">0</p>
 
                                                     <hr>
 
-                                                    <strong>Data de praça</strong>
+                                                    <strong>Status</strong>
 
-                                                    <p id="joinedarmy_mil" class="text-muted"></p>
-                                                    <hr>
-
-                                                    <strong>Substituto do padrinho</strong>
-
-                                                    <p id="godfather2_mil" class="text-muted"></p>
-
-
-                                                </div>
-                                                <div class=" float-r col-md-6">
-                                                    <strong>Situação</strong>
-
-                                                    <p id="situation_mil" class="text-muted"></p>
+                                                    <p id="status" class="text-muted">-</p>
 
                                                     <hr>
+                                                    <strong>Observações</strong>
 
-                                                    <strong>Contato</strong>
-
-                                                    <p id="phone2_mil" class="text-muted"></p>
-
-                                                    <hr>
-
-                                                    <strong>PREC-CP</strong>
-
-                                                    <p id="prec_mil" class="text-muted"></p>
-
-                                                    <hr>
-
-                                                    <strong>Padrinho</strong>
-
-                                                    <p id="godfather_mil" class="text-muted"></p>
-
-                                                    <hr>
-
-                                                    <strong>Dados processuais</strong>
-
-                                                    <p id="proceduraldata_mil" class="text-muted"></p>
+                                                    <p id="obs_vtr" class="text-muted">-
+                                                    </p>
 
 
 
@@ -131,43 +101,41 @@
 
 @include('component.modal-qrcode')
 <script type="text/javascript">
-    // $('#visitor_profile').on('show.bs.modal', function(event) {
-    //     var button = $(event.relatedTarget);
-    //     var id = button.data('id');
-    //     var modal = $(this);
-    //     var url = '/get_profile/' + id;
-    //     modal.find('#phone2_visitor').text('')
-    //     modal.find('#prec_mil').text('')
-    //     modal.find('#godfather2_mil').text('Não consta.')
-    //     modal.find('#joinedarmy_mil').text('Não consta.')
-    //     modal.find('#proceduraldata_mil').text('Não consta.')
-    //     $('#phone_mil').mask('(00) 0 0000-0000');
-    //     $('#phone2_mil').mask('(00) 0 0000-0000');
-    //     $('#cpf').mask('000.000.000-00');
-    //     $('#prec_mil').mask('00 0000000');
-    //     $("#profile_link").attr("href", '');
-    //     $.get(url, function(result) {
-    //         $("#profile_link").attr("href", "/profile/" + result.id);
-    //         modal.find('#edit_img').attr("src", result.photo)
-    //         modal.find('#adido_name').text(result.rank.rankAbbreviation + ' ' + result
-    //             .professionalName)
-    //         modal.find('#name_cia').text(result.company.name)
-    //         modal.find('#fullname').text(result.fullName)
-    //         modal.find('#cpf').text($('#cpf').masked(result.cpf))
-    //         modal.find('#phone_mil').text($('#phone_mil').masked(result.phone))
-    //         modal.find('#phone2_mil').text($('#phone2_mil').masked(result.phone2))
-    //         modal.find('#prec_mil').text($('#prec_mil').masked(result.preccp))
-    //         modal.find('#joinedarmy_mil').text(moment(result.joinedArmy).format('DD-MM-YYYY'))
-    //         if (result.proceduraldata) {
-    //             modal.find('#proceduraldata_mil').text('Há dados processuais.')
-    //         }
-    //         modal.find('#situation_mil').text(result.condition.condition)
-    //         modal.find('#godfather_mil').text(result.godfather.rank.rankAbbreviation + ' ' +
-    //             result
-    //             .godfather.professionalName)
-    //         modal.find('#godfather2_mil').text(result.godfather2.rank.rankAbbreviation +
-    //             ' ' + result
-    //             .godfather2.professionalName)
-    //     })
-    // });
+    $('#info-vtr').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var modal = $(this);
+        var url = "{{ url('get_info_vtr') }}/" + id;
+        $.get(url, function(result) {
+            modal.find('#mod_vtr').text(result.mod_vtr)
+            modal.find('#ebplaca').text(result.ebplaca)
+            modal.find('#eb_placa').val(result.ebplaca)
+            modal.find('#type_vtr').text(result.type_vtr)
+            modal.find('#nr_vtr').text(result.nr_vtr)
+            modal.find('#ton').text(result.ton)
+            modal.find('#vol').text(result.vol)
+            modal.find('#obs_vtr').text(result.obs)
+            if (result.status == 1) {
+                modal.find('#status').text('Disponível')
+            } else {
+                modal.find('#status').text('Indisponível')
+            }
+            $('.ger-qr').prop('disabled', false)
+
+        })
+    });
+    $('#info-vtr').on('hide.bs.modal', function(event) {
+        var modal = $(this);
+        modal.find('#vtr_mod').text('Não consta')
+        modal.find('#ebplaca').text('Não consta')
+        modal.find('#type_vtr').text('Não consta')
+        modal.find('#nr_vtr').text('Não consta')
+        modal.find('#ton').text('Não consta')
+        modal.find('#vol').text('Não consta.')
+        modal.find('#status').text('Não consta.')
+        modal.find('#obs_vtr').text('Não consta.')
+        modal.find('#status').text('Não consta.')
+        $('.ger-qr').prop('disabled', true)
+
+    });
 </script>

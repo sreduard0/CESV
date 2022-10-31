@@ -36,8 +36,8 @@
                                 <label for="condition_filter">Viatura</label>
                                 <select id="condition_filter" name="condition_filter" class="form-control">
                                     <option selected value="">TODAS AS VIATURAS</option>
-                                    <option value="">ADMINISTRATIVA</option>
-                                    <option value="">OPERACIONAL </option>
+                                    <option value="OM">OM</option>
+                                    <option value="OP">OP</option>
                                 </select>
                             </div>
                             <button onclick="return search_condition()" style="height: 40px;"
@@ -72,29 +72,10 @@
                             <th>Classe</th>
                             <th>Vtr</th>
                             <th>Prev. partida</th>
+                            <th>Status</th>
                             <th style="width:85px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Feno</td>
-                            <td>OP</td>
-                            <td>3° RCG</td>
-                            <td>EB15/XXXXX</td>
-                            <td>CL IX</td>
-                            <td>CARGO XXXXXD</td>
-                            <td>13-05-2023 14:00</td>
-                            <td>
-                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"><i
-                                        class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#info-register"
-                                    data-id='1'><i class="fa fa-list-alt"></i></button>
-
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
-                                        class="fa fa-trash"></i></button>
-                            </td>
-                    </tbody>
                 </table>
             </div>
             <!-- /.card-body -->
@@ -284,7 +265,7 @@
     @include('component.info-vtr')
 
     {{--  INFORMÇOES DO REGISTRO DE ENTRADA E saída --}}
-    @include('component.info-register')
+    @include('component.info-mission')
 
 
 @endsection
@@ -308,43 +289,29 @@
     <script src="{{ asset('js/actions.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
 
-    {{-- QrCode --}}
-    <script type="module" src="{{ asset('plugins/qr-scanner/qr-code.js') }}"></script>
-
     <script>
-        // $(function() {
-        //     var url = '/get_qtt_licensing';
-        //     $.get(url, function(result) {
-        //         document.getElementById('ata').innerText = result.ata;
-        //         document.getElementById('reintegrado').innerText = result.reintegrado;
-        //         document.getElementById('encostado').innerText = result.encostado;
-        //         document.getElementById('adido').innerText = result.adido;
-        //     })
-        // });
-
         $(function() {
             $("#table").DataTable({
                 "paging": true,
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,
-                // "aoColumnDefs": [{
-                //     'bSortable': false,
-                //     'aTargets': [0, 4, 5, 6]
-                // }],
+                "aoColumnDefs": [{
+                    'bSortable': false,
+                    'aTargets': [0, 8]
+                }],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
                 "processing": true,
-                // "serverSide": true,
-
-                // "ajax": {
-                //     "url": "",
-                //     "type": "POST",
-                //     "headers": {
-                //         'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                //     },
-                // },
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ route('post_missions_list') }}",
+                    "type": "POST",
+                    "headers": {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    },
+                },
                 "dom": "Bfrtip",
                 "lengthMenu": [
                     [10, 25, 50, 100, 100000],
@@ -354,9 +321,9 @@
                         "extend": "print",
                         "text": "Imprimir",
                         'messageTop': " ",
-                        'messageBottom': 'Seção de Saúde',
+                        'messageBottom': 'Seção de Transporte e Manutenção',
                         'exportOptions': {
-                            'columns': [1, 2, 3, 4, 5]
+                            'columns': [1, 2, 3, 4, 5, 6, 7, 8]
                         },
                         "autoPrint": true,
                     },
@@ -371,100 +338,3 @@
     </script>
 
 @endsection
-
-
-
-
-{{-- <form id="form-mission">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Nome do motorista <span style="color:red">*</span></label>
-                                <input id="name" name="name" typphp e="text" class="form-control"
-                                    placeholder="Nome do motorista">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Nome do segurança <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Nome do segurança">
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <label for="name">Idt mil <span style="color:red">*</span> </label> (do mais
-                                antigo)
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Idt mil">
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Modelo veículo <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Modelo veículo">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="name">Placa / EB <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Placa / EB">
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="name">OM <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="OM">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="name">Destino / Missão <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Destino / Missão">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col">
-                                <label for="name">Observações</label>
-                                <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
-                                    class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </form> --}}

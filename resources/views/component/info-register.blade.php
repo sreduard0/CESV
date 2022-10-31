@@ -516,18 +516,19 @@
         var id = button.data('id');
         var modal = $(this);
 
-        switch (id) {
-            case 5:
+        switch (type) {
+            case 'op':
+            case 'om':
                 $("#infoVtrOm").css("display", "block")
                 $("#infoOom").css("display", "none")
                 $("#infoCivil").css("display", "none")
                 break;
-            case 13:
+            case 'oom':
                 $("#infoVtrOm").css("display", "none")
                 $("#infoOom").css("display", "block")
                 $("#infoCivil").css("display", "none")
                 break;
-            case 1:
+            case 'civil':
                 $("#infoVtrOm").css("display", "none")
                 $("#infoOom").css("display", "none")
                 $("#infoCivil").css("display", "block")
