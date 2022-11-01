@@ -9,7 +9,14 @@ function registerMission() {
     const formData = new FormData(document.getElementById('form-register-mission'))
 
     // Verificação
-    formData.get('typeMission') == '' ? $('#typeMission').addClass('is-invalid') : $('#typeMission').removeClass('is-invalid')
+    if (formData.get('typeMission') == '') {
+        $('#typeMission').addClass('is-invalid');
+        return false;
+    }
+    if (formData.get('nameMission') == '') {
+        $('#nameMission').addClass('is-invalid');
+        return false;
+    }
 
     var values = {
         typeMission: formData.get('typeMission'),
