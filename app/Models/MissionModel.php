@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MissionModel extends Model
 {
-    public function vtr(){
-        return $this->hasOne('App\Model\VtrModel','id' , 'vtr');
+    public function vtrInfo(){
+        return $this->hasOne('App\Models\VtrModel','id' , 'vtr');
     }
     use HasFactory;
     protected $table = 'missions';

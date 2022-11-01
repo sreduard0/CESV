@@ -3,17 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MissionRequest;
 use App\Models\MissionModel;
 use Illuminate\Http\Request;
 
 class MissionController extends Controller
 {
-
     // INFORMAÇÕES DA MISSÃO SOLICITADA
     public function infoMission($id){
-        return MissionModel::find($id)->with('vtr');
+        return MissionModel::with('vtrInfo')->find($id);
     }
 
+    // CRUD DAS MISSÕES
+    public function registerMission(MissionRequest $request){
+        $data = $request->all(); //Buscando todos campos enviados do formato
+
+        $saveData = new MissionModel;
+        $saveData->type_mission = $data['typeMission'];
+        $saveData->status = 'Aguardando';
+        $saveData->mission_name = $data['nameMission'];
+        $saveData->destiny = $data['destinyMission'];
+        $saveData->class = $data['classMission'];
+        $saveData->vtr = $data['vtrMission'];
+        $saveData->doc = $data['docMission'];
+        $saveData->origin = $data['originMission'];
+        $saveData->pg_mot = $data['pgMotMission'];
+        $saveData->name_mot = $data['nameMotMission'];
+        $saveData->pg_seg = $data['pgSegMission'];
+        $saveData->name_seg = $data['nameSegMission'];
+        $saveData->prev_date_part = date('Y-m-d h:i',strtotime($data['datePrevPartMission']));
+        $saveData->prev_date_chgd = date('Y-m-d h:i',strtotime($data['datePrevChgdMission']));
+        $saveData->contact = '55'.$data['contactCmtMission'];
+        $saveData->obs = $data['obsMission'];
+        $saveData->save();
+    }
 
     // TABELA DAS MISSÕES
     public function listMission(Request $request){
@@ -38,16 +61,15 @@ class MissionController extends Controller
        $rows = count(MissionModel::all());
 
        //Se há pesquisa ou não
-        // if( $requestData['search']['value'] )
-        // {
-        //    $missions = LoginModel::with('data')->orWhere('login', 'LIKE', '%'.$requestData['search']['value'] .'%')->where('status', 3)->get();
-        //     $filtered = count($missions);
-        // }
-        // else
-        // {
-            $missions = MissionModel::where('status', 0)->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'] )->offset( $requestData['start'])->take($requestData['length'])->get();
+        if( $requestData['columns'][3]['search']['value'])
+        {
+            $missions = MissionModel::where('type_mission',$requestData['columns'][3]['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'] )->offset( $requestData['start'])->take($requestData['length'])->get();
             $filtered = count($missions);
-        // }
+            $rows= count(MissionModel::all());
+        }else{
+            $missions = MissionModel::where('status', 0)->with('vtrInfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'] )->offset( $requestData['start'])->take($requestData['length'])->get();
+            $filtered = count($missions);
+        }
 
         // Ler e criar o array de dados
         $dados = array();
@@ -60,7 +82,7 @@ class MissionController extends Controller
             $dado[] = $mission->destiny;
             $dado[] = $mission->doc;
             $dado[] = $mission->class;
-            $dado[] = $mission->vtr;
+            $dado[] = $mission->vtrInfo->nr_vtr;
             $dado[] = date('d-m-Y h:i',strtotime($mission->prev_date_part));
                if ($mission->status == 0) {
                    $dado[] = 'Aguardando';
@@ -88,31 +110,5 @@ class MissionController extends Controller
 
         return json_encode($json_data);  //enviar dados como formato json
 
-    }
-
-
-    // CRUD DAS MISSÕES
-
-    public function registerMission(Request $request){
-        $data = $request->all(); //Buscando todos campos enviados do formato
-
-        $saveData = new MissionModel;
-        $saveData->type_mission = $data['typeMission'];
-        $saveData->status = 'Aguardando';
-        $saveData->mission_name = $data['nameMission'];
-        $saveData->destiny = $data['destinyMission'];
-        $saveData->class = $data['classMission'];
-        $saveData->vtr = $data['vtrMission'];
-        $saveData->doc = $data['docMission'];
-        $saveData->origin = $data['originMission'];
-        $saveData->pg_mot = $data['pgMotMission'];
-        $saveData->name_mot = $data['nameMotMission'];
-        $saveData->pg_seg = $data['pgSegMission'];
-        $saveData->name_seg = $data['nameSegMission'];
-        $saveData->prev_date_part = $data['datePrevPartMission'];
-        $saveData->prev_date_chgd = $data['datePrevChgdMission'];
-        $saveData->contact = '55'.$data['contactCmtMission'];
-        $saveData->obs = $data['obsMission'];
-        $saveData->save();
     }
 }

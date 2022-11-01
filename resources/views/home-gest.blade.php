@@ -15,6 +15,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     {{-- CRUD .JS --}}
+
     <script src="{{ asset('js/crud-missions.js') }}"></script>
     <style>
         .dataTables_wrapper .dataTables_filter {
@@ -23,7 +24,6 @@
             visibility: hidden;
         }
     </style>
-
 @endsection
 
 @section('content')
@@ -34,15 +34,13 @@
                     <div class="col-md-5">
                         <div class="row ">
                             <div class="form-group col">
-                                <label for="condition_filter">Viatura</label>
-                                <select id="condition_filter" name="condition_filter" class="form-control">
+                                <label for="vtrType">Viatura</label>
+                                <select id="vtrType" class="form-control">
                                     <option selected value="">TODAS AS VIATURAS</option>
                                     <option value="OM">OM</option>
                                     <option value="OP">OP</option>
                                 </select>
                             </div>
-                            <button onclick="return search_condition()" style="height: 40px;"
-                                class="btn btn-success m-t-30"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
 
@@ -67,10 +65,10 @@
                         <tr>
                             <th width="30px">#</th>
                             <th>Missão</th>
-                            <th>Tipo</th>
+                            <th width="30px">Tipo</th>
                             <th>Destino</th>
                             <th>Documento</th>
-                            <th>Classe</th>
+                            <th width="35px">Classe</th>
                             <th>Vtr</th>
                             <th>Prev. partida</th>
                             <th>Status</th>
@@ -247,8 +245,6 @@
                                 <input id="contactCmtMission" name="contactCmtMission" type="text"
                                     class="form-control" placeholder="Ex: (51) 980514188">
                             </div>
-                            {{-- <span class="form-group  fs-12">(Inserir o
-                                telefone celular do Cmt da Missão (COM DDD), visando contato de coordenação)</span> --}}
                         </div>
                         <div class="row">
                             <div class="form-group col">
@@ -269,7 +265,7 @@
     <!-- MODAL INFORMAÇÕES DA VTR -->
     @include('component.info-vtr')
 
-    {{--  INFORMÇOES DO REGISTRO DE ENTRADA E saída --}}
+    {{--  INFORMÇOES DO REGISTRO DA MISSAO --}}
     @include('component.info-mission')
 
 
@@ -290,6 +286,8 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
+    <script src="{{ asset('js/actions.js') }}"></script>
+
     <!-- Summernote -->
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>

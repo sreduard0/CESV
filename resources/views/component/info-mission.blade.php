@@ -108,7 +108,6 @@
                      </div>
 
                      <div class="card-body" id="panelEditInfo" style="display: none">
-
                          <form id="form-edit-mission">
                              <div class="row">
                                  <div class="form-group col-md-3">
@@ -271,7 +270,6 @@
                                  </div>
                              </div>
                          </form>
-
                      </div>
                  </div>
                  <div class="card" id="panelInfoCon" style="display: none">
@@ -386,12 +384,12 @@
                  result.contact +
                  '" terget="_blank" class="float-r m-r-30 btn btn-success"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>'
              )
-             modal.find('#vtrMission').text(result.vtr)
+             modal.find('#vtrMission').text(result.vtr.mod_vtr + ' | EB/Placa: ' + result.vtr.ebplaca)
              modal.find('#nameMotMission').text(result.pg_mot + ' ' + result.name_mot)
              modal.find('#nameSegMission').text(result.pg_seg + ' ' + result.name_seg)
              modal.find('#datePrevPart').text(result.prev_date_part)
              modal.find('#datePrevChgd').text(result.prev_date_chgd)
-             modal.find('#obsMission').text(result.obs)
+             modal.find('#obsMission').html(result.obs)
              if (result.status == 0) {
                  modal.find('#statusMission').text('Aguardando')
              } else {
