@@ -96,8 +96,23 @@ class MissionController extends Controller
     public function registerMission(Request $request){
         $data = $request->all(); //Buscando todos campos enviados do formato
 
-
-        print_r($data) ;
-
+        $saveData = new MissionModel;
+        $saveData->type_mission = $data['typeMission'];
+        $saveData->status = 'Aguardando';
+        $saveData->mission_name = $data['nameMission'];
+        $saveData->destiny = $data['destinyMission'];
+        $saveData->class = $data['classMission'];
+        $saveData->vtr = $data['vtrMission'];
+        $saveData->doc = $data['docMission'];
+        $saveData->origin = $data['originMission'];
+        $saveData->pg_mot = $data['pgMotMission'];
+        $saveData->name_mot = $data['nameMotMission'];
+        $saveData->pg_seg = $data['pgSegMission'];
+        $saveData->name_seg = $data['nameSegMission'];
+        $saveData->prev_date_part = $data['datePrevPartMission'];
+        $saveData->prev_date_chgd = $data['datePrevChgdMission'];
+        $saveData->contact = '55'.$data['contactCmtMission'];
+        $saveData->obs = $data['obsMission'];
+        $saveData->save();
     }
 }

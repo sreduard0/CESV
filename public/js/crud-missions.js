@@ -19,7 +19,8 @@ function registerMission() {
         pgSegMission: formData.get('pgSegMission'),
         nameSegMission: formData.get('nameSegMission'),
         datePrevPartMission: formData.get('dataPrevPartMission'),
-        datePrevChgdMission: formData.get('dataPrevChgdMission'),
+        datePrevChgdMission: formData.get('datePrevChgdMission'),
+        contactCmtMission: formData.get('contactCmtMission'),
         obsMission: formData.get('obsMission')
     }
 
@@ -65,6 +66,18 @@ function registerMission() {
             //     $('#form-adido')[0].reset();
             //     $(".new_menu").summernote('code', '');
             // }
+
+            Toast.fire({
+                icon: 'success',
+                title: '&nbsp&nbsp Missão adicionada com sucesso.'
+            });
+
+
+            $('#register-mission').modal('hide');
+            $('#form-register-mission')[0].reset();
+            $("#table_apps").DataTable().clear().draw();
+
+
 
         },
 
