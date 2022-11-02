@@ -384,7 +384,8 @@
                  result.contact +
                  '" terget="_blank" class="float-r m-r-30 btn btn-success"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>'
              )
-             modal.find('#vtrMission').text(result.vtr.mod_vtr + ' | EB/Placa: ' + result.vtr.ebplaca)
+             modal.find('#vtrMission').text(result.vtr_info.mod_vtr + ' | EB/Placa: ' + result.vtr_info
+                 .ebplaca)
              modal.find('#nameMotMission').text(result.pg_mot + ' ' + result.name_mot)
              modal.find('#nameSegMission').text(result.pg_seg + ' ' + result.name_seg)
              modal.find('#datePrevPart').text(result.prev_date_part)

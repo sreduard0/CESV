@@ -82,7 +82,7 @@ class MissionController extends Controller
             $dado[] = $mission->destiny;
             $dado[] = $mission->doc;
             $dado[] = $mission->class;
-            $dado[] = $mission->vtrInfo->nr_vtr;
+            $dado[] = $mission->vtrinfo->nr_vtr;
             $dado[] = date('d-m-Y h:i',strtotime($mission->prev_date_part));
                if ($mission->status == 0) {
                    $dado[] = 'Aguardando';

@@ -120,17 +120,17 @@
                                 <label for="classMission">Classe <span style="color:red">*</span></label>
                                 <select class="form-control" name="classMission" id="classMission">
                                     <option selected value="">Selecione</option>
-                                    <option value="CL I">I</option>
-                                    <option value="CL II">II</option>
-                                    <option value="CL III">III</option>
-                                    <option value="CL IV">IV</option>
-                                    <option value="CL V (A)">V (A)</option>
-                                    <option value="CL V (M)">V (M)</option>
-                                    <option value="CL VI">VI</option>
-                                    <option value="CL VII">VII</option>
-                                    <option value="CL VIII">VIII</option>
-                                    <option value="CL IX">IX</option>
-                                    <option value="CL X">X</option>
+                                    <option value="I">I</option>
+                                    <option value="II">II</option>
+                                    <option value="III">III</option>
+                                    <option value="IV">IV</option>
+                                    <option value="V-arm">V-arm</option>
+                                    <option value="V-mun">V-mun</option>
+                                    <option value="VI">VI</option>
+                                    <option value="VII">VII</option>
+                                    <option value="VIII">VIII</option>
+                                    <option value="IX">IX</option>
+                                    <option value="X">X</option>
                                 </select>
                             </div>
                         </div>

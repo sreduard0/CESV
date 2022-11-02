@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MissionModel extends Model
 {
-    public function vtrInfo(){
+    public function vtrinfo(){
         return $this->hasOne('App\Models\VtrModel','id' , 'vtr');
     }
     use HasFactory;

@@ -12,10 +12,86 @@ function registerMission() {
     if (formData.get('typeMission') == '') {
         $('#typeMission').addClass('is-invalid');
         return false;
+    } else {
+        $('#typeMission').removeClass('is-invalid');
     }
     if (formData.get('nameMission') == '') {
         $('#nameMission').addClass('is-invalid');
         return false;
+    } else {
+        $('#nameMission').removeClass('is-invalid');
+    }
+    if (formData.get('destinyMission') == '') {
+        $('#destinyMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#destinyMission').removeClass('is-invalid');
+    }
+    if (formData.get('classMission') == '') {
+        $('#classMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#classMission').removeClass('is-invalid');
+    }
+    if (formData.get('vtrMission') == '') {
+        $('#vtrMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#vtrMission').removeClass('is-invalid');
+    }
+    if (formData.get('docMission') == '') {
+        $('#docMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#docMission').removeClass('is-invalid');
+    }
+    if (formData.get('originMission') == '') {
+        $('#originMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#originMission').removeClass('is-invalid');
+    }
+    if (formData.get('pgMotMission') == '') {
+        $('#pgMotMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#pgMotMission').removeClass('is-invalid');
+    }
+    if (formData.get('nameMotMission') == '') {
+        $('#nameMotMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#nameMotMission').removeClass('is-invalid');
+    }
+    if (formData.get('pgSegMission') == '') {
+        $('#pgSegMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#pgSegMission').removeClass('is-invalid');
+    }
+    if (formData.get('nameSegMission') == '') {
+        $('#nameSegMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#nameSegMission').removeClass('is-invalid');
+    }
+    if (formData.get('datePrevPartMission') == '') {
+        $('#datePrevPartMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#datePrevPartMission').removeClass('is-invalid');
+    }
+    if (formData.get('datePrevChgdMission') == '') {
+        $('#datePrevChgdMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#datePrevChgdMission').removeClass('is-invalid');
+    }
+    if (formData.get('contactCmtMission') == '') {
+        $('#contactCmtMission').addClass('is-invalid');
+        return false;
+    } else {
+        $('#contactCmtMission').removeClass('is-invalid');
     }
 
     var values = {
