@@ -38,6 +38,14 @@ class MissionController extends Controller
         $saveData->save();
     }
 
+    public function editMission(MissionRequest $request){
+
+    }
+
+    public function deleteMission($id){
+        MissionModel::find($id)->delete();
+    }
+
     // TABELA DAS MISSÕES
     public function listMission(Request $request){
 
@@ -94,7 +102,7 @@ class MissionController extends Controller
                                         class="fa fa-car"></i></button>
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="'.$mission->id.'"
                                     ><i class="fa fa-eye"></i></button>
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" data-id="'.$mission->id.'"><i
+                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteMission('.$mission->id.')"><i
                                         class="fa fa-trash"></i></button>';
             $dados[] = $dado;
         }

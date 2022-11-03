@@ -332,14 +332,12 @@
 
                              <p id="" class="text-muted">-</p>
                          </div>
-
                      </div>
                  </div>
 
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-
              </div>
          </div>
      </div>
@@ -368,6 +366,7 @@
              showEdit = false
          }
      }
+
      $('#info-mission').on('show.bs.modal', function(event) {
          var button = $(event.relatedTarget);
          var id = button.data('id');
@@ -382,7 +381,7 @@
              modal.find('#contactCmtMission').html(result.contact +
                  '<a href="https://api.whatsapp.com/send?phone=' +
                  result.contact +
-                 '" terget="_blank" class="float-r m-r-30 btn btn-success"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>'
+                 '" target="_blank" class="float-r m-r-30 btn btn-success"><i class="fs-20 fab fa-whatsapp"></i></a>'
              )
              modal.find('#vtrMission').text(result.vtr_info.mod_vtr + ' | EB/Placa: ' + result.vtr_info
                  .ebplaca)

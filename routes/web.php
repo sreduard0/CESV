@@ -29,5 +29,7 @@ Route::get('get_info_vtr/{id}',[VtrController::class, 'get_info_vtr'])->name('ge
 Route::get('info_mission/{id}',[MissionController::class, 'infoMission'])->name('info_mission')->middleware('auth');
 Route::post('post_missions_list',[MissionController::class,'listMission'])->name('post_missions_list')->middleware('auth');
 
-//crud
+//crud missões
 Route::post('register_mission',[MissionController::class, 'registerMission'])->middleware('auth');
+Route::get('delete_mission/{id}',[MissionController::class, 'deleteMission'])->middleware('auth');
+
