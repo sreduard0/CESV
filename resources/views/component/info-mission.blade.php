@@ -111,8 +111,8 @@
                          <form id="form-edit-mission">
                              <div class="row">
                                  <div class="form-group col-md-3">
-                                     <label for="pg">Tipo de missão <span style="color:red">*</span></label>
-                                     <select class="form-control" name="rank_id" id="rank_id">
+                                     <label for="typeMission">Tipo de missão <span style="color:red">*</span></label>
+                                     <select class="form-control" name="typeMission" id="typeMission">
                                          <option value="">Selecione</option>
                                          <option value="OP">OP</option>
                                          <option value="OM">OM</option>
@@ -121,58 +121,59 @@
                              </div>
                              <div class="row">
                                  <div class="form-group col">
-                                     <label for="name">Missão <span style="color:red">*</span></label>
-                                     <input id="name" name="name" typphp e="text" class="form-control"
-                                         placeholder="Ex: Feno e Aveia">
+                                     <label for="nameMission">Missão <span style="color:red">*</span></label>
+                                     <input id="nameMission" name="nameMission" typphp e="text"
+                                         class="form-control" placeholder="Ex: Feno e Aveia">
                                  </div>
                                  <div class="form-group col">
-                                     <label for="name">Destino <span style="color:red">*</span></label>
-                                     <input id="name" name="name" type="text" class="form-control"
-                                         placeholder="Destino da missão (OM ou local).">
+                                     <label for="destinyMission">Destino <span style="color:red">*</span></label>
+                                     <input id="destinyMission" name="destinyMission" type="text"
+                                         class="form-control" placeholder="Destino da missão (OM ou local).">
                                  </div>
                                  <div class="form-group col-md-2">
-                                     <label for="pg">Classe <span style="color:red">*</span></label>
-                                     <select class="form-control" name="rank_id" id="rank_id">
+                                     <label for="classMission">Classe <span style="color:red">*</span></label>
+                                     <select class="form-control" name="classMission" id="classMission">
                                          <option selected value="">Selecione</option>
-                                         <option value="1">I</option>
-                                         <option value="2">II</option>
-                                         <option value="3">III</option>
-                                         <option value="4">IV</option>
-                                         <option value="51">V (A)</option>
-                                         <option value="52">V (M)</option>
-                                         <option value="6">VI</option>
-                                         <option value="7">VII</option>
-                                         <option value="8">VIII</option>
-                                         <option value="9">IX</option>
-                                         <option value="10">X</option>
+                                         <option value="I">I</option>
+                                         <option value="II">II</option>
+                                         <option value="III">III</option>
+                                         <option value="IV">IV</option>
+                                         <option value="V-arm">V-arm</option>
+                                         <option value="V-mun">V-mun</option>
+                                         <option value="VI">VI</option>
+                                         <option value="VII">VII</option>
+                                         <option value="VIII">VIII</option>
+                                         <option value="IX">IX</option>
+                                         <option value="X">X</option>
                                      </select>
                                  </div>
                              </div>
                              <div class="row">
                                  <div class="form-group col-md-3">
-                                     <label for="pg">Viatura<span style="color:red">*</span></label>
-                                     <select class="form-control" name="rank_id" id="rank_id">
+                                     <label for="vtrMission">Viatura<span style="color:red">*</span></label>
+                                     <select class="form-control" name="vtrMission" id="vtrMission">
                                          <option selected value="">Selecione</option>
-                                         <option value="1">I</option>
-                                         <option value="2">II</option>
+                                         @foreach ($viaturas as $viatura)
+                                             <option value="{{ $viatura->id }}">{{ $viatura->mod_vtr }}</option>
+                                         @endforeach
                                      </select>
                                  </div>
                                  <div class="form-group col">
-                                     <label for="name">Documento <span style="color:red">*</span> </label>
-                                     <input id="name" name="name" type="text" class="form-control"
+                                     <label for="docMission">Documento <span style="color:red">*</span> </label>
+                                     <input id="docMission" name="docMission" type="text" class="form-control"
                                          placeholder="documento que deu ordem para a realizar a missão.">
                                  </div>
                                  <div class="form-group colmd-3">
-                                     <label for="name">Origem <span style="color:red">*</span></label>
-                                     <input id="name" name="name" type="text" class="form-control"
-                                         placeholder="De onde parte a missão.">
+                                     <label for="originMission">Origem <span style="color:red">*</span></label>
+                                     <input id="originMission" name="originMission" type="text"
+                                         class="form-control" placeholder="De onde parte a missão.">
                                  </div>
                              </div>
 
                              <div class="row">
                                  <div class="form-group col-md-2">
-                                     <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                     <select class="form-control" name="rank_id" id="rank_id">
+                                     <label for="pgMotMission">Posto/Grad <span style="color:red">*</span></label>
+                                     <select class="form-control" name="pgMotMission" id="pgMotMission">
                                          <option value="">Selecione</option>
                                          <option value="Gen">Gen</option>
                                          <option value="Cel">Cel</option>
@@ -191,13 +192,14 @@
                                      </select>
                                  </div>
                                  <div class="form-group col">
-                                     <label for="name">Nome do motorista <span style="color:red">*</span></label>
-                                     <input id="name" name="name" typphp e="text" class="form-control"
-                                         placeholder="Nome do motorista">
+                                     <label for="nameMotMission">Nome do motorista <span
+                                             style="color:red">*</span></label>
+                                     <input id="nameMotMission" name="nameMotMission" typphp e="text"
+                                         class="form-control" placeholder="Nome do motorista">
                                  </div>
                                  <div class="form-group col-md-2">
-                                     <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                     <select class="form-control" name="rank_id" id="rank_id">
+                                     <label for="pgSegMission">Posto/Grad <span style="color:red">*</span></label>
+                                     <select class="form-control" name="pgSegMission" id="pgSegMission">
                                          <option value="">Selecione</option>
                                          <option value="Gen">Gen</option>
                                          <option value="Cel">Cel</option>
@@ -217,10 +219,10 @@
                                  </div>
 
                                  <div class="form-group col">
-                                     <label for="name">Nome do cmt da missão <span
+                                     <label for="nameSegMission">Nome do cmt da missão <span
                                              style="color:red">*</span></label>
-                                     <input id="name" name="name" type="text" class="form-control"
-                                         placeholder="Nome do cmt da missão">
+                                     <input id="nameSegMission" name="nameSegMission" type="text"
+                                         class="form-control" placeholder="Nome do cmt da missão">
                                  </div>
 
                              </div>
@@ -230,8 +232,8 @@
                                      <label>Prev. do dia e horário da partida</label>
                                      <div class="input-group date" id="prev_part" data-target-input="nearest">
                                          <input type="text" class="form-control datetimepicker-input"
-                                             data-target="#prev_part" id="prev_part" name="prev_part"
-                                             value="">
+                                             data-target="#prev_part" id="datePrevPartMission"
+                                             name="datePrevPartMission" value="">
                                          <div class="input-group-append" data-target="#prev_part"
                                              data-toggle="datetimepicker">
                                              <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -243,8 +245,8 @@
                                      <label>Prev. do dia e horário da chegada</label>
                                      <div class="input-group date" id="prev_chgd" data-target-input="nearest">
                                          <input type="text" class="form-control datetimepicker-input"
-                                             data-target="#prev_chgd" id="prev_chgd" name="prev_chgd"
-                                             value="">
+                                             data-target="#prev_chgd" id="datePrevChgdMission"
+                                             name="datePrevChgdMission" value="">
                                          <div class="input-group-append" data-target="#prev_chgd"
                                              data-toggle="datetimepicker">
                                              <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -254,19 +256,18 @@
                                  </div>
 
                                  <div class="form-group col-md-3">
-                                     <label for="name">Telefone de contato <span style="color:red">*</span>
+                                     <label for="contactCmtMission">Telefone de contato <span
+                                             style="color:red">*</span>
                                      </label>
-                                     <input id="name" name="name" type="text" class="form-control"
-                                         placeholder="Ex: (51) 980514188">
+                                     <input id="contactCmtMission" name="contactCmtMission" type="text"
+                                         class="form-control" placeholder="Ex: (51) 980514188">
                                  </div>
-                                 {{-- <span class="form-group  fs-12">(Inserir o
-                                telefone celular do Cmt da Missão (COM DDD), visando contato de coordenação)</span> --}}
                              </div>
                              <div class="row">
                                  <div class="form-group col">
-                                     <label for="name">Observações</label>
-                                     <textarea name="" id="" rows="8"
-                                         placeholder="Detalhes importantes da missão. Exemplo: Para Eixo Sul PGT" class="form-control"></textarea>
+                                     <label for="obsMission">Observações</label>
+                                     <textarea name="obsMission" id="obsMission" rows="8"
+                                         placeholder="Detalhes importantes da missão. Exemplo: Para Eixo Sul PGT" class="text form-control"></textarea>
                                  </div>
                              </div>
                          </form>

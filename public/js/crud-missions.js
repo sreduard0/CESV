@@ -253,33 +253,36 @@ function editMission() {
         obsMission: formData.get('obsMission')
     }
 
-    const URL = window.location.href + 'edit_mission'
 
-    $.ajax({
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        url: URL,
-        type: 'POST',
-        data: values,
-        dataType: 'text',
-        success: function (data) {
-            Toast.fire({
-                icon: 'success',
-                title: '&nbsp&nbsp Missão editada com sucesso.'
-            });
+    console.log(values)
 
-            // $('#register-mission').modal('hide');
-            $('#form-edit-mission')[0].reset();
-            // $('#obsMission').summernote('code', '');
-            $("#table").DataTable().clear().draw();
-        },
+    // const URL = window.location.href + 'edit_mission'
 
-        error: function (data) {
-            Toast.fire({
-                icon: 'error',
-                title: '&nbsp&nbsp Erro ao cadastrar.'
-            });
-        }
-    });
+    // $.ajax({
+    //     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+    //     url: URL,
+    //     type: 'POST',
+    //     data: values,
+    //     dataType: 'text',
+    //     success: function (data) {
+    //         Toast.fire({
+    //             icon: 'success',
+    //             title: '&nbsp&nbsp Missão editada com sucesso.'
+    //         });
+
+    //         // $('#register-mission').modal('hide');
+    //         $('#form-edit-mission')[0].reset();
+    //         // $('#obsMission').summernote('code', '');
+    //         $("#table").DataTable().clear().draw();
+    //     },
+
+    //     error: function (data) {
+    //         Toast.fire({
+    //             icon: 'error',
+    //             title: '&nbsp&nbsp Erro ao cadastrar.'
+    //         });
+    //     }
+    // });
 }
 
 function deleteMission(id) {
