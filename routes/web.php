@@ -31,5 +31,6 @@ Route::post('post_missions_list',[MissionController::class,'listMission'])->name
 
 //crud missões
 Route::post('register_mission',[MissionController::class, 'registerMission'])->middleware('auth');
+Route::post('edit_mission',[MissionController::class, 'editMission'])->middleware('auth');
 Route::get('delete_mission/{id}',[MissionController::class, 'deleteMission'])->middleware('auth');
 

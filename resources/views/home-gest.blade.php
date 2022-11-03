@@ -108,13 +108,13 @@
                         <div class="row">
                             <div class="form-group col">
                                 <label for="nameMission">Missão <span style="color:red">*</span></label>
-                                <input id="nameMission" name="nameMission" typphp e="text" class="form-control"
-                                    placeholder="Ex: Feno e Aveia">
+                                <input minlength="2" maxlength="200" id="nameMission" name="nameMission" type="text"
+                                    class="form-control" placeholder="Ex: Feno e Aveia">
                             </div>
                             <div class="form-group col">
                                 <label for="destinyMission">Destino <span style="color:red">*</span></label>
-                                <input id="destinyMission" name="destinyMission" type="text" class="form-control"
-                                    placeholder="Destino da missão (OM ou local).">
+                                <input minlength="2" maxlength="200" id="destinyMission" name="destinyMission"
+                                    type="text" class="form-control" placeholder="Destino da missão (OM ou local).">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="classMission">Classe <span style="color:red">*</span></label>
@@ -146,13 +146,13 @@
                             </div>
                             <div class="form-group col">
                                 <label for="docMission">Documento <span style="color:red">*</span> </label>
-                                <input id="docMission" name="docMission" type="text" class="form-control"
-                                    placeholder="documento que deu ordem para a realizar a missão.">
+                                <input minlength="2" maxlength="200" id="docMission" name="docMission" type="text"
+                                    class="form-control" placeholder="documento que deu ordem para a realizar a missão.">
                             </div>
                             <div class="form-group colmd-3">
                                 <label for="originMission">Origem <span style="color:red">*</span></label>
-                                <input id="originMission" name="originMission" type="text" class="form-control"
-                                    placeholder="De onde parte a missão.">
+                                <input minlength="2" maxlength="200" id="originMission" name="originMission"
+                                    type="text" class="form-control" placeholder="De onde parte a missão.">
                             </div>
                         </div>
 
@@ -179,8 +179,8 @@
                             </div>
                             <div class="form-group col">
                                 <label for="nameMotMission">Nome do motorista <span style="color:red">*</span></label>
-                                <input id="nameMotMission" name="nameMotMission" typphp e="text"
-                                    class="form-control" placeholder="Nome do motorista">
+                                <input minlength="2" maxlength="200" id="nameMotMission" name="nameMotMission" typphp
+                                    e="text" class="form-control" placeholder="Nome do motorista">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="pgSegMission">Posto/Grad <span style="color:red">*</span></label>
@@ -205,8 +205,8 @@
 
                             <div class="form-group col">
                                 <label for="nameSegMission">Nome do cmt da missão <span style="color:red">*</span></label>
-                                <input id="nameSegMission" name="nameSegMission" type="text" class="form-control"
-                                    placeholder="Nome do cmt da missão">
+                                <input minlength="2" maxlength="200" id="nameSegMission" name="nameSegMission"
+                                    type="text" class="form-control" placeholder="Nome do cmt da missão">
                             </div>
 
                         </div>
@@ -239,11 +239,18 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-3">
-                                <label for="contactCmtMission">Telefone de contato <span style="color:red">*</span>
-                                </label>
-                                <input id="contactCmtMission" name="contactCmtMission" type="text"
-                                    class="form-control" placeholder="Ex: (51) 980514188">
+                            <div class="form-group col-md-4">
+                                <label for="contactCmtMission">Telefone de contato <span
+                                        style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="contactCmtMission"
+                                        name="contactCmtMission" data-inputmask="'mask':'(99) 9 9999-9999'"
+                                        data-mask="" inputmode="text" placeholder="EX: (51) 9 8020-4426">
+                                </div>
+
                             </div>
                         </div>
                         <div class="row">

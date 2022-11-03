@@ -33,13 +33,32 @@ class MissionController extends Controller
         $saveData->name_seg = $data['nameSegMission'];
         $saveData->prev_date_part = date('Y-m-d h:i',strtotime($data['datePrevPartMission']));
         $saveData->prev_date_chgd = date('Y-m-d h:i',strtotime($data['datePrevChgdMission']));
-        $saveData->contact = '55'.$data['contactCmtMission'];
+        $saveData->contact = '55'.str_replace(['(', ')', '-', ' ', '_'],'', $data['contactCmtMission']);
         $saveData->obs = $data['obsMission'];
         $saveData->save();
     }
 
     public function editMission(MissionRequest $request){
+        $data = $request->all(); //Buscando todos campos enviados do formato
 
+        $saveData = MissionModel::find($data['id']);
+        $saveData->type_mission = $data['typeMission'];
+        $saveData->status = 'Aguardando';
+        $saveData->mission_name = $data['nameMission'];
+        $saveData->destiny = $data['destinyMission'];
+        $saveData->class = $data['classMission'];
+        $saveData->vtr = $data['vtrMission'];
+        $saveData->doc = $data['docMission'];
+        $saveData->origin = $data['originMission'];
+        $saveData->pg_mot = $data['pgMotMission'];
+        $saveData->name_mot = $data['nameMotMission'];
+        $saveData->pg_seg = $data['pgSegMission'];
+        $saveData->name_seg = $data['nameSegMission'];
+        $saveData->prev_date_part = date('Y-m-d h:i',strtotime($data['datePrevPartMission']));
+        $saveData->prev_date_chgd = date('Y-m-d h:i',strtotime($data['datePrevChgdMission']));
+        $saveData->contact = '55'.str_replace(['(', ')', '-', ' ', '_'],'', $data['contactCmtMission']);
+        $saveData->obs = $data['obsMission'];
+        $saveData->save();
     }
 
     public function deleteMission($id){

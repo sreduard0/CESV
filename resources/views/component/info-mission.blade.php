@@ -7,7 +7,7 @@
      <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content ">
              <div class="modal-header">
-                 <h5 class="modal-title" id="info-missionLabel">Informações do registro de entrada/saida</h5>
+                 <h5 class="modal-title" id="info-missionLabel">Informações da missão</h5>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
@@ -17,8 +17,9 @@
                      <div class="card-header">
                          <h3 class="card-title card-title-background "> <i class="fas fa-info-circle mr-1"></i>
                              Informações da missão</h3>
-                         <button id="btnEdit" onclick="return activeEdit()" class="btn btn-primary float-r"><i
-                                 id="icoEdit" class="fa fa-edit"></i></button>
+                         <div class=" float-r" id="btnEdit">
+                         </div>
+
                      </div>
                      <div class="card-body" id="panelInfo" style="display: block">
                          <div id="infoVtrOm">
@@ -109,10 +110,11 @@
 
                      <div class="card-body" id="panelEditInfo" style="display: none">
                          <form id="form-edit-mission">
+                             <input type="hidden" id="idMission" name="idMission">
                              <div class="row">
                                  <div class="form-group col-md-3">
-                                     <label for="typeMission">Tipo de missão <span style="color:red">*</span></label>
-                                     <select class="form-control" name="typeMission" id="typeMission">
+                                     <label for="e_typeMission">Tipo de missão <span style="color:red">*</span></label>
+                                     <select class="form-control" name="e_typeMission" id="e_typeMission">
                                          <option value="">Selecione</option>
                                          <option value="OP">OP</option>
                                          <option value="OM">OM</option>
@@ -121,18 +123,19 @@
                              </div>
                              <div class="row">
                                  <div class="form-group col">
-                                     <label for="nameMission">Missão <span style="color:red">*</span></label>
-                                     <input id="nameMission" name="nameMission" typphp e="text"
-                                         class="form-control" placeholder="Ex: Feno e Aveia">
+                                     <label for="e_nameMission">Missão <span style="color:red">*</span></label>
+                                     <input minlength="2" maxlength="200" id="e_nameMission" name="e_nameMission"
+                                         type="text" class="form-control" placeholder="Ex: Feno e Aveia">
                                  </div>
                                  <div class="form-group col">
-                                     <label for="destinyMission">Destino <span style="color:red">*</span></label>
-                                     <input id="destinyMission" name="destinyMission" type="text"
-                                         class="form-control" placeholder="Destino da missão (OM ou local).">
+                                     <label for="e_destinyMission">Destino <span style="color:red">*</span></label>
+                                     <input minlength="2" maxlength="200" id="e_destinyMission" name="e_destinyMission"
+                                         type="text" class="form-control"
+                                         placeholder="Destino da missão (OM ou local).">
                                  </div>
                                  <div class="form-group col-md-2">
-                                     <label for="classMission">Classe <span style="color:red">*</span></label>
-                                     <select class="form-control" name="classMission" id="classMission">
+                                     <label for="e_classMission">Classe <span style="color:red">*</span></label>
+                                     <select class="form-control" name="e_classMission" id="e_classMission">
                                          <option selected value="">Selecione</option>
                                          <option value="I">I</option>
                                          <option value="II">II</option>
@@ -150,8 +153,8 @@
                              </div>
                              <div class="row">
                                  <div class="form-group col-md-3">
-                                     <label for="vtrMission">Viatura<span style="color:red">*</span></label>
-                                     <select class="form-control" name="vtrMission" id="vtrMission">
+                                     <label for="e_vtrMission">Viatura<span style="color:red">*</span></label>
+                                     <select class="form-control" name="e_vtrMission" id="e_vtrMission">
                                          <option selected value="">Selecione</option>
                                          @foreach ($viaturas as $viatura)
                                              <option value="{{ $viatura->id }}">{{ $viatura->mod_vtr }}</option>
@@ -159,21 +162,23 @@
                                      </select>
                                  </div>
                                  <div class="form-group col">
-                                     <label for="docMission">Documento <span style="color:red">*</span> </label>
-                                     <input id="docMission" name="docMission" type="text" class="form-control"
+                                     <label for="e_docMission">Documento <span style="color:red">*</span> </label>
+                                     <input minlength="2" maxlength="200" id="e_docMission" name="e_docMission"
+                                         type="text" class="form-control"
                                          placeholder="documento que deu ordem para a realizar a missão.">
                                  </div>
                                  <div class="form-group colmd-3">
-                                     <label for="originMission">Origem <span style="color:red">*</span></label>
-                                     <input id="originMission" name="originMission" type="text"
-                                         class="form-control" placeholder="De onde parte a missão.">
+                                     <label for="e_originMission">Origem <span style="color:red">*</span></label>
+                                     <input minlength="2" maxlength="200" id="e_originMission"
+                                         name="e_originMission" type="text" class="form-control"
+                                         placeholder="De onde parte a missão.">
                                  </div>
                              </div>
 
                              <div class="row">
                                  <div class="form-group col-md-2">
-                                     <label for="pgMotMission">Posto/Grad <span style="color:red">*</span></label>
-                                     <select class="form-control" name="pgMotMission" id="pgMotMission">
+                                     <label for="e_pgMotMission">Posto/Grad <span style="color:red">*</span></label>
+                                     <select class="form-control" name="e_pgMotMission" id="e_pgMotMission">
                                          <option value="">Selecione</option>
                                          <option value="Gen">Gen</option>
                                          <option value="Cel">Cel</option>
@@ -192,14 +197,15 @@
                                      </select>
                                  </div>
                                  <div class="form-group col">
-                                     <label for="nameMotMission">Nome do motorista <span
+                                     <label for="e_nameMotMission">Nome do motorista <span
                                              style="color:red">*</span></label>
-                                     <input id="nameMotMission" name="nameMotMission" typphp e="text"
-                                         class="form-control" placeholder="Nome do motorista">
+                                     <input minlength="2" maxlength="200" id="e_nameMotMission"
+                                         name="e_nameMotMission" typphp e="text" class="form-control"
+                                         placeholder="Nome do motorista">
                                  </div>
                                  <div class="form-group col-md-2">
-                                     <label for="pgSegMission">Posto/Grad <span style="color:red">*</span></label>
-                                     <select class="form-control" name="pgSegMission" id="pgSegMission">
+                                     <label for="e_pgSegMission">Posto/Grad <span style="color:red">*</span></label>
+                                     <select class="form-control" name="e_pgSegMission" id="e_pgSegMission">
                                          <option value="">Selecione</option>
                                          <option value="Gen">Gen</option>
                                          <option value="Cel">Cel</option>
@@ -219,10 +225,11 @@
                                  </div>
 
                                  <div class="form-group col">
-                                     <label for="nameSegMission">Nome do cmt da missão <span
+                                     <label for="e_nameSegMission">Nome do cmt da missão <span
                                              style="color:red">*</span></label>
-                                     <input id="nameSegMission" name="nameSegMission" type="text"
-                                         class="form-control" placeholder="Nome do cmt da missão">
+                                     <input minlength="2" maxlength="200" id="e_nameSegMission"
+                                         name="e_nameSegMission" type="text" class="form-control"
+                                         placeholder="Nome do cmt da missão">
                                  </div>
 
                              </div>
@@ -230,11 +237,11 @@
 
                                  <div class="form-group col">
                                      <label>Prev. do dia e horário da partida</label>
-                                     <div class="input-group date" id="prev_part" data-target-input="nearest">
+                                     <div class="input-group date" id="e_prev_part" data-target-input="nearest">
                                          <input type="text" class="form-control datetimepicker-input"
-                                             data-target="#prev_part" id="datePrevPartMission"
-                                             name="datePrevPartMission" value="">
-                                         <div class="input-group-append" data-target="#prev_part"
+                                             data-target="#e_prev_part" id="e_datePrevPartMission"
+                                             name="e_datePrevPartMission" value="">
+                                         <div class="input-group-append" data-target="#e_prev_part"
                                              data-toggle="datetimepicker">
                                              <div class="input-group-text"><i class="fa fa-calendar"></i>
                                              </div>
@@ -243,11 +250,11 @@
                                  </div>
                                  <div class="form-group col">
                                      <label>Prev. do dia e horário da chegada</label>
-                                     <div class="input-group date" id="prev_chgd" data-target-input="nearest">
+                                     <div class="input-group date" id="e_prev_chgd" data-target-input="nearest">
                                          <input type="text" class="form-control datetimepicker-input"
-                                             data-target="#prev_chgd" id="datePrevChgdMission"
-                                             name="datePrevChgdMission" value="">
-                                         <div class="input-group-append" data-target="#prev_chgd"
+                                             data-target="#e_prev_chgd" id="e_datePrevChgdMission"
+                                             name="e_datePrevChgdMission" value="">
+                                         <div class="input-group-append" data-target="#e_prev_chgd"
                                              data-toggle="datetimepicker">
                                              <div class="input-group-text"><i class="fa fa-calendar"></i>
                                              </div>
@@ -255,18 +262,24 @@
                                      </div>
                                  </div>
 
-                                 <div class="form-group col-md-3">
-                                     <label for="contactCmtMission">Telefone de contato <span
-                                             style="color:red">*</span>
-                                     </label>
-                                     <input id="contactCmtMission" name="contactCmtMission" type="text"
-                                         class="form-control" placeholder="Ex: (51) 980514188">
+                                 <div class="form-group col-md-4">
+                                     <label for="e_contactCmtMission">Telefone de contato <span
+                                             style="color:red">*</span></label>
+                                     <div class="input-group">
+                                         <div class="input-group-prepend">
+                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                         </div>
+                                         <input type="text" class="form-control" id="e_contactCmtMission"
+                                             name="e_contactCmtMission" data-inputmask="'mask':'(99) 9 9999-9999'"
+                                             data-mask="" inputmode="text" placeholder="EX: (51) 9 8020-4426">
+                                     </div>
+
                                  </div>
                              </div>
                              <div class="row">
                                  <div class="form-group col">
-                                     <label for="obsMission">Observações</label>
-                                     <textarea name="obsMission" id="obsMission" rows="8"
+                                     <label for="e_obsMission">Observações</label>
+                                     <textarea name="e_obsMission" id="e_obsMission" rows="8"
                                          placeholder="Detalhes importantes da missão. Exemplo: Para Eixo Sul PGT" class="text form-control"></textarea>
                                  </div>
                              </div>
@@ -351,19 +364,16 @@
          if (showEdit == false) {
              $("#panelInfo").css("display", "block")
              $("#panelEditInfo").css("display", "none")
-             $("#btnEdit").addClass('btn-primary')
-             $("#btnEdit").removeClass('btn-success')
-             $("#icoEdit").removeClass('fa-check')
-             $("#icoEdit").addClass('fa-edit')
-
+             $("#btnEdit").html(
+                 '<button onclick="return activeEdit()" class="btn btn-primary float-r"><i id="icoEdit" class="fa fa-edit"></i></button>'
+             )
              showEdit = true
          } else {
              $("#panelInfo").css("display", "none")
              $("#panelEditInfo").css("display", "block")
-             $("#btnEdit").addClass('btn-success')
-             $("#btnEdit").removeClass('btn-primary')
-             $("#icoEdit").removeClass('fa-edit')
-             $("#icoEdit").addClass('fa-check')
+             $("#btnEdit").html(
+                 '<button onclick="return activeEdit()" class="btn btn-danger"><i class="fs-20 fa fa-times"></i></button> <button onclick="return editMission()" class="btn btn-success"><i class="fa fa-check"></i></button>'
+             )
              showEdit = false
          }
      }
@@ -373,13 +383,22 @@
          var id = button.data('id');
          var modal = $(this);
          var url = "{{ url('info_mission') }}/" + id;
+         $('#contactCmtMission').mask('+00 (00) 0 0000-0000')
+         $("#panelInfo").css("display", "block")
+         $("#panelEditInfo").css("display", "none")
+         $("#btnEdit").html(
+             '<button onclick="return activeEdit()" class="btn btn-primary float-r"><i id="icoEdit" class="fa fa-edit"></i></button>'
+         )
+         showEdit = true
          $.get(url, function(result) {
+
+             // Exibição
              modal.find('#nameMission').text(result.mission_name)
              modal.find('#typeMission').text(result.type_mission)
-             modal.find('#destinyMission').text(result.destiny)
+             modal.find('#destinyMission').text(result.origin + '  >>  ' + result.destiny)
              modal.find('#classMission').text(result.class)
              modal.find('#docMission').text(result.doc)
-             modal.find('#contactCmtMission').html(result.contact +
+             modal.find('#contactCmtMission').html($('#contactCmtMission').masked(result.contact) +
                  '<a href="https://api.whatsapp.com/send?phone=' +
                  result.contact +
                  '" target="_blank" class="float-r m-r-30 btn btn-success"><i class="fs-20 fab fa-whatsapp"></i></a>'
@@ -388,14 +407,38 @@
                  .ebplaca)
              modal.find('#nameMotMission').text(result.pg_mot + ' ' + result.name_mot)
              modal.find('#nameSegMission').text(result.pg_seg + ' ' + result.name_seg)
-             modal.find('#datePrevPart').text(result.prev_date_part)
-             modal.find('#datePrevChgd').text(result.prev_date_chgd)
-             modal.find('#obsMission').html(result.obs)
+             modal.find('#datePrevPart').text(moment(result.prev_date_part).format('DD-MM-YYYY H:m'))
+             modal.find('#datePrevChgd').text(moment(result.prev_date_chgd).format('DD-MM-YYYY H:m'))
+             if (result.obs == null) {
+                 modal.find('#obsMission').html('<p>Sem observações</p>')
+             } else {
+                 modal.find('#obsMission').html(result.obs)
+             }
              if (result.status == 0) {
                  modal.find('#statusMission').text('Aguardando')
              } else {
                  modal.find('#statusMission').text('Em execução')
              }
+
+             //  Form edição
+             modal.find('#idMission').val(result.id)
+             modal.find('#e_nameMission').val(result.mission_name)
+             modal.find('#e_typeMission').val(result.type_mission)
+             modal.find('#e_destinyMission').val(result.destiny)
+             modal.find('#e_classMission').val(result.class)
+             modal.find('#e_docMission').val(result.doc)
+             modal.find('#e_originMission').val(result.origin)
+             modal.find('#e_contactCmtMission').val(result.contact)
+             modal.find('#e_vtrMission').val(result.vtr)
+             modal.find('#e_pgMotMission').val(result.pg_mot)
+             modal.find('#e_nameMotMission').val(result.name_mot)
+             modal.find('#e_pgSegMission').val(result.pg_seg)
+             modal.find('#e_nameSegMission').val(result.name_seg)
+             modal.find('#e_datePrevPartMission').val(moment(result.prev_date_part).format(
+                 'DD-MM-YYYY H:m'))
+             modal.find('#e_datePrevChgdMission').val(moment(result.prev_date_chgd).format(
+                 'DD-MM-YYYY H:m'))
+             modal.find('#e_obsMission').summernote('code', result.obs)
          })
 
 
