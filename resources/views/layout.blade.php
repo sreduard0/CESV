@@ -70,29 +70,31 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item ">
-                            <a href=" " class="nav-link @yield('home')">
+                            <a href="{{ route('home') }}" class="nav-link @yield('home')">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Início
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a href=" " class="nav-link @yield('ficha')">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>
-                                    Fichas
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href=" " class="nav-link @yield('vtr')">
-                                <i class="nav-icon fas fa-car"></i>
-                                <p>
-                                    Viaturas
-                                </p>
-                            </a>
-                        </li>
+                        @if (session('CESV')['profileType'] == 1)
+                            <li class="nav-item ">
+                                <a href="{{ route('fichas') }}" class="nav-link @yield('ficha')">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>
+                                        Fichas
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{{ route('vtr') }}" class="nav-link @yield('vtr')">
+                                    <i class="nav-icon fas fa-car"></i>
+                                    <p>
+                                        Viaturas
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
 
                 </nav>
             </div>

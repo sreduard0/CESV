@@ -113,7 +113,7 @@ function registerMission() {
         obsMission: formData.get('obsMission')
     }
 
-    const URL = window.location.href + 'register_mission'
+    const URL = '/register_mission'
 
     $.ajax({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -255,7 +255,7 @@ function editMission() {
         obsMission: formData.get('e_obsMission')
     }
 
-    const URL = window.location.href + 'edit_mission'
+    const URL = '/edit_mission'
 
     $.ajax({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -297,7 +297,7 @@ function deleteMission(id) {
 
             if (confirmacao)
                 $.ajax({
-                    url: window.location.href + 'delete_mission/' + id,
+                    url: '/delete_mission/' + id,
                     type: "GET",
                     success: function (data) {
                         $("#table").DataTable().clear().draw();

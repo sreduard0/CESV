@@ -22,4 +22,11 @@ class ViewController extends Controller
                 break;
         }
     }
+
+    public function fichas(){
+        return view('ficha-list');
+    }
+    public function viatura(){
+        return view('vtr-list');
+    }
 }

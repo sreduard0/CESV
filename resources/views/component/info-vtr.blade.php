@@ -114,7 +114,11 @@
             modal.find('#nr_vtr').text(result.nr_vtr)
             modal.find('#ton').text(result.ton)
             modal.find('#vol').text(result.vol)
-            modal.find('#obs_vtr').text(result.obs)
+            if (result.obs == null) {
+                modal.find('#obs_vtr').text('Sem observações')
+            } else {
+                modal.find('#obs_vtr').html(result.obs)
+            }
             if (result.status == 1) {
                 modal.find('#status').text('Disponível')
             } else {
@@ -133,7 +137,7 @@
         modal.find('#ton').text('Não consta')
         modal.find('#vol').text('Não consta.')
         modal.find('#status').text('Não consta.')
-        modal.find('#obs_vtr').text('Não consta.')
+        modal.find('#obs_vtr').html('Não consta.')
         modal.find('#status').text('Não consta.')
         $('.ger-qr').prop('disabled', true)
 

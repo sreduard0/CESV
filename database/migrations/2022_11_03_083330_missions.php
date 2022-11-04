@@ -27,7 +27,7 @@ class Missions extends Migration
             $table->datetime('prev_date_chgd');
             $table->string('contact',13);
             $table->text('obs')->nullable();
-            $table->datetime('finish_mission');
+            $table->datetime('finish_mission')->nullable();
             $table->integer('od_ini')->nullable();
             $table->integer('od_fin')->nullable();
             $table->integer('cons_gas')->nullable();

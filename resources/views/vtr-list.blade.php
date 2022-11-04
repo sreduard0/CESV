@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title', 'Transporte')
-@section('home', 'active')
+@section('vtr', 'active')
 @section('title-header', 'Viaturas')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,6 +15,12 @@
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    {{-- CRUD JS --}}
+    <script src="{{ asset('js/crud-vtr.js') }}"></script>
+
+
     <style>
         .dataTables_wrapper .dataTables_filter {
             float: right;
@@ -29,8 +35,27 @@
     <section class="col ">
         <div class="card">
             <div class="card-header">
-                <div class=" col d-flex justify-content-sm-end">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#register-vtr">Cadastrar</button>
+                <div class="row d-flex justify-content-between">
+                    <div class="col-md-5">
+                        <div class="row ">
+                            <div class="form-group col">
+                                <label for="vtrStatus">Viatura</label>
+                                <select id="vtrStatus" class="form-control">
+                                    <option selected value="">TODAS AS VIATURAS</option>
+                                    <option value="1">Disponível</option>
+                                    <option value="2">Indisponível</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex justify-content-sm-end">
+                        <div class="col">
+                            <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#register-vtr">Cadastrar</button>
+                        </div>
+                    </div>
                 </div>
                 <div id="button-print"></div>
             </div>
@@ -44,27 +69,9 @@
                             <th>Ton</th>
                             <th>M <sup>3</sup></th>
                             <th>Status</th>
-                            <th style="width:85px"><i class="fs-20 fa fa-info-circle"></i> info</th>
+                            <th style="width:90px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Marrua</td>
-                            <td>EB3434535353</td>
-                            <td>2</td>
-                            <td>50</td>
-                            <td>Disponível</td>
-                            <td>
-                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"
-                                    data-id='1'><i class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#register-vtr"
-                                    data-id='1'><i class="fa fa-edit"></i></button>
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
-                                        class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
             <!-- /.card-body -->
@@ -84,57 +91,167 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form-vtr">
+                    <form id="form-register-vtr">
                         <div class="row">
                             <div class="form-group col">
-                                <label for="name">Nr <span style="color:red">*</span></label>
-                                <input id="name" name="name" typphp e="text" class="form-control"
-                                    placeholder="Ex: 15">
+                                <label for="nrVtr">Nº<span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-car"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="nrVtr" name="nrVtr"
+                                        data-inputmask="'mask':'999'" data-mask="" inputmode="text" placeholder="EX: 5">
+                                </div>
+
                             </div>
                             <div class="form-group col">
-                                <label for="name">Modelo vtr <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
+                                <label for="modVtr">Modelo vtr <span style="color:red">*</span></label>
+                                <input maxlength="255" id="modVtr" name="modVtr" type="text" class="form-control"
                                     placeholder="Ex: VTE CAVALO MECÂNICO MERCEDES BENZ AXOR 2644 ">
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="pg">EB/Placa <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
+                                <label for="ebPlacaVtr">EB/Placa <span style="color:red">*</span></label>
+                                <input maxlength="20" id="ebPlacaVtr" name="ebPlacaVtr" type="text" class="form-control"
                                     placeholder="Ex: 252627662 ">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label for="pg">Toneladas<span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Ex: 20">
+                                <label for="tonVtr">Toneladas<span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><strong>Ton</strong></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="tonVtr" name="tonVtr"
+                                        data-inputmask="'mask':'999'" data-mask="" inputmode="text"
+                                        placeholder="EX: 5">
+                                </div>
 
                             </div>
                             <div class="form-group col">
-                                <label for="name">M<sup>3</sup> <span style="color:red">*</span> </label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Ex: 102">
+                                <label for="volVtr">M<sup>3</sup> <span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><strong>M<sup>3</sup></strong></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="volVtr" name="volVtr"
+                                        data-inputmask="'mask':'999'" data-mask="" inputmode="text"
+                                        placeholder="EX: 5">
+                                </div>
+
                             </div>
                             <div class="form-group colmd-3">
-                                <label for="name">Status <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
+                                <label for="statusVtr">Status <span style="color:red">*</span></label>
+                                <select class="form-control" name="statusVtr" id="statusVtr">
                                     <option value="">Selecione</option>
                                     <option value="1">Disponível</option>
-                                    <option value="0">Indisponível</option>
+                                    <option value="2">Indisponível</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <label for="name">Observações</label>
-                                <textarea name="" id="" rows="8"
-                                    placeholder="Detalhes importantes sobre a viatura, como falta de peças, etc." class="form-control"></textarea>
+                                <label for="obsVtr">Observações</label><br><span class="fs-12">Detalhes importantes
+                                    sobre a
+                                    viatura, como falta de peças, etc.</span>
+                                <textarea class="text" name="obsVtr" id="obsVtr" rows="8" class="form-control"></textarea>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success" onclick="">Salvar</button>
+                    <button type="button" class="btn btn-success" onclick="return registerVtr()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR VTR-->
+    <div class="modal fade" id="edit-vtr" tabindex="-1" role="dialog" aria-labelledby="edit-vtrLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit-vtrLabel">Editar viatura</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-edit-vtr">
+                        <input type="hidden" id="id_vtr" name="id_vtr">
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="e_nrVtr">Nº<span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-car"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="e_nrVtr" name="e_nrVtr"
+                                        data-inputmask="'mask':'999'" data-mask="" inputmode="text"
+                                        placeholder="EX: 5">
+                                </div>
+
+                            </div>
+                            <div class="form-group col">
+                                <label for="e_modVtr">Modelo vtr <span style="color:red">*</span></label>
+                                <input maxlength="255" id="e_modVtr" name="e_modVtr" type="text"
+                                    class="form-control" placeholder="Ex: VTE CAVALO MECÂNICO MERCEDES BENZ AXOR 2644 ">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="e_ebPlacaVtr">EB/Placa <span style="color:red">*</span></label>
+                                <input maxlength="20" id="e_ebPlacaVtr" name="e_ebPlacaVtr" type="text"
+                                    class="form-control" placeholder="Ex: 252627662 ">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="e_tonVtr">Toneladas<span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><strong>Ton</strong></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="e_tonVtr" name="e_tonVtr"
+                                        data-inputmask="'mask':'999'" data-mask="" inputmode="text"
+                                        placeholder="EX: 5">
+                                </div>
+
+                            </div>
+                            <div class="form-group col">
+                                <label for="e_volVtr">M<sup>3</sup> <span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><strong>M<sup>3</sup></strong></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="e_volVtr" name="e_volVtr"
+                                        data-inputmask="'mask':'999'" data-mask="" inputmode="text"
+                                        placeholder="EX: 5">
+                                </div>
+
+                            </div>
+                            <div class="form-group colmd-3">
+                                <label for="e_statusVtr">Status <span style="color:red">*</span></label>
+                                <select class="form-control" name="e_statusVtr" id="e_statusVtr">
+                                    <option value="">Selecione</option>
+                                    <option value="1">Disponível</option>
+                                    <option value="2">Indisponível</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="e_obsVtr">Observações</label><br><span class="fs-12">Detalhes importantes
+                                    sobre a
+                                    viatura, como falta de peças, etc.</span>
+                                <textarea class="text" name="e_obsVtr" id="e_obsVtr" rows="8" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" onclick="return editVtr()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -160,43 +277,44 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('js/actions.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
-
+    <!-- Summernote -->
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
-        // $(function() {
-        //     var url = '/get_qtt_licensing';
-        //     $.get(url, function(result) {
-        //         document.getElementById('ata').innerText = result.ata;
-        //         document.getElementById('reintegrado').innerText = result.reintegrado;
-        //         document.getElementById('encostado').innerText = result.encostado;
-        //         document.getElementById('adido').innerText = result.adido;
-        //     })
-        // });
-
+        document.getElementById('vtrStatus').addEventListener('change', event => {
+            $('#table').DataTable().column(3).search(event.target.value).draw();
+        });
+        $(function() {
+            $('.text').summernote({
+                toolbar: [
+                    // [groupName, [list of button]]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font'],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table'],
+                ]
+            });
+        });
         $(function() {
             $("#table").DataTable({
                 "paging": true,
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,
-                // "aoColumnDefs": [{
-                //     'bSortable': false,
-                //     'aTargets': [0, 4, 5, 6]
-                // }],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
                 "processing": true,
-                // "serverSide": true,
-
-                // "ajax": {
-                //     "url": "",
-                //     "type": "POST",
-                //     "headers": {
-                //         'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                //     },
-                // },
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ route('listVtr') }}",
+                    "type": "POST",
+                    "headers": {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    },
+                },
                 "dom": "Bfrtip",
                 "lengthMenu": [
                     [10, 25, 50, 100, 100000],
@@ -208,7 +326,7 @@
                         'messageTop': " ",
                         'messageBottom': 'Seção de Saúde',
                         'exportOptions': {
-                            'columns': [1, 2, 3, 4, 5]
+                            'columns': [0, 1, 2, 3, 4]
                         },
                         "autoPrint": true,
                     },
@@ -220,103 +338,26 @@
             });
 
         });
+        $('#edit-vtr').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            var url = "{{ url('get_info_vtr') }}/" + id;
+            $.get(url, function(result) {
+                modal.find('#id_vtr').val(result.id)
+                modal.find('#e_nrVtr').val(result.nr_vtr)
+                modal.find('#e_modVtr').val(result.mod_vtr)
+                modal.find('#e_ebPlacaVtr').val(result.ebplaca)
+                modal.find('#e_tonVtr').val(result.ton)
+                modal.find('#e_volVtr').val(result.vol)
+                modal.find('#e_statusVtr').val(result.status)
+                modal.find('#e_obsVtr').summernote('code', result.obs)
+            })
+        });
+        $('#edit-vtr').on('hide.bs.modal', function(event) {
+            $('#form-edit-vtr')[0].reset();
+            $('#e_obsVtr').summernote('code', '');
+        });
     </script>
 
 @endsection
-
-
-
-
-{{-- <form id="form-mission">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Nome do motorista <span style="color:red">*</span></label>
-                                <input id="name" name="name" typphp e="text" class="form-control"
-                                    placeholder="Nome do motorista">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Nome do segurança <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Nome do segurança">
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <label for="name">Idt mil <span style="color:red">*</span> </label> (do mais
-                                antigo)
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Idt mil">
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Modelo veículo <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Modelo veículo">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="name">Placa / EB <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Placa / EB">
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="name">OM <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="OM">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="name">Destino / Missão <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Destino / Missão">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col">
-                                <label for="name">Observações</label>
-                                <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
-                                    class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </form> --}}

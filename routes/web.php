@@ -17,12 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 // VIEWS
 Route::get('/', [ViewController::class, 'home'])->name('home')->middleware('auth');
+Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('auth');
+Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('auth');
 
 
 
 // AÇÕES
 // VIATURAS
 Route::get('get_info_vtr/{id}',[VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('auth');
+Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('auth');
 
 
 // MISSÕES
@@ -33,4 +36,9 @@ Route::post('post_missions_list',[MissionController::class,'listMission'])->name
 Route::post('register_mission',[MissionController::class, 'registerMission'])->middleware('auth');
 Route::post('edit_mission',[MissionController::class, 'editMission'])->middleware('auth');
 Route::get('delete_mission/{id}',[MissionController::class, 'deleteMission'])->middleware('auth');
+
+// crud viaturas
+Route::post('register_vtr', [VtrController::class, 'registerVtr'])->middleware('auth');
+Route::post('edit_vtr',[VtrController::class, 'editVtr'])->middleware('auth');
+Route::get('delete_vtr/{id}',[VtrController::class, 'deleteVtr'])->middleware('auth');
 

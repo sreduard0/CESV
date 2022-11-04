@@ -15,7 +15,6 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     {{-- CRUD .JS --}}
-
     <script src="{{ asset('js/crud-missions.js') }}"></script>
     <style>
         .dataTables_wrapper .dataTables_filter {
@@ -293,11 +292,13 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
-    <script src="{{ asset('js/actions.js') }}"></script>
 
     <!-- Summernote -->
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
+        document.getElementById('vtrType').addEventListener('change', event => {
+            $('#table').DataTable().column(3).search(event.target.value).draw();
+        });
         $(function() {
             $('.text').summernote({
                 toolbar: [
