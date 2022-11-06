@@ -11,21 +11,21 @@ class VtrRequest extends FormRequest
     {
         if (session('CESV')['profileType'] == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-
     public function rules()
     {
         return [
-                'nrVtr' => 'required | max:4',
-                'modVtr' => 'required | max:255',
-                'tonVtr' => 'required | max:10',
-                'volVtr' => 'required | max:10',
-                'ebPlacaVtr' => 'required| max:20',
-                'statusVtr' => 'required',
+            'nrVtr' => 'required | max:4',
+            'typeVtr' => 'required | max:3',
+            'modVtr' => 'required | max:255',
+            'tonVtr' => 'required | max:10',
+            'volVtr' => 'required | max:10',
+            'ebPlacaVtr' => 'required| max:20',
+            'statusVtr' => 'required',
         ];
     }
 }

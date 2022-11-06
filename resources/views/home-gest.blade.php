@@ -68,10 +68,10 @@
                             <th>Destino</th>
                             <th>Documento</th>
                             <th width="35px">Classe</th>
-                            <th>Vtr</th>
+                            <th>Qtd. Vtrs</th>
                             <th>Prev. partida</th>
                             <th>Status</th>
-                            <th style="width:85px"><i class="fs-20 fa fa-info-circle"></i> info</th>
+                            <th style="width:65px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
                 </table>
@@ -134,53 +134,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="vtrMission">Viatura<span style="color:red">*</span></label>
-                                <select class="form-control" name="vtrMission" id="vtrMission">
-                                    <option selected value="">Selecione</option>
-                                    @foreach ($viaturas as $viatura)
-                                        <option value="{{ $viatura->id }}">{{ $viatura->mod_vtr }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+
                             <div class="form-group col">
                                 <label for="docMission">Documento <span style="color:red">*</span> </label>
                                 <input minlength="2" maxlength="200" id="docMission" name="docMission" type="text"
                                     class="form-control" placeholder="documento que deu ordem para a realizar a missão.">
                             </div>
-                            <div class="form-group colmd-3">
-                                <label for="originMission">Origem <span style="color:red">*</span></label>
-                                <input minlength="2" maxlength="200" id="originMission" name="originMission"
-                                    type="text" class="form-control" placeholder="De onde parte a missão.">
-                            </div>
+
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-2">
-                                <label for="pgMotMission">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="pgMotMission" id="pgMotMission">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="nameMotMission">Nome do motorista <span style="color:red">*</span></label>
-                                <input minlength="2" maxlength="200" id="nameMotMission" name="nameMotMission" typphp
-                                    e="text" class="form-control" placeholder="Nome do motorista">
-                            </div>
+
                             <div class="form-group col-md-2">
                                 <label for="pgSegMission">Posto/Grad <span style="color:red">*</span></label>
                                 <select class="form-control" name="pgSegMission" id="pgSegMission">
@@ -207,10 +171,27 @@
                                 <input minlength="2" maxlength="200" id="nameSegMission" name="nameSegMission"
                                     type="text" class="form-control" placeholder="Nome do cmt da missão">
                             </div>
+                            <div class="form-group col-md-4">
+                                <label for="contactCmtMission">Telefone de contato <span
+                                        style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="contactCmtMission"
+                                        name="contactCmtMission" data-inputmask="'mask':'(99) 9 9999-9999'"
+                                        data-mask="" inputmode="text" placeholder="EX: (51) 9 8020-4426">
+                                </div>
+
+                            </div>
 
                         </div>
                         <div class="row">
-
+                            <div class="form-group col-md-3">
+                                <label for="originMission">Origem <span style="color:red">*</span></label>
+                                <input minlength="2" maxlength="200" id="originMission" name="originMission"
+                                    type="text" class="form-control" placeholder="De onde parte a missão.">
+                            </div>
                             <div class="form-group col">
                                 <label>Prev. do dia e horário da partida</label>
                                 <div class="input-group date" id="prev_part" data-target-input="nearest">
@@ -238,19 +219,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-4">
-                                <label for="contactCmtMission">Telefone de contato <span
-                                        style="color:red">*</span></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" id="contactCmtMission"
-                                        name="contactCmtMission" data-inputmask="'mask':'(99) 9 9999-9999'"
-                                        data-mask="" inputmode="text" placeholder="EX: (51) 9 8020-4426">
-                                </div>
 
-                            </div>
                         </div>
                         <div class="row">
                             <div class="form-group col">

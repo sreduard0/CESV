@@ -36,12 +36,6 @@
 
                                  <hr>
 
-                                 <strong>Status</strong>
-
-                                 <p id="statusMission" class="text-muted">-</p>
-
-                                 <hr>
-
                                  <strong>Destino</strong>
 
                                  <p id="destinyMission" class="text-muted">-</p>
@@ -57,14 +51,17 @@
                                  <strong>Domumento</strong>
 
                                  <p id="docMission" class="text-muted">-</p>
-
                                  <hr>
 
+                                 <strong>Nome do cmt da missão</strong>
+                                 <p id="nameSegMission" class="text-muted">-</p>
+
+
+                                 <hr>
 
                                  <strong>Contato</strong>
 
                                  <p id="contactCmtMission" class="text-muted">-</p>
-
 
 
                              </div>
@@ -75,16 +72,9 @@
 
                                  <hr>
 
-                                 <strong>Nome do motorista</strong>
+                                 <strong>Status</strong>
 
-                                 <p id="nameMotMission" class="text-muted">-</p>
-
-                                 <hr>
-
-                                 <strong>Nome do segurança</strong>
-
-                                 <p id="nameSegMission" class="text-muted">-</p>
-
+                                 <p id="statusMission" class="text-muted">-</p>
 
                                  <hr>
 
@@ -153,58 +143,16 @@
                                      </div>
                                  </div>
                                  <div class="row">
-                                     <div class="form-group col-md-3">
-                                         <label for="e_vtrMission">Viatura<span style="color:red">*</span></label>
-                                         <select class="form-control" name="e_vtrMission" id="e_vtrMission">
-                                             <option selected value="">Selecione</option>
-                                             @foreach ($viaturas as $viatura)
-                                                 <option value="{{ $viatura->id }}">{{ $viatura->mod_vtr }}</option>
-                                             @endforeach
-                                         </select>
-                                     </div>
                                      <div class="form-group col">
                                          <label for="e_docMission">Documento <span style="color:red">*</span> </label>
                                          <input minlength="2" maxlength="200" id="e_docMission" name="e_docMission"
                                              type="text" class="form-control"
                                              placeholder="documento que deu ordem para a realizar a missão.">
                                      </div>
-                                     <div class="form-group colmd-3">
-                                         <label for="e_originMission">Origem <span style="color:red">*</span></label>
-                                         <input minlength="2" maxlength="200" id="e_originMission"
-                                             name="e_originMission" type="text" class="form-control"
-                                             placeholder="De onde parte a missão.">
-                                     </div>
+
                                  </div>
 
                                  <div class="row">
-                                     <div class="form-group col-md-2">
-                                         <label for="e_pgMotMission">Posto/Grad <span
-                                                 style="color:red">*</span></label>
-                                         <select class="form-control" name="e_pgMotMission" id="e_pgMotMission">
-                                             <option value="">Selecione</option>
-                                             <option value="Gen">Gen</option>
-                                             <option value="Cel">Cel</option>
-                                             <option value="TC">TC</option>
-                                             <option value="Maj">Maj</option>
-                                             <option value="Cap">Cap</option>
-                                             <option value="1º Ten">1º Ten</option>
-                                             <option value="2º Ten">2º Ten</option>
-                                             <option value="Asp">Asp</option>
-                                             <option value="ST">ST</option>
-                                             <option value="1º Sgt">1º Sgt</option>
-                                             <option value="2º Sgt">2º Sgt</option>
-                                             <option value="3º Sgt">3º Sgt</option>
-                                             <option value="Cb">Cb</option>
-                                             <option value="Sd">Sd</option>
-                                         </select>
-                                     </div>
-                                     <div class="form-group col">
-                                         <label for="e_nameMotMission">Nome do motorista <span
-                                                 style="color:red">*</span></label>
-                                         <input minlength="2" maxlength="200" id="e_nameMotMission"
-                                             name="e_nameMotMission" typphp e="text" class="form-control"
-                                             placeholder="Nome do motorista">
-                                     </div>
                                      <div class="form-group col-md-2">
                                          <label for="e_pgSegMission">Posto/Grad <span
                                                  style="color:red">*</span></label>
@@ -234,11 +182,30 @@
                                              name="e_nameSegMission" type="text" class="form-control"
                                              placeholder="Nome do cmt da missão">
                                      </div>
+                                     <div class="form-group col-md-4">
+                                         <label for="e_contactCmtMission">Telefone de contato <span
+                                                 style="color:red">*</span></label>
+                                         <div class="input-group">
+                                             <div class="input-group-prepend">
+                                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                             </div>
+                                             <input type="text" class="form-control" id="e_contactCmtMission"
+                                                 name="e_contactCmtMission" data-inputmask="'mask':'(99) 9 9999-9999'"
+                                                 data-mask="" inputmode="text" placeholder="EX: (51) 9 8020-4426">
+                                         </div>
+
+                                     </div>
 
                                  </div>
                                  <div class="row">
-
+                                     <div class="form-group colmd-3">
+                                         <label for="e_originMission">Origem <span style="color:red">*</span></label>
+                                         <input minlength="2" maxlength="200" id="e_originMission"
+                                             name="e_originMission" type="text" class="form-control"
+                                             placeholder="De onde parte a missão.">
+                                     </div>
                                      <div class="form-group col">
+
                                          <label>Prev. do dia e horário da partida</label>
                                          <div class="input-group date" id="e_prev_part" data-target-input="nearest">
                                              <input type="text" class="form-control datetimepicker-input"
@@ -265,19 +232,7 @@
                                          </div>
                                      </div>
 
-                                     <div class="form-group col-md-4">
-                                         <label for="e_contactCmtMission">Telefone de contato <span
-                                                 style="color:red">*</span></label>
-                                         <div class="input-group">
-                                             <div class="input-group-prepend">
-                                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                             </div>
-                                             <input type="text" class="form-control" id="e_contactCmtMission"
-                                                 name="e_contactCmtMission" data-inputmask="'mask':'(99) 9 9999-9999'"
-                                                 data-mask="" inputmode="text" placeholder="EX: (51) 9 8020-4426">
-                                         </div>
 
-                                     </div>
                                  </div>
                                  <div class="row">
                                      <div class="form-group col">
@@ -399,6 +354,28 @@
              showEdit = true
          @endif
          $.get(url, function(result) {
+             const Vtrs = result.vtr_info.map(vtr => {
+                 if (vtr.pg_seg) {
+                     var segName = vtr.pg_seg + ' ' + vtr.name_seg
+                 } else {
+                     var segName = 'Não informado'
+                 }
+                 var data = 'Ficha: ' + vtr.nr_ficha + ' | Vtr: ' + vtr.vtrinfo.mod_vtr +
+                     ' <br> Mot: ' + vtr.pg_mot + ' ' + vtr.name_mot + ' | Seg: ' + segName +
+                     '<br><br>'
+
+                 return data
+             })
+             if (result.obs == null) {
+                 modal.find('#obsMission').html('<p>Sem observações</p>')
+             } else {
+                 modal.find('#obsMission').html(result.obs)
+             }
+             if (result.status == 0) {
+                 modal.find('#statusMission').text('Aguardando')
+             } else {
+                 modal.find('#statusMission').text('Em execução')
+             }
              // Exibição
              modal.find('#nameMission').text(result.mission_name)
              modal.find('#typeMission').text(result.type_mission)
@@ -410,22 +387,11 @@
                  result.contact +
                  '" target="_blank" class="float-r m-r-30 btn btn-success"><i class="fs-20 fab fa-whatsapp"></i></a>'
              )
-             modal.find('#vtrMission').text(result.vtr_info.mod_vtr + ' | EB/Placa: ' + result.vtr_info
-                 .ebplaca)
-             modal.find('#nameMotMission').text(result.pg_mot + ' ' + result.name_mot)
+             modal.find('#vtrMission').html(Vtrs == '' ? 'Não há viaturas' : Vtrs)
              modal.find('#nameSegMission').text(result.pg_seg + ' ' + result.name_seg)
              modal.find('#datePrevPart').text(moment(result.prev_date_part).format('DD-MM-YYYY HH:mm'))
              modal.find('#datePrevChgd').text(moment(result.prev_date_chgd).format('DD-MM-YYYY HH:mm'))
-             if (result.obs == null) {
-                 modal.find('#obsMission').html('<p>Sem observações</p>')
-             } else {
-                 modal.find('#obsMission').html(result.obs)
-             }
-             if (result.status == 0) {
-                 modal.find('#statusMission').text('Aguardando')
-             } else {
-                 modal.find('#statusMission').text('Em execução')
-             }
+
              @if (session('CESV')['profileType'] == 1)
 
                  //  Form edição
@@ -437,9 +403,6 @@
                  modal.find('#e_docMission').val(result.doc)
                  modal.find('#e_originMission').val(result.origin)
                  modal.find('#e_contactCmtMission').val(result.contact)
-                 modal.find('#e_vtrMission').val(result.vtr)
-                 modal.find('#e_pgMotMission').val(result.pg_mot)
-                 modal.find('#e_nameMotMission').val(result.name_mot)
                  modal.find('#e_pgSegMission').val(result.pg_seg)
                  modal.find('#e_nameSegMission').val(result.name_seg)
                  modal.find('#e_datePrevPartMission').val(moment(result.prev_date_part).format(

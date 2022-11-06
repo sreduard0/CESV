@@ -33,12 +33,6 @@ function registerMission() {
     } else {
         $('#classMission').removeClass('is-invalid');
     }
-    if (formData.get('vtrMission') == '') {
-        $('#vtrMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#vtrMission').removeClass('is-invalid');
-    }
     if (formData.get('docMission') == '' || formData.get('docMission').length > 200) {
         $('#docMission').addClass('is-invalid');
         return false;
@@ -50,18 +44,6 @@ function registerMission() {
         return false;
     } else {
         $('#originMission').removeClass('is-invalid');
-    }
-    if (formData.get('pgMotMission') == '') {
-        $('#pgMotMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#pgMotMission').removeClass('is-invalid');
-    }
-    if (formData.get('nameMotMission') == '' || formData.get('nameMotMission').length > 200) {
-        $('#nameMotMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#nameMotMission').removeClass('is-invalid');
     }
     if (formData.get('pgSegMission') == '') {
         $('#pgSegMission').addClass('is-invalid');
@@ -103,8 +85,8 @@ function registerMission() {
         vtrMission: formData.get('vtrMission'),
         docMission: formData.get('docMission'),
         originMission: formData.get('originMission'),
-        pgMotMission: formData.get('pgMotMission'),
-        nameMotMission: formData.get('nameMotMission'),
+        // pgMotMission: formData.get('pgMotMission'),
+        // nameMotMission: formData.get('nameMotMission'),
         pgSegMission: formData.get('pgSegMission'),
         nameSegMission: formData.get('nameSegMission'),
         datePrevPartMission: formData.get('datePrevPartMission'),
@@ -158,7 +140,7 @@ function editMission() {
         $('#e_typeMission').removeClass('is-invalid');
     }
     if (formData.get('e_nameMission') == '' || formData.get('e_nameMission').length > 200) {
-        $('#nameMission').addClass('is-invalid');
+        $('#e_nameMission').addClass('is-invalid');
         return false;
     } else {
         $('#e_nameMission').removeClass('is-invalid');
@@ -175,12 +157,6 @@ function editMission() {
     } else {
         $('#e_classMission').removeClass('is-invalid');
     }
-    if (formData.get('e_vtrMission') == '') {
-        $('#e_vtrMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#e_vtrMission').removeClass('is-invalid');
-    }
     if (formData.get('e_docMission') == '' || formData.get('e_docMission').length > 200) {
         $('#e_docMission').addClass('is-invalid');
         return false;
@@ -192,18 +168,6 @@ function editMission() {
         return false;
     } else {
         $('#e_originMission').removeClass('is-invalid');
-    }
-    if (formData.get('e_pgMotMission') == '') {
-        $('#e_pgMotMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#e_pgMotMission').removeClass('is-invalid');
-    }
-    if (formData.get('e_nameMotMission') == '' || formData.get('e_nameMotMission').length > 200) {
-        $('#e_nameMotMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#e_nameMotMission').removeClass('is-invalid');
     }
     if (formData.get('e_pgSegMission') == '') {
         $('#e_pgSegMission').addClass('is-invalid');
@@ -242,11 +206,8 @@ function editMission() {
         nameMission: formData.get('e_nameMission'),
         destinyMission: formData.get('e_destinyMission'),
         classMission: formData.get('e_classMission'),
-        vtrMission: formData.get('e_vtrMission'),
         docMission: formData.get('e_docMission'),
         originMission: formData.get('e_originMission'),
-        pgMotMission: formData.get('e_pgMotMission'),
-        nameMotMission: formData.get('e_nameMotMission'),
         pgSegMission: formData.get('e_pgSegMission'),
         nameSegMission: formData.get('e_nameSegMission'),
         datePrevPartMission: formData.get('e_datePrevPartMission'),

@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MissionModel extends Model
 {
-    public function vtrinfo(){
-        return $this->hasOne('App\Models\VtrModel','id' , 'vtr');
+    public function vtrinfo()
+    {
+        return $this->hasMany('App\Models\FichaModel', 'id_mission', 'id')->with('vtrinfo');
     }
     use HasFactory;
     use SoftDeletes;

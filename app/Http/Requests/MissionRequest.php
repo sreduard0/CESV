@@ -13,32 +13,29 @@ class MissionRequest extends FormRequest
      */
     public function authorize()
     {
-          if (session('CESV')['profileType'] == 1) {
+        if (session('CESV')['profileType'] == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-     public function rules()
+    public function rules()
     {
         return
             [
-                'typeMission' => 'required | max:2',
-                'nameMission' => 'required | max:255',
-                'destinyMission' => 'required | max:255',
-                'classMission' => 'required | max:5',
-                'vtrMission' => 'required',
-                'docMission' => 'required | max:255',
-                'originMission' => 'required | max:255',
-                'pgMotMission' => 'required',
-                'nameMotMission' => 'required | max:255',
-                'pgSegMission' => 'required',
-                'nameSegMission' => 'required | max:255',
-                'datePrevPartMission' => 'required',
-                'datePrevChgdMission' => 'required',
-                'contactCmtMission' => 'required',
-            ];
+            'typeMission' => 'required | max:2',
+            'nameMission' => 'required | max:255',
+            'destinyMission' => 'required | max:255',
+            'classMission' => 'required | max:5',
+            'docMission' => 'required | max:255',
+            'originMission' => 'required | max:255',
+            'pgSegMission' => 'required',
+            'nameSegMission' => 'required | max:255',
+            'datePrevPartMission' => 'required',
+            'datePrevChgdMission' => 'required',
+            'contactCmtMission' => 'required',
+        ];
 
     }
 }

@@ -49,11 +49,11 @@
                                         <div class="card-body">
                                             <div class="card-body">
                                                 <div class="col">
-                                                    <strong>Nº da viatura</strong>
+                                                    <strong>Nº</strong>
 
                                                     <p id="nr_vtr" class="text-muted">xx</p>
                                                     <hr>
-                                                    <strong>tipo de viatura</strong>
+                                                    <strong>Tipo</strong>
 
                                                     <p id="type_vtr" class="text-muted">xx</p>
                                                     <hr>
@@ -110,10 +110,14 @@
             modal.find('#mod_vtr').text(result.mod_vtr)
             modal.find('#ebplaca').text(result.ebplaca)
             modal.find('#eb_placa').val(result.ebplaca)
-            modal.find('#type_vtr').text(result.type_vtr)
             modal.find('#nr_vtr').text(result.nr_vtr)
             modal.find('#ton').text(result.ton)
             modal.find('#vol').text(result.vol)
+            if (result.type_vtr == 'op') {
+                modal.find('#type_vtr').text('Operacional')
+            } else {
+                modal.find('#type_vtr').text('Administrativa')
+            }
             if (result.obs == null) {
                 modal.find('#obs_vtr').text('Sem observações')
             } else {

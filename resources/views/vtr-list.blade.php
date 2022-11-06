@@ -104,15 +104,23 @@
                                 </div>
 
                             </div>
+                            <div class="form-group col-md-3">
+                                <label for="typeVtr">Tipo<span style="color:red">*</span></label>
+                                <select class="form-control" name="typeVtr" id="typeVtr">
+                                    <option value="">Selecione</option>
+                                    <option value="adm">Administrativa</option>
+                                    <option value="op">Operacional</option>
+                                </select>
+                            </div>
                             <div class="form-group col">
-                                <label for="modVtr">Modelo vtr <span style="color:red">*</span></label>
+                                <label for="modVtr">Modelo<span style="color:red">*</span></label>
                                 <input maxlength="255" id="modVtr" name="modVtr" type="text" class="form-control"
                                     placeholder="Ex: VTE CAVALO MECÂNICO MERCEDES BENZ AXOR 2644 ">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="ebPlacaVtr">EB/Placa <span style="color:red">*</span></label>
-                                <input maxlength="20" id="ebPlacaVtr" name="ebPlacaVtr" type="text" class="form-control"
-                                    placeholder="Ex: 252627662 ">
+                                <input maxlength="20" id="ebPlacaVtr" name="ebPlacaVtr" type="text"
+                                    class="form-control" placeholder="Ex: 252627662 ">
                             </div>
                         </div>
                         <div class="row">
@@ -195,7 +203,15 @@
 
                             </div>
                             <div class="form-group col">
-                                <label for="e_modVtr">Modelo vtr <span style="color:red">*</span></label>
+                                <label for="e_typeVtr">Tipo<span style="color:red">*</span></label>
+                                <select class="form-control" name="e_typeVtr" id="e_typeVtr">
+                                    <option value="">Selecione</option>
+                                    <option value="adm">Administrativa</option>
+                                    <option value="op">Operacional</option>
+                                </select>
+                            </div>
+                            <div class="form-group col">
+                                <label for="e_modVtr">Modelo<span style="color:red">*</span></label>
                                 <input maxlength="255" id="e_modVtr" name="e_modVtr" type="text"
                                     class="form-control" placeholder="Ex: VTE CAVALO MECÂNICO MERCEDES BENZ AXOR 2644 ">
                             </div>
@@ -346,6 +362,7 @@
             $.get(url, function(result) {
                 modal.find('#id_vtr').val(result.id)
                 modal.find('#e_nrVtr').val(result.nr_vtr)
+                modal.find('#e_typeVtr').val(result.type_vtr)
                 modal.find('#e_modVtr').val(result.mod_vtr)
                 modal.find('#e_ebPlacaVtr').val(result.ebplaca)
                 modal.find('#e_tonVtr').val(result.ton)

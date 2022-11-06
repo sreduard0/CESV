@@ -35,6 +35,7 @@ class RelGda extends Migration
 
     public function down()
     {
+        Schema::dropIfExists('rel_gda');
 
     }
 }

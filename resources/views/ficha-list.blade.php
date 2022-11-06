@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title', 'Transporte')
-@section('home', 'active')
+@section('ficha', 'active')
 @section('title-header', 'Fichas')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    {{-- CRUD JS --}}
+    <script src="{{ asset('js/crud-ficha.js') }}"></script>
     <style>
         .dataTables_wrapper .dataTables_filter {
             float: right;
@@ -29,8 +30,28 @@
     <section class="col ">
         <div class="card">
             <div class="card-header">
-                <div class=" col d-flex justify-content-sm-end">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#register-vtr">Cadastrar</button>
+                <div class="row d-flex justify-content-between">
+                    <div class="col-md-5">
+                        <div class="row ">
+                            <div class="form-group col">
+                                <label for="statusFicha">Viatura</label>
+                                <select id="statusFicha" name="statusFicha" class="form-control">
+                                    <option value="1">Abertas</option>
+                                    <option value="2">Fechadas</option>
+                                </select>
+                            </div>
+                            <button onclick="return search_condition()" style="height: 40px;"
+                                class="btn btn-success m-t-30"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex justify-content-sm-end">
+                        <div class="col">
+                            <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#register-ficha">Cadastrar</button>
+                        </div>
+                    </div>
                 </div>
                 <div id="button-print"></div>
             </div>
@@ -38,35 +59,17 @@
                 <table id="table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th width="30px">N° ficha</th>
-                            <th>OM</th>
-                            <th>Motorista</th>
+                            <th width="30px">N°</th>
                             <th>Viatura</th>
                             <th>Missão</th>
-                            <th>Por ordem de</th>
-                            <th></th>
+                            <th>Por ordem </th>
+                            <th>Motorista</th>
+                            <th>Segurança</th>
+                            <th>Natureza</th>
+                            <th>Status</th>
                             <th style="width:85px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Marrua</td>
-                            <td>EB3434535353</td>
-                            <td>2</td>
-                            <td>50</td>
-                            <td>Disponível</td>
-                            <td>
-
-                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr"
-                                    data-id='1'><i class="fa fa-car"></i></button>
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#register-vtr"
-                                    data-id='1'><i class="fa fa-edit"></i></button>
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete"><i
-                                        class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
             <!-- /.card-body -->
@@ -74,69 +77,261 @@
     </section>
 @endsection
 @section('modal')
-    <!-- MODAL CADASTRO VTR-->
-    <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="register-vtrLabel"
+    <!-- MODAL CADASTRO FICHA-->
+    <div class="modal fade" id="register-ficha" tabindex="-1" role="dialog" aria-labelledby="register-fichaLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="register-vtrLabel">Cadastrar viatura</h5>
+                    <h5 class="modal-title" id="register-fichaLabel">Cadastrar ficha</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form-vtr">
-                        <div class="row">
-                            <div class="form-group col">
-                                <label for="name">Nr <span style="color:red">*</span></label>
-                                <input id="name" name="name" typphp e="text" class="form-control"
-                                    placeholder="Ex: 15">
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Modelo vtr <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Ex: VTE CAVALO MECÂNICO MERCEDES BENZ AXOR 2644 ">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="pg">EB/Placa <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Ex: 252627662 ">
-                            </div>
-                        </div>
+                    <form id="form-register-ficha">
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label for="pg">Toneladas<span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Ex: 20">
+                                <label for="nrFicha">Nº ficha<span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-list"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="nrFicha" name="nrFicha"
+                                        data-inputmask="'mask':'9999'" data-mask="" inputmode="text"
+                                        placeholder="EX: 1515">
+                                </div>
 
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">M<sup>3</sup> <span style="color:red">*</span> </label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Ex: 102">
-                            </div>
-                            <div class="form-group colmd-3">
-                                <label for="name">Status <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Disponível</option>
-                                    <option value="Cel">Indisponível</option>
-                                </select>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="vtrFicha">Viatura<span style="color:red">*</span></label>
+                                <select class="form-control" name="vtrFicha" id="vtrFicha">
+                                    <option selected value="">Selecione</option>
+                                    @foreach ($viaturas as $viatura)
+                                        <option value="{{ $viatura->id }}">{{ $viatura->nr_vtr }} | {{ $viatura->mod_vtr }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="missionFicha">Missão<span style="color:red">*</span></label>
+                                <select class="form-control" name="missionFicha" id="missionFicha">
+                                    <option selected value="">Selecione</option>
+                                    <option value="0">Serviço / Guarnição</option>
+                                    @foreach ($missions as $mission)
+                                        <option value="{{ $mission->id }}">{{ $mission->type_mission }} |
+                                            {{ $mission->mission_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group col">
-                                <label for="name">Observações</label>
-                                <textarea name="" id="" rows="8"
-                                    placeholder="Detalhes importantes sobre a viatura, como falta de peças, etc." class="form-control"></textarea>
+                                <label for="inOrderFicha">Por ordem<span style="color:red">*</span></label>
+                                <select class="form-control" name="inOrderFicha" id="inOrderFicha">
+                                    <option value="">Selecione</option>
+                                    <option value="Fisc Adm">Fisc Adm</option>
+                                    <option value="COST">COST</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label for="pgMotFicha">Posto/Grad <span style="color:red">*</span></label>
+                                <select class="form-control" name="pgMotFicha" id="pgMotFicha">
+                                    <option value="">Selecione</option>
+                                    <option value="Gen">Gen</option>
+                                    <option value="Cel">Cel</option>
+                                    <option value="TC">TC</option>
+                                    <option value="Maj">Maj</option>
+                                    <option value="Cap">Cap</option>
+                                    <option value="1º Ten">1º Ten</option>
+                                    <option value="2º Ten">2º Ten</option>
+                                    <option value="Asp">Asp</option>
+                                    <option value="ST">ST</option>
+                                    <option value="1º Sgt">1º Sgt</option>
+                                    <option value="2º Sgt">2º Sgt</option>
+                                    <option value="3º Sgt">3º Sgt</option>
+                                    <option value="Cb">Cb</option>
+                                    <option value="Sd">Sd</option>
+                                </select>
+                            </div>
+                            <div class="form-group col">
+                                <label for="nameMotFicha">Nome do motorista <span style="color:red">*</span></label>
+                                <input minlength="2" maxlength="200" id="nameMotFicha" name="nameMotFicha" typphp
+                                    e="text" class="form-control" placeholder="Nome do motorista">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="pgSegFicha">Posto/Grad</label>
+                                <select class="form-control" name="pgSegFicha" id="pgSegFicha">
+                                    <option value="">Selecione</option>
+                                    <option value="Gen">Gen</option>
+                                    <option value="Cel">Cel</option>
+                                    <option value="TC">TC</option>
+                                    <option value="Maj">Maj</option>
+                                    <option value="Cap">Cap</option>
+                                    <option value="1º Ten">1º Ten</option>
+                                    <option value="2º Ten">2º Ten</option>
+                                    <option value="Asp">Asp</option>
+                                    <option value="ST">ST</option>
+                                    <option value="1º Sgt">1º Sgt</option>
+                                    <option value="2º Sgt">2º Sgt</option>
+                                    <option value="3º Sgt">3º Sgt</option>
+                                    <option value="Cb">Cb</option>
+                                    <option value="Sd">Sd</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col">
+                                <label for="nameSegFicha">Nome do segurança</label>
+                                <input minlength="2" maxlength="200" id="nameSegFicha" name="nameSegFicha"
+                                    type="text" class="form-control" placeholder="Nome do segurança">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="natOfServFicha">Natureza do serviço</label>
+                                <input minlength="2" maxlength="200" id="natOfServFicha" name="natOfServFicha"
+                                    type="text" class="form-control" placeholder="Ex: Transporte de pessoal">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success" onclick="">Salvar</button>
+                    <button type="button" class="btn btn-success" onclick="return registerFicha()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL EDITAR FICHA-->
+    <div class="modal fade" id="edit-ficha" tabindex="-1" role="dialog" aria-labelledby="edit-fichaLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit-fichaLabel">Cadastrar ficha</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-edit-ficha">
+                        <input type="hidden" name="id_ficha" id="id_ficha">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="e_nrFicha">Nº<span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-list"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="e_nrFicha" name="e_nrFicha"
+                                        data-inputmask="'mask':'9999'" data-mask="" inputmode="text"
+                                        placeholder="EX: 1515">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="e_vtrFicha">Viatura<span style="color:red">*</span></label>
+                                <select class="form-control" name="e_vtrFicha" id="e_vtrFicha">
+                                    <option selected value="">Selecione</option>
+                                    @foreach ($viaturas as $viatura)
+                                        <option value="{{ $viatura->id }}">{{ $viatura->nr_vtr }} |
+                                            {{ $viatura->mod_vtr }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="e_missionFicha">Missão<span style="color:red">*</span></label>
+                                <select class="form-control" name="e_missionFicha" id="e_missionFicha">
+                                    <option selected value="">Selecione</option>
+                                    <option value="0">Serviço / Guarnição</option>
+                                    @foreach ($missions as $mission)
+                                        <option value="{{ $mission->id }}">{{ $mission->type_mission }} |
+                                            {{ $mission->mission_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col">
+                                <label for="e_inOrderFicha">Por ordem<span style="color:red">*</span></label>
+                                <select class="form-control" name="e_inOrderFicha" id="e_inOrderFicha">
+                                    <option value="">Selecione</option>
+                                    <option value="Fisc Adm">Fisc Adm</option>
+                                    <option value="COST">COST</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label for="e_pgMotFicha">Posto/Grad <span style="color:red">*</span></label>
+                                <select class="form-control" name="e_pgMotFicha" id="e_pgMotFicha">
+                                    <option value="">Selecione</option>
+                                    <option value="Gen">Gen</option>
+                                    <option value="Cel">Cel</option>
+                                    <option value="TC">TC</option>
+                                    <option value="Maj">Maj</option>
+                                    <option value="Cap">Cap</option>
+                                    <option value="1º Ten">1º Ten</option>
+                                    <option value="2º Ten">2º Ten</option>
+                                    <option value="Asp">Asp</option>
+                                    <option value="ST">ST</option>
+                                    <option value="1º Sgt">1º Sgt</option>
+                                    <option value="2º Sgt">2º Sgt</option>
+                                    <option value="3º Sgt">3º Sgt</option>
+                                    <option value="Cb">Cb</option>
+                                    <option value="Sd">Sd</option>
+                                </select>
+                            </div>
+                            <div class="form-group col">
+                                <label for="e_nameMotFicha">Nome do motorista <span style="color:red">*</span></label>
+                                <input minlength="2" maxlength="200" id="e_nameMotFicha" name="e_nameMotFicha" typphp
+                                    e="text" class="form-control" placeholder="Nome do motorista">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="e_pgSegFicha">Posto/Grad</label>
+                                <select class="form-control" name="e_pgSegFicha" id="e_pgSegFicha">
+                                    <option value="">Selecione</option>
+                                    <option value="Gen">Gen</option>
+                                    <option value="Cel">Cel</option>
+                                    <option value="TC">TC</option>
+                                    <option value="Maj">Maj</option>
+                                    <option value="Cap">Cap</option>
+                                    <option value="1º Ten">1º Ten</option>
+                                    <option value="2º Ten">2º Ten</option>
+                                    <option value="Asp">Asp</option>
+                                    <option value="ST">ST</option>
+                                    <option value="1º Sgt">1º Sgt</option>
+                                    <option value="2º Sgt">2º Sgt</option>
+                                    <option value="3º Sgt">3º Sgt</option>
+                                    <option value="Cb">Cb</option>
+                                    <option value="Sd">Sd</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col">
+                                <label for="e_nameSegFicha">Nome do segurança</label>
+                                <input minlength="2" maxlength="200" id="e_nameSegFicha" name="e_nameSegFicha"
+                                    type="text" class="form-control" placeholder="Nome do segurança">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="e_natOfServFicha">Natureza do serviço</label>
+                                <input minlength="2" maxlength="200" id="e_natOfServFicha" name="e_natOfServFicha"
+                                    type="text" class="form-control" placeholder="Ex: Transporte de pessoal">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" onclick="return editFicha()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -166,16 +361,9 @@
     <script src="{{ asset('js/inputmask.js') }}"></script>
 
     <script>
-        // $(function() {
-        //     var url = '/get_qtt_licensing';
-        //     $.get(url, function(result) {
-        //         document.getElementById('ata').innerText = result.ata;
-        //         document.getElementById('reintegrado').innerText = result.reintegrado;
-        //         document.getElementById('encostado').innerText = result.encostado;
-        //         document.getElementById('adido').innerText = result.adido;
-        //     })
-        // });
-
+        document.getElementById('statusFicha').addEventListener('change', event => {
+            $('#table').DataTable().column(3).search(event.target.value).draw();
+        });
         $(function() {
             $("#table").DataTable({
                 "paging": true,
@@ -190,15 +378,14 @@
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
                 "processing": true,
-                // "serverSide": true,
-
-                // "ajax": {
-                //     "url": "",
-                //     "type": "POST",
-                //     "headers": {
-                //         'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                //     },
-                // },
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ url('post_fichas_list') }}",
+                    "type": "POST",
+                    "headers": {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    },
+                },
                 "dom": "Bfrtip",
                 "lengthMenu": [
                     [10, 25, 50, 100, 100000],
@@ -222,103 +409,28 @@
             });
 
         });
+        $('#edit-ficha').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            var url = "{{ url('get_info_ficha') }}/" + id;
+            $.get(url, function(result) {
+                modal.find('#id_ficha').val(result.id)
+                modal.find('#e_nrFicha').val(result.nr_ficha)
+                modal.find('#e_vtrFicha').val(result.id_vtr)
+                modal.find('#e_missionFicha').val(result.id_mission)
+                modal.find('#e_inOrderFicha').val(result.in_order)
+                modal.find('#e_pgMotFicha').val(result.pg_mot)
+                modal.find('#e_nameMotFicha').val(result.name_mot)
+                modal.find('#e_pgSegFicha').val(result.pg_seg)
+                modal.find('#e_nameSegFicha').val(result.name_seg)
+                modal.find('#e_natOfServFicha').val(result.nat_of_serv)
+
+            })
+        });
+        $('#edit-ficha').on('hide.bs.modal', function(event) {
+            $('#form-edit-ficha')[0].reset();
+        });
     </script>
 
 @endsection
-
-
-
-
-{{-- <form id="form-mission">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Nome do motorista <span style="color:red">*</span></label>
-                                <input id="name" name="name" typphp e="text" class="form-control"
-                                    placeholder="Nome do motorista">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="rank_id" id="rank_id">
-                                    <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Nome do segurança <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Nome do segurança">
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <label for="name">Idt mil <span style="color:red">*</span> </label> (do mais
-                                antigo)
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Idt mil">
-                            </div>
-                            <div class="form-group col">
-                                <label for="name">Modelo veículo <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Modelo veículo">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="name">Placa / EB <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Placa / EB">
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="name">OM <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="OM">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="name">Destino / Missão <span style="color:red">*</span></label>
-                                <input id="name" name="name" type="text" class="form-control"
-                                    placeholder="Destino / Missão">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col">
-                                <label for="name">Observações</label>
-                                <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
-                                    class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </form> --}}

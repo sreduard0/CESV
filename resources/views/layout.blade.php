@@ -137,31 +137,14 @@
                                 <!-- /.card-header -->
                                 <div class="card-body pt-0">
                                     <!--The calendar -->
-                                    <table id="event_list" class="table fs-14">
+                                    <table id="fichas_layout" class="table fs-14">
                                         <thead height="20">
                                             <tr>
                                                 <th>N°</th>
                                                 <th>Motorista</th>
-                                                <th>Fim</th>
+                                                <th>EB/Placa</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1010</td>
-                                                <td>Cb Rocha</td>
-                                                <td>13/11/2022</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1090</td>
-                                                <td>Cb Jesse</td>
-                                                <td>13/11/2022</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1011</td>
-                                                <td>Cb Curioso</td>
-                                                <td>13/11/2022</td>
-                                            </tr>
-                                        </tbody>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
@@ -233,33 +216,31 @@
     <!-- date-range-picker -->
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     @yield('plugins')
-    {{-- @if (1 == 1)
-        <script>
-            $("#event_list").DataTable({
+    <script>
+        $("#fichas_layout").DataTable({
 
-                "paging": true,
-                'pagingType': 'simple',
-                "responsive": true,
-                "lengthChange": true,
-                "iDisplayLength": 5,
-                "autoWidth": false,
-                "dom": '<"top">rt<"bottom"ip><"clear">',
-                "language": {
-                    "url": "{{ asset('plugins/datatables/Portuguese3.json') }}"
+            "paging": true,
+            'pagingType': 'simple',
+            "responsive": true,
+            "lengthChange": true,
+            "iDisplayLength": 5,
+            "autoWidth": false,
+            "dom": '<"top">rt<"bottom"ip><"clear">',
+            "language": {
+                "url": "{{ asset('plugins/datatables/Portuguese3.json') }}"
+            },
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "{{ route('fichas_layout') }}",
+                "type": "POST",
+                "headers": {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
                 },
-                "processing": true,
-                "serverSide": true,
-                "ajax": {
-                    "url": "",
-                    "type": "POST",
-                    "headers": {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                    },
 
-                }
-            });
-        </script>
-    @endif --}}
+            }
+        });
+    </script>
     {{-- ====================================/ PLUGINS ===================================== --}}
 </body>
 

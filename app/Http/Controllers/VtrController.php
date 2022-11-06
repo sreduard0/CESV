@@ -13,6 +13,7 @@ class VtrController extends Controller
     public function get_info_vtr($id){
         return VtrModel::find($id);
     }
+
     // CRUD VTR
     public function registerVtr(VtrRequest $request){
         $data = $request->all();
@@ -20,6 +21,7 @@ class VtrController extends Controller
         $vtr = new VtrModel;
         $vtr->nr_vtr = str_replace('_','',$data['nrVtr']);
         $vtr->mod_vtr = $data['modVtr'];
+        $vtr->type_vtr = $data['typeVtr'];
         $vtr->ebplaca = $data['ebPlacaVtr'];
         $vtr->ton  = str_replace('_','',$data['tonVtr']);
         $vtr->vol = str_replace('_','',$data['volVtr']);
@@ -27,6 +29,7 @@ class VtrController extends Controller
         $vtr->obs = $data['obsVtr'];
         $vtr->save();
     }
+
     public function editVtr(VtrRequest $request){
         $data = $request->all();
 
@@ -34,16 +37,19 @@ class VtrController extends Controller
         $vtr->nr_vtr = str_replace('_','',$data['nrVtr']);
         $vtr->mod_vtr = $data['modVtr'];
         $vtr->ebplaca = $data['ebPlacaVtr'];
+        $vtr->type_vtr = $data['typeVtr'];
         $vtr->ton  = str_replace('_','',$data['tonVtr']);
         $vtr->vol = str_replace('_','',$data['volVtr']);
         $vtr->status = $data['statusVtr'];
         $vtr->obs = $data['obsVtr'];
         $vtr->save();
     }
+
     public function deleteVtr($id){
         VtrModel::find($id)->delete();
     }
-    // TABELA DE FICHAS
+
+    // TABELA DE VTRs
      public function listVtr(Request $request){
        //Receber a requisão da pesquisa
        $requestData = $request->all();

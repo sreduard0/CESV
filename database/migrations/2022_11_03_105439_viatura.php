@@ -12,8 +12,9 @@ class Viatura extends Migration
         Schema::create('viatura', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('nr_vtr');
-            $table->string('mod_vtr',255);
-            $table->string('ebplaca',255);
+            $table->string('mod_vtr', 255);
+            $table->string('type_vtr', 3);
+            $table->string('ebplaca', 255);
             $table->integer('ton');
             $table->integer('vol');
             $table->integer('status');
@@ -25,6 +26,7 @@ class Viatura extends Migration
 
     public function down()
     {
-        //
+        Schema::dropIfExists('viatura');
+
     }
 }
