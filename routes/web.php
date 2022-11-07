@@ -16,6 +16,60 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+
+Route::get('/inicio/{id}', function ($id) {
+    if ($id == 1) {
+        session()->put([
+            'CESV' => [
+                'profileType' => 1,
+                'notification' => 1,
+                'loginID' => 1,
+            ],
+
+            'user' => [
+                'id' => 1,
+                'name' => 'Eduardo Martins',
+                'photo' => 'img/viatura.jpg',
+                'professionalName' => 'Eduardo',
+                'email' => 'dudu.martins373@gmail.com',
+                'rank' => 'Cb',
+                'company' => [
+                    'id' => 2,
+                    'name' => 'CCSv',
+                ],
+            ],
+
+            'theme' => 1,
+        ]);
+
+    } else {
+        session()->put([
+            'CESV' => [
+                'profileType' => 1,
+                'notification' => 1,
+                'loginID' => 1,
+            ],
+
+            'user' => [
+                'id' => 1,
+                'name' => 'Eduardo Martins',
+                'photo' => 'img/viatura.jpg',
+                'professionalName' => 'Eduardo',
+                'email' => 'dudu.martins373@gmail.com',
+                'rank' => 'Cb',
+                'company' => [
+                    'id' => 2,
+                    'name' => 'CCSv',
+                ],
+            ],
+
+            'theme' => 1,
+        ]);
+    }
+
+    echo '<a href="/inicio/1">TRNP</a><br>';
+    echo '<a href="/inicio/2">GDA</a>';
+});
 // VIEWS
 Route::get('/', [ViewController::class, 'home'])->name('home')->middleware('auth');
 Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('auth');
