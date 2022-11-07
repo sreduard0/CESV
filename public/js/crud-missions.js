@@ -230,7 +230,7 @@ function editMission() {
                 title: '&nbsp&nbsp Missão editada com sucesso.'
             });
 
-            $('#info-mission').modal('hide');
+            $('#edit-mission').modal('hide');
             $('#form-edit-mission')[0].reset();
             $('#e_obsMission').summernote('code', '');
             $("#table").DataTable().clear().draw();
@@ -292,5 +292,66 @@ function deleteMission(id) {
         }
     });
 }
+function finishMission(id) {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    });
+    var url = "/info_mission/" + id;
+    $.get(url, function (result) {
+        const Vtrs = result.vtr_info.map(vtr => {
+            if (vtr.pg_seg) {
+                var segName = vtr.pg_seg + ' ' + vtr.name_seg
+            } else {
+                var segName = 'Não informado'
+            }
+            return ' ' + vtr.nr_ficha
+        })
 
+        const message = "<strong>Essa operação não pode ser desfeita e fechará todas as fichas vinculadas a esta missão.</strong><br><br>Ficha(as) que será(ão) fechada(as): " + Vtrs
+
+        bootbox.confirm({
+            title: ' Deseja encerrar esta missão?',
+            message: message,
+            callback: function (confirmacao) {
+
+                if (confirmacao)
+                    $.ajax({
+                        url: '/finish_mission/' + id,
+                        type: "GET",
+                        success: function (data) {
+                            $("#table").DataTable().clear().draw();
+                            Toast.fire({
+                                icon: 'success',
+                                title: '&nbsp&nbsp Missão encerrada com sucesso.'
+                            });
+                            $("#table").DataTable().clear().draw();
+
+
+                        },
+                        error: function (data) {
+                            Toast.fire({
+                                icon: 'error',
+                                title: '&nbsp&nbsp Erro encerrar.'
+                            });
+
+                        }
+                    });
+            },
+            buttons: {
+                cancel: {
+                    label: 'Cancelar',
+                    className: 'btn-default'
+                },
+                confirm: {
+                    label: 'Encerrar',
+                    className: 'btn-danger'
+                }
+
+            }
+        });
+    })
+}
 

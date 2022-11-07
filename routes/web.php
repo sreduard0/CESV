@@ -28,6 +28,7 @@ Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('g
 Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('auth');
 // MISSÕES
 Route::get('info_mission/{id}', [MissionController::class, 'infoMission'])->name('info_mission')->middleware('auth');
+Route::get('finish_mission/{id}', [MissionController::class, 'finishMission'])->middleware('auth');
 Route::post('post_missions_list', [MissionController::class, 'listMission'])->name('post_missions_list')->middleware('auth');
 // FICHAS
 Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('auth');

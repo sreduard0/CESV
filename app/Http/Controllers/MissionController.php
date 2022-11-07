@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MissionRequest;
+use App\Models\FichaModel;
 use App\Models\MissionModel;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,22 @@ class MissionController extends Controller
         return MissionModel::with('vtrInfo')->find($id);
     }
 
+    public function finishMission($id)
+    {
+        //MISSÃO
+        $mission = MissionModel::find($id);
+        $mission->status = 3;
+        $mission->save();
+
+        // FICHAS VINCULADAS
+        $fichas = FichaModel::where('id_mission', $id)->get();
+        foreach ($fichas as $ficha) {
+            $ficha->status = 2;
+            $ficha->save();
+        }
+
+    }
+
     // CRUD DAS MISSÕES
     public function registerMission(MissionRequest $request)
     {
@@ -22,7 +39,7 @@ class MissionController extends Controller
 
         $saveData = new MissionModel;
         $saveData->type_mission = $data['typeMission'];
-        $saveData->status = 0;
+        $saveData->status = 1;
         $saveData->mission_name = $data['nameMission'];
         $saveData->destiny = $data['destinyMission'];
         $saveData->class = $data['classMission'];
@@ -87,11 +104,11 @@ class MissionController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['columns'][3]['search']['value']) {
-            $missions = MissionModel::where('type_mission', $requestData['columns'][3]['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($missions);
             $rows = count(MissionModel::all());
         } else {
-            $missions = MissionModel::where('status', 0)->with('vtrInfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $missions = MissionModel::where('status', 1)->with('vtrInfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($missions);
         }
 
@@ -107,14 +124,24 @@ class MissionController extends Controller
             $dado[] = $mission->class;
             $dado[] = count($mission->vtrinfo);
             $dado[] = date('d-m-Y h:i', strtotime($mission->prev_date_part));
-            if ($mission->status == 0) {
-                $dado[] = 'Aguardando';
-            } else {
-                $dado[] = 'Em execução';
+            switch ($mission->status) {
+                case 1:
+                    $dado[] = 'Aguardando';
+                    break;
+
+                case 2:
+                    $dado[] = 'Em andamento';
+                    break;
+
+                case 3:
+                    $dado[] = 'Encerrada';
+                    break;
             }
             $dado[] = '
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"
+                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"
                                     ><i class="fa fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-mission" data-id="' . $mission->id . '"
+                                    ><i class="fa fa-edit"></i></button>
                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteMission(' . $mission->id . ')"><i
                                         class="fa fa-trash"></i></button>';
             $dados[] = $dado;
