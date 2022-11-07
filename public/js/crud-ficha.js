@@ -228,7 +228,7 @@ function editFicha() {
     });
 }
 
-function deleteFicha(id) {
+function finishFicha(id) {
     var Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -236,19 +236,19 @@ function deleteFicha(id) {
         timer: 4000
     });
     bootbox.confirm({
-        title: ' Deseja excluir esta ficha?',
-        message: '<strong>Essa operação não pode ser desfeita e apagará todos os dados desta ficha.</strong>',
+        title: ' Deseja fechar esta ficha?',
+        message: '<strong>Essa operação não pode ser desfeita.</strong>',
         callback: function (confirmacao) {
 
             if (confirmacao)
                 $.ajax({
-                    url: '/delete_ficha/' + id,
+                    url: '/finish_ficha/' + id,
                     type: "GET",
                     success: function (data) {
                         $("#table").DataTable().clear().draw();
                         Toast.fire({
                             icon: 'success',
-                            title: '&nbsp&nbsp Ficha excluida com sucesso.'
+                            title: '&nbsp&nbsp Ficha finalizada com sucesso.'
                         });
                         $("#table").DataTable().clear().draw();
 
@@ -257,7 +257,7 @@ function deleteFicha(id) {
                     error: function (data) {
                         Toast.fire({
                             icon: 'error',
-                            title: '&nbsp&nbsp Erro excluir.'
+                            title: '&nbsp&nbsp Erro ao fechar.'
                         });
 
                     }
@@ -269,8 +269,8 @@ function deleteFicha(id) {
                 className: 'btn-default'
             },
             confirm: {
-                label: 'Excluir',
-                className: 'btn-danger'
+                label: 'Fechar',
+                className: 'btn-success'
             }
 
         }

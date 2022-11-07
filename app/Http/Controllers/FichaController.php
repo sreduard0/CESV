@@ -84,9 +84,11 @@ class FichaController extends Controller
         $ficha->save();
 
     }
-    public function deleteFicha($id)
+    public function finishFicha($id)
     {
-        FichaModel::find($id)->delete();
+        $ficha = FichaModel::find($id);
+        $ficha->status = 2;
+        $ficha->save();
     }
     // TABELA DE FICHAS
     public function listFichas(Request $request)
@@ -141,12 +143,12 @@ class FichaController extends Controller
 
             }
             $dado[] = '
-                        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
+                        <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
                                         class="fa fa-car"></i></button>
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
+                        <button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
                                         class="fa fa-edit"></i></button>
-                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteFicha(' . $ficha->id . ')"><i
-                                        class="fa fa-trash"></i></button>';
+                        <button title="Fechar ficha" class="btn btn-sm btn-danger" data-toggle="modal" onclick="finishFicha(' . $ficha->id . ')"><i
+                                        class="fa fa-times"></i></button>';
             $dados[] = $dado;
         }
 

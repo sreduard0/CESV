@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MissionRequest;
 use App\Models\FichaModel;
 use App\Models\MissionModel;
+use App\Models\RelGdaModel;
 use Illuminate\Http\Request;
 
 class MissionController extends Controller
@@ -18,18 +19,29 @@ class MissionController extends Controller
 
     public function finishMission($id)
     {
+
         //MISSÃO
-        $mission = MissionModel::find($id);
-        $mission->status = 3;
-        $mission->save();
+        // $mission = MissionModel::find($id);
+        // $mission->status = 3;
+        // $mission->save();
 
         // FICHAS VINCULADAS
         $fichas = FichaModel::where('id_mission', $id)->get();
         foreach ($fichas as $ficha) {
-            $ficha->status = 2;
-            $ficha->save();
-        }
+            // RELAÇÃO DA GUARDA
+            $dado = [];
+            foreach (RelGdaModel::where('id_ficha', $ficha->id)->get() as $relGda) {
 
+                $dado[] = $relGda->od_ent - $relGda->od_sai;
+
+            }
+
+            echo $ficha->nr_ficha . ' => ' . array_sum($dado) . '<br><br><br><br><br><br>';
+
+            // $ficha->status = 1;
+            // $ficha->save();
+
+        }
     }
 
     // CRUD DAS MISSÕES

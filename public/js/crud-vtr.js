@@ -14,6 +14,12 @@ function registerVtr() {
     } else {
         $('#nrVtr').removeClass('is-invalid');
     }
+    if (formData.get('typeVtr') == '') {
+        $('#typeVtr').addClass('is-invalid');
+        return false;
+    } else {
+        $('#typeVtr').removeClass('is-invalid');
+    }
     if (formData.get('modVtr') == '' || formData.get('modVtr').length > 200) {
         $('#modVtr').addClass('is-invalid');
         return false;
@@ -47,6 +53,7 @@ function registerVtr() {
 
     var values = {
         nrVtr: formData.get('nrVtr'),
+        typeVtr: formData.get('typeVtr'),
         modVtr: formData.get('modVtr'),
         ebPlacaVtr: formData.get('ebPlacaVtr'),
         tonVtr: formData.get('tonVtr'),
