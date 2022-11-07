@@ -28,8 +28,6 @@ class Missions extends Migration
             $table->string('contact',13);
             $table->text('obs')->nullable();
             $table->datetime('finish_mission')->nullable();
-            $table->integer('od_ini')->nullable();
-            $table->integer('od_fin')->nullable();
             $table->integer('cons_gas')->nullable();
             $table->integer('cons_diesel')->nullable();
             $table->integer('peso')->nullable();

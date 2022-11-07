@@ -52,6 +52,6 @@ Route::get('delete_vtr/{id}', [VtrController::class, 'deleteVtr'])->middleware('
 // FICHAS
 Route::post('register_ficha', [FichaController::class, 'registerFicha'])->middleware('auth');
 Route::post('edit_ficha', [FichaController::class, 'editFicha'])->middleware('auth');
-Route::get('delete_ficha/{id}', [FichaController::class, 'deleteFicha'])->middleware('auth');
+Route::get('finish_ficha/{id}', [FichaController::class, 'finishFicha'])->middleware('auth');
 
 // FIM CERUD ------------------------------------------------------------------
