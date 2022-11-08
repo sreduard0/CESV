@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class VtrModel extends Model
 {
+    public function infoFicha()
+    {
+        return $this->hasOne('App\Models\FichaModel', 'id_vtr', 'id')->where('status', 1);
+    }
     use HasFactory;
     use SoftDeletes;
     protected $table = 'viatura';

@@ -20,6 +20,16 @@ class VtrController extends Controller
     {
         $data = $request->all();
 
+        $checkVtr = VtrModel::where('nr_vtr', $data['nrVtr'])->first();
+        $checkEbplaca = VtrModel::where('ebplaca', $data['ebPlacaVtr'])->first();
+
+        if ($checkVtr) {
+            return 'nrvtr';
+        }
+        if ($checkEbplaca) {
+            return 'ebplaca';
+        }
+
         $vtr = new VtrModel;
         $vtr->nr_vtr = str_replace('_', '', $data['nrVtr']);
         $vtr->mod_vtr = $data['modVtr'];
@@ -35,6 +45,16 @@ class VtrController extends Controller
     public function editVtr(VtrRequest $request)
     {
         $data = $request->all();
+
+        $checkVtr = VtrModel::where('nr_vtr', $data['nrVtr'])->where('id', '!=', $data['id'])->first();
+        $checkEbplaca = VtrModel::where('ebplaca', $data['ebPlacaVtr'])->where('id', '!=', $data['id'])->first();
+
+        if ($checkVtr) {
+            return 'nrvtr';
+        }
+        if ($checkEbplaca) {
+            return 'ebplaca';
+        }
 
         $vtr = VtrModel::find($data['id']);
         $vtr->nr_vtr = str_replace('_', '', $data['nrVtr']);

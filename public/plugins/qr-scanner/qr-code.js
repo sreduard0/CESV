@@ -12,12 +12,19 @@ $('#qr-code-modal').on('hide.bs.modal', function () {
 
 function setResult(label, result) {
     $("#qr-code-modal").modal('hide')
-    $('#vicle_type').val('adm')
-    selectedata('adm')
-    $("#register-vtr").modal('show')
-    setTimeout(function () {
-        $('body').addClass("modal-open")
-    }, 400);
+    var url = 'get_info_relgda/' + result.data
+    $.get(url, function (result) {
+        selectedata(result.type_vtr)
+        //  Form edição
+        $('#nrFichaRel').val(result.info_ficha.id)
+
+        $("#register-vtr").modal('show')
+        setTimeout(function () {
+            $('body').addClass("modal-open")
+        }, 400);
+    })
+
+
 
 
 }

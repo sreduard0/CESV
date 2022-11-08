@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FichaController;
+use App\Http\Controllers\GdaController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\VtrController;
@@ -18,57 +19,29 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/inicio/{id}', function ($id) {
-    if ($id == 1) {
-        session()->put([
-            'CESV' => [
-                'profileType' => 1,
-                'notification' => 1,
-                'loginID' => 1,
+    session()->put([
+        'CESV' => [
+            'profileType' => $id,
+            'notification' => 1,
+            'loginID' => 1,
+        ],
+
+        'user' => [
+            'id' => 1,
+            'name' => 'Eduardo Martins',
+            'photo' => 'img/viatura.jpg',
+            'professionalName' => 'Eduardo',
+            'email' => 'dudu.martins373@gmail.com',
+            'rank' => 'Cb',
+            'company' => [
+                'id' => 2,
+                'name' => 'CCSv',
             ],
+        ],
 
-            'user' => [
-                'id' => 1,
-                'name' => 'Eduardo Martins',
-                'photo' => 'img/viatura.jpg',
-                'professionalName' => 'Eduardo',
-                'email' => 'dudu.martins373@gmail.com',
-                'rank' => 'Cb',
-                'company' => [
-                    'id' => 2,
-                    'name' => 'CCSv',
-                ],
-            ],
-
-            'theme' => 1,
-        ]);
-
-    } else {
-        session()->put([
-            'CESV' => [
-                'profileType' => 1,
-                'notification' => 1,
-                'loginID' => 1,
-            ],
-
-            'user' => [
-                'id' => 1,
-                'name' => 'Eduardo Martins',
-                'photo' => 'img/viatura.jpg',
-                'professionalName' => 'Eduardo',
-                'email' => 'dudu.martins373@gmail.com',
-                'rank' => 'Cb',
-                'company' => [
-                    'id' => 2,
-                    'name' => 'CCSv',
-                ],
-            ],
-
-            'theme' => 1,
-        ]);
-    }
-
-    echo '<a href="/inicio/1">TRNP</a><br>';
-    echo '<a href="/inicio/2">GDA</a>';
+        'theme' => 1,
+    ]);
+    echo session('CESV')['profileType'];
 });
 // VIEWS
 Route::get('/', [ViewController::class, 'home'])->name('home')->middleware('auth');
@@ -88,6 +61,8 @@ Route::post('post_missions_list', [MissionController::class, 'listMission'])->na
 Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('auth');
 Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('auth');
 Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('auth');
+// RELA GUARDA
+Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('auth');
 
 // FIM ACÕES ----------------------------------------------------------------
 

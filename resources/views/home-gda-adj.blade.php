@@ -269,8 +269,8 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label for="vicle_type">Tipo de veículo</label>
-                            <select onchange="selectedata(this.value)" id="vicle_type" name="vicle_type"
+                            <label for="veicle_type">Tipo de veículo</label>
+                            <select onchange="selectedata(this.value)" id="veicle_type" name="veicle_type"
                                 class="form-control">
                                 <option selected>SELECIONE O TIPO DE VEÍCULO</option>
                                 <option value="civil">CIVIL</option>
@@ -441,21 +441,19 @@
                         <form id="form-adm-op">
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <label for="pg">Número da ficha <span style="color:red">*</span></label>
-                                    <select class="form-control" name="rank_id" id="rank_id">
-                                        <option value="">Selecione</option>
-                                        <option value="1580">1580 / Cb Jesse</option>
-                                        <option value="1581">1581 / Sd De Carvalho
-                                        </option>
-                                        <option value="1582">1582 / Sgt Criss</option>
-                                        <option value="1583">1583 / Ten Melzin</option>
+                                    <label for="nrFichaRel">Número da ficha <span style="color:red">*</span></label>
+                                    <select class="form-control" name="nrFichaRel" id="nrFichaRel">
+                                        <option selected value="">Selecione</option>
+                                        @foreach ($fichas as $ficha)
+                                            <option value="{{ $ficha->id }}">{{ $ficha->nr_ficha }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-2">
-                                    <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                    <select class="form-control" name="rank_id" id="rank_id">
+                                    <label for="pgMotRel">Posto/Grad <span style="color:red">*</span></label>
+                                    <select class="form-control" name="pgMotRel" id="pgMotRel">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
                                         <option value="Cel">Cel</option>
@@ -474,13 +472,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group col">
-                                    <label for="name">Nome do motorista <span style="color:red">*</span></label>
-                                    <input id="name" name="name" type="text" class="form-control"
+                                    <label for="nameMotRel">Nome do motorista <span style="color:red">*</span></label>
+                                    <input id="nameMotRel" name="nameMotRel" type="text" class="form-control"
                                         placeholder="Nome do motorista">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="pg">Posto/Grad <span style="color:red">*</span></label>
-                                    <select class="form-control" name="rank_id" id="rank_id">
+                                    <label for="pgSegRel">Posto/Grad <span style="color:red">*</span></label>
+                                    <select class="form-control" name="pgSegRel" id="pgSegRel">
                                         <option value="">Selecione</option>
                                         <option value="Gen">Gen</option>
                                         <option value="Cel">Cel</option>
@@ -499,15 +497,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group col">
-                                    <label for="name">Nome do segurança <span style="color:red">*</span></label>
-                                    <input id="name" name="name" type="text" class="form-control"
+                                    <label for="nameSegRel">Nome do segurança <span style="color:red">*</span></label>
+                                    <input id="nameSegRel" name="nameSegRel" type="text" class="form-control"
                                         placeholder="Nome do segurança">
                                 </div>
 
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="name">Modelo veículo <span style="color:red">*</span></label>
+                                    <label for="modVtrRel">Modelo veículo <span style="color:red">*</span></label>
                                     <input id="name" name="name" type="text" class="form-control"
                                         placeholder="Modelo veículo">
                                 </div>
@@ -569,22 +567,11 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('js/actions.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
     {{-- QrCode --}}
     <script type="module" src="{{ asset('plugins/qr-scanner/qr-code.js') }}"></script>
 
     <script>
-        // $(function() {
-        //     var url = '/get_qtt_licensing';
-        //     $.get(url, function(result) {
-        //         document.getElementById('ata').innerText = result.ata;
-        //         document.getElementById('reintegrado').innerText = result.reintegrado;
-        //         document.getElementById('encostado').innerText = result.encostado;
-        //         document.getElementById('adido').innerText = result.adido;
-        //     })
-        // });
-
         $(function() {
             $("#table").DataTable({
                 "paging": true,

@@ -1,9 +1,8 @@
 function checkTime(i) {
-  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-  return i;
+    if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+    return i;
 }
 function selectedata(value) {
-
     var today = new Date();
     var dmy = today.toLocaleDateString()
     var h = today.getHours();
@@ -16,7 +15,7 @@ function selectedata(value) {
     $('#_hora').val(dmy + ' ' + h + ':' + m)
 
 
-
+    $('#veicle_type').val(value)
     switch (value) {
         case 'civil':
 
@@ -32,7 +31,7 @@ function selectedata(value) {
         case 'adm':
         case 'op':
             $("#f-adm-op").css("display", "block")
-            $("#f-civil").css("display","none")
+            $("#f-civil").css("display", "none")
             $("#f-oom").css("display", "none")
             break;
         default:

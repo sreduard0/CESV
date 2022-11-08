@@ -72,15 +72,35 @@ function registerVtr() {
         data: values,
         dataType: 'text',
         success: function (data) {
-            Toast.fire({
-                icon: 'success',
-                title: '&nbsp&nbsp Viatura adicionada com sucesso.'
-            });
 
-            $('#register-vtr').modal('hide');
-            $('#form-register-vtr')[0].reset();
-            $('#obsVtr').summernote('code', '');
-            $("#table").DataTable().clear().draw();
+            switch (data) {
+                case 'nrvtr':
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '&nbsp&nbsp Já existe uma viatura com este número.'
+                    });
+                    $('#nrVtr').addClass('is-invalid');
+                    break;
+                case 'ebplaca':
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '&nbsp&nbsp  Já existe uma viatura com este EB ou Placa.'
+                    });
+                    $('#ebPlacaVtr').addClass('is-invalid')
+                    break;
+
+                default:
+                    Toast.fire({
+                        icon: 'success',
+                        title: '&nbsp&nbsp Viatura adicionada com sucesso.'
+                    });
+
+                    $('#register-vtr').modal('hide');
+                    $('#form-register-vtr')[0].reset();
+                    $('#obsVtr').summernote('code', '');
+                    $("#table").DataTable().clear().draw();
+                    break;
+            }
         },
 
         error: function (data) {
@@ -106,6 +126,12 @@ function editVtr() {
         return false;
     } else {
         $('#e_nrVtr').removeClass('is-invalid');
+    }
+    if (formData.get('e_typeVtr') == '') {
+        $('#e_typeVtr').addClass('is-invalid');
+        return false;
+    } else {
+        $('#e_typeVtr').removeClass('is-invalid');
     }
     if (formData.get('e_modVtr') == '' || formData.get('e_modVtr').length > 200) {
         $('#e_modVtr').addClass('is-invalid');
@@ -141,6 +167,7 @@ function editVtr() {
     var values = {
         id: formData.get('id_vtr'),
         nrVtr: formData.get('e_nrVtr'),
+        typeVtr: formData.get('e_typeVtr'),
         modVtr: formData.get('e_modVtr'),
         ebPlacaVtr: formData.get('e_ebPlacaVtr'),
         tonVtr: formData.get('e_tonVtr'),
@@ -159,15 +186,36 @@ function editVtr() {
         data: values,
         dataType: 'text',
         success: function (data) {
-            Toast.fire({
-                icon: 'success',
-                title: '&nbsp&nbsp Viatura adicionada com sucesso.'
-            });
 
-            $('#edit-vtr').modal('hide');
-            $('#form-edit-vtr')[0].reset();
-            $('#e_obsVtr').summernote('code', '');
-            $("#table").DataTable().clear().draw();
+            switch (data) {
+                case 'nrvtr':
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '&nbsp&nbsp Já existe uma viatura com este número.'
+                    });
+                    $('#e_nrVtr').addClass('is-invalid');
+                    break;
+                case 'ebplaca':
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '&nbsp&nbsp  Já existe uma viatura com este EB ou Placa.'
+                    });
+                    $('#e_ebPlacaVtr').addClass('is-invalid')
+                    break;
+
+                default:
+                    Toast.fire({
+                        icon: 'success',
+                        title: '&nbsp&nbsp Viatura adicionada com sucesso.'
+                    });
+
+                    $('#edit-vtr').modal('hide');
+                    $('#form-edit-vtr')[0].reset();
+                    $('#e_obsVtr').summernote('code', '');
+                    $("#table").DataTable().clear().draw();
+                    break;
+            }
+
         },
 
         error: function (data) {
