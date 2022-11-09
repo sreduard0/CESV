@@ -44,12 +44,16 @@
 
 <body class=" dark-mode  hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        <div class="preloader flex-column justify-content-center  align-items-center">
-            <img class="animation__shake" src="{{ asset('img/logo.png') }}" alt="" height="180"
-                width="180">
-            <br>
-            <h3 class="fs-40 bold">{{ config('app.name') }}</h3>
-        </div>
+        @if (session('animation'))
+            <div class="preloader">
+                <img src="{{ asset('img/logo.png') }}" alt="" height="180" width="180">
+                <br>
+                <h3 class="fs-40 bold">{{ config('app.name') }}</h3>
+            </div>
+            @php
+                session('animation')->put([1]);
+            @endphp
+        @endif
         <aside class="main-sidebar sidebar-dark-primary elevation-5">
             <div class="brand-link">
                 <img src="{{ asset('img/logo.png') }}" alt="CESV" class="brand-image img-circle">
