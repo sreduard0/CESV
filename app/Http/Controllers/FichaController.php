@@ -12,7 +12,7 @@ class FichaController extends Controller
     // AÇÕES
     public function infoFicha($id)
     {
-        return FichaModel::find($id);
+        return FichaModel::with('vtrinfo', 'missioninfo')->find($id);
     }
 
     // CRUD FICHAS

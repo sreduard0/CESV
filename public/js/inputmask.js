@@ -21,6 +21,20 @@
 
 // });
 
+$(function () {
+    $('.text').summernote({
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font'],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table'],
+        ]
+    });
+});
+
 $('.date').datetimepicker({
     format: 'DD-MM-YYYY HH:mm',
     locale: 'pt-br',

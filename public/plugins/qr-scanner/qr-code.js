@@ -11,21 +11,39 @@ $('#qr-code-modal').on('hide.bs.modal', function () {
 });
 
 function setResult(label, result) {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+    });
+
     $("#qr-code-modal").modal('hide')
     var url = 'get_info_relgda/' + result.data
-    $.get(url, function (result) {
-        selectedata(result.type_vtr)
-        //  Form edição
-        $('#nrFichaRel').val(result.info_ficha.id)
-
-        $("#register-vtr").modal('show')
-        setTimeout(function () {
-            $('body').addClass("modal-open")
-        }, 400);
-    })
-
-
-
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (data) {
+            if (data == '') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: '&nbsp&nbsp Este QRCode não pertence ao CES Vtr.'
+                });
+            } else if (data.info_ficha == null) {
+                Toast.fire({
+                    icon: 'warning',
+                    title: '&nbsp&nbsp Esta viatura não contém ficha.'
+                });
+            } else {
+                selectVtrType(data.type_vtr)
+                selectFichaRel(data.info_ficha.id)
+                $("#register-vtr").modal('show')
+                setTimeout(function () {
+                    $('body').addClass("modal-open")
+                }, 400);
+            }
+        },
+    });
 
 }
 
@@ -38,8 +56,8 @@ const scanner = new QrScanner(video, result => setResult(camQrResult, result), {
 });
 
 const updateFlashAvailability = () => {
-    scanner.hasFlash().then(hasFlash => {
-        document.getElementById('flash-btn').style.display = hasFlash ? 'inline-block' : 'none';
+    scanner.hasFlash().then(() => {
+        document.getElementById('flash-btn').style.display = 'block'
     });
 };
 

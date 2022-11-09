@@ -15,8 +15,7 @@
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+
     {{-- CRUD JS --}}
     <script src="{{ asset('js/crud-vtr.js') }}"></script>
 
@@ -119,8 +118,8 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="ebPlacaVtr">EB/Placa <span style="color:red">*</span></label>
-                                <input maxlength="20" id="ebPlacaVtr" name="ebPlacaVtr" type="text"
-                                    class="form-control" placeholder="Ex: 252627662 ">
+                                <input maxlength="20" id="ebPlacaVtr" name="ebPlacaVtr" type="text" class="form-control"
+                                    placeholder="Ex: 252627662 ">
                             </div>
                         </div>
                         <div class="row">
@@ -294,24 +293,9 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
-    <!-- Summernote -->
-    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
         document.getElementById('vtrStatus').addEventListener('change', event => {
             $('#table').DataTable().column(3).search(event.target.value).draw();
-        });
-        $(function() {
-            $('.text').summernote({
-                toolbar: [
-                    // [groupName, [list of button]]
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['font'],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table'],
-                ]
-            });
         });
         $(function() {
             $("#table").DataTable({

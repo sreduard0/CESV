@@ -63,6 +63,7 @@ Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('p
 Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('auth');
 // RELA GUARDA
 Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('auth');
+Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('post_relgda_list')->middleware('auth');
 
 // FIM ACÕES ----------------------------------------------------------------
 

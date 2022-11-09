@@ -261,7 +261,6 @@ function deleteMission(id) {
                     url: '/delete_mission/' + id,
                     type: "GET",
                     success: function (data) {
-                        $("#table").DataTable().clear().draw();
                         Toast.fire({
                             icon: 'success',
                             title: '&nbsp&nbsp Missão excluida com sucesso.'
@@ -322,7 +321,6 @@ function finishMission(id) {
                         url: '/finish_mission/' + id,
                         type: "GET",
                         success: function (data) {
-                            $("#table").DataTable().clear().draw();
                             Toast.fire({
                                 icon: 'success',
                                 title: '&nbsp&nbsp Missão encerrada com sucesso.'

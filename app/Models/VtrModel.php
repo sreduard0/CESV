@@ -12,6 +12,10 @@ class VtrModel extends Model
     {
         return $this->hasOne('App\Models\FichaModel', 'id_vtr', 'id')->where('status', 1);
     }
+    public function infoRelGda()
+    {
+        return $this->hasOne('App\Models\RelGdaModel', 'id_vtr', 'id')->where('od_ent', null);
+    }
     use HasFactory;
     use SoftDeletes;
     protected $table = 'viatura';
