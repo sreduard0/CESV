@@ -53,14 +53,17 @@ Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware(
 // VIATURAS
 Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('auth');
 Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('auth');
+
 // MISSÕES
 Route::get('info_mission/{id}', [MissionController::class, 'infoMission'])->name('info_mission')->middleware('auth');
 Route::get('finish_mission/{id}', [MissionController::class, 'finishMission'])->middleware('auth');
 Route::post('post_missions_list', [MissionController::class, 'listMission'])->name('post_missions_list')->middleware('auth');
+
 // FICHAS
 Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('auth');
 Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('auth');
 Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('auth');
+
 // RELA GUARDA
 Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('auth');
 Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('post_relgda_list')->middleware('auth');
@@ -83,5 +86,8 @@ Route::get('delete_vtr/{id}', [VtrController::class, 'deleteVtr'])->middleware('
 Route::post('register_ficha', [FichaController::class, 'registerFicha'])->middleware('auth');
 Route::post('edit_ficha', [FichaController::class, 'editFicha'])->middleware('auth');
 Route::get('finish_ficha/{id}', [FichaController::class, 'finishFicha'])->middleware('auth');
+
+// RELA GDA
+Route::post('register_relgda', [GdaController::class, 'registerRelGda'])->middleware('auth');
 
 // FIM CERUD ------------------------------------------------------------------

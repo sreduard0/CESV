@@ -469,7 +469,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="odSaiRel">Odômetro<span style="color:red">*</span></label>
-                                    <input id="name" name="name" type="text" class="form-control"
+                                    <input id="odSaiRel" name="odSaiRel" type="text" class="form-control"
                                         placeholder="Odômetro">
                                 </div>
                                 {{-- <div class="form-group col-md-3">
@@ -495,7 +495,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success" onclick="">Registrar</button>
+                    <button type="button" class="btn btn-success" onclick="return registerVtr()">Registrar</button>
                 </div>
             </div>
         </div>

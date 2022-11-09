@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RelGdaRequest;
 use App\Models\RelGdaModel;
 use App\Models\VtrModel;
 use Illuminate\Http\Request;
 
 class GdaController extends Controller
 {
-//INFORMAÇÕES DA FICHA E MISSAÕES PREENCHER RELA
+    //INFORMAÇÕES DA FICHA E MISSAÕES PREENCHER RELA
     public function infoRelGda($ebplaca)
     {
         return VtrModel::with('infoFicha', 'infoRelGda')->where('ebplaca', $ebplaca)->first();
+    }
+
+    // CRUD
+    public function registerRelGda(RelGdaRequest $request)
+    {
+        $data = $request->all();
+
+        print_r($data);
     }
 
     // TABELA RELAÃO GDA
@@ -67,7 +76,7 @@ class GdaController extends Controller
             $dados[] = $dado;
         }
 
-//Cria o array de informações a serem retornadas para o Javascript
+        //Cria o array de informações a serem retornadas para o Javascript
         $json_data = array(
             "draw" => intval($requestData['draw']), //para cada requisição é enviado um número como parâmetro
             "recordsTotal" => intval($filtered), //Quantidade de registros que há no banco de dados
