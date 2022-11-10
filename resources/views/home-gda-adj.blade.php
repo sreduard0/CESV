@@ -458,7 +458,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="">Modelo veículo <span style="color:red">*</span></label>
+                                    <label for="modVtrRel">Modelo veículo <span style="color:red">*</span></label>
                                     <input id="modVtrRel" name="modVtrRel" type="text" class="form-control"
                                         placeholder="Modelo veículo">
                                 </div>
@@ -472,11 +472,7 @@
                                     <input id="odSaiRel" name="odSaiRel" type="text" class="form-control"
                                         placeholder="Odômetro">
                                 </div>
-                                {{-- <div class="form-group col-md-3">
-                                    <label for="odEntRel">Odômetro de entrada<span style="color:red">*</span></label>
-                                    <input id="odEntRel" name="odEntRel" type="text" class="form-control"
-                                        placeholder="Odômetro de entrada">
-                                </div> --}}
+
                                 <div class="form-group col-md-3">
                                     <label for="destinyRel">Destino / Missão <span style="color:red">*</span></label>
                                     <input id="destinyRel" name="destinyRel" type="text" class="form-control"

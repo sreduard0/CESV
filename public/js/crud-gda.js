@@ -29,18 +29,20 @@ function selectVtrType(value) {
             $("#f-civil").css("display", "none")
             $("#f-om").css("display", "none")
             break;
-        case 'adm':
-        case 'op':
+        // case 'adm':
+        // case 'op':
         case 'om':
             $('#veicle_type').val('om')
-            $("#f-om").css("display", "block")
             $("#f-civil").css("display", "none")
             $("#f-oom").css("display", "none")
+            $("#f-om").css("display", "block")
+
             break;
         default:
+            $('#veicle_type').val('')
             $("#f-civil").css("display", "none")
             $("#f-oom").css("display", "none")
-            $("#form-vtr-om").css("display", "none")
+            $("#f-om").css("display", "none")
 
             break;
     }
