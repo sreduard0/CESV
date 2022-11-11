@@ -30,8 +30,10 @@
     <section class="col ">
         <div class="col">
             <h4 style="width:95%" class="row border-bottom border-success">
-                <div class="bg-primary m-l-10 m-r-5" style="width:15px; height:15px"></div> Dentro da OM
-                <div class="bg-success m-l-10 m-r-5" style="width:15px; height:15px"></div> Fora da OM
+                <div class="bg-primary m-l-10 m-r-5" style="width:15px; height:15px"></div> <span class="fs-16">Dentro da
+                    OM </span>
+                <div class="bg-success m-l-10 m-r-5" style="width:15px; height:15px"></div> <span class="fs-16">Fora da
+                    OM</span>
             </h4>
         </div>
         <div class="row ">
