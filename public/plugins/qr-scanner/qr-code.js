@@ -34,6 +34,8 @@ function setResult(label, result) {
                     icon: 'warning',
                     title: '&nbsp&nbsp Esta viatura não contém ficha.'
                 });
+            } else if (data.info_ficha.relgda.status == 1) {
+                closeRegister(data.id)
             } else {
                 selectVtrType(data.type_vtr)
                 selectFichaRel(data.info_ficha.id)

@@ -10,11 +10,7 @@ class VtrModel extends Model
 {
     public function infoFicha()
     {
-        return $this->hasOne('App\Models\FichaModel', 'id_vtr', 'id')->where('status', 1);
-    }
-    public function infoRelGda()
-    {
-        return $this->hasOne('App\Models\RelGdaModel', 'id_vtr', 'id')->where('od_ent', null);
+        return $this->hasOne('App\Models\FichaModel', 'id_vtr', 'id')->with('relgda')->where('status', 1);
     }
     use HasFactory;
     use SoftDeletes;

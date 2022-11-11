@@ -15,4 +15,9 @@ class RelGdaRequest extends FormRequest
         }
 
     }
+
+    public function rules()
+    {
+        return [];
+    }
 }

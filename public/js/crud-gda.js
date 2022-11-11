@@ -2,6 +2,7 @@ function checkTime(i) {
     if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
     return i;
 }
+
 function selectVtrType(value) {
     var today = new Date();
     var dmy = today.toLocaleDateString()
@@ -29,8 +30,8 @@ function selectVtrType(value) {
             $("#f-civil").css("display", "none")
             $("#f-om").css("display", "none")
             break;
-        // case 'adm':
-        // case 'op':
+        case 'adm':
+        case 'op':
         case 'om':
             $('#veicle_type').val('om')
             $("#f-civil").css("display", "none")
@@ -39,7 +40,6 @@ function selectVtrType(value) {
 
             break;
         default:
-            $('#veicle_type').val('')
             $("#f-civil").css("display", "none")
             $("#f-oom").css("display", "none")
             $("#f-om").css("display", "none")
@@ -60,9 +60,6 @@ function selectFichaRel(value) {
         $('#nameSegRel').val(result.name_seg)
         $('#modVtrRel').val(result.vtrinfo.mod_vtr)
         $('#ebPlacaRel').val(result.vtrinfo.ebplaca)
-        $('#idVtrRel').val(result.vtrinfo.id)
-        $('#idMissionRel').val(result.id_mission)
-
         if (result.missioninfo) {
             $('#destinyRel').val(result.missioninfo.destiny + " | " + result.missioninfo.mission_name)
         } else {
@@ -72,6 +69,7 @@ function selectFichaRel(value) {
     })
 }
 
+// REGISTRAR
 function registerCivil() {
     var Toast = Swal.mixin({
         toast: true,
@@ -79,122 +77,97 @@ function registerCivil() {
         showConfirmButton: false,
         timer: 4000
     });
-    const formData = new FormData(document.getElementById('form-register-mission'))
+    const formData = new FormData(document.getElementById('form-civil'))
 
     // Verificação
-    if (formData.get('typeMission') == '') {
-        $('#typeMission').addClass('is-invalid');
+    if (formData.get('nameMotCivilRel') == '' || formData.get('nameMotCivilRel').length > 200) {
+        $('#nameMotCivilRel').addClass('is-invalid');
         return false;
     } else {
-        $('#typeMission').removeClass('is-invalid');
-    }
-    if (formData.get('nameMission') == '' || formData.get('nameMission').length > 200) {
-        $('#nameMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#nameMission').removeClass('is-invalid');
-    }
-    if (formData.get('destinyMission') == '' || formData.get('destinyMission').length > 200) {
-        $('#destinyMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#destinyMission').removeClass('is-invalid');
-    }
-    if (formData.get('classMission') == '') {
-        $('#classMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#classMission').removeClass('is-invalid');
-    }
-    if (formData.get('docMission') == '' || formData.get('docMission').length > 200) {
-        $('#docMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#docMission').removeClass('is-invalid');
-    }
-    if (formData.get('originMission') == '' || formData.get('originMission').length > 200) {
-        $('#originMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#originMission').removeClass('is-invalid');
-    }
-    if (formData.get('pgSegMission') == '') {
-        $('#pgSegMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#pgSegMission').removeClass('is-invalid');
-    }
-    if (formData.get('nameSegMission') == '' || formData.get('nameSegMission').length > 150) {
-        $('#nameSegMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#nameSegMission').removeClass('is-invalid');
-    }
-    if (formData.get('datePrevPartMission') == '') {
-        $('#datePrevPartMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#datePrevPartMission').removeClass('is-invalid');
-    }
-    if (formData.get('datePrevChgdMission') == '') {
-        $('#datePrevChgdMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#datePrevChgdMission').removeClass('is-invalid');
+        $('#nameMotCivilRel').removeClass('is-invalid');
     }
 
-    if (formData.get('contactCmtMission').length != 16) {
-        $('#contactCmtMission').addClass('is-invalid');
+    if (formData.get('docCivilRel') == '' || formData.get('docCivilRel').length > 15) {
+        $('#docCivilRel').addClass('is-invalid');
         return false;
     } else {
-        $('#contactCmtMission').removeClass('is-invalid');
+        $('#docCivilRel').removeClass('is-invalid');
     }
 
-    var values = {
-        typeMission: formData.get('typeMission'),
-        nameMission: formData.get('nameMission'),
-        destinyMission: formData.get('destinyMission'),
-        classMission: formData.get('classMission'),
-        vtrMission: formData.get('vtrMission'),
-        docMission: formData.get('docMission'),
-        originMission: formData.get('originMission'),
-        // pgMotMission: formData.get('pgMotMission'),
-        // nameMotMission: formData.get('nameMotMission'),
-        pgSegMission: formData.get('pgSegMission'),
-        nameSegMission: formData.get('nameSegMission'),
-        datePrevPartMission: formData.get('datePrevPartMission'),
-        datePrevChgdMission: formData.get('datePrevChgdMission'),
-        contactCmtMission: formData.get('contactCmtMission'),
-        obsMission: formData.get('obsMission')
+    if (formData.get('modVeiCivilRel') == '' || formData.get('modVeiCivilRel').length > 200) {
+        $('#modVeiCivilRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#docCivilRel').removeClass('is-invalid');
     }
 
-    const URL = '/register_mission'
+    if (formData.get('placaCivilRel') == '' || formData.get('placaCivilRel').length > 15) {
+        $('#placaCivilRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#placaCivilRel').removeClass('is-invalid');
+    }
 
-    $.ajax({
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        url: URL,
-        type: 'POST',
-        data: values,
-        dataType: 'text',
-        success: function (data) {
-            Toast.fire({
-                icon: 'success',
-                title: '&nbsp&nbsp Missão adicionada com sucesso.'
-            });
+    if (formData.get('qtdPassCivilRel') == '') {
+        $('#qtdPassCivilRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#qtdPassCivilRel').removeClass('is-invalid');
+    }
 
-            $('#register-mission').modal('hide');
-            $('#form-register-mission')[0].reset();
-            $('#obsMission').summernote('code', '');
-            $("#table").DataTable().clear().draw();
-        },
 
-        error: function (data) {
-            Toast.fire({
-                icon: 'error',
-                title: '&nbsp&nbsp Erro ao cadastrar.'
-            });
-        }
-    });
+    if (formData.get('destinyCivilRel') == '' || formData.get('destinyCivilRel').length > 15) {
+        $('#destinyCivilRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#destinyCivilRel').removeClass('is-invalid');
+    }
+
+    // var values = {
+    //     typeMission: formData.get('typeMission'),
+    //     nameMission: formData.get('nameMission'),
+    //     destinyMission: formData.get('destinyMission'),
+    //     classMission: formData.get('classMission'),
+    //     vtrMission: formData.get('vtrMission'),
+    //     docMission: formData.get('docMission'),
+    //     originMission: formData.get('originMission'),
+    //     // pgMotMission: formData.get('pgMotMission'),
+    //     // nameMotMission: formData.get('nameMotMission'),
+    //     pgSegMission: formData.get('pgSegMission'),
+    //     nameSegMission: formData.get('nameSegMission'),
+    //     datePrevPartMission: formData.get('datePrevPartMission'),
+    //     datePrevChgdMission: formData.get('datePrevChgdMission'),
+    //     contactCmtMission: formData.get('contactCmtMission'),
+    //     obsMission: formData.get('obsMission')
+    // }
+
+    // const URL = '/register_mission'
+
+    // $.ajax({
+    //     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+    //     url: URL,
+    //     type: 'POST',
+    //     data: values,
+    //     dataType: 'text',
+    //     success: function (data) {
+    //         Toast.fire({
+    //             icon: 'success',
+    //             title: '&nbsp&nbsp Missão adicionada com sucesso.'
+    //         });
+
+    //         $('#register-mission').modal('hide');
+    //         $('#form-register-mission')[0].reset();
+    //         $('#obsMission').summernote('code', '');
+    //         $("#table").DataTable().clear().draw();
+    //     },
+
+    //     error: function (data) {
+    //         Toast.fire({
+    //             icon: 'error',
+    //             title: '&nbsp&nbsp Erro ao cadastrar.'
+    //         });
+    //     }
+    // });
 }
 function registerOom() {
     var Toast = Swal.mixin({
@@ -203,96 +176,88 @@ function registerOom() {
         showConfirmButton: false,
         timer: 4000
     });
-    const formData = new FormData(document.getElementById('form-register-mission'))
+    const formData = new FormData(document.getElementById('form-oom'))
 
     // Verificação
-    if (formData.get('typeMission') == '') {
-        $('#typeMission').addClass('is-invalid');
+    if (formData.get('pgMotOomRel') == '') {
+        $('#pgMotOomRel').addClass('is-invalid');
         return false;
     } else {
-        $('#typeMission').removeClass('is-invalid');
-    }
-    if (formData.get('nameMission') == '' || formData.get('nameMission').length > 200) {
-        $('#nameMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#nameMission').removeClass('is-invalid');
-    }
-    if (formData.get('destinyMission') == '' || formData.get('destinyMission').length > 200) {
-        $('#destinyMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#destinyMission').removeClass('is-invalid');
-    }
-    if (formData.get('classMission') == '') {
-        $('#classMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#classMission').removeClass('is-invalid');
-    }
-    if (formData.get('docMission') == '' || formData.get('docMission').length > 200) {
-        $('#docMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#docMission').removeClass('is-invalid');
-    }
-    if (formData.get('originMission') == '' || formData.get('originMission').length > 200) {
-        $('#originMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#originMission').removeClass('is-invalid');
-    }
-    if (formData.get('pgSegMission') == '') {
-        $('#pgSegMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#pgSegMission').removeClass('is-invalid');
-    }
-    if (formData.get('nameSegMission') == '' || formData.get('nameSegMission').length > 150) {
-        $('#nameSegMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#nameSegMission').removeClass('is-invalid');
-    }
-    if (formData.get('datePrevPartMission') == '') {
-        $('#datePrevPartMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#datePrevPartMission').removeClass('is-invalid');
-    }
-    if (formData.get('datePrevChgdMission') == '') {
-        $('#datePrevChgdMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#datePrevChgdMission').removeClass('is-invalid');
+        $('#pgMotOomRel').removeClass('is-invalid');
     }
 
-    if (formData.get('contactCmtMission').length != 16) {
-        $('#contactCmtMission').addClass('is-invalid');
+    if (formData.get('nameMotOomRel') == '' || formData.get('nameMotOomRel').length > 200) {
+        $('#nameMotOomRel').addClass('is-invalid');
         return false;
     } else {
-        $('#contactCmtMission').removeClass('is-invalid');
+        $('#nameMotOomRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('pgSegOomRel') == '') {
+        $('#pgSegOomRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#pgSegOomRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('nameSegOomRel') == '' || formData.get('nameSegOomRel').length > 200) {
+        $('#nameSegOomRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#nameSegOomRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('idtMilOomRel') == '' || formData.get('idtMilOomRel').length > 15) {
+        $('#idtMilOomRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#idtMilOomRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('modVtrOomRel') == '' || formData.get('modVtrOomRel').length > 200) {
+        $('#modVtrOomRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#modVtrOomRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('ebPlacaOomRel') == '' || formData.get('ebPlacaOomRel').length > 15) {
+        $('#ebPlacaOomRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#ebPlacaOomRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('omOomRel') == '' || formData.get('omOomRel').length > 15) {
+        $('#omOomRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#omOomRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('destinyOomRel') == '' || formData.get('destinyOomRel').length > 200) {
+        $('#destinyOomRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#destinyOomRel').removeClass('is-invalid');
     }
 
     var values = {
-        typeMission: formData.get('typeMission'),
-        nameMission: formData.get('nameMission'),
-        destinyMission: formData.get('destinyMission'),
-        classMission: formData.get('classMission'),
-        vtrMission: formData.get('vtrMission'),
-        docMission: formData.get('docMission'),
-        originMission: formData.get('originMission'),
-        // pgMotMission: formData.get('pgMotMission'),
-        // nameMotMission: formData.get('nameMotMission'),
-        pgSegMission: formData.get('pgSegMission'),
-        nameSegMission: formData.get('nameSegMission'),
-        datePrevPartMission: formData.get('datePrevPartMission'),
-        datePrevChgdMission: formData.get('datePrevChgdMission'),
-        contactCmtMission: formData.get('contactCmtMission'),
-        obsMission: formData.get('obsMission')
+        pgMot: formData.get('pgMotOomRel'),
+        nameMot: formData.get('nameMotOomRel'),
+        pgSeg: formData.get('pgSegOomRel'),
+        nameSeg: formData.get('nameSegOomRel'),
+        idtMil: formData.get('idtMilOomRel'),
+        modVtr: formData.get('modVtrOomRel'),
+        ebPlaca: formData.get('ebPlacaOomRel'),
+        om: formData.get('omOomRel'),
+        destiny: formData.get('destinyOomRel'),
+        obs: formData.get('obsOomRel'),
+        hourEnt: $('#hourSai').val(),
+        vtrType: $('#veicle_type').val()
     }
 
-    const URL = '/register_mission'
+    const URL = '/register_relgda'
 
     $.ajax({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -301,21 +266,31 @@ function registerOom() {
         data: values,
         dataType: 'text',
         success: function (data) {
-            Toast.fire({
-                icon: 'success',
-                title: '&nbsp&nbsp Missão adicionada com sucesso.'
-            });
-
-            $('#register-mission').modal('hide');
-            $('#form-register-mission')[0].reset();
-            $('#obsMission').summernote('code', '');
-            $("#table").DataTable().clear().draw();
+            switch (data) {
+                case 'vtr':
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '&nbsp&nbsp Esta viatura já está registrada.'
+                    });
+                    break;
+                default:
+                    Toast.fire({
+                        icon: 'success',
+                        title: '&nbsp&nbsp Viatura de outra OM registrada.'
+                    });
+                    $('#register-vtr ').modal('hide');
+                    $('#form-oom')[0].reset();
+                    $('#obsOomRel').summernote('code', '');
+                    $("#table").DataTable().clear().draw();
+                    $('#veicle_type').val('')
+                    break;
+            }
         },
 
         error: function (data) {
             Toast.fire({
                 icon: 'error',
-                title: '&nbsp&nbsp Erro ao cadastrar.'
+                title: '&nbsp&nbsp Erro ao registrar.'
             });
         }
     });
@@ -393,60 +368,59 @@ function registerOm() {
         $('#destinyRel').removeClass('is-invalid');
     }
 
-    if (formData.get('obsRel') == '') {
-        $('#obsRel').addClass('is-invalid');
-        return false;
-    } else {
-        $('#obsRel').removeClass('is-invalid');
-    }
-
     var values = {
         nrFicha: formData.get('nrFichaRel'),
-        pgMotRel: formData.get('pgMotRel'),
-        nameMotRel: formData.get('nameMotRel'),
-        nameMotRel: formData.get('nameMotRel'),
-        pgSegRel: formData.get('pgSegRel'),
-        nameSegRel: formData.get('nameSegRel'),
-        modVtrRel: formData.get('modVtrRel'),
-        ebPlacaRel: formData.get('ebPlacaRel'),
-        odSaiRel: formData.get('odSaiRel'),
-        destinyRel: formData.get('destinyRel'),
-        obsRel: formData.get('obsRel'),
-        vtrTypeRel: formData.get('vtrTypeRel'),
-        idMissionRel: formData.get('idMissionRel'),
-        idVtrRel: formData.get('idVtrRel'),
-        hourSai: formData.get('hourSai'),
+        pgMot: formData.get('pgMotRel'),
+        nameMot: formData.get('nameMotRel'),
+        nameMot: formData.get('nameMotRel'),
+        pgSeg: formData.get('pgSegRel'),
+        nameSeg: formData.get('nameSegRel'),
+        modVtr: formData.get('modVtrRel'),
+        ebPlaca: formData.get('ebPlacaRel'),
+        odSai: formData.get('odSaiRel'),
+        destiny: formData.get('destinyRel'),
+        obs: formData.get('obsRel'),
+        vtrType: $('#vtrTypeRel').val(),
+        hourSai: $('#hourSai').val(),
     }
 
-    console.log(values)
+    const URL = '/register_relgda'
 
-    // const URL = '/register_relgda'
+    $.ajax({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        url: URL,
+        type: 'POST',
+        data: values,
+        dataType: 'text',
+        success: function (data) {
+            switch (data) {
+                case 'ficha':
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '&nbsp&nbsp Esta viatura já está registrada.'
+                    });
+                    break;
+                default:
+                    Toast.fire({
+                        icon: 'success',
+                        title: '&nbsp&nbsp Saída de viatura registrada.'
+                    });
+                    $('#register-vtr ').modal('hide');
+                    $('#form-om')[0].reset();
+                    $('#obsRel').summernote('code', '');
+                    $("#table").DataTable().clear().draw();
+                    $('#veicle_type').val('')
+                    break;
+            }
+        },
 
-    // $.ajax({
-    //     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-    //     url: URL,
-    //     type: 'POST',
-    //     data: values,
-    //     dataType: 'text',
-    //     success: function (data) {
-    //         Toast.fire({
-    //             icon: 'success',
-    //             title: '&nbsp&nbsp Saída de viatura registrada.'
-    //         });
-
-    //         $('#register-vtr ').modal('hide');
-    //         $('#form-om')[0].reset();
-    //         $('#obsRel').summernote('code', '');
-    //         $("#table").DataTable().clear().draw();
-    //     },
-
-    //     error: function (data) {
-    //         Toast.fire({
-    //             icon: 'error',
-    //             title: '&nbsp&nbsp Erro ao registrar.'
-    //         });
-    //     }
-    // });
+        error: function (data) {
+            Toast.fire({
+                icon: 'error',
+                title: '&nbsp&nbsp Erro ao registrar.'
+            });
+        }
+    });
 }
 
 function registerVtr() {
@@ -474,5 +448,22 @@ function registerVtr() {
             break;
     }
 }
+
+// FECHAR
+function closeRegister(id) {
+    var today = new Date();
+    var dmy = today.toLocaleDateString()
+    var h = today.getHours();
+    var m = today.getMinutes();
+    h = checkTime(h);
+    m = checkTime(m);
+    $('#close-register-modal').modal('show')
+    // Mostrando data no campo
+    $('#ent_hora').val(dmy + ' ' + h + ':' + m)
+    $('#hourEnt').val(dmy + ' ' + h + ':' + m)
+    $('#idResgister').val(id)
+}
+
+
 
 

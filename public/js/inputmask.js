@@ -51,7 +51,7 @@ $('.time').datetimepicker({
     timePicker: true,
     timePickerIncrement: 30,
     locale: {
-        format: 'DD/MM/YYYY'
+        format: 'DD-MM-YYYY'
     }
 })
 

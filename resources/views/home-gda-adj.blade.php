@@ -29,7 +29,10 @@
 @section('content')
     <section class="col ">
         <div class="col">
-            <h4 style="width:350px" class="border-bottom border-success">Veículos dentro e fora da OM</h4>
+            <h4 style="width:95%" class="row border-bottom border-success">
+                <div class="bg-primary m-l-10 m-r-5" style="width:15px; height:15px"></div> Dentro da OM
+                <div class="bg-success m-l-10 m-r-5" style="width:15px; height:15px"></div> Fora da OM
+            </h4>
         </div>
         <div class="row ">
 
@@ -131,11 +134,11 @@
                             <th>Modelo veículo</th>
                             <th>Motorista</th>
                             <th>Segurança</th>
+                            <th>Hora - Entrada</th>
                             <th>Hora - Saída</th>
-                            <th>Odômetro - Saída</th>
                             <th>OM</th>
                             <th>Missão/Destino</th>
-                            <th style="min-width:70px"><i class="fs-20 fa fa-info-circle"></i> info</th>
+                            <th style="width:7em"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
                 </table>
@@ -186,14 +189,55 @@
             </div>
         </div>
     </div>
+    <!-- MODAL FECHAR REGISTRO VTR-->
+    <div class="modal fade" id="close-register-modal" tabindex="-1" role="dialog"
+        aria-labelledby="close-register-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="close-register-modalLabel">Registrar entrada/saída de viatura</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group col-md-4">
+                        <div class="form-group">
 
+                            <input type="hidden" id="idResgister">
+                            <label>Data/Hora da saída</label>
+                            <div class="input-group">
+                                <input disabled id="ent_hora" type="text" class="form-control " value="">
+                                <input type="hidden" id="hourEnt" value="">
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="odEntel">Odômetro<span style="color:red">*</span></label>
+                        <input id="odEntRel" name="odEntRel" type="text" class="form-control"
+                            placeholder="Odômetro">
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- MODAL REGISTER VTR MANUAL-->
     <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="register-vtrLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="register-vtrLabel">Registrar saída
+                    <h5 class="modal-title" id="register-vtrLabel">Registrar entrada/saída
                         de viatura</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -211,7 +255,7 @@
                             <label for="veicle_type">Tipo de veículo</label>
                             <select onchange="selectVtrType(this.value)" id="veicle_type" name="veicle_type"
                                 class="form-control">
-                                <option selected>SELECIONE O TIPO DE VEÍCULO</option>
+                                <option selected value="">SELECIONE O TIPO DE VEÍCULO</option>
                                 <option value="civil">CIVIL</option>
                                 <option value="oom">Outra OM</option>
                                 <option value="om">3º B Sup</option>
@@ -222,7 +266,7 @@
                                 <label>Data/Hora da saída</label>
                                 <div class="input-group">
                                     <input disabled id="_hora" type="text" class="form-control " value="">
-                                    <input type="hidden" id="hourSai">
+                                    <input type="hidden" id="hourSai" value="">
                                     <div class="input-group-append">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -258,11 +302,18 @@
                                     <input id="placaCivilRel" name="placaCivilRel" type="text" class="form-control"
                                         placeholder="Placa">
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <label for="qtdPassCivilRel">Qtd de passageiros <span
+                                <div class="form-group col-md-4">
+                                    <label for="qtdPassCivilRel">Qtd. de passageiros <span
                                             style="color:red">*</span></label>
-                                    <input id="qtdPassCivilRel" name="qtdPassCivilRel" type="number"
-                                        class="form-control" placeholder="Qtd de passageiros">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="qtdPassCivilRel"
+                                            name="qtdPassCivilRel" data-inputmask="'mask':'99'" data-mask=""
+                                            inputmode="text" placeholder="Qtd. de passageiros">
+                                    </div>
+
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="destinyCivilRel">Destino <span style="color:red">*</span></label>
@@ -274,7 +325,7 @@
                                 <div class="form-group col">
                                     <label for="obsCivilRel">Observações</label>
                                     <textarea name="obsCivilRel" id="obsCivilRel" rows="8" placeholder="Ex: Carro com impressoras."
-                                        class="form-control"></textarea>
+                                        class=" text form-control"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -371,7 +422,7 @@
                                 <div class="form-group col">
                                     <label for="obsOomRel">Observações</label>
                                     <textarea name="obsOomRel" id="obsOomRel" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
-                                        class="form-control"></textarea>
+                                        class="text form-control"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -381,8 +432,6 @@
                     <div id="f-om" style="display:none">
                         <form id="form-om">
                             <input type="hidden" id="vtrTypeRel">
-                            <input type="hidden" id="idMissionRel">
-                            <input type="hidden" id="idVtrRel">
                             <div class="row">
                                 <div class="form-group col-md-4">
                                     <label for="nrFichaRel">Número da ficha <span style="color:red">*</span></label>
@@ -396,7 +445,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="typeVtr">Tipo</span></label>
-                                    <select disabled class="form-control" id="nrFichaRel">
+                                    <select disabled class="form-control" id="typeVtr">
                                         <option selected value="">-</option>
                                         <option value="op">Operacional</option>
                                         <option value="adm">Administrativa</option>
@@ -467,10 +516,16 @@
                                     <input id="ebPlacaRel" name="ebPlacaRel" type="text" class="form-control"
                                         placeholder="Placa / EB">
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <label for="odSaiRel">Odômetro<span style="color:red">*</span></label>
-                                    <input id="odSaiRel" name="odSaiRel" type="text" class="form-control"
-                                        placeholder="Odômetro">
+                                <div class="form-group col-md-4">
+                                    <label for="odSaiRel">Odômetro <span style="color:red">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-car"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="odSaiRel" name="odSaiRel"
+                                            data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                            placeholder="Odômetro">
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -526,22 +581,24 @@
     <script type="module" src="{{ asset('plugins/qr-scanner/qr-code.js') }}"></script>
 
     <script>
+        setInterval(() => {
+            $("#table").DataTable().clear().draw();
+        }, 60000);
         $(function() {
             $("#table").DataTable({
                 "paging": true,
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,
-                // "aoColumnDefs": [{
-                //     'bSortable': false,
-                //     'aTargets': [0, 4, 5, 6]
-                // }],
+                "aoColumnDefs": [{
+                    'bSortable': false,
+                    'aTargets': [7]
+                }],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
-                "processing": true,
+                "processing": false,
                 "serverSide": true,
-
                 "ajax": {
                     "url": "{{ route('post_relgda_list') }}",
                     "type": "POST",

@@ -8,13 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RelGdaModel extends Model
 {
-    public function vtr()
-    {
-        return $this->hasMany('App\Models\VtrModel', 'id_vtr', 'id');
-    }
     public function ficha()
     {
-        return $this->hasMany('App\Models\FichaModel', 'id_ficha', 'id')->with('missioninfo');
+        return $this->hasMany('App\Models\FichaModel', 'id', 'id_ficha')->with('missioninfo', 'vtrinfo');
     }
     use HasFactory;
     use SoftDeletes;

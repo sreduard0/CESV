@@ -16,6 +16,10 @@ class FichaModel extends Model
     {
         return $this->hasOne('App\Models\MissionModel', 'id', 'id_mission');
     }
+    public function relgda()
+    {
+        return $this->hasOne('App\Models\RelGdaModel', 'id_ficha', 'id')->where('status', 1);
+    }
     use HasFactory;
     use SoftDeletes;
     protected $table = 'fichas';

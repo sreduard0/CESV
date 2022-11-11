@@ -13,7 +13,7 @@ class GdaController extends Controller
     //INFORMAÇÕES DA FICHA E MISSAÕES PREENCHER RELA
     public function infoRelGda($ebplaca)
     {
-        return VtrModel::with('infoFicha', 'infoRelGda')->where('ebplaca', $ebplaca)->first();
+        return VtrModel::with('infoFicha')->where('ebplaca', $ebplaca)->first();
     }
 
     // CRUD
@@ -21,10 +21,59 @@ class GdaController extends Controller
     {
         $data = $request->all();
 
-        print_r($data);
+        switch ($data['vtrType']) {
+            case 'op':
+            case 'adm':
+                $checkFicha = RelGdaModel::where('id_ficha', $data['nrFicha'])->where('status', 1)->first();
+                if ($checkFicha) {
+                    return 'ficha';
+                }
+                $rel = new RelGdaModel();
+                $rel->type_veicle = $data['vtrType'];
+                $rel->id_ficha = $data['nrFicha'];
+                $rel->pg_mot = $data['pgMot'];
+                $rel->name_mot = $data['nameMot'];
+                $rel->pg_seg = $data['pgSeg'];
+                $rel->name_seg = $data['nameSeg'];
+                $rel->mod_veicle = $data['modVtr'];
+                $rel->placaeb = $data['ebPlaca'];
+                $rel->od_sai = str_replace('_', '', $data['odSai']);
+                $rel->destiny = $data['destiny'];
+                $rel->obs = $data['obs'];
+                $rel->hour_sai = date('Y-m-d H:i', strtotime($data['hourSai']));
+                $rel->status = 1;
+                $rel->save();
+                break;
+            case 'oom':
+                $checkVtr = RelGdaModel::where('placaeb', $data['ebPlaca'])->where('status', 1)->first();
+                if ($checkVtr) {
+                    return 'vtr';
+                }
+
+                $rel = new RelGdaModel();
+                $rel->pg_mot = $data['pgMot'];
+                $rel->name_mot = $data['nameMot'];
+                $rel->pg_seg = $data['pgSeg'];
+                $rel->name_seg = $data['nameSeg'];
+                $rel->idt = $data['idtMil'];
+                $rel->mod_veicle = $data['modVtr'];
+                $rel->placaeb = $data['ebPlaca'];
+                $rel->om = $data['om'];
+                $rel->destiny = $data['destiny'];
+                $rel->obs = $data['obs'];
+                $rel->hour_ent = date('Y-m-d H:i', strtotime($data['hourEnt']));
+                $rel->type_veicle = $data['vtrType'];
+                $rel->status = 1;
+                $rel->save();
+                break;
+            case 'civil':
+
+                break;
+
+        }
     }
 
-    // TABELA RELAÃO GDA
+    // TABELA RELAÇÃO GDA
     public function listRelGda(Request $request)
     {
         //Receber a requisão da pesquisa
@@ -51,7 +100,7 @@ class GdaController extends Controller
         //     $filtered = count($registers);
         //     $rows = count(RelGdaModel::all());
         // } else {
-        $registers = RelGdaModel::where('status', 1)->with('vtr', 'ficha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+        $registers = RelGdaModel::where('status', 1)->with('ficha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
         $filtered = count($registers);
         // }
 
@@ -60,11 +109,11 @@ class GdaController extends Controller
         foreach ($registers as $register) {
             $dado = array();
             $dado[] = $register->mod_veicle;
-            $dado[] = $register->mot_name;
-            $dado[] = $register->seg_name;
-            $dado[] = $register->hour_sai;
-            $dado[] = $register->od_sai;
-            $dado[] = $register->om;
+            $dado[] = $register->pg_mot . ' ' . $register->name_mot;
+            $dado[] = $register->pg_seg . ' ' . $register->name_seg;
+            $dado[] = $register->hour_ent ? date('d-m-Y h:i', strtotime($register->hour_ent)) : '-';
+            $dado[] = $register->hour_sai ? date('d-m-Y h:i', strtotime($register->hour_sai)) : '-';
+            $dado[] = $register->om ? $register->om : '3º B Sup';
             $dado[] = $register->destiny;
             $dado[] = '
                                     <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"
