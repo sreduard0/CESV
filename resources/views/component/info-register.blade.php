@@ -18,461 +18,179 @@
                             <div class="col">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title card-title-background "> <i class="fas fa-car mr-1"></i>
-                                            Civil</h3>
-                                        <button id="btnEdit" onclick="return activeEdit()"
-                                            class="btn btn-primary float-r"><i id="icoEdit"
-                                                class="fa fa-edit"></i></button>
+                                        <h3 id="title" class="card-title card-title-background "></h3>
                                     </div>
-                                    <div class="card-body" id="panelInfo" style="display: block">
-                                        <div id="infoCivil" style="display: none">
-                                            <div class="  float-l col-md-6">
-                                                <strong>Nome do motorista</strong>
+                                    <div id="infoCivil" style="display: none">
+                                        <div class="float-l col-md-6">
+                                            <strong>Nome do motorista</strong>
 
-                                                <p id="fullname" class="text-muted">-</p>
+                                            <p id="nameMotCivil" class="m-l-10 text-muted">-</p>
 
-                                                <hr>
+                                            <hr>
 
-                                                <strong>Modelo veículo</strong>
+                                            <strong>Modelo veículo</strong>
 
-                                                <p id="phone_mil" class="text-muted">-</p>
+                                            <p id="modVtrCivil" class="m-l-10 text-muted">-</p>
 
-                                                <hr>
+                                            <hr>
 
-                                                <strong>Placa</strong>
+                                            <strong>Placa</strong>
 
-                                                <p id="cpf" class="text-muted">-</p>
+                                            <p id="placaCivil" class="m-l-10 text-muted">-</p>
 
-                                                <hr>
+                                            <hr>
 
-                                                <strong>CPF/RG/CNH</strong>
+                                            <strong>CPF/RG/CNH</strong>
 
-                                                <p id="joinedarmy_mil" class="text-muted">-</p>
-                                                <hr>
+                                            <p id="idtCivil" class="m-l-10 text-muted">-</p>
+                                            <hr>
 
-                                                <strong>Qtd. passageiros</strong>
+                                            <strong>Qtd. passageiros</strong>
 
-                                                <p id="godfather2_mil" class="text-muted">-</p>
+                                            <p id="qtdPassCivil" class="m-l-10 text-muted">-</p>
 
 
-                                            </div>
-                                            <div class=" float-r col-md-6">
-                                                <strong>Destino</strong>
-
-                                                <p id="situation_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Horário de entrada</strong>
-
-                                                <p id="phone2_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Horário de saída</strong>
-
-                                                <p id="prec_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Obs</strong>
-
-                                                <p id="godfather_mil" class="text-muted">-</p>
-                                            </div>
                                         </div>
+                                        <div class=" float-r col-md-6">
+                                            <strong>Destino</strong>
 
-                                        <div id="infoOom" style="display: none">
-                                            <div class="  float-l col-md-6">
-                                                <strong>Nome do motorista</strong>
+                                            <p id="destinyCivil" class="m-l-10 text-muted">-</p>
 
-                                                <p id="fullname" class="text-muted">-</p>
+                                            <hr>
 
-                                                <hr>
+                                            <strong>Horário de entrada</strong>
 
-                                                <strong>Nome do segurança</strong>
+                                            <p id="hourEntCivil" class="m-l-10 text-muted">-</p>
 
-                                                <p id="phone_mil" class="text-muted">-</p>
+                                            <hr>
 
-                                                <hr>
+                                            <strong>Horário de saída</strong>
+                                            <p id="hourSaiCivil" class="m-l-10 text-muted">-</p>
 
-                                                <strong>Modelo veículo</strong>
+                                            <hr>
 
-                                                <p id="phone_mil" class="text-muted">-</p>
+                                            <strong>Obs</strong>
 
-                                                <hr>
-
-                                                <strong>Placa/EB</strong>
-
-                                                <p id="cpf" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Idt militar mais antigo</strong>
-
-                                                <p id="joinedarmy_mil" class="text-muted">-</p>
-
-
-                                            </div>
-                                            <div class=" float-r col-md-6">
-                                                <strong>OM</strong>
-
-                                                <p id="situation_mil" class="text-muted">-</p>
-
-                                                <hr>
-                                                <strong>Destino</strong>
-
-                                                <p id="situation_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Horário de entrada</strong>
-
-                                                <p id="phone2_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Horário de saída</strong>
-
-                                                <p id="prec_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Obs</strong>
-
-                                                <p id="godfather_mil" class="text-muted">-</p>
-                                            </div>
-                                        </div>
-
-                                        <div id="infoVtrOm" style="display: none">
-                                            <div class="  float-l col-md-6">
-                                                <strong>Ficha</strong>
-
-                                                <p id="joinedarmy_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Nome do motorista</strong>
-
-                                                <p id="fullname" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Nome do segurança</strong>
-
-                                                <p id="phone_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Modelo veículo</strong>
-
-                                                <p id="phone_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Placa/EB</strong>
-
-                                                <p id="cpf" class="text-muted">-</p>
-
-                                            </div>
-                                            <div class=" float-r col-md-6">
-                                                <strong>Destino</strong>
-
-                                                <p id="situation_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Horário de entrada</strong>
-
-                                                <p id="phone2_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Horário de saída</strong>
-
-                                                <p id="prec_mil" class="text-muted">-</p>
-
-                                                <hr>
-
-                                                <strong>Obs</strong>
-
-                                                <p id="godfather_mil" class="text-muted">-</p>
-                                            </div>
+                                            <p id="obsCivil" class="m-l-10 text-muted">-</p>
                                         </div>
                                     </div>
 
-                                    <div class="card-body" id="panelEditInfo" style="display: none">
-                                        {{-- FORM CIVIL --}}
-                                        <div id="f-civil" style="display:none">
+                                    <div id="infoOom" style="display: none">
+                                        <div class="float-l col-md-6">
+                                            <strong>Nome do motorista</strong>
 
-                                            <form id="form-civil">
-                                                <div class="row">
-                                                    <div class="form-group col">
-                                                        <label for="name">Nome do motorista <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Nome do motorista">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">CPF/RG/CNH <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="CPF/RG/CNH">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Modelo veículo <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Modelo veículo">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Placa <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Placa">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Qtd de passageiros <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="number"
-                                                            class="form-control" placeholder="Qtd de passageiros">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Destino <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Destino">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col">
-                                                        <label for="name">Observações</label>
-                                                        <textarea name="" id="" rows="8" placeholder="Ex: Carro com impressoras."
-                                                            class="form-control"></textarea>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                            <p id="nameMotOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Nome do segurança</strong>
+
+                                            <p id="nameSegOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Modelo veículo</strong>
+
+                                            <p id="modVtrOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Placa/EB</strong>
+
+                                            <p id="ebPlacaOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Idt militar mais antigo</strong>
+
+                                            <p id="idtMilOom" class="m-l-10 text-muted">-</p>
+
+
                                         </div>
+                                        <div class="float-r col-md-6">
+                                            <strong>OM</strong>
 
-                                        {{-- FORM OUTRA OM --}}
-                                        <div id="f-oom" style="display:none">
-                                            <form id="form-oom">
-                                                <div class="row">
-                                                    <div class="form-group col-md-2">
-                                                        <label for="pg">Posto/Grad <span
-                                                                style="color:red">*</span></label>
-                                                        <select class="form-control" name="rank_id" id="rank_id">
-                                                            <option value="">Selecione</option>
-                                                            <option value="Gen">Gen</option>
-                                                            <option value="Cel">Cel</option>
-                                                            <option value="TC">TC</option>
-                                                            <option value="Maj">Maj</option>
-                                                            <option value="Cap">Cap</option>
-                                                            <option value="1º Ten">1º Ten</option>
-                                                            <option value="2º Ten">2º Ten</option>
-                                                            <option value="Asp">Asp</option>
-                                                            <option value="ST">ST</option>
-                                                            <option value="1º Sgt">1º Sgt</option>
-                                                            <option value="2º Sgt">2º Sgt</option>
-                                                            <option value="3º Sgt">3º Sgt</option>
-                                                            <option value="Cb">Cb</option>
-                                                            <option value="Sd">Sd</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="name">Nome do motorista <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" typphp e="text"
-                                                            class="form-control" placeholder="Nome do motorista">
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label for="pg">Posto/Grad <span
-                                                                style="color:red">*</span></label>
-                                                        <select class="form-control" name="rank_id" id="rank_id">
-                                                            <option value="">Selecione</option>
-                                                            <option value="Gen">Gen</option>
-                                                            <option value="Cel">Cel</option>
-                                                            <option value="TC">TC</option>
-                                                            <option value="Maj">Maj</option>
-                                                            <option value="Cap">Cap</option>
-                                                            <option value="1º Ten">1º Ten</option>
-                                                            <option value="2º Ten">2º Ten</option>
-                                                            <option value="Asp">Asp</option>
-                                                            <option value="ST">ST</option>
-                                                            <option value="1º Sgt">1º Sgt</option>
-                                                            <option value="2º Sgt">2º Sgt</option>
-                                                            <option value="3º Sgt">3º Sgt</option>
-                                                            <option value="Cb">Cb</option>
-                                                            <option value="Sd">Sd</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="name">Nome do segurança <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Nome do segurança">
-                                                    </div>
+                                            <p id="omOom" class="m-l-10 text-muted">-</p>
 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="name">Idt mil <span style="color:red">*</span>
-                                                        </label> (do mais
-                                                        antigo)
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Idt mil">
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="name">Modelo veículo <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Modelo veículo">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Placa / EB <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Placa / EB">
-                                                    </div>
+                                            <hr>
+                                            <strong>Destino</strong>
 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">OM <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="OM">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Destino / Missão <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Destino / Missão">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col">
-                                                        <label for="name">Observações</label>
-                                                        <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
-                                                            class="form-control"></textarea>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                            <p id="destinyOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Horário de entrada</strong>
+
+                                            <p id="hourEntOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Horário de saída</strong>
+
+                                            <p id="hourSaiOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Obs</strong>
+
+                                            <p id="obsOom" class="m-l-10 text-muted">-</p>
                                         </div>
+                                    </div>
 
-                                        {{-- FORM ADM/OP --}}
-                                        <div id="f-adm-op" style="display:none">
-                                            <form id="form-adm-op">
-                                                <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="pg">Número da ficha <span
-                                                                style="color:red">*</span></label>
-                                                        <select class="form-control" name="rank_id" id="rank_id">
-                                                            <option value="">Selecione</option>
-                                                            <option value="1580">1580 / Cb Jesse</option>
-                                                            <option value="1581">1581 / Sd De Carvalho</option>
-                                                            <option value="1582">1582 / Sgt Criss</option>
-                                                            <option value="1583">1583 / Ten Melzin</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-2">
-                                                        <label for="pg">Posto/Grad <span
-                                                                style="color:red">*</span></label>
-                                                        <select class="form-control" name="rank_id" id="rank_id">
-                                                            <option value="">Selecione</option>
-                                                            <option value="Gen">Gen</option>
-                                                            <option value="Cel">Cel</option>
-                                                            <option value="TC">TC</option>
-                                                            <option value="Maj">Maj</option>
-                                                            <option value="Cap">Cap</option>
-                                                            <option value="1º Ten">1º Ten</option>
-                                                            <option value="2º Ten">2º Ten</option>
-                                                            <option value="Asp">Asp</option>
-                                                            <option value="ST">ST</option>
-                                                            <option value="1º Sgt">1º Sgt</option>
-                                                            <option value="2º Sgt">2º Sgt</option>
-                                                            <option value="3º Sgt">3º Sgt</option>
-                                                            <option value="Cb">Cb</option>
-                                                            <option value="Sd">Sd</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="name">Nome do motorista <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Nome do motorista">
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label for="pg">Posto/Grad <span
-                                                                style="color:red">*</span></label>
-                                                        <select class="form-control" name="rank_id" id="rank_id">
-                                                            <option value="">Selecione</option>
-                                                            <option value="Gen">Gen</option>
-                                                            <option value="Cel">Cel</option>
-                                                            <option value="TC">TC</option>
-                                                            <option value="Maj">Maj</option>
-                                                            <option value="Cap">Cap</option>
-                                                            <option value="1º Ten">1º Ten</option>
-                                                            <option value="2º Ten">2º Ten</option>
-                                                            <option value="Asp">Asp</option>
-                                                            <option value="ST">ST</option>
-                                                            <option value="1º Sgt">1º Sgt</option>
-                                                            <option value="2º Sgt">2º Sgt</option>
-                                                            <option value="3º Sgt">3º Sgt</option>
-                                                            <option value="Cb">Cb</option>
-                                                            <option value="Sd">Sd</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="name">Nome do segurança <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Nome do segurança">
-                                                    </div>
+                                    <div id="infoVtrOm" style="display: none">
+                                        <div class="float-l col-md-6">
+                                            <strong>Ficha</strong>
 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Modelo veículo <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Modelo veículo">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Placa / EB <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Placa / EB">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Odômetro <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Odômetro">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="name">Destino / Missão <span
-                                                                style="color:red">*</span></label>
-                                                        <input id="name" name="name" type="text"
-                                                            class="form-control" placeholder="Destino / Missão">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col">
-                                                        <label for="name">Observações</label>
-                                                        <textarea name="" id="" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
-                                                            class="form-control"></textarea>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                            <p id="nrFichaOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Nome do motorista</strong>
+
+                                            <p id="nameMotOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Nome do segurança</strong>
+
+                                            <p id="nameSegOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Modelo veículo</strong>
+
+                                            <p id="modVtrOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Placa/EB</strong>
+
+                                            <p id="ebPlacaOm" class="m-l-10 text-muted">-</p>
+
                                         </div>
+                                        <div class="float-r col-md-6">
+                                            <strong>Destino / Missão</strong>
+
+                                            <p id="destinyOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Horário de saída</strong>
+
+                                            <p id="hourSaiOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+                                            <strong>Horário de entrada</strong>
+
+                                            <p id="hourEntOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
 
 
+                                            <strong>Obs</strong>
 
-
+                                            <p id="obsOm" class="m-l-10 text-muted">-</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -489,86 +207,103 @@
 </div>
 {{-- SCRIPTS --}}
 <script>
-    var showEdit = true;
-
-    function activeEdit() {
-        if (showEdit == false) {
-            $("#panelInfo").css("display", "block")
-            $("#panelEditInfo").css("display", "none")
-            $("#btnEdit").addClass('btn-primary')
-            $("#btnEdit").removeClass('btn-success')
-            $("#icoEdit").removeClass('fa-check')
-            $("#icoEdit").addClass('fa-edit')
-
-            showEdit = true
-        } else {
-            $("#panelInfo").css("display", "none")
-            $("#panelEditInfo").css("display", "block")
-            $("#btnEdit").addClass('btn-success')
-            $("#btnEdit").removeClass('btn-primary')
-            $("#icoEdit").removeClass('fa-edit')
-            $("#icoEdit").addClass('fa-check')
-            showEdit = false
-        }
-    }
     $('#info-register').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var id = button.data('id');
         var modal = $(this);
+        var url = "{{ url('get_info_register') }}/" + id;
+        $.get(url, function(result) {
+            switch (result.type_veicle) {
+                case 'op':
+                case 'adm':
+                    $('#title').html('<i class="fas fa-car mr-1"></i> Veículo desta OM')
+                    const mission = result.ficha.missioninfo ? result.ficha.missioninfo.mission_name :
+                        "Guarnição / Vtr de dia"
+                    modal.find('#nrFichaOm').text(result.ficha.nr_ficha)
+                    modal.find('#nameMotOm').text(result.pg_mot + ' ' + result.name_mot)
+                    modal.find('#nameSegOm').text(result.pg_seg + ' ' + result.name_seg)
+                    modal.find('#modVtrOm').text(result.mod_veicle)
+                    modal.find('#ebPlacaOm').text(result.placaeb)
+                    modal.find('#destinyOm').text(result.destiny + ' | ' + mission)
+                    modal.find('#hourEntOm').text(result.hour_ent ? moment(result.hour_ent).format(
+                        'DD-MM-YYYY HH:mm') : 'Está fora da OM')
+                    modal.find('#hourSaiOm').text(moment(result.hour_sai).format('DD-MM-YYYY HH:mm'))
+                    modal.find('#obsOm').text(result.obs ? result.obs : 'Sem observações')
 
-        switch (type) {
-            case 'op':
-            case 'om':
-                $("#infoVtrOm").css("display", "block")
-                $("#infoOom").css("display", "none")
-                $("#infoCivil").css("display", "none")
-                break;
-            case 'oom':
-                $("#infoVtrOm").css("display", "none")
-                $("#infoOom").css("display", "block")
-                $("#infoCivil").css("display", "none")
-                break;
-            case 'civil':
-                $("#infoVtrOm").css("display", "none")
-                $("#infoOom").css("display", "none")
-                $("#infoCivil").css("display", "block")
-                break;
-        }
-        //     var url = '/get_profile/' + id;
-        //     modal.find('#phone2_visitor').text('')
-        //     modal.find('#prec_mil').text('')
-        //     modal.find('#godfather2_mil').text('Não consta.')
-        //     modal.find('#joinedarmy_mil').text('Não consta.')
-        //     modal.find('#proceduraldata_mil').text('Não consta.')
-        //     $('#phone_mil').mask('(00) 0 0000-0000');
-        //     $('#phone2_mil').mask('(00) 0 0000-0000');
-        //     $('#cpf').mask('000.000.000-00');
-        //     $('#prec_mil').mask('00 0000000');
-        //     $("#profile_link").attr("href", '');
-        //     $.get(url, function(result) {
-        //         $("#profile_link").attr("href", "/profile/" + result.id);
-        //         modal.find('#edit_img').attr("src", result.photo)
-        //         modal.find('#adido_name').text(result.rank.rankAbbreviation + ' ' + result
-        //             .professionalName)
-        //         modal.find('#name_cia').text(result.company.name)
-        //         modal.find('#fullname').text(result.fullName)
-        //         modal.find('#cpf').text($('#cpf').masked(result.cpf))
-        //         modal.find('#phone_mil').text($('#phone_mil').masked(result.phone))
-        //         modal.find('#phone2_mil').text($('#phone2_mil').masked(result.phone2))
-        //         modal.find('#prec_mil').text($('#prec_mil').masked(result.preccp))
-        //         modal.find('#joinedarmy_mil').text(moment(result.joinedArmy).format('DD-MM-YYYY'))
-        //         if (result.proceduraldata) {
-        //             modal.find('#proceduraldata_mil').text('Há dados processuais.')
-        //         }
-        //         modal.find('#situation_mil').text(result.condition.condition)
-        //         modal.find('#godfather_mil').text(result.godfather.rank.rankAbbreviation + ' ' +
-        //             result
-        //             .godfather.professionalName)
-        //         modal.find('#godfather2_mil').text(result.godfather2.rank.rankAbbreviation +
-        //             ' ' + result
-        //             .godfather2.professionalName)
-        //     })
+                    $("#infoVtrOm").css("display", "block")
+                    $("#infoOom").css("display", "none")
+                    $("#infoCivil").css("display", "none")
+                    break;
+                case 'oom':
+                    $('#title').html('<i class="fas fa-car mr-1"></i> Veículo de outra OM')
 
+                    modal.find('#nameMotOom').text(result.pg_mot + ' ' + result.name_mot)
+                    modal.find('#nameSegOom').text(result.pg_seg + ' ' + result.name_seg)
+                    modal.find('#modVtrOom').text(result.mod_veicle)
+                    modal.find('#ebPlacaOom').text(result.placaeb)
+                    modal.find('#idtMilOom').text(result.idt)
+                    modal.find('#omOom').text(result.om)
+                    modal.find('#destinyOom').text(result.destiny)
+                    modal.find('#hourEntOom').text(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
+                    modal.find('#hourSaiOom').text(result.hour_sai ? moment(result.hour_sai).format(
+                        'DD-MM-YYYY HH:mm') : 'Dentro da OM')
+                    modal.find('#obsOom').text(result.obs ? result.obs : 'Sem observações')
 
+                    $("#infoVtrOm").css("display", "none")
+                    $("#infoOom").css("display", "block")
+                    $("#infoCivil").css("display", "none")
+                    break;
+                case 'civil':
+                    $('#title').html('<i class="fas fa-car mr-1"></i> Veículo civil')
+
+                    modal.find('#nameMotCivil').text(result.name_mot)
+                    modal.find('#modVtrCivil').text(result.mod_veicle)
+                    modal.find('#placaCivil').text(result.placaeb)
+                    modal.find('#idtCivil').text(result.idt)
+                    modal.find('#qtdPassCivil').text(result.passengers)
+                    modal.find('#destinyCivil').text(result.destiny)
+                    modal.find('#hourEntCivil').text(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
+                    modal.find('#hourSaiCivil').text(result.hour_sai ? moment(result.hour_sai).format(
+                        'DD-MM-YYYY HH:mm') : 'Dentro da OM')
+                    modal.find('#obsCivil').text(result.obs ? result.obs : 'Sem observações')
+
+                    $("#infoVtrOm").css("display", "none")
+                    $("#infoOom").css("display", "none")
+                    $("#infoCivil").css("display", "block")
+                    break;
+            }
+        })
+    });
+    $('#info-register').on('hide.bs.modal', function(event) {
+        var modal = $(this);
+        $('#title').html('')
+        modal.find('#nrFichaOm').text('-')
+        modal.find('#nameMotOm').text('-')
+        modal.find('#nameSegOm').text('-')
+        modal.find('#modVtrOm').text('-')
+        modal.find('#ebPlacaOm').text('-')
+        modal.find('#destinyOm').text('-')
+        modal.find('#hourEntOm').text('-')
+        modal.find('#hourSaiOm').text('-')
+        modal.find('#obsOm').text('-')
+        modal.find('#nameMotOom').text('-')
+        modal.find('#nameSegOom').text('-')
+        modal.find('#modVtrOom').text('-')
+        modal.find('#ebPlacaOom').text('-')
+        modal.find('#idtMilOom').text('-')
+        modal.find('#omOom').text('-')
+        modal.find('#destinyOom').text('-')
+        modal.find('#hourEntOom').text('-')
+        modal.find('#hourSaiOom').text('-')
+        modal.find('#obsOom').text('-')
+        modal.find('#nameMotCivil').text('-')
+        modal.find('#modVtrCivil').text('-')
+        modal.find('#placaCivil').text('-')
+        modal.find('#idtCivil').text('-')
+        modal.find('#qtdPassCivil').text('-')
+        modal.find('#destinyCivil').text('-')
+        modal.find('#hourEntCivil').text('-')
+        modal.find('#hourSaiCivil').text('-')
+        modal.find('#obsCivil').text('-')
     });
 </script>

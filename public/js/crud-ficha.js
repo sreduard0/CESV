@@ -248,7 +248,7 @@ function finishFicha(id) {
                         $("#table").DataTable().clear().draw();
                         Toast.fire({
                             icon: 'success',
-                            title: '&nbsp&nbsp Ficha finalizada com sucesso.'
+                            title: '&nbsp&nbsp Ficha finalizada com sucesso.<br>' + data + ' KM(s) rodados '
                         });
                         $("#table").DataTable().clear().draw();
 

@@ -119,30 +119,18 @@
 
                              <hr>
 
-
-
                              <strong>Consumo gasolina</strong>
 
                              <p id="" class="text-muted">-</p>
 
-                             <hr>
+                         </div>
+                         <div class=" float-r col-md-6">
+
+
 
                              <strong>Consumo diesel</strong>
 
                              <p id="" class="text-muted">-</p>
-                         </div>
-                         <div class=" float-r col-md-6">
-                             <strong>Odômetro inícial</strong>
-
-                             <p id="" class="text-muted">-</p>
-
-                             <hr>
-
-                             <strong>Odômetro final</strong>
-
-                             <p id="" class="text-muted">-</p>
-
-                             <hr>
 
                              <strong>Alteração</strong>
 
@@ -159,7 +147,6 @@
 
              </div>
              <div class="modal-footer">
-                 <div id="finish"></div>
                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
              </div>
          </div>
@@ -181,8 +168,10 @@
                  } else {
                      var segName = 'Não informado'
                  }
+                 var od = vtr.od_total ? '<br>Percorrido: ' + vtr.od_total + 'KM(s)' : ''
                  var data = 'Ficha: ' + vtr.nr_ficha + ' | Vtr: ' + vtr.vtrinfo.mod_vtr +
                      ' <br> Mot: ' + vtr.pg_mot + ' ' + vtr.name_mot + ' | Seg: ' + segName +
+                     od +
                      '<br><br>'
 
                  return data
@@ -223,14 +212,8 @@
 
              if (result.status > 2) {
                  $("#panelInfoCon").css("display", "block")
-                 $('#finish').html('')
              } else {
                  $("#panelInfoCon").css("display", "none")
-                 @if (session('CESV')['profileType'] == 1)
-                     $('#finish').html(
-                         "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='return finishMission(" +
-                         result.id + ")'>Encerrar missão</button>")
-                 @endif
              }
          })
 

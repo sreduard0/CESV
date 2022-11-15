@@ -309,7 +309,7 @@ function finishMission(id) {
             return ' ' + vtr.nr_ficha
         })
 
-        const message = "<strong>Essa operação não pode ser desfeita e fechará todas as fichas vinculadas a esta missão.</strong><br><br>Ficha(as) que será(ão) fechada(as): " + Vtrs
+        const message = "<strong>Essa operação não pode ser desfeita e fechará todas as fichas vinculadas a esta missão.</strong><br><br>Fichas que serão fechadas: " + Vtrs
 
         bootbox.confirm({
             title: ' Deseja encerrar esta missão?',
@@ -351,5 +351,53 @@ function finishMission(id) {
             }
         });
     })
+}
+function altStatusMission(id) {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    });
+    const message = "Tem certeza que deseja mudar o status da missão <br>para <strong>'Em andamento'</strong>?<br>Esta operação não pode ser desfeita. "
+    bootbox.confirm({
+        title: ' Deseja alterar o status da missão?',
+        message: message,
+        callback: function (confirmacao) {
+
+            if (confirmacao)
+                $.ajax({
+                    url: '/alt_sts_mission/' + id,
+                    type: "GET",
+                    success: function (data) {
+                        Toast.fire({
+                            icon: 'success',
+                            title: '&nbsp&nbsp Status da missão alterado.'
+                        });
+                        $("#table").DataTable().clear().draw();
+
+
+                    },
+                    error: function (data) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: '&nbsp&nbsp Erro ao alterar.'
+                        });
+
+                    }
+                });
+        },
+        buttons: {
+            cancel: {
+                label: 'Cancelar',
+                className: 'btn-default'
+            },
+            confirm: {
+                label: 'Alterar',
+                className: 'btn-success'
+            }
+
+        }
+    });
 }
 

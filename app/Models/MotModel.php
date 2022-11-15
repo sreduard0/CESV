@@ -6,14 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RelGdaModel extends Model
+class MotModel extends Model
 {
-    public function ficha()
-    {
-        return $this->hasOne('App\Models\FichaModel', 'id', 'id_ficha')->with('missioninfo', 'vtrinfo');
-    }
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'rel_gda';
+    protected $table = 'driver';
     protected $primarykey = 'id';
 }

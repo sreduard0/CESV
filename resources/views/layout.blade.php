@@ -66,8 +66,8 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="http://sistao.3bsup.eb.mil.br/profile/view"
-                            class="d-block">{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</a>
+                        <span
+                            class="d-block">{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</span>
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -95,6 +95,14 @@
                                     <i class="nav-icon fas fa-car"></i>
                                     <p>
                                         Viaturas
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{{ route('drivers') }}" class="nav-link @yield('mot')">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        Motoristas
                                     </p>
                                 </a>
                             </li>
@@ -153,7 +161,6 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-                            @yield('content-add')
                             <div class="card bg-default">
                                 <div class="card-header border-0 bg-success">
 

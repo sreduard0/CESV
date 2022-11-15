@@ -1,7 +1,7 @@
 @extends('layout')
 @section('title', 'Transporte')
-@section('ficha', 'active')
-@section('title-header', 'Fichas')
+@section('mot', 'active')
+@section('title-header', 'Motoristas')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -67,7 +67,7 @@
                             <th>Segurança</th>
                             <th>Natureza</th>
                             <th>Status</th>
-                            <th style="min-width:40px"><i class="fs-20 fa fa-info-circle"></i></th>
+                            <th style="width:85px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
                 </table>
@@ -118,7 +118,8 @@
                             <div class="form-group col-md-4">
                                 <label for="missionFicha">Missão<span style="color:red">*</span></label>
                                 <select class="form-control" name="missionFicha" id="missionFicha">
-                                    <option selected value="0">Missão interna</option>
+                                    <option selected value="">Selecione</option>
+                                    <option value="0">Guarnição / Vtr de dia</option>
                                     @foreach ($missions as $mission)
                                         <option value="{{ $mission->id }}">{{ $mission->type_mission }} |
                                             {{ $mission->mission_name }}</option>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FichaRequest;
 use App\Models\FichaModel;
+use App\Models\RelGdaModel;
 use Illuminate\Http\Request;
 
 class FichaController extends Controller
@@ -86,9 +87,16 @@ class FichaController extends Controller
     }
     public function finishFicha($id)
     {
+
         $ficha = FichaModel::find($id);
+        $od = [];
+        foreach (RelGdaModel::where('id_ficha', $id)->get() as $relGda) {
+            $od[] = $relGda->total_od;
+        }
+        $ficha->od_total = array_sum($od);
         $ficha->status = 2;
         $ficha->save();
+        return array_sum($od);
     }
     // TABELA DE FICHAS
     public function listFichas(Request $request)
@@ -109,14 +117,15 @@ class FichaController extends Controller
         );
 
         //Obtendo registros de número total sem qualquer pesquisa
-        $rows = count(FichaModel::all());
 
         //Se há pesquisa ou não
         if ($requestData['columns'][3]['search']['value']) {
             $fichas = FichaModel::with('vtrInfo')->where('status', $requestData['columns'][3]['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($fichas);
-            $rows = count(FichaModel::all());
+            $rows = count(FichaModel::where('status', $requestData['columns'][3]['search']['value'])->get());
         } else {
+            $rows = count(FichaModel::where('status', 1)->get());
+
             $fichas = FichaModel::where('status', 1)->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($fichas);
         }
@@ -127,7 +136,7 @@ class FichaController extends Controller
             $dado = array();
             $dado[] = $ficha->nr_ficha;
             $dado[] = $ficha->vtrInfo->nr_vtr . ' | ' . $ficha->vtrInfo->mod_vtr;
-            $ficha->id_mission == 0 ? $dado[] = 'Serviço/Guarnição' : $dado[] = $ficha->missionInfo->mission_name;
+            $ficha->id_mission == 0 ? $dado[] = 'Missão interna' : $dado[] = $ficha->missionInfo->mission_name;
             $dado[] = $ficha->in_order;
             $dado[] = $ficha->pg_mot . ' ' . $ficha->name_mot;
             if ($ficha->pg_seg == null) {
@@ -142,13 +151,12 @@ class FichaController extends Controller
                 $dado[] = 'Encerrada';
 
             }
-            $dado[] = '
-                        <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
-                                        class="fa fa-car"></i></button>
-                        <button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
+            $btns = $ficha->status == 1 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
                                         class="fa fa-edit"></i></button>
                         <button title="Fechar ficha" class="btn btn-sm btn-danger" data-toggle="modal" onclick="finishFicha(' . $ficha->id . ')"><i
-                                        class="fa fa-times"></i></button>';
+                                        class="fa fa-times"></i></button>' : '';
+            $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
+                                        class="fa fa-car"></i></button> ' . $btns;
             $dados[] = $dado;
         }
 

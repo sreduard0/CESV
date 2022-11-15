@@ -18,8 +18,7 @@ class Fichas extends Migration
             $table->string('name_seg', 255)->nullable();
             $table->string('nat_of_serv', 255);
             $table->string('in_order', 255);
-            $table->integer('od_ini')->nullable();
-            $table->integer('od_fin')->nullable();
+            $table->integer('od_total')->nullable();
             $table->integer('status');
             $table->integer('id_vtr');
             $table->integer('id_mission')->nullable();

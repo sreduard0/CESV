@@ -21,6 +21,8 @@ class ViewController extends Controller
                 return view('home-gda-adj', $data);
                 break;
             case 1:
+            case 3:
+            case 4:
                 $data = [
                     'viaturas' => VtrModel::where('status', 1)->orderBy('nr_vtr', 'asc')->get(),
                 ];
@@ -33,7 +35,7 @@ class ViewController extends Controller
     {
         $data = [
             'viaturas' => VtrModel::where('status', 1)->get(),
-            'missions' => MissionModel::all(),
+            'missions' => MissionModel::where('status', 1)->get(),
 
         ];
         return view('ficha-list', $data);
@@ -41,5 +43,9 @@ class ViewController extends Controller
     public function viatura()
     {
         return view('vtr-list');
+    }
+
+    public function drivers(){
+        return view('mot-list');
     }
 }

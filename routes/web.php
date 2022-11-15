@@ -7,46 +7,11 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\VtrController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
- */
-
-Route::get('/inicio/{id}', function ($id) {
-    session()->put([
-        'CESV' => [
-            'profileType' => $id,
-            'notification' => 1,
-            'loginID' => 1,
-        ],
-
-        'user' => [
-            'id' => 1,
-            'name' => 'Eduardo Martins',
-            'photo' => 'img/viatura.jpg',
-            'professionalName' => 'Eduardo',
-            'email' => 'dudu.martins373@gmail.com',
-            'rank' => 'Cb',
-            'company' => [
-                'id' => 2,
-                'name' => 'CCSv',
-            ],
-        ],
-
-        'theme' => 1,
-    ]);
-    echo session('CESV')['profileType'];
-});
 // VIEWS
 Route::get('/', [ViewController::class, 'home'])->name('home')->middleware('auth');
 Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('auth');
 Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('auth');
+Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('auth');
 
 // AÇÕES --------------------------------------------------------------------
 
@@ -56,6 +21,7 @@ Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')
 
 // MISSÕES
 Route::get('info_mission/{id}', [MissionController::class, 'infoMission'])->name('info_mission')->middleware('auth');
+Route::get('alt_sts_mission/{id}', [MissionController::class, 'altStsMission'])->middleware('auth');
 Route::get('finish_mission/{id}', [MissionController::class, 'finishMission'])->middleware('auth');
 Route::post('post_missions_list', [MissionController::class, 'listMission'])->name('post_missions_list')->middleware('auth');
 
@@ -65,6 +31,9 @@ Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('p
 Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('auth');
 
 // RELA GUARDA
+Route::get('countRelGda', [GdaController::class, 'countRelGda'])->middleware('auth');
+Route::get('deleterelgda/{id}', [GdaController::class, 'deleteRelGda'])->middleware('auth');
+Route::get('get_info_register/{id}', [GdaController::class, 'infoRegister'])->middleware('auth');
 Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('auth');
 Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('post_relgda_list')->middleware('auth');
 
@@ -89,5 +58,6 @@ Route::get('finish_ficha/{id}', [FichaController::class, 'finishFicha'])->middle
 
 // RELA GDA
 Route::post('register_relgda', [GdaController::class, 'registerRelGda'])->middleware('auth');
+Route::post('close_relgda', [GdaController::class, 'closeRelGda'])->middleware('auth');
 
 // FIM CERUD ------------------------------------------------------------------

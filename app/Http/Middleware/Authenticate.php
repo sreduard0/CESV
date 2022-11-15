@@ -11,7 +11,7 @@ class Authenticate
     {
         session()->put([
             'CESV' => [
-                'profileType' => 0,
+                'profileType' => 1,
                 'notification' => 1,
                 'loginID' => 1,
             ],
@@ -37,6 +37,6 @@ class Authenticate
         if ($session && $s) {
             return $next($request);
         }
-        return redirect('http://sistao.3bsup.eb.mil.br');
+        return redirect()->route('login');
     }
 }
