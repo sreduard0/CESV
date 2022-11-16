@@ -27,7 +27,7 @@
 @endsection
 
 @section('content')
-    <section class="col ">
+    <section class="col">
         <div class="col">
             <h4 style="width:95%" class="row border-bottom border-success">
                 <div class="bg-primary m-l-10 m-r-5" style="width:15px; height:15px"></div> <span class="fs-16">Dentro da
@@ -141,7 +141,7 @@
                             <th>Hora - Saída</th>
                             <th>OM</th>
                             <th>Missão/Destino</th>
-                            <th @if (session('CESV')['profileType'] == 0) style="width:5em" @else style="width:7em" @endif>
+                            <th @if (session('CESV')['profileType'] == 0) style="width:5em" @else style="width:120px" @endif>
                                 <i class="fs-20 fa fa-info-circle"></i> info
                             </th>
                         </tr>
@@ -190,54 +190,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- MODAL FECHAR REGISTRO VTR-->
-    <div class="modal fade" id="close-register-modal" tabindex="-1" role="dialog"
-        aria-labelledby="close-register-modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="close-register-modalLabel">Registrar entrada/saída de viatura</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="form-reg-close">
-                        <input type="hidden" id="idResgister" name="idResgister">
-                        <input type="hidden" id="vtr" name="vtr">
-                        <input type="hidden" id="hourEnt" name="hourEnt">
-                        <div class="form-group col-md-4">
-                            <div class="form-group">
-                                <label>Data/Hora</label>
-                                <div class="input-group">
-                                    <input disabled id="ent_hora" type="text" class="form-control " value="">
-
-                                    <div class="input-group-append">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="od form-group col-md-4">
-                            <label for="od">Odômetro <span style="color:red">*</span></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-car"></i></span>
-                                </div>
-                                <input type="text" class="form-control" id="odEntRel" name="odEntRel"
-                                    data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
-                                    placeholder="Odômetro">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success" onclick="return closeRegister()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -400,10 +352,18 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <label for="idtMilOomRel">Idt mil <span style="color:red">*</span> </label> (do mais
+                                    <label for="idtMilOomRel">Idt mil <span style="color:red">*</span> </label> (do
+                                    mais
                                     antigo)
-                                    <input id="idtMilOomRel" maxlength="15" name="idtMilOomRel" type="text"
-                                        class="form-control" placeholder="Idt mil">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="idtMilOomRel" name="idtMilOomRel"
+                                            data-inputmask="'mask':'999.999.999-9'" data-mask="" inputmode="text"
+                                            placeholder="___.___.___-_">
+                                    </div>
+
                                 </div>
                                 <div class="form-group col">
                                     <label for="modVtrOomRel">Modelo viatura<span style="color:red">*</span></label>
@@ -555,8 +515,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="edit-register-gdaLabel">Editar entrada/saída
-                            de viatura</h5>
+                        <h5 class="modal-title" id="edit-register-gdaLabel">Editar registro de viatura</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -569,30 +528,35 @@
                             </div>
                         </div>
 
+                        <input type="hidden" id="idEditRegister">
+                        <input type="hidden" id="editTypeVtr">
+
                         <div id="e-f-civil" style="display:none">
                             <form id="e-form-civil">
                                 <div class="row">
 
-                                    <div class="form-group col-md-4">
-                                        <label>Hora da entrada <span style="color:red">*</span></label>
-                                        <div class="input-group date" id="hourEntTarget" data-target-input="nearest">
+                                    <div class="form-group col-md-3">
+                                        <label>Data entrada <span style="color:red">*</span></label>
+                                        <div class="input-group date" id="dateEntCivilRelTarget"
+                                            data-target-input="nearest">
                                             <input type="text" class="form-control datetimepicker-input"
-                                                data-target="#hourEntTarget" id="e_hourEntCivilRel"
-                                                name="e_hourEntCivilRel" value="">
-                                            <div class="input-group-append" data-target="#hourEntTarget"
+                                                data-target="#dateEntCivilRelTarget" id="e_dateEntCivilRel"
+                                                name="e_dateEntCivilRel" value="">
+                                            <div class="input-group-append" data-target="#dateEntCivilRelTarget"
                                                 data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label>Hora da saída</label>
-                                        <div class="input-group date" id="hourSaiTarget" data-target-input="nearest">
+                                    <div class="form-group col-md-3">
+                                        <label>Data saída</label>
+                                        <div class="input-group date" id="dateSaiCivilRelTarget"
+                                            data-target-input="nearest">
                                             <input type="text" class="form-control datetimepicker-input"
-                                                data-target="#hourSaiTarget" id="e_hourSaiCivilRel"
-                                                name="e_hourSaiCivilRel" value="">
-                                            <div class="input-group-append" data-target="#hourSaiTarget"
+                                                data-target="#dateSaiCivilRelTarget" id="e_dateSaiCivilRel"
+                                                name="e_dateSaiCivilRel" value="">
+                                            <div class="input-group-append" data-target="#dateSaiCivilRelTarget"
                                                 data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i>
                                                 </div>
@@ -600,7 +564,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                ''
+
                                 <div class="row">
                                     <div class="form-group col">
                                         <label for="e_nameMotCivilRel">Nome do motorista <span
@@ -655,9 +619,38 @@
                             </form>
                         </div>
 
-
                         <div id="e-f-oom" style="display:none">
                             <form id="e-form-oom">
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label>Data entrada<span style="color:red">*</span></label>
+                                        <div class="input-group date" id="dateEntOomRelTarget"
+                                            data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateEntOomRelTarget" id="e_dateEntOomRel"
+                                                name="e_dateEntOomRel" value="">
+                                            <div class="input-group-append" data-target="#dateEntOomRelTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Data saída</label>
+                                        <div class="input-group date" id="dateSaiOomRelTarget"
+                                            data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateSaiOomRelTarget" id="e_dateSaiOomRel"
+                                                name="e_dateSaiOomRel" value="">
+                                            <div class="input-group-append" data-target="#dateSaiOomRelTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="form-group col-md-2">
                                         <label for="e_pgMotOomRel">Posto/Grad <span style="color:red">*</span></label>
@@ -718,8 +711,15 @@
                                         <label for="e_idtMilOomRel">Idt mil <span style="color:red">*</span> </label> (do
                                         mais
                                         antigo)
-                                        <input id="e_idtMilOomRel" maxlength="15" name="e_idtMilOomRel" type="text"
-                                            class="form-control" placeholder="Idt mil">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="e_idtMilOomRel"
+                                                name="e_idtMilOomRel" data-inputmask="'mask':'999.999.999-9'"
+                                                data-mask="" inputmode="text" placeholder="___.___.___-_">
+                                        </div>
+
                                     </div>
                                     <div class="form-group col">
                                         <label for="e_modVtrOomRel">Modelo viatura<span style="color:red">*</span></label>
@@ -760,10 +760,60 @@
                             <form id="e-form-om">
                                 <input type="hidden" id="e_vtrTypeRel">
                                 <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label>Data entrada</label>
+                                        <div class="input-group date" id="dateEntTarget" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateEntTarget" id="e_dateEntRel" name="e_dateEntRel"
+                                                value="">
+                                            <div class="input-group-append" data-target="#dateEntTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Data saída<span style="color:red">*</span></label>
+                                        <div class="input-group date" id="dateSaiTarget" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateSaiTarget" id="e_dateSaiRel" name="e_dateSaiRel"
+                                                value="">
+                                            <div class="input-group-append" data-target="#dateSaiTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_odEntRel">Odômetro entrada</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-car"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="e_odEntRel" name="e_odEntRel"
+                                                data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                                placeholder="Odômetro">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_odSaiRel">Odômetro saída<span style="color:red">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-car"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="e_odSaiRel" name="e_odSaiRel"
+                                                data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                                placeholder="Odômetro">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="form-group col-md-4">
-                                        <label for="e_nrFichaRel">Número da ficha <span style="color:red">*</span></label>
-                                        <select onchange="selectFichaRel(this.value)" class="form-control"
-                                            name="e_nrFichaRel" id="e_nrFichaRel">
+                                        <label for="e_nrFichaRel">Número da ficha</label>
+                                        <select onchange="selectFichaRel(this.value)" class="form-control" disabled
+                                            id="e_nrFichaRel">
                                             <option selected value="">Selecione</option>
                                             @foreach ($fichas as $ficha)
                                                 <option value="{{ $ficha->id }}">{{ $ficha->nr_ficha }}</option>
@@ -815,34 +865,22 @@
                                     <div class="form-group col">
                                         <label for="e_nameSegRel">Nome do segurança <span
                                                 style="color:red">*</span></label>
-                                        <input id="e_nameSegRel" maxlength="199" name="e_nameSegRel" type="text"
+                                        <input id="e_nameSegRel" name="e_nameSegRel" maxlength="199" type="text"
                                             class="form-control" placeholder="Nome do segurança">
                                     </div>
 
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-3">
-                                        <label for="e_modVtrRel">Modelo veículo <span style="color:red">*</span></label>
-                                        <input id="e_modVtrRel" maxlength="199" name="e_modVtrRel" type="text"
+                                        <label for="e_modVtrRel">Modelo veículo</label>
+                                        <input id="e_modVtrRel" maxlength="199" disabled type="text"
                                             class="form-control" placeholder="Modelo veículo">
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="e_ebPlacaRel">Placa / EB <span style="color:red">*</span></label>
-                                        <input id="e_ebPlacaRel" maxlength="15" name="e_ebPlacaRel" type="text"
+                                        <label for="e_ebPlacaRel">Placa / EB</label>
+                                        <input id="e_ebPlacaRel" maxlength="15" disabled type="text"
                                             class="form-control" placeholder="Placa / EB">
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="e_odSaiRel">Odômetro <span style="color:red">*</span></label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-car"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" id="e_odSaiRel" name="e_odSaiRel"
-                                                data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
-                                                placeholder="Odômetro">
-                                        </div>
-                                    </div>
-
                                     <div class="form-group col">
                                         <label for="e_destinyRel">Destino / Missão <span
                                                 style="color:red">*</span></label>
@@ -862,7 +900,58 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-success" onclick="return registerVtr()">Registrar</button>
+                        <button type="button" class="btn btn-success" onclick="return EditRegisterVtr()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (session('CESV')['profileType'] == 0)
+        <!-- MODAL FECHAR REGISTRO VTR-->
+        <div class="modal fade" id="close-register-modal" tabindex="-1" role="dialog"
+            aria-labelledby="close-register-modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="close-register-modalLabel">Registrar entrada/saída de viatura</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-reg-close">
+                            <input type="hidden" id="idResgister" name="idResgister">
+                            <input type="hidden" id="vtr" name="vtr">
+                            <input type="hidden" id="hourEnt" name="hourEnt">
+                            <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label>Data/Hora</label>
+                                    <div class="input-group">
+                                        <input disabled id="ent_hora" type="text" class="form-control "
+                                            value="">
+
+                                        <div class="input-group-append">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="od form-group col-md-4">
+                                <label for="od">Odômetro <span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-car"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="odEntRel" name="odEntRel"
+                                        data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                        placeholder="Odômetro">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success" onclick="return closeRegister()">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -900,6 +989,10 @@
     <script src="{{ asset('js/actions.js') }}"></script>
 
     <script>
+        setInterval(() => {
+            $("#table").DataTable().clear().draw();
+            contRel()
+        }, 60000);
         $(function() {
             $("#table").DataTable({
                 "paging": true,

@@ -64,6 +64,7 @@ class GdaController extends Controller
                 $rel = new RelGdaModel();
                 $rel->type_veicle = $data['vtrType'];
                 $rel->id_ficha = $data['nrFicha'];
+                $rel->id_mot = $data['idMot'];
                 $rel->pg_mot = $mot->pg;
                 $rel->name_mot = $mot->name;
                 $rel->pg_seg = $data['pgSeg'];
@@ -148,6 +149,130 @@ class GdaController extends Controller
                 $rel->status = 1;
                 $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'];
 
+                $rel->save();
+
+                break;
+
+        }
+    }
+    public function editRelGda(RelGdaRequest $request)
+    {
+        $vtr = $request->only('vtrType');
+        switch ($vtr['vtrType']) {
+            case 'op':
+            case 'adm':
+                $data = $request->validate([
+                    'dateSai' => 'required',
+                    'dateEnt' => '',
+                    'odEnt' => '',
+                    'odSai' => 'required',
+                    'idMot' => 'required',
+                    'pgSeg' => 'required|max:6',
+                    'nameSeg' => 'required|max:255',
+                    'destiny' => 'required|max:255',
+                    'id' => '',
+                    'obs' => '',
+                    'vtrType' => '',
+                ]);
+
+                $mot = MotModel::find($data['idMot']);
+                $rel = RelGdaModel::find($data['id']);
+                if ($data['odEnt'] && $rel->od_sai > str_replace('_', '', $data['odEnt'])) {
+                    return 'od';
+                }
+                if ($rel->status == 2) {
+                    if (!$data['odEnt'] || !$data['dateEnt']) {
+                        return 'enc';
+                    }
+                }
+
+                $rel->id_mot = $data['idMot'];
+                $rel->pg_mot = $mot->pg;
+                $rel->name_mot = $mot->name;
+                $rel->pg_seg = $data['pgSeg'];
+                $rel->name_seg = $data['nameSeg'];
+                $rel->od_sai = str_replace('_', '', $data['odSai']);
+                $rel->od_ent = $data['dateEnt'] && $data['odEnt'] ? str_replace('_', '', $data['odSai']) : null;
+                $rel->hour_ent = $data['dateEnt'] && $data['odEnt'] ? date('Y-m-d H:i', strtotime($data['dateEnt'])) : null;
+                $rel->hour_sai = date('Y-m-d H:i', strtotime($data['dateSai']));
+                $rel->destiny = $data['destiny'];
+                $rel->obs = $data['obs'];
+                if ($data['odEnt'] && $data['dateEnt']) {
+                    $rel->status = 2;
+                }
+                $rel->save();
+
+                break;
+            case 'oom':
+                $data = $request->validate([
+                    'dateEnt' => 'required',
+                    'dateSai' => '',
+                    'pgMot' => 'required|max:6',
+                    'nameMot' => 'required|max:255',
+                    'pgSeg' => 'required|max:6',
+                    'nameSeg' => 'required|max:255',
+                    'idtMil' => 'required|max:255',
+                    'modVtr' => 'required|max:255',
+                    'ebPlaca' => 'required|max:15',
+                    'om' => 'required|max:15',
+                    'destiny' => 'required|max:255',
+                    'obs' => '',
+                    'id' => 'required',
+                    'vtrType' => 'required',
+                ]);
+                $checkVtr = RelGdaModel::where('placaeb', $data['ebPlaca'])->where('status', 1)->where('id', '!=', $data['id'])->first();
+                if ($checkVtr) {
+                    return 'vtr';
+                }
+
+                $rel = RelGdaModel::find($data['id']);
+                $rel->pg_mot = $data['pgMot'];
+                $rel->name_mot = $data['nameMot'];
+                $rel->pg_seg = $data['pgSeg'];
+                $rel->name_seg = $data['nameSeg'];
+                $rel->idt = $data['idtMil'];
+                $rel->mod_veicle = $data['modVtr'];
+                $rel->placaeb = $data['ebPlaca'];
+                $rel->om = $data['om'];
+                $rel->destiny = $data['destiny'];
+                $rel->obs = $data['obs'];
+                $rel->hour_ent = date('Y-m-d H:i', strtotime($data['dateEnt']));
+                $rel->hour_sai = $data['dateSai'] ? date('Y-m-d H:i', strtotime($data['dateSai'])) : null;
+                $rel->status = $data['dateSai'] ? 2 : 1;
+                $rel->save();
+
+                break;
+            case 'civil':
+                $data = $request->validate([
+                    'dateEnt' => 'required',
+                    'dateSai' => '',
+                    'nameMot' => 'required|max:255',
+                    'doc' => 'required|max:255',
+                    'modVtr' => 'required|max:255',
+                    'placaVtr' => 'required|max:15',
+                    'qtdPass' => 'required|max:15',
+                    'destiny' => 'required|max:255',
+                    'obs' => '',
+                    'id' => 'required',
+                    'vtrType' => 'required',
+                ]);
+
+                $checkVtr = RelGdaModel::where('placaeb', $data['placaVtr'])->where('status', 1)->where('id', '!=', $data['id'])->first();
+                if ($checkVtr) {
+                    return 'vtr';
+                }
+
+                $rel = RelGdaModel::find($data['id']);
+                $rel->name_mot = $data['nameMot'];
+                $rel->idt = $data['doc'];
+                $rel->mod_veicle = $data['modVtr'];
+                $rel->placaeb = $data['placaVtr'];
+                $rel->passengers = str_replace('_', '', $data['qtdPass']);
+                $rel->destiny = $data['destiny'];
+                $rel->obs = $data['obs'];
+                $rel->hour_ent = date('Y-m-d H:i', strtotime($data['dateEnt']));
+                $rel->hour_sai = $data['dateSai'] ? date('Y-m-d H:i', strtotime($data['dateSai'])) : null;
+                $rel->status = $data['dateSai'] ? 2 : 1;
                 $rel->save();
 
                 break;

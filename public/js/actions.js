@@ -1,4 +1,4 @@
-
+window.onload = contRel();
 function contRel() {
     var url = 'countRelGda'
     $.get(url, function (result) {
@@ -12,10 +12,7 @@ function contRel() {
 function filterRel() {
     $('#table').DataTable().column(3).search($('#typeVtr_filter').val()).draw();
 }
-setInterval(() => {
-    $("#table").DataTable().clear().draw();
-    contRel()
-}, 60000);
+
 $('#register-vtr').on('hide.bs.modal', function (event) {
     $('#form-civil')[0].reset();
     $('#form-oom')[0].reset();

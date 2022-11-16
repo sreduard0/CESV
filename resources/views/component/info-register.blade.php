@@ -232,7 +232,7 @@
                     modal.find('#hourEntOm').text(result.hour_ent ? moment(result.hour_ent).format(
                         'DD-MM-YYYY HH:mm') : 'Está fora da OM')
                     modal.find('#hourSaiOm').text(moment(result.hour_sai).format('DD-MM-YYYY HH:mm'))
-                    modal.find('#obsOm').text(result.obs ? result.obs : 'Sem observações')
+                    modal.find('#obsOm').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "block")
                     $("#infoOom").css("display", "none")
@@ -251,7 +251,7 @@
                     modal.find('#hourEntOom').text(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
                     modal.find('#hourSaiOom').text(result.hour_sai ? moment(result.hour_sai).format(
                         'DD-MM-YYYY HH:mm') : 'Dentro da OM')
-                    modal.find('#obsOom').text(result.obs ? result.obs : 'Sem observações')
+                    modal.find('#obsOom').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "none")
                     $("#infoOom").css("display", "block")
@@ -269,7 +269,7 @@
                     modal.find('#hourEntCivil').text(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
                     modal.find('#hourSaiCivil').text(result.hour_sai ? moment(result.hour_sai).format(
                         'DD-MM-YYYY HH:mm') : 'Dentro da OM')
-                    modal.find('#obsCivil').text(result.obs ? result.obs : 'Sem observações')
+                    modal.find('#obsCivil').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "none")
                     $("#infoOom").css("display", "none")

@@ -29,7 +29,8 @@ function setResult(label, result) {
                     icon: 'warning',
                     title: '&nbsp&nbsp Este QRCode não pertence ao CES Vtr.'
                 });
-            } else if (data.info_ficha == null) {
+            }
+            else if (data.info_ficha == null) {
                 Toast.fire({
                     icon: 'warning',
                     title: '&nbsp&nbsp Esta viatura não contém ficha.'
@@ -45,6 +46,12 @@ function setResult(label, result) {
                 }, 400);
             }
         },
+        error: function () {
+            Toast.fire({
+                icon: 'warning',
+                title: '&nbsp&nbsp Este QRCode não pertence ao CES Vtr.'
+            });
+        }
     });
 
 }

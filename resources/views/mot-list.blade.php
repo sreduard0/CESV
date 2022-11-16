@@ -68,7 +68,7 @@
                             <th width="100px">Val. CNH</th>
                             <th width="100px">Idt mil</th>
                             <th width="110px">Contato</th>
-                            <th width="50px"><i class="fs-20 fa fa-info-circle"></i> info</th>
+                            <th width="50px"><i class="fs-20 fa fa-info-circle"></i></th>
                         </tr>
                     </thead>
                 </table>

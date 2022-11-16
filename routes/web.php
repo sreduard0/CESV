@@ -63,11 +63,12 @@ Route::get('finish_ficha/{id}', [FichaController::class, 'finishFicha'])->middle
 
 // RELA GDA
 Route::post('register_relgda', [GdaController::class, 'registerRelGda'])->middleware('auth');
+Route::post('edit_relgda', [GdaController::class, 'editRelGda'])->middleware('auth');
 Route::post('close_relgda', [GdaController::class, 'closeRelGda'])->middleware('auth');
 
 // MOTORISTA
 Route::post('register_mot', [MotController::class, 'registerMot'])->middleware('auth');
 Route::post('edit_mot', [MotController::class, 'editMot'])->middleware('auth');
-Route::get('delete_mot/{id}',[MotController::class, 'deleteMot'])->middleware('auth');
+Route::get('delete_mot/{id}', [MotController::class, 'deleteMot'])->middleware('auth');
 
 // FIM CERUD ------------------------------------------------------------------
