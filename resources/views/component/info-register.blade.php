@@ -218,8 +218,12 @@
                 case 'adm':
                     $('#title').html('<i class="fas fa-car mr-1"></i> Veículo desta OM')
                     const mission = result.ficha.missioninfo ? result.ficha.missioninfo.mission_name :
-                        "Guarnição / Vtr de dia"
-                    modal.find('#nrFichaOm').text(result.ficha.nr_ficha)
+                        "Missão interna"
+                    modal.find('#nrFichaOm').html(result.ficha.nr_ficha +
+                        '<button class="float-r m-r-30 btn btn-sm btn-success" data-toggle="modal" data-target="#info-ficha" data-id="' +
+                        result
+                        .ficha.id +
+                        '">Ver</button>')
                     modal.find('#nameMotOm').text(result.pg_mot + ' ' + result.name_mot)
                     modal.find('#nameSegOm').text(result.pg_seg + ' ' + result.name_seg)
                     modal.find('#modVtrOm').text(result.mod_veicle)

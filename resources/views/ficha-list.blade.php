@@ -40,8 +40,7 @@
                                     <option value="2">Fechadas</option>
                                 </select>
                             </div>
-                            <button onclick="return search_condition()" style="height: 40px;"
-                                class="btn btn-success m-t-30"><i class="fa fa-search"></i></button>
+
                         </div>
                     </div>
 
@@ -89,6 +88,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="col">
+                        <div class="d-flex justify-content-sm-end">
+                            <p class="f-s-13">(Campos com <span style="color:red">*</span>
+                                são obrigatórios)</p>
+                        </div>
+                    </div>
                     <form id="form-register-ficha">
                         <div class="row">
                             <div class="form-group col-md-3">
@@ -136,30 +141,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-2">
-                                <label for="pgMotFicha">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="pgMotFicha" id="pgMotFicha">
+                            <div class="form-group col-md-5">
+                                <label for="idMotFicha">Motorista <span style="color:red">*</span></label>
+                                <select class="form-control" name="idMotFicha" id="idMotFicha">
                                     <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
+                                    @foreach ($motoristas as $motorista)
+                                        <option value="{{ $motorista->id }}">
+                                            {{ $motorista->pg . ' ' . $motorista->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="nameMotFicha">Nome do motorista <span style="color:red">*</span></label>
-                                <input minlength="2" maxlength="200" id="nameMotFicha" name="nameMotFicha" typphp
-                                    e="text" class="form-control" placeholder="Nome do motorista">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="pgSegFicha">Posto/Grad</label>
@@ -217,6 +208,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="col">
+                        <div class="d-flex justify-content-sm-end">
+                            <p class="f-s-13">(Campos com <span style="color:red">*</span>
+                                são obrigatórios)</p>
+                        </div>
+                    </div>
                     <form id="form-edit-ficha">
                         <input type="hidden" name="id_ficha" id="id_ficha">
                         <div class="row">
@@ -267,29 +264,15 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <label for="e_pgMotFicha">Posto/Grad <span style="color:red">*</span></label>
-                                <select class="form-control" name="e_pgMotFicha" id="e_pgMotFicha">
+                                <label for="e_idMotFicha">Motorista <span style="color:red">*</span></label>
+                                <select class="form-control" name="e_idMotFicha" id="e_idMotFicha">
                                     <option value="">Selecione</option>
-                                    <option value="Gen">Gen</option>
-                                    <option value="Cel">Cel</option>
-                                    <option value="TC">TC</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Cap">Cap</option>
-                                    <option value="1º Ten">1º Ten</option>
-                                    <option value="2º Ten">2º Ten</option>
-                                    <option value="Asp">Asp</option>
-                                    <option value="ST">ST</option>
-                                    <option value="1º Sgt">1º Sgt</option>
-                                    <option value="2º Sgt">2º Sgt</option>
-                                    <option value="3º Sgt">3º Sgt</option>
-                                    <option value="Cb">Cb</option>
-                                    <option value="Sd">Sd</option>
+                                    @foreach ($motoristas as $motorista)
+                                        <option value="{{ $motorista->id }}">
+                                            {{ $motorista->pg . ' ' . $motorista->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                            </div>
-                            <div class="form-group col">
-                                <label for="e_nameMotFicha">Nome do motorista <span style="color:red">*</span></label>
-                                <input minlength="2" maxlength="200" id="e_nameMotFicha" name="e_nameMotFicha" typphp
-                                    e="text" class="form-control" placeholder="Nome do motorista">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="e_pgSegFicha">Posto/Grad</label>
@@ -418,8 +401,7 @@
                 modal.find('#e_vtrFicha').val(result.id_vtr)
                 modal.find('#e_missionFicha').val(result.id_mission)
                 modal.find('#e_inOrderFicha').val(result.in_order)
-                modal.find('#e_pgMotFicha').val(result.pg_mot)
-                modal.find('#e_nameMotFicha').val(result.name_mot)
+                modal.find('#e_idMotFicha').val(result.id_mot)
                 modal.find('#e_pgSegFicha').val(result.pg_seg)
                 modal.find('#e_nameSegFicha').val(result.name_seg)
                 modal.find('#e_natOfServFicha').val(result.nat_of_serv)

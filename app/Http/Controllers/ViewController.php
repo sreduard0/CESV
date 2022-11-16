@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\FichaModel;
 use App\Models\MissionModel;
+use App\Models\MotModel;
 use App\Models\VtrModel;
 
 class ViewController extends Controller
@@ -15,6 +16,7 @@ class ViewController extends Controller
             case 0:
             case 2:
                 $data = [
+                    'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
                     'fichas' => FichaModel::where('status', 1)->get(),
                 ];
 
@@ -36,6 +38,7 @@ class ViewController extends Controller
         $data = [
             'viaturas' => VtrModel::where('status', 1)->get(),
             'missions' => MissionModel::where('status', 1)->get(),
+            'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
 
         ];
         return view('ficha-list', $data);
@@ -45,7 +48,8 @@ class ViewController extends Controller
         return view('vtr-list');
     }
 
-    public function drivers(){
+    public function drivers()
+    {
         return view('mot-list');
     }
 }

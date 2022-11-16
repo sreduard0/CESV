@@ -89,6 +89,12 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="col">
+                            <div class="d-flex justify-content-sm-end">
+                                <p class="f-s-13">(Campos com <span style="color:red">*</span>
+                                    são obrigatórios)</p>
+                            </div>
+                        </div>
                         <form id="form-register-mission">
                             <div class="row">
                                 <div class="form-group col-md-3">

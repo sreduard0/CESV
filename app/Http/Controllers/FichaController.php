@@ -13,7 +13,7 @@ class FichaController extends Controller
     // AÇÕES
     public function infoFicha($id)
     {
-        return FichaModel::with('vtrinfo', 'missioninfo')->find($id);
+        return FichaModel::with('vtrinfo', 'missioninfo','motinfo')->find($id);
     }
 
     // CRUD FICHAS
@@ -39,8 +39,7 @@ class FichaController extends Controller
         }
         $ficha = new FichaModel;
         $ficha->nr_ficha = str_replace('_', '', $data['nrFicha']);
-        $ficha->pg_mot = $data['pgMotFicha'];
-        $ficha->name_mot = $data['nameMotFicha'];
+        $ficha->id_mot = $data['idMotFicha'];
         $ficha->pg_seg = $pgSeg;
         $ficha->name_seg = $nameSeg;
         $ficha->nat_of_serv = $data['natOfServFicha'];
@@ -73,8 +72,7 @@ class FichaController extends Controller
         }
         $ficha = FichaModel::find($data['id']);
         $ficha->nr_ficha = str_replace('_', '', $data['nrFicha']);
-        $ficha->pg_mot = $data['pgMotFicha'];
-        $ficha->name_mot = $data['nameMotFicha'];
+        $ficha->id_mot = $data['idMotFicha'];
         $ficha->pg_seg = $pgSeg;
         $ficha->name_seg = $nameSeg;
         $ficha->nat_of_serv = $data['natOfServFicha'];
@@ -110,7 +108,7 @@ class FichaController extends Controller
             1 => 'id_vtr',
             2 => 'id_mission',
             3 => 'in_order',
-            4 => 'pg_mot',
+            4 => 'id_mot',
             5 => 'pg_seg',
             6 => 'nat_of_serv',
             7 => 'status',
@@ -120,16 +118,15 @@ class FichaController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['columns'][3]['search']['value']) {
-            $fichas = FichaModel::with('vtrInfo')->where('status', $requestData['columns'][3]['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $fichas = FichaModel::where('status', $requestData['columns'][3]['search']['value'])->with('motinfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($fichas);
             $rows = count(FichaModel::where('status', $requestData['columns'][3]['search']['value'])->get());
         } else {
             $rows = count(FichaModel::where('status', 1)->get());
 
-            $fichas = FichaModel::where('status', 1)->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $fichas = FichaModel::where('status', 1)->with('motinfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($fichas);
         }
-
         // Ler e criar o array de dados
         $dados = array();
         foreach ($fichas as $ficha) {
@@ -138,7 +135,7 @@ class FichaController extends Controller
             $dado[] = $ficha->vtrInfo->nr_vtr . ' | ' . $ficha->vtrInfo->mod_vtr;
             $ficha->id_mission == 0 ? $dado[] = 'Missão interna' : $dado[] = $ficha->missionInfo->mission_name;
             $dado[] = $ficha->in_order;
-            $dado[] = $ficha->pg_mot . ' ' . $ficha->name_mot;
+            $dado[] = $ficha->motinfo->pg . ' ' . $ficha->motinfo->name;
             if ($ficha->pg_seg == null) {
                 $dado[] = 'Não especificado';
             } else {

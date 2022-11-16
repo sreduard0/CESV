@@ -464,30 +464,16 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-2">
-                                    <label for="pgMotRel">Posto/Grad <span style="color:red">*</span></label>
-                                    <select class="form-control" name="pgMotRel" id="pgMotRel">
+                                <div class="form-group col-md-4">
+                                    <label for="idMotRel">Motorista <span style="color:red">*</span></label>
+                                    <select class="form-control" name="idMotRel" id="idMotRel">
                                         <option value="">Selecione</option>
-                                        <option value="Gen">Gen</option>
-                                        <option value="Cel">Cel</option>
-                                        <option value="TC">TC</option>
-                                        <option value="Maj">Maj</option>
-                                        <option value="Cap">Cap</option>
-                                        <option value="1º Ten">1º Ten</option>
-                                        <option value="2º Ten">2º Ten</option>
-                                        <option value="Asp">Asp</option>
-                                        <option value="ST">ST</option>
-                                        <option value="1º Sgt">1º Sgt</option>
-                                        <option value="2º Sgt">2º Sgt</option>
-                                        <option value="3º Sgt">3º Sgt</option>
-                                        <option value="Cb">Cb</option>
-                                        <option value="Sd">Sd</option>
+                                        @foreach ($motoristas as $motorista)
+                                            <option value="{{ $motorista->id }}">
+                                                {{ $motorista->pg . ' ' . $motorista->name . ' | ' . $motorista->cat }}
+                                            </option>
+                                        @endforeach
                                     </select>
-                                </div>
-                                <div class="form-group col">
-                                    <label for="nameMotRel">Nome do motorista <span style="color:red">*</span></label>
-                                    <input id="nameMotRel" maxlength="199" name="nameMotRel" type="text"
-                                        class="form-control" placeholder="Nome do motorista">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="pgSegRel">Posto/Grad <span style="color:red">*</span></label>
@@ -564,7 +550,7 @@
     </div>
     @if (session('CESV')['profileType'] == 2)
         <!-- MODAL EDIT REGISTER VTR -->
-        {{-- <div class="modal fade" id="edit-register-gda" tabindex="-1" role="dialog"
+        <div class="modal fade" id="edit-register-gda" tabindex="-1" role="dialog"
             aria-labelledby="edit-register-gdaLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -794,32 +780,18 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-2">
-                                        <label for="e_pgMotRel">Posto/Grad <span style="color:red">*</span></label>
-                                        <select class="form-control" name="e_pgMotRel" id="e_pgMotRel">
+                                    <div class="form-group col-md-4">
+                                        <label for="e_idMotRel">Motorista <span style="color:red">*</span></label>
+                                        <select class="form-control" name="e_idMotRel" id="e_idMotRel">
                                             <option value="">Selecione</option>
-                                            <option value="Gen">Gen</option>
-                                            <option value="Cel">Cel</option>
-                                            <option value="TC">TC</option>
-                                            <option value="Maj">Maj</option>
-                                            <option value="Cap">Cap</option>
-                                            <option value="1º Ten">1º Ten</option>
-                                            <option value="2º Ten">2º Ten</option>
-                                            <option value="Asp">Asp</option>
-                                            <option value="ST">ST</option>
-                                            <option value="1º Sgt">1º Sgt</option>
-                                            <option value="2º Sgt">2º Sgt</option>
-                                            <option value="3º Sgt">3º Sgt</option>
-                                            <option value="Cb">Cb</option>
-                                            <option value="Sd">Sd</option>
+                                            @foreach ($motoristas as $motorista)
+                                                <option value="{{ $motorista->id }}">
+                                                    {{ $motorista->pg . ' ' . $motorista->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group col">
-                                        <label for="e_nameMotRel">Nome do motorista <span
-                                                style="color:red">*</span></label>
-                                        <input id="e_nameMotRel" maxlength="199" name="e_nameMotRel" type="text"
-                                            class="form-control" placeholder="Nome do motorista">
-                                    </div>
+
                                     <div class="form-group col-md-2">
                                         <label for="e_pgSegRel">Posto/Grad <span style="color:red">*</span></label>
                                         <select class="form-control" name="e_pgSegRel" id="e_pgSegRel">
@@ -894,15 +866,14 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
     @endif
 
-    <!-- MODAL INFORMAÇÕES DA VTR -->
-    @include('component.info-vtr')
 
     {{--  INFORMÇOES DO REGISTRO DE ENTRADA E saída --}}
     @include('component.info-register')
-
+    {{-- INFORMAçÔES DA FICHA --}}
+    @include('component.info-ficha')
 
 @endsection
 @section('plugins')

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FichaModel extends Model
 {
+    public function motinfo()
+    {
+        return $this->hasOne('App\Models\MotModel', 'id', 'id_mot');
+    }
     public function vtrinfo()
     {
         return $this->hasOne('App\Models\VtrModel', 'id', 'id_vtr');

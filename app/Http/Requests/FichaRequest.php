@@ -18,8 +18,7 @@ class FichaRequest extends FormRequest
             'vtrFicha' => 'required',
             'missionFicha' => 'required',
             'inOrderFicha' => 'required | max:255',
-            'pgMotFicha' => 'required',
-            'nameMotFicha' => 'required | max:255',
+            'idMotFicha' => 'required',
             'natOfServFicha' => 'required | max:255',
         ];
     }

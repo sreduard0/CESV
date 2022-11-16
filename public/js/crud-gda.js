@@ -43,8 +43,7 @@ function selectFichaRel(value) {
         $('#typeVtr').val(result.vtrinfo.type_vtr)
         // selectVtrType(result.vtrinfo.type_vtr)
         $('#vtrTypeRel').val(result.vtrinfo.type_vtr)
-        $('#pgMotRel').val(result.pg_mot)
-        $('#nameMotRel').val(result.name_mot)
+        $('#idMotRel').val(result.id_mot)
         $('#pgSegRel').val(result.pg_seg)
         $('#nameSegRel').val(result.name_seg)
         $('#modVtrRel').val(result.vtrinfo.mod_vtr)
@@ -298,18 +297,11 @@ function registerOm() {
         $('#nrFichaRel').removeClass('is-invalid');
     }
 
-    if (formData.get('pgMotRel') == '') {
-        $('#pgMotRel').addClass('is-invalid');
+    if (formData.get('idMotRel') == '') {
+        $('#idMotRel').addClass('is-invalid');
         return false;
     } else {
-        $('#pgMotRel').removeClass('is-invalid');
-    }
-
-    if (formData.get('nameMotRel') == '' || formData.get('nameMotRel').length > 200) {
-        $('#nameMotRel').addClass('is-invalid');
-        return false;
-    } else {
-        $('#nameMotRel').removeClass('is-invalid');
+        $('#idMotRel').removeClass('is-invalid');
     }
 
     if (formData.get('pgSegRel') == '') {
@@ -356,9 +348,7 @@ function registerOm() {
 
     var values = {
         nrFicha: formData.get('nrFichaRel'),
-        pgMot: formData.get('pgMotRel'),
-        nameMot: formData.get('nameMotRel'),
-        nameMot: formData.get('nameMotRel'),
+        idMot: formData.get('idMotRel'),
         pgSeg: formData.get('pgSegRel'),
         nameSeg: formData.get('nameSegRel'),
         modVtr: formData.get('modVtrRel'),

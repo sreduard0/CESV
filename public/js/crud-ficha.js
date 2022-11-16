@@ -33,17 +33,11 @@ function registerFicha() {
     } else {
         $('#inOrderFicha').removeClass('is-invalid');
     }
-    if (formData.get('pgMotFicha') == '') {
-        $('#pgMotFicha').addClass('is-invalid');
+    if (formData.get('idMotFicha') == '') {
+        $('#idMotFicha').addClass('is-invalid');
         return false;
     } else {
-        $('#pgMotFicha').removeClass('is-invalid');
-    }
-    if (formData.get('nameMotFicha') == '' || formData.get('nameMotFicha').length > 200) {
-        $('#nameMotFicha').addClass('is-invalid');
-        return false;
-    } else {
-        $('#nameMotFicha').removeClass('is-invalid');
+        $('#idMotFicha').removeClass('is-invalid');
     }
     if (formData.get('natOfServFicha') == '' || formData.get('nameSegFicha').length > 200) {
         $('#natOfServFicha').addClass('is-invalid');
@@ -60,8 +54,7 @@ function registerFicha() {
         vtrFicha: formData.get('vtrFicha'),
         missionFicha: formData.get('missionFicha'),
         inOrderFicha: formData.get('inOrderFicha'),
-        pgMotFicha: formData.get('pgMotFicha'),
-        nameMotFicha: formData.get('nameMotFicha'),
+        idMotFicha: formData.get('idMotFicha'),
         pgSegFicha: formData.get('pgSegFicha'),
         nameSegFicha: formData.get('nameSegFicha'),
         natOfServFicha: formData.get('natOfServFicha'),
@@ -148,17 +141,11 @@ function editFicha() {
     } else {
         $('#e_inOrderFicha').removeClass('is-invalid');
     }
-    if (formData.get('e_pgMotFicha') == '') {
-        $('#e_pgMotFicha').addClass('is-invalid');
+    if (formData.get('e_idMotFicha') == '') {
+        $('#e_idMotFicha').addClass('is-invalid');
         return false;
     } else {
-        $('#e_pgMotFicha').removeClass('is-invalid');
-    }
-    if (formData.get('nameMotFicha') == '' || formData.get('e_nameMotFicha').length > 200) {
-        $('#e_nameMotFicha').addClass('is-invalid');
-        return false;
-    } else {
-        $('#nameMotFicha').removeClass('is-invalid');
+        $('#e_idMotFicha').removeClass('is-invalid');
     }
     if (formData.get('e_natOfServFicha') == '' || formData.get('e_natOfServFicha').length > 200) {
         $('#e_natOfServFicha').addClass('is-invalid');
@@ -176,8 +163,7 @@ function editFicha() {
         vtrFicha: formData.get('e_vtrFicha'),
         missionFicha: formData.get('e_missionFicha'),
         inOrderFicha: formData.get('e_inOrderFicha'),
-        pgMotFicha: formData.get('e_pgMotFicha'),
-        nameMotFicha: formData.get('e_nameMotFicha'),
+        idMotFicha: formData.get('e_idMotFicha'),
         pgSegFicha: formData.get('e_pgSegFicha'),
         nameSegFicha: formData.get('e_nameSegFicha'),
         natOfServFicha: formData.get('e_natOfServFicha'),

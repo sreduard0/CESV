@@ -12,8 +12,7 @@ class Fichas extends Migration
         Schema::create('fichas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nr_ficha', 6);
-            $table->string('pg_mot', 6);
-            $table->string('name_mot', 255);
+            $table->integer('id_mot');
             $table->string('pg_seg', 6)->nullable();
             $table->string('name_seg', 255)->nullable();
             $table->string('nat_of_serv', 255);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RelGdaRequest;
+use App\Models\MotModel;
 use App\Models\RelGdaModel;
 use App\Models\VtrModel;
 use Illuminate\Http\Request;
@@ -43,8 +44,7 @@ class GdaController extends Controller
                 $data = $request->validate([
                     'vtrType' => 'required',
                     'nrFicha' => 'required|max:5',
-                    'pgMot' => 'required|max:6',
-                    'nameMot' => 'required|max:255',
+                    'idMot' => 'required',
                     'pgSeg' => 'required|max:6',
                     'nameSeg' => 'required|max:255',
                     'modVtr' => 'required|max:255',
@@ -60,12 +60,12 @@ class GdaController extends Controller
                 if ($checkFicha) {
                     return 'ficha';
                 }
-
+                $mot = MotModel::find($data['idMot']);
                 $rel = new RelGdaModel();
                 $rel->type_veicle = $data['vtrType'];
                 $rel->id_ficha = $data['nrFicha'];
-                $rel->pg_mot = $data['pgMot'];
-                $rel->name_mot = $data['nameMot'];
+                $rel->pg_mot = $mot->pg;
+                $rel->name_mot = $mot->name;
                 $rel->pg_seg = $data['pgSeg'];
                 $rel->name_seg = $data['nameSeg'];
                 $rel->mod_veicle = $data['modVtr'];

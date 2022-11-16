@@ -3,6 +3,7 @@
 use App\Http\Controllers\FichaController;
 use App\Http\Controllers\GdaController;
 use App\Http\Controllers\MissionController;
+use App\Http\Controllers\MotController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\VtrController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,9 @@ Route::get('get_info_register/{id}', [GdaController::class, 'infoRegister'])->mi
 Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('auth');
 Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('post_relgda_list')->middleware('auth');
 
+// LISTA DE MOTORISTA
+Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_list')->middleware('auth');
+
 // FIM ACÕES ----------------------------------------------------------------
 
 //CRUD ----------------------------------------------------------------------
@@ -59,5 +63,8 @@ Route::get('finish_ficha/{id}', [FichaController::class, 'finishFicha'])->middle
 // RELA GDA
 Route::post('register_relgda', [GdaController::class, 'registerRelGda'])->middleware('auth');
 Route::post('close_relgda', [GdaController::class, 'closeRelGda'])->middleware('auth');
+
+// MOTORISTA
+Route::post('register_mot', [MotController::class, 'registerMot'])->middleware('auth');
 
 // FIM CERUD ------------------------------------------------------------------
