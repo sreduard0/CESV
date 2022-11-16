@@ -154,7 +154,7 @@
                                             <tr>
                                                 <th>N°</th>
                                                 <th>Motorista</th>
-                                                <th>EB/Placa</th>
+                                                <th>Missão</th>
                                             </tr>
                                         </thead>
                                     </table>

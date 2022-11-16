@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MotRequest;
+use App\Models\FichaModel;
 use App\Models\MotModel;
 use Illuminate\Http\Request;
 
 class MotController extends Controller
 {
+    // INFORMAÇÕES DO MOTORISTA
+    public function infoMot($id)
+    {
+        return MotModel::find($id);
+    }
+
     // CRUD
     public function registerMot(MotRequest $request)
     {
@@ -25,12 +32,42 @@ class MotController extends Controller
         $driver->name = $data['nameMot'];
         $driver->cat = $data['catMot'];
         $driver->full_name = $data['fullNameMot'];
-        $driver->contact = $data['contactMot'];
+        $driver->contact = str_replace([' ', '(', ')', '-'], '', $data['contactMot']);
         $driver->cnh = $data['cnhMot'];
         $driver->val_cnh = date('Y-m-d', strtotime($data['ValCnhMot']));
         $driver->idt_mil = $data['idtMot'];
         $driver->save();
 
+    }
+    public function editMot(MotRequest $request)
+    {
+        $data = $request->all();
+        if (MotModel::where('cnh', $data['cnhMot'])->where('id', '!=', $data['id_mot'])->first()) {
+            return 'cnh';
+        }
+        if (MotModel::where('idt_mil', $data['idtMot'])->where('id', '!=', $data['id_mot'])->first()) {
+            return 'idt';
+        }
+
+        $driver = MotModel::find($data['id_mot']);
+        $driver->pg = $data['pgMot'];
+        $driver->name = $data['nameMot'];
+        $driver->cat = $data['catMot'];
+        $driver->full_name = $data['fullNameMot'];
+        $driver->contact = str_replace([' ', '(', ')', '-'], '', $data['contactMot']);
+        $driver->cnh = $data['cnhMot'];
+        $driver->val_cnh = date('Y-m-d', strtotime($data['ValCnhMot']));
+        $driver->idt_mil = $data['idtMot'];
+        $driver->save();
+
+    }
+
+    public function deleteMot($id)
+    {
+        if (FichaModel::where('id_mot', $id)->where('status', 1)->first()) {
+            return 'ficha';
+        }
+        MotModel::find($id)->delete();
     }
     // TABELA LISTA DE MOTORISTA
     public function listMot(Request $request)
@@ -42,11 +79,13 @@ class MotController extends Controller
         //Indice da coluna na tabela visualizar resultado => nome da coluna no banco de dados
         $columns = array(
             0 => 'name',
-            1 => 'cnh',
-            2 => 'cat',
-            3 => 'val_cnh',
-            4 => 'contact',
-            5 => 'id',
+            1 => 'full_name',
+            2 => 'cnh',
+            3 => 'cat',
+            4 => 'val_cnh',
+            5 => 'idt_mil',
+            6 => 'contact',
+            7 => 'id',
         );
 
         //Obtendo registros de número total sem qualquer pesquisa
@@ -66,15 +105,16 @@ class MotController extends Controller
         foreach ($drivers as $driver) {
             $dado = array();
             $dado[] = $driver->pg . ' ' . $driver->name;
+            $dado[] = $driver->full_name;
             $dado[] = $driver->cnh;
             $dado[] = $driver->cat;
             $dado[] = date('d-m-Y', strtotime($driver->val_cnh));
-            $dado[] = $driver->contact;
-            $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-driver" data-id="' . $driver->id . '"
-                                    ><i class="fa fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-driver" data-id="' . $driver->id . '"
+            $dado[] = $driver->idt_mil;
+            $dado[] = $driver->contact . "<a href='https://api.whatsapp.com/send?phone=55" . $driver->contact . "' target='_blank' class='float-r btn btn-sm btn-success'><i class='fab fa-whatsapp'></i></a>";
+            $dado[] = '
+                         <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-drive" data-id="' . $driver->id . '"
                                     ><i class="fa fa-edit"></i></button>
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deletedriver(' . $driver->id . ')"><i
+                                <button class="btn btn-sm btn-danger"  onclick="deleteMot(' . $driver->id . ')"><i
                                         class="fa fa-trash"></i></button>';
             $dados[] = $dado;
         }

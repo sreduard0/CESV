@@ -159,6 +159,6 @@
             "restore": "Desfazer alterações"
         }
     },
-    "info": "De _START_ a _END_, total de eventos _TOTAL_",
+    "info": "De _START_ a _END_, total de fichas _TOTAL_",
     "infoEmpty": "Não há registros."
 }

@@ -6,14 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MotRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+
     public function authorize()
     {
-        return true;
+        if (session('CESV')['profileType'] == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -24,7 +25,14 @@ class MotRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'pgMot' => 'required',
+            'nameMot' => 'required | max:255',
+            'catMot' => 'required',
+            'fullNameMot' => 'required | max:255',
+            'contactMot' => 'required',
+            'cnhMot' => 'required',
+            'ValCnhMot' => 'required',
+            'idtMot' => 'required',
         ];
     }
 }

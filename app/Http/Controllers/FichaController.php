@@ -13,7 +13,7 @@ class FichaController extends Controller
     // AÇÕES
     public function infoFicha($id)
     {
-        return FichaModel::with('vtrinfo', 'missioninfo','motinfo')->find($id);
+        return FichaModel::with('vtrinfo', 'missioninfo', 'motinfo')->find($id);
     }
 
     // CRUD FICHAS
@@ -181,7 +181,7 @@ class FichaController extends Controller
         );
 
         //Obtendo registros de número total sem qualquer pesquisa
-        $rows = count(FichaModel::all());
+        $rows = count(FichaModel::where('status', 1)->get());
         $fichas = FichaModel::where('status', 1)->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
         $filtered = count($fichas);
 
@@ -190,8 +190,8 @@ class FichaController extends Controller
         foreach ($fichas as $ficha) {
             $dado = array();
             $dado[] = $ficha->nr_ficha;
-            $dado[] = $ficha->pg_mot . ' ' . $ficha->name_mot;
-            $dado[] = $ficha->vtrInfo->ebplaca;
+            $dado[] = $ficha->motinfo->pg . ' ' . $ficha->motinfo->name;
+            $dado[] = $ficha->missioninfo ? $ficha->missioninfo->mission_name : 'Missão interna';
 
             $dados[] = $dado;
         }

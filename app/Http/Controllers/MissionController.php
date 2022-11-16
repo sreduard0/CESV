@@ -115,16 +115,17 @@ class MissionController extends Controller
         );
 
         //Obtendo registros de número total sem qualquer pesquisa
-        $rows = count(MissionModel::all());
 
         //Se há pesquisa ou não
         if ($requestData['columns'][3]['search']['value']) {
             $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($missions);
-            $rows = count(MissionModel::all());
+            $rows = count(MissionModel::where('status', $requestData['columns'][3]['search']['value'])->get());
         } else {
             $missions = MissionModel::where('status', 1)->with('vtrInfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($missions);
+            $rows = count(MissionModel::where('status', 1)->get());
+
         }
 
         // Ler e criar o array de dados

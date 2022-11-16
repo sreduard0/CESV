@@ -244,7 +244,6 @@ function deleteVtr(id) {
                     url: '/delete_vtr/' + id,
                     type: "GET",
                     success: function (data) {
-                        $("#table").DataTable().clear().draw();
                         Toast.fire({
                             icon: 'success',
                             title: '&nbsp&nbsp Viatura excluida com sucesso.'

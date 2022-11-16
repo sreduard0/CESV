@@ -13,7 +13,7 @@ class MissionRequest extends FormRequest
      */
     public function authorize()
     {
-        if (session('CESV')['profileType'] == 1) {
+        if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4) {
             return true;
         } else {
             return false;

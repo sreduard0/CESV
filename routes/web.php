@@ -40,6 +40,7 @@ Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('pos
 
 // LISTA DE MOTORISTA
 Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_list')->middleware('auth');
+Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('auth');
 
 // FIM ACÕES ----------------------------------------------------------------
 
@@ -66,5 +67,7 @@ Route::post('close_relgda', [GdaController::class, 'closeRelGda'])->middleware('
 
 // MOTORISTA
 Route::post('register_mot', [MotController::class, 'registerMot'])->middleware('auth');
+Route::post('edit_mot', [MotController::class, 'editMot'])->middleware('auth');
+Route::get('delete_mot/{id}',[MotController::class, 'deleteMot'])->middleware('auth');
 
 // FIM CERUD ------------------------------------------------------------------

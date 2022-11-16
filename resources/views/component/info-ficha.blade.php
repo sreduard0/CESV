@@ -70,7 +70,7 @@
          var id = button.data('id');
          var modal = $(this);
          var url = "{{ url('get_info_ficha') }}/" + id;
-         $('#contactMotInfo').mask('+00 (00) 0 0000-0000')
+         $('#contactMotInfo').mask('+55 (00) 0 0000-0000')
          $.get(url, function(result) {
              modal.find('#nrFichaInfo').html(result.nr_ficha)
              modal.find('#vtrInfo').text(result.vtrinfo.mod_vtr)
@@ -82,7 +82,7 @@
                  'Não informado')
              modal.find('#natOfServInfo').text(result.nat_of_serv)
              modal.find('#contactMotInfo').html($('#contactMotInfo').masked(result.motinfo.contact) +
-                 ' <a href="https://api.whatsapp.com/send?phone=' +
+                 ' <a href="https://api.whatsapp.com/send?phone=55' +
                  result.motinfo.contact +
                  '" target="_blank" class="float-r m-r-30 btn btn-sm btn-success"><i class="fab fa-whatsapp"></i></a>'
              )

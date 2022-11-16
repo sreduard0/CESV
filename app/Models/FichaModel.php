@@ -10,15 +10,15 @@ class FichaModel extends Model
 {
     public function motinfo()
     {
-        return $this->hasOne('App\Models\MotModel', 'id', 'id_mot');
+        return $this->hasOne('App\Models\MotModel', 'id', 'id_mot')->withTrashed();
     }
     public function vtrinfo()
     {
-        return $this->hasOne('App\Models\VtrModel', 'id', 'id_vtr');
+        return $this->hasOne('App\Models\VtrModel', 'id', 'id_vtr')->withTrashed();
     }
     public function missioninfo()
     {
-        return $this->hasOne('App\Models\MissionModel', 'id', 'id_mission');
+        return $this->hasOne('App\Models\MissionModel', 'id', 'id_mission')->withTrashed();
     }
     public function relgda()
     {

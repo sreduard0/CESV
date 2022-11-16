@@ -10,7 +10,7 @@ class RelGdaModel extends Model
 {
     public function ficha()
     {
-        return $this->hasOne('App\Models\FichaModel', 'id', 'id_ficha')->with('missioninfo', 'vtrinfo');
+        return $this->hasOne('App\Models\FichaModel', 'id', 'id_ficha')->with('missioninfo', 'vtrinfo')->withTrashed();
     }
     use HasFactory;
     use SoftDeletes;
