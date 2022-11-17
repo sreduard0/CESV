@@ -6,7 +6,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content ">
             <div class="modal-header">
-                <h5 class="modal-title" id="info-register">Informações do registro de entrada/saida</h5>
+                <h5 class="modal-title" id="info-register">Informações do registro </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,8 +17,9 @@
                         <div class="row">
                             <div class="col">
                                 <div class="card">
-                                    <div class="card-header">
+                                    <div class="m-b-10 card-header">
                                         <h3 id="title" class="card-title card-title-background "></h3>
+                                        <span id="registred_for" class="float-r m-t-10"> </span>
                                     </div>
                                     <div id="infoCivil" style="display: none">
                                         <div class="float-l col-md-6">
@@ -48,15 +49,16 @@
                                             <strong>Qtd. passageiros</strong>
 
                                             <p id="qtdPassCivil" class="m-l-10 text-muted">-</p>
-
-
-                                        </div>
-                                        <div class=" float-r col-md-6">
+                                            <hr>
                                             <strong>Destino</strong>
 
                                             <p id="destinyCivil" class="m-l-10 text-muted">-</p>
 
-                                            <hr>
+
+
+                                        </div>
+                                        <div class=" float-r col-md-6">
+
 
                                             <strong>Horário de entrada</strong>
 
@@ -66,6 +68,14 @@
 
                                             <strong>Horário de saída</strong>
                                             <p id="hourSaiCivil" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+                                            <strong>Odômetro de entrada</strong>
+                                            <p id="odEntCivil" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+                                            <strong>Odômetro de saída</strong>
+                                            <p id="odSaiCivil" class="m-l-10 text-muted">-</p>
 
                                             <hr>
 
@@ -104,15 +114,15 @@
                                             <strong>Idt militar mais antigo</strong>
 
                                             <p id="idtMilOom" class="m-l-10 text-muted">-</p>
-
-
-                                        </div>
-                                        <div class="float-r col-md-6">
+                                            <hr>
                                             <strong>OM</strong>
 
                                             <p id="omOom" class="m-l-10 text-muted">-</p>
 
-                                            <hr>
+
+                                        </div>
+                                        <div class="float-r col-md-6">
+
                                             <strong>Destino</strong>
 
                                             <p id="destinyOom" class="m-l-10 text-muted">-</p>
@@ -128,6 +138,15 @@
                                             <strong>Horário de saída</strong>
 
                                             <p id="hourSaiOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+
+                                            <strong>Odômetro de entrada</strong>
+                                            <p id="odEntOom" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+                                            <strong>Odômetro de saída</strong>
+                                            <p id="odSaiOom" class="m-l-10 text-muted">-</p>
 
                                             <hr>
 
@@ -166,14 +185,15 @@
                                             <strong>Placa/EB</strong>
 
                                             <p id="ebPlacaOm" class="m-l-10 text-muted">-</p>
-
-                                        </div>
-                                        <div class="float-r col-md-6">
+                                            <hr>
                                             <strong>Destino / Missão</strong>
 
                                             <p id="destinyOm" class="m-l-10 text-muted">-</p>
 
-                                            <hr>
+
+                                        </div>
+                                        <div class="float-r col-md-6">
+
 
                                             <strong>Horário de saída</strong>
 
@@ -185,7 +205,14 @@
                                             <p id="hourEntOm" class="m-l-10 text-muted">-</p>
 
                                             <hr>
+                                            <strong>Odômetro de entrada</strong>
+                                            <p id="odEntOm" class="m-l-10 text-muted">-</p>
 
+                                            <hr>
+                                            <strong>Odômetro de saída</strong>
+                                            <p id="odSaiOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
 
                                             <strong>Obs</strong>
 
@@ -213,6 +240,11 @@
         var modal = $(this);
         var url = "{{ url('get_info_register') }}/" + id;
         $.get(url, function(result) {
+            var registredEnt = result.user_rel_ent ? result.user_rel_ent :
+                '&nbsp&nbsp &nbsp&nbsp - &nbsp&nbsp &nbsp&nbsp '
+            var registredSai = result.user_rel_sai ? result.user_rel_sai :
+                '&nbsp&nbsp &nbsp&nbsp  - &nbsp&nbsp &nbsp&nbsp '
+            $('#registred_for').html('Entrada: ' + registredEnt + ' | Saida: ' + registredSai)
             switch (result.type_veicle) {
                 case 'op':
                 case 'adm':
@@ -232,6 +264,8 @@
                     modal.find('#hourEntOm').text(result.hour_ent ? moment(result.hour_ent).format(
                         'DD-MM-YYYY HH:mm') : 'Está fora da OM')
                     modal.find('#hourSaiOm').text(moment(result.hour_sai).format('DD-MM-YYYY HH:mm'))
+                    modal.find('#odEntOm').text(result.od_ent ? result.od_ent : 'Está fora da OM')
+                    modal.find('#odSaiOm').text(result.od_sai)
                     modal.find('#obsOm').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "block")
@@ -251,6 +285,8 @@
                     modal.find('#hourEntOom').text(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
                     modal.find('#hourSaiOom').text(result.hour_sai ? moment(result.hour_sai).format(
                         'DD-MM-YYYY HH:mm') : 'Dentro da OM')
+                    modal.find('#odEntOom').text(result.od_ent)
+                    modal.find('#odSaiOom').text(result.od_sai ? result.od_sai : 'Está dentro da OM')
                     modal.find('#obsOom').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "none")
@@ -269,6 +305,8 @@
                     modal.find('#hourEntCivil').text(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
                     modal.find('#hourSaiCivil').text(result.hour_sai ? moment(result.hour_sai).format(
                         'DD-MM-YYYY HH:mm') : 'Dentro da OM')
+                    modal.find('#odEntCivil').text(result.od_ent)
+                    modal.find('#odSaiCivil').text(result.od_sai ? result.od_sai : 'Está dentro da OM')
                     modal.find('#obsCivil').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "none")

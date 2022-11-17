@@ -13,6 +13,7 @@ Route::get('/', [ViewController::class, 'home'])->name('home')->middleware('auth
 Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('auth');
 Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('auth');
 Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('auth');
+Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('auth');
 
 // AÇÕES --------------------------------------------------------------------
 
@@ -37,6 +38,7 @@ Route::get('deleterelgda/{id}', [GdaController::class, 'deleteRelGda'])->middlew
 Route::get('get_info_register/{id}', [GdaController::class, 'infoRegister'])->middleware('auth');
 Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('auth');
 Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('post_relgda_list')->middleware('auth');
+Route::post('report_relgda_list', [GdaController::class, 'reportRelGda'])->name('report_relgda_list')->middleware('auth');
 
 // LISTA DE MOTORISTA
 Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_list')->middleware('auth');

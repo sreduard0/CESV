@@ -52,4 +52,17 @@ class ViewController extends Controller
     {
         return view('mot-list');
     }
+
+    public function reports()
+    {
+        $data = [
+            'viaturas' => VtrModel::withTrashed()->get(),
+            'missions' => MissionModel::withTrashed()->get(),
+            'motoristas' => MotModel::withTrashed()->get(),
+            'fichas' => FichaModel::where('status', 1)->get(),
+
+        ];
+
+        return view('reports', $data);
+    }
 }

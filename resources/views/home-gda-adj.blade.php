@@ -265,7 +265,7 @@
                                     <input id="placaCivilRel" maxlength="15" name="placaCivilRel" type="text"
                                         class="form-control" placeholder="Placa">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="qtdPassCivilRel">Qtd. de passageiros <span
                                             style="color:red">*</span></label>
                                     <div class="input-group">
@@ -590,7 +590,7 @@
                                         <input id="e_placaCivilRel" maxlength="15" name="e_placaCivilRel" type="text"
                                             class="form-control" placeholder="Placa">
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label for="e_qtdPassCivilRel">Qtd. de passageiros <span
                                                 style="color:red">*</span></label>
                                         <div class="input-group">

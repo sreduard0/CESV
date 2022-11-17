@@ -83,7 +83,7 @@
                         </li>
                         @if (session('CESV')['profileType'] == 2)
                             <li class="nav-item ">
-                                <a href="{{ route('fichas') }}" class="nav-link @yield('ficha')">
+                                <a href="{{ route('reports') }}" class="nav-link @yield('reports')">
                                     <i class="nav-icon fas fa-list"></i>
                                     <p>
                                         Relatório
