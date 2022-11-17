@@ -49,17 +49,17 @@
                                             <strong>Qtd. passageiros</strong>
 
                                             <p id="qtdPassCivil" class="m-l-10 text-muted">-</p>
-                                            <hr>
-                                            <strong>Destino</strong>
 
-                                            <p id="destinyCivil" class="m-l-10 text-muted">-</p>
+
 
 
 
                                         </div>
                                         <div class=" float-r col-md-6">
+                                            <strong>Destino</strong>
 
-
+                                            <p id="destinyCivil" class="m-l-10 text-muted">-</p>
+                                            <hr>
                                             <strong>Horário de entrada</strong>
 
                                             <p id="hourEntCivil" class="m-l-10 text-muted">-</p>
@@ -68,14 +68,6 @@
 
                                             <strong>Horário de saída</strong>
                                             <p id="hourSaiCivil" class="m-l-10 text-muted">-</p>
-
-                                            <hr>
-                                            <strong>Odômetro de entrada</strong>
-                                            <p id="odEntCivil" class="m-l-10 text-muted">-</p>
-
-                                            <hr>
-                                            <strong>Odômetro de saída</strong>
-                                            <p id="odSaiCivil" class="m-l-10 text-muted">-</p>
 
                                             <hr>
 
@@ -114,17 +106,17 @@
                                             <strong>Idt militar mais antigo</strong>
 
                                             <p id="idtMilOom" class="m-l-10 text-muted">-</p>
-                                            <hr>
-                                            <strong>OM</strong>
 
-                                            <p id="omOom" class="m-l-10 text-muted">-</p>
 
 
                                         </div>
                                         <div class="float-r col-md-6">
 
-                                            <strong>Destino</strong>
+                                            <strong>OM</strong>
 
+                                            <p id="omOom" class="m-l-10 text-muted">-</p>
+                                            <strong>Destino</strong>
+                                            <hr>
                                             <p id="destinyOom" class="m-l-10 text-muted">-</p>
 
                                             <hr>
@@ -141,14 +133,6 @@
 
                                             <hr>
 
-                                            <strong>Odômetro de entrada</strong>
-                                            <p id="odEntOom" class="m-l-10 text-muted">-</p>
-
-                                            <hr>
-                                            <strong>Odômetro de saída</strong>
-                                            <p id="odSaiOom" class="m-l-10 text-muted">-</p>
-
-                                            <hr>
 
                                             <strong>Obs</strong>
 
@@ -285,8 +269,7 @@
                     modal.find('#hourEntOom').text(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
                     modal.find('#hourSaiOom').text(result.hour_sai ? moment(result.hour_sai).format(
                         'DD-MM-YYYY HH:mm') : 'Dentro da OM')
-                    modal.find('#odEntOom').text(result.od_ent)
-                    modal.find('#odSaiOom').text(result.od_sai ? result.od_sai : 'Está dentro da OM')
+
                     modal.find('#obsOom').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "none")
@@ -305,8 +288,7 @@
                     modal.find('#hourEntCivil').text(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
                     modal.find('#hourSaiCivil').text(result.hour_sai ? moment(result.hour_sai).format(
                         'DD-MM-YYYY HH:mm') : 'Dentro da OM')
-                    modal.find('#odEntCivil').text(result.od_ent)
-                    modal.find('#odSaiCivil').text(result.od_sai ? result.od_sai : 'Está dentro da OM')
+
                     modal.find('#obsCivil').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "none")

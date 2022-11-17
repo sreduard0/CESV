@@ -34,11 +34,21 @@
                     <div class="col">
                         <div class="row ">
                             <div class="form-group col">
+                                <label for="typevtr_filter">Tipo de veículo</label>
+                                <select id="typevtr_filter" class="form-control">
+                                    <option selected value="">TODOS</option>
+                                    <option value="civil">CIVIL</option>
+                                    <option value="oom">Outra OM</option>
+                                    <option value="adm">3º B Sup | Administrativa</option>
+                                    <option value="op">3º B Sup | Operacional</option>
+                                </select>
+                            </div>
+                            <div class="form-group col">
                                 <label for="vtr_filter">Veiculo</label>
-                                <select id="typeVtr_filter" class="form-control">
+                                <select id="vtr_filter" class="form-control">
                                     <option selected value="">TODOS</option>
                                     @foreach ($viaturas as $viatura)
-                                        <option value="{{ $viatura->id }}">
+                                        <option value="{{ $viatura->ebplaca }}">
                                             {{ $viatura->nr_vtr . ' | ' . $viatura->mod_vtr }}
                                         </option>
                                     @endforeach
@@ -46,19 +56,26 @@
                             </div>
                             <div class="form-group col">
                                 <label for="mot_filter">Motorista</label>
-                                <select id="typeVtr_filter" class="form-control">
-                                    <option selected value="">TODAS</option>
+                                <select id="mot_filter" class="form-control">
+                                    <option selected value="">TODOS</option>
                                     @foreach ($motoristas as $motorista)
                                         <option value="{{ $motorista->id }}">{{ $motorista->pg . ' ' . $motorista->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group col">
+                                <label for="om_filter">OM</label>
+                                <input id="om_filter" type="text" class="form-control" maxlength="199"
+                                    placeholder="EX: 3º B Sup">
+                            </div>
+
+
                             <div class="form-group col-md-2">
-                                <label>Data entrada</label>
+                                <label>Data inicial</label>
                                 <div class="input-group date" id="dateEntTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#dateEntTarget" id="m_filter" name="mot_filter" value="">
+                                        data-target="#dateEntTarget" id="dateEnt_filter" value="">
                                     <div class="input-group-append" data-target="#dateEntTarget"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -67,11 +84,10 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Data saída</label>
+                                <label>Data final</label>
                                 <div class="input-group date" id="dateSaiTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#dateSaiTarget" id="e_dateSaiCivilRel" name="e_dateSaiCivilRel"
-                                        value="">
+                                        data-target="#dateSaiTarget" id="dateSai_filter" value="">
                                     <div class="input-group-append" data-target="#dateSaiTarget"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -79,22 +95,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col">
-                                <label for="e_nameMotCivilRel">OM</label>
-                                <input id="e_nameMotCivilRel" name="e_nameMotCivilRel" type="text" class="form-control"
-                                    maxlength="199" placeholder="EX: 3º B Sup">
-                            </div>
-
-                            <div class="form-group col">
-                                <label for="typeVtr_filter">Missão</label>
-                                <select id="typeVtr_filter" class="form-control">
-                                    <option selected value="">TODAS</option>
-                                    @foreach ($missions as $mission)
-                                        <option value="{{ $mission->id }}">{{ $mission->mission_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <button onclick="" style="height: 40px;" class="btn btn-success m-t-30"><i
+                            <button onclick="filterReports()" style="height: 40px;" class="btn btn-success m-t-30"><i
                                     class="fa fa-search"></i></button>
                         </div>
                     </div>
@@ -150,6 +151,7 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.js') }}"></script>
+    <script src="{{ asset('js/reports-filter.js') }}"></script>
     <script>
         $(function() {
             $("#table").DataTable({

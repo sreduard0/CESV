@@ -57,7 +57,6 @@ class ViewController extends Controller
     {
         $data = [
             'viaturas' => VtrModel::withTrashed()->get(),
-            'missions' => MissionModel::withTrashed()->get(),
             'motoristas' => MotModel::withTrashed()->get(),
             'fichas' => FichaModel::where('status', 1)->get(),
 

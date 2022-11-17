@@ -76,6 +76,8 @@ class GdaController extends Controller
                 $rel->obs = $data['obs'];
                 $rel->hour_sai = date('Y-m-d H:i', strtotime($data['hourSai']));
                 $rel->status = 1;
+                $rel->om = '3º B Sup';
+
                 $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'];
                 $rel->save();
                 break;
@@ -423,9 +425,22 @@ class GdaController extends Controller
         //Obtendo registros de número total sem qualquer pesquisa
 
         //Se há pesquisa ou não
-        if ($requestData['columns'][3]['search']['value'] || $requestData['columns'][4]['search']['value']) {
-            $registers = RelGdaModel::where('type_veicle', $requestData['columns'][3]['search']['value'])
-                ->where('status', 1)
+        if ($requestData['columns'][6]['search']['value'] == 'find') {
+            $datefrom = '2000-01-01';
+            $dateto = date("Y-m-d H:i");
+
+            if ($requestData['columns'][2]['search']['value']) {
+                $datefrom = date('Y-m-d H:i', strtotime($requestData['columns'][6]['search']['value']));
+            }
+            if ($requestData['columns'][3]['search']['value']) {
+                $dateto = date('Y-m-d H:i', strtotime($requestData['columns'][7]['search']['value']));
+            }
+
+            $registers = RelGdaModel::where('placaeb', 'LIKE', $requestData['columns'][0]['search']['value'])
+            // ->whereBetween('hour_ent', [$datefrom, $dateto])
+                ->where('om', 'LIKE', '%' . $requestData['columns'][4]['search']['value'] . '%')
+                ->where('type_veicle', 'LIKE', $requestData['columns'][5]['search']['value'])
+
                 ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                 ->offset($requestData['start'])
                 ->take($requestData['length'])->get();
@@ -433,9 +448,9 @@ class GdaController extends Controller
             $filtered = count($registers);
             $rows = count(RelGdaModel::all());
         } else {
-            $registers = RelGdaModel::where('status', 1)->with('ficha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $registers = RelGdaModel::with('ficha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($registers);
-            $rows = count(RelGdaModel::where('status', 1)->get());
+            $rows = count(RelGdaModel::all());
 
         }
 
