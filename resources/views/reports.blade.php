@@ -34,7 +34,7 @@
                     <div class="col">
                         <div class="row ">
                             <div class="form-group col">
-                                <label for="typeVtr_filter">Veiculo</label>
+                                <label for="vtr_filter">Veiculo</label>
                                 <select id="typeVtr_filter" class="form-control">
                                     <option selected value="">TODOS</option>
                                     @foreach ($viaturas as $viatura)
@@ -45,7 +45,7 @@
                                 </select>
                             </div>
                             <div class="form-group col">
-                                <label for="typeVtr_filter">Motorista</label>
+                                <label for="mot_filter">Motorista</label>
                                 <select id="typeVtr_filter" class="form-control">
                                     <option selected value="">TODAS</option>
                                     @foreach ($motoristas as $motorista)
@@ -56,11 +56,10 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Data entrada</label>
-                                <div class="input-group date" id="dateEntCivilRelTarget" data-target-input="nearest">
+                                <div class="input-group date" id="dateEntTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#dateEntCivilRelTarget" id="e_dateEntCivilRel" name="e_dateEntCivilRel"
-                                        value="">
-                                    <div class="input-group-append" data-target="#dateEntCivilRelTarget"
+                                        data-target="#dateEntTarget" id="m_filter" name="mot_filter" value="">
+                                    <div class="input-group-append" data-target="#dateEntTarget"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i>
                                         </div>
@@ -69,11 +68,11 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Data saída</label>
-                                <div class="input-group date" id="dateSaiCivilRelTarget" data-target-input="nearest">
+                                <div class="input-group date" id="dateSaiTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#dateSaiCivilRelTarget" id="e_dateSaiCivilRel" name="e_dateSaiCivilRel"
+                                        data-target="#dateSaiTarget" id="e_dateSaiCivilRel" name="e_dateSaiCivilRel"
                                         value="">
-                                    <div class="input-group-append" data-target="#dateSaiCivilRelTarget"
+                                    <div class="input-group-append" data-target="#dateSaiTarget"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i>
                                         </div>
@@ -182,8 +181,8 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
-                        'messageTop': " ",
-                        'messageBottom': 'Seção de Saúde',
+                        'messageTop': "{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }} ",
+                        'messageBottom': 'Seção de Transporte',
                         'exportOptions': {
                             'columns': [0, 1, 2, 3, 4, 5, 6, 7]
                         },
