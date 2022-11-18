@@ -426,19 +426,9 @@ class GdaController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['columns'][6]['search']['value'] == 'find') {
-            $datefrom = '2000-01-01';
-            $dateto = date("Y-m-d H:i");
-
-            if ($requestData['columns'][2]['search']['value']) {
-                $datefrom = date('Y-m-d H:i', strtotime($requestData['columns'][6]['search']['value']));
-            }
-            if ($requestData['columns'][3]['search']['value']) {
-                $dateto = date('Y-m-d H:i', strtotime($requestData['columns'][7]['search']['value']));
-                // $search->whereBetween('created_at', [$datefrom, $dateto]);
-
-            }
 
             $search = RelGdaModel::query();
+
             if ($requestData['columns'][5]['search']['value']) {
                 $search->where('type_veicle', $requestData['columns'][5]['search']['value']);
             }
@@ -450,7 +440,16 @@ class GdaController extends Controller
 
             }
             if ($requestData['columns'][1]['search']['value']) {
-                $search->where('id_mot', 'LIKE', $requestData['columns'][1]['search']['value']);
+                $search->where('name_mot', 'LIKE', '%' . $requestData['columns'][1]['search']['value'] . '%');
+            }
+            if ($requestData['columns'][2]['search']['value']) {
+                $dateEnt = date('Y-m-d H:i:s', strtotime($requestData['columns'][2]['search']['value']));
+
+                $search->where('hour_ent', '>=', $dateEnt);
+            }
+            if ($requestData['columns'][3]['search']['value']) {
+                $dateSai = date('Y-m-d H:i:s', strtotime($requestData['columns'][3]['search']['value']));
+                $search->where('hour_sai', '<=', $dateSai);
             }
 
             $registers = $search->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
@@ -465,7 +464,6 @@ class GdaController extends Controller
             $rows = count(RelGdaModel::all());
 
         }
-
         // Ler e criar o array de dados
         $dados = array();
         foreach ($registers as $register) {
@@ -475,6 +473,7 @@ class GdaController extends Controller
             $dado[] = $register->name_seg ? $register->pg_seg . ' ' . $register->name_seg : '-';
             $dado[] = $register->hour_ent ? date('d-m-Y H:i', strtotime($register->hour_ent)) : 'Fora da OM';
             $dado[] = $register->hour_sai ? date('d-m-Y H:i', strtotime($register->hour_sai)) : 'Dentro da OM';
+            $dado[] = $register->total_od ? $register->total_od : ' - ';
             $dado[] = $register->om ? $register->om : '3º B Sup';
             $dado[] = $register->destiny;
             $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button>';

@@ -116,7 +116,6 @@
 
                                             <p id="omOom" class="m-l-10 text-muted">-</p>
                                             <strong>Destino</strong>
-                                            <hr>
                                             <p id="destinyOom" class="m-l-10 text-muted">-</p>
 
                                             <hr>
@@ -191,10 +190,13 @@
                                             <hr>
                                             <strong>Odômetro de entrada</strong>
                                             <p id="odEntOm" class="m-l-10 text-muted">-</p>
-
                                             <hr>
                                             <strong>Odômetro de saída</strong>
                                             <p id="odSaiOm" class="m-l-10 text-muted">-</p>
+
+                                            <hr>
+                                            <strong>Km(s) rodados</strong>
+                                            <p id="odTotalSaiOm" class="m-l-10 text-muted">-</p>
 
                                             <hr>
 
@@ -250,6 +252,7 @@
                     modal.find('#hourSaiOm').text(moment(result.hour_sai).format('DD-MM-YYYY HH:mm'))
                     modal.find('#odEntOm').text(result.od_ent ? result.od_ent : 'Está fora da OM')
                     modal.find('#odSaiOm').text(result.od_sai)
+                    modal.find('#odTotalSaiOm').text(result.total_od + ' Km(s)')
                     modal.find('#obsOm').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "block")

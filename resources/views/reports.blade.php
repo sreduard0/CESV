@@ -55,14 +55,9 @@
                                 </select>
                             </div>
                             <div class="form-group col">
-                                <label for="mot_filter">Motorista</label>
-                                <select id="mot_filter" class="form-control">
-                                    <option selected value="">TODOS</option>
-                                    @foreach ($motoristas as $motorista)
-                                        <option value="{{ $motorista->id }}">{{ $motorista->pg . ' ' . $motorista->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="mot_filter">Nome motorista</label>
+                                <input id="mot_filter" type="text" class="form-control" maxlength="199"
+                                    placeholder="EX: João">
                             </div>
                             <div class="form-group col">
                                 <label for="om_filter">OM</label>
@@ -72,7 +67,7 @@
 
 
                             <div class="form-group col-md-2">
-                                <label>Data inicial</label>
+                                <label>Data entrada</label>
                                 <div class="input-group date" id="dateEntTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
                                         data-target="#dateEntTarget" id="dateEnt_filter" value="">
@@ -84,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Data final</label>
+                                <label>Data saída</label>
                                 <div class="input-group date" id="dateSaiTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
                                         data-target="#dateSaiTarget" id="dateSai_filter" value="">
@@ -116,6 +111,7 @@
                             <th>Segurança</th>
                             <th>Hora - Entrada</th>
                             <th>Hora - Saída</th>
+                            <th>Km(s) rodados</th>
                             <th>OM</th>
                             <th>Missão/Destino</th>
                             <th style="width:2em">Ver</th>
@@ -160,9 +156,14 @@
                 "lengthChange": true,
                 "autoWidth": false,
                 "aoColumnDefs": [{
-                    'bSortable': false,
-                    'aTargets': [7]
-                }],
+                        'bSortable': false,
+                        'aTargets': [8]
+                    },
+                    {
+                        'aTargets': [5],
+                        "visible": false,
+                    }
+                ],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
@@ -183,10 +184,11 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
-                        'messageTop': "{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }} ",
-                        'messageBottom': 'Seção de Transporte',
+                        'messageTop': "{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}  ",
+                        'messageTp': "{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}  ",
+                        'messageBottom': 'Oficial de dia',
                         'exportOptions': {
-                            'columns': [0, 1, 2, 3, 4, 5, 6, 7]
+                            'columns': [0, 1, 2, 3, 4, 5, 6]
                         },
                         "autoPrint": true,
                     },
