@@ -434,14 +434,26 @@ class GdaController extends Controller
             }
             if ($requestData['columns'][3]['search']['value']) {
                 $dateto = date('Y-m-d H:i', strtotime($requestData['columns'][7]['search']['value']));
+                // $search->whereBetween('created_at', [$datefrom, $dateto]);
+
             }
 
-            $registers = RelGdaModel::where('placaeb', 'LIKE', $requestData['columns'][0]['search']['value'])
-            // ->whereBetween('hour_ent', [$datefrom, $dateto])
-                ->where('om', 'LIKE', '%' . $requestData['columns'][4]['search']['value'] . '%')
-                ->where('type_veicle', 'LIKE', $requestData['columns'][5]['search']['value'])
+            $search = RelGdaModel::query();
+            if ($requestData['columns'][5]['search']['value']) {
+                $search->where('type_veicle', $requestData['columns'][5]['search']['value']);
+            }
+            if ($requestData['columns'][0]['search']['value']) {
+                $search->where('placaeb', $requestData['columns'][0]['search']['value']);
+            }
+            if ($requestData['columns'][4]['search']['value']) {
+                $search->where('om', 'LIKE', '%' . $requestData['columns'][4]['search']['value'] . '%');
 
-                ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+            }
+            if ($requestData['columns'][1]['search']['value']) {
+                $search->where('id_mot', 'LIKE', $requestData['columns'][1]['search']['value']);
+            }
+
+            $registers = $search->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                 ->offset($requestData['start'])
                 ->take($requestData['length'])->get();
 
