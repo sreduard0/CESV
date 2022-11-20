@@ -1,15 +1,26 @@
 @extends('layout')
 @section('title', 'Transporte')
 @section('home', 'active')
-@section('title-header', 'Controle de missões')
+@section('title-header')
+    @switch(session('CESV')['profileType'])
+        @case(1)
+            Controle de missões OM/OP
+        @break
+
+        @case(3)
+            Controle de missões do OP
+        @break
+
+        @case(4)
+            Controle de missões do OM
+        @break
+    @endswitch
+@endsection
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('css')
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
     <!-- summernote -->
@@ -33,9 +44,10 @@
                     <div class="col-md-5">
                         <div class="row ">
                             <div class="form-group col">
-                                <label for="statusMission">Viatura</label>
+                                <label for="statusMission">Status</label>
                                 <select id="statusMission" class="form-control">
-                                    <option selected value="1">ABERTAS</option>
+                                    <option selected value="">TODAS</option>
+                                    <option value="1">NA FILA</option>
                                     <option value="2">EM ANDAMENTO</option>
                                     <option value="3">ENCERRADA</option>
                                 </select>
@@ -66,7 +78,7 @@
                             <th>Qtd. Vtrs</th>
                             <th>Prev. partida</th>
                             <th>Status</th>
-                            <th style="min-width:20px"><i class="fs-20 fa fa-info-circle"></i> info</th>
+                            <th style="min-width:20px; max-width:100px"><i class="fs-20 fa fa-info-circle"></i> info</th>
                         </tr>
                     </thead>
                 </table>
@@ -96,16 +108,11 @@
                             </div>
                         </div>
                         <form id="form-register-mission">
-                            <div class="row">
-                                <div class="form-group col-md-3">
-                                    <label for="typeMission">Tipo de missão <span style="color:red">*</span></label>
-                                    <select class="form-control" name="typeMission" id="typeMission">
-                                        <option value="">Selecione</option>
-                                        <option value="OP">OP</option>
-                                        <option value="OM">OM</option>
-                                    </select>
-                                </div>
-                            </div>
+                            @if (session('CESV')['profileType'] == 3)
+                                <input type="hidden" name="typeMission" id="typeMission" value="OP">
+                            @else
+                                <input type="hidden" name="typeMission" id="typeMission" value="OM">
+                            @endif
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="nameMission">Missão <span style="color:red">*</span></label>
@@ -138,7 +145,7 @@
                             <div class="row">
 
                                 <div class="form-group col">
-                                    <label for="docMission">Documento <span style="color:red">*</span> </label>
+                                    <label for="docMission">Documento</label>
                                     <input minlength="2" maxlength="200" id="docMission" name="docMission"
                                         type="text" class="form-control"
                                         placeholder="documento que deu ordem para a realizar a missão.">
@@ -257,16 +264,11 @@
                     <div class="modal-body">
                         <form id="form-edit-mission">
                             <input type="hidden" id="idMission" name="idMission">
-                            <div class="row">
-                                <div class="form-group col-md-3">
-                                    <label for="e_typeMission">Tipo de missão <span style="color:red">*</span></label>
-                                    <select class="form-control" name="e_typeMission" id="e_typeMission">
-                                        <option value="">Selecione</option>
-                                        <option value="OP">OP</option>
-                                        <option value="OM">OM</option>
-                                    </select>
-                                </div>
-                            </div>
+                            @if (session('CESV')['profileType'] == 3)
+                                <input type="hidden" name="e_typeMission" id="e_typeMission" value="OP">
+                            @else
+                                <input type="hidden" name="e_typeMission" id="e_typeMission" value="OM">
+                            @endif
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="e_nameMission">Missão <span style="color:red">*</span></label>
@@ -299,7 +301,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col">
-                                    <label for="e_docMission">Documento <span style="color:red">*</span> </label>
+                                    <label for="e_docMission">Documento</label>
                                     <input minlength="2" maxlength="200" id="e_docMission" name="e_docMission"
                                         type="text" class="form-control"
                                         placeholder="documento que deu ordem para a realizar a missão.">
@@ -409,20 +411,7 @@
 
 @endsection
 @section('plugins')
-    <!-- DataTables  & Plugins -->
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
     <script src="{{ asset('js/inputmask.js') }}"></script>
 
     <!-- Summernote -->
@@ -453,7 +442,6 @@
                 //  Form edição
                 modal.find('#idMission').val(result.id)
                 modal.find('#e_nameMission').val(result.mission_name)
-                modal.find('#e_typeMission').val(result.type_mission)
                 modal.find('#e_destinyMission').val(result.destiny)
                 modal.find('#e_classMission').val(result.class)
                 modal.find('#e_docMission').val(result.doc)

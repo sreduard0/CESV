@@ -22,6 +22,7 @@
     {{-- sweetalert2 --}}
     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- Theme style -->
@@ -35,6 +36,10 @@
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('js/mask-jquery.js') }}"></script>
     <script src="{{ asset('js/bootbox.min.js') }}"></script>
+    {{-- datatables --}}
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 
     @yield('script')
 
@@ -91,7 +96,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if (session('CESV')['profileType'] == 1)
+                        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 5)
                             <li class="nav-item ">
                                 <a href="{{ route('fichas') }}" class="nav-link @yield('ficha')">
                                     <i class="nav-icon fas fa-list"></i>
@@ -144,51 +149,52 @@
                         {{-- Conteudo --}}
 
                         @yield('content')
+                        @if (session('CESV')['profileType'] < 5)
+                            {{-- /CONTEUDO --}}
+                            <section class="col-lg-3">
+                                <div class="card bg-default">
+                                    <div class="card-header border-0 bg-success">
 
-                        {{-- /CONTEUDO --}}
-                        <section class="col-lg-3">
-                            <div class="card bg-default">
-                                <div class="card-header border-0 bg-success">
+                                        <h3 class="card-title">
+                                            <i class="far fa-list-alt"></i>
+                                            Fichas abertas
+                                        </h3>
+                                        <!-- /. tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body pt-0">
+                                        <!--The calendar -->
+                                        <table id="fichas_layout" class="table fs-14">
+                                            <thead height="20">
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Motorista</th>
+                                                    <th>Missão</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <div class="card bg-default">
+                                    <div class="card-header border-0 bg-success">
 
-                                    <h3 class="card-title">
-                                        <i class="far fa-list-alt"></i>
-                                        Fichas abertas
-                                    </h3>
-                                    <!-- /. tools -->
+                                        <h3 class="card-title">
+                                            <i class="far fa-calendar-alt"></i>
+                                            Calendário
+                                        </h3>
+                                        <!-- /. tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body pt-0">
+                                        <!--The calendar -->
+                                        <div id="calendar" style="width: 100%"></div>
+                                    </div>
+                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card-header -->
-                                <div class="card-body pt-0">
-                                    <!--The calendar -->
-                                    <table id="fichas_layout" class="table fs-14">
-                                        <thead height="20">
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>Motorista</th>
-                                                <th>Missão</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <div class="card bg-default">
-                                <div class="card-header border-0 bg-success">
-
-                                    <h3 class="card-title">
-                                        <i class="far fa-calendar-alt"></i>
-                                        Calendário
-                                    </h3>
-                                    <!-- /. tools -->
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body pt-0">
-                                    <!--The calendar -->
-                                    <div id="calendar" style="width: 100%"></div>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                        </section>
-                        <!-- right col -->
+                            </section>
+                            <!-- right col -->
+                        @endif
                     </div>
                     <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
@@ -238,6 +244,21 @@
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- Summernote -->
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.js') }}"></script>
+    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
     @yield('plugins')
     <script>
         $("#fichas_layout").DataTable({

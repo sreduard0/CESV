@@ -118,11 +118,65 @@ class MissionController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['columns'][3]['search']['value']) {
-            $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            switch (session('CESV')['profileType']) {
+                case 1:
+                    $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
+                        ->with('vtrInfo')
+                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                        ->offset($requestData['start'])
+                        ->take($requestData['length'])
+                        ->get();
+                    break;
+                case 3:
+                    $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
+                        ->where('type_mission', 'OP')
+                        ->with('vtrInfo')
+                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                        ->offset($requestData['start'])
+                        ->take($requestData['length'])
+                        ->get();
+                    break;
+                case 4:
+                    $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
+                        ->where('type_mission', 'OM')
+                        ->with('vtrInfo')
+                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                        ->offset($requestData['start'])
+                        ->take($requestData['length'])
+                        ->get();
+                    break;
+            }
             $filtered = count($missions);
             $rows = count(MissionModel::where('status', $requestData['columns'][3]['search']['value'])->get());
         } else {
-            $missions = MissionModel::where('status', 1)->with('vtrInfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            switch (session('CESV')['profileType']) {
+                case 1:
+                    $missions = MissionModel::where('status', '<=', 2)
+                        ->with('vtrInfo')
+                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                        ->offset($requestData['start'])
+                        ->take($requestData['length'])
+                        ->get();
+                    break;
+                case 3:
+                    $missions = MissionModel::where('status', '<=', 2)
+                        ->where('type_mission', 'OP')
+                        ->with('vtrInfo')
+                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                        ->offset($requestData['start'])
+                        ->take($requestData['length'])
+                        ->get();
+                    break;
+                case 4:
+                    $missions = MissionModel::where('status', '<=', 2)
+                        ->where('type_mission', 'OM')
+                        ->with('vtrInfo')
+                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                        ->offset($requestData['start'])
+                        ->take($requestData['length'])
+                        ->get();
+                    break;
+            }
             $filtered = count($missions);
             $rows = count(MissionModel::where('status', 1)->get());
 
@@ -142,7 +196,7 @@ class MissionController extends Controller
             $dado[] = date('d-m-Y h:i', strtotime($mission->prev_date_part));
             switch ($mission->status) {
                 case 1:
-                    $dado[] = 'Aguardando';
+                    $dado[] = 'Na fila';
                     break;
 
                 case 2:

@@ -33,7 +33,7 @@ function registerMission() {
     } else {
         $('#classMission').removeClass('is-invalid');
     }
-    if (formData.get('docMission') == '' || formData.get('docMission').length > 200) {
+    if (formData.get('docMission').length > 200) {
         $('#docMission').addClass('is-invalid');
         return false;
     } else {
@@ -157,7 +157,7 @@ function editMission() {
     } else {
         $('#e_classMission').removeClass('is-invalid');
     }
-    if (formData.get('e_docMission') == '' || formData.get('e_docMission').length > 200) {
+    if (formData.get('e_docMission').length > 200) {
         $('#e_docMission').addClass('is-invalid');
         return false;
     } else {

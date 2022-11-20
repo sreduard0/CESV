@@ -183,7 +183,7 @@
              }
              switch (result.status) {
                  case 1:
-                     modal.find('#statusMission').text('Aguardando')
+                     modal.find('#statusMission').text('Na fila')
 
                      break;
                  case 2:

@@ -30,6 +30,12 @@ class ViewController extends Controller
                 ];
                 return view('home-gest', $data);
                 break;
+            case 5:
+                $data = [
+                    // 'viaturas' => VtrModel::where('status', 1)->orderBy('nr_vtr', 'asc')->get(),
+                ];
+                return view('home-admin', $data);
+                break;
         }
     }
 
