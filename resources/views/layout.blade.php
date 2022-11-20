@@ -8,7 +8,13 @@
     <title>{{ config('app.name') }} - @yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
     {{-- ==================================== CSS/JS ===================================== --}}
-
+    <style>
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            visibility: hidden;
+        }
+    </style>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="{{ asset('css/gfonts.css') }}">
     <!-- Font Awesome -->
@@ -86,12 +92,22 @@
                                 </p>
                             </a>
                         </li>
-                        @if (session('CESV')['profileType'] == 2)
+                        @if (session('CESV')['profileType'] == 2 || session('CESV')['profileType'] == 5)
                             <li class="nav-item ">
                                 <a href="{{ route('reports') }}" class="nav-link @yield('reports')">
-                                    <i class="nav-icon fas fa-list"></i>
+                                    <i class="nav-icon fas fa-file-chart-line"></i>
                                     <p>
-                                        Relatório
+                                        Relatório gda
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
+                        @if (session('CESV')['profileType'] == 5)
+                            <li class="nav-item ">
+                                <a href="{{ route('missions') }}" class="nav-link @yield('mission')">
+                                    <i class="nav-icon fas fa-truck-moving"></i>
+                                    <p>
+                                        Missões
                                     </p>
                                 </a>
                             </li>
@@ -99,7 +115,7 @@
                         @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 5)
                             <li class="nav-item ">
                                 <a href="{{ route('fichas') }}" class="nav-link @yield('ficha')">
-                                    <i class="nav-icon fas fa-list"></i>
+                                    <i class="nav-icon fas fa-clipboard-list"></i>
                                     <p>
                                         Fichas
                                     </p>

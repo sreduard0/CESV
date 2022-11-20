@@ -145,6 +145,14 @@ class MissionController extends Controller
                         ->take($requestData['length'])
                         ->get();
                     break;
+                case 5:
+                    $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
+                        ->with('vtrInfo')
+                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                        ->offset($requestData['start'])
+                        ->take($requestData['length'])
+                        ->get();
+                    break;
             }
             $filtered = count($missions);
             $rows = count(MissionModel::where('status', $requestData['columns'][3]['search']['value'])->get());
@@ -171,6 +179,13 @@ class MissionController extends Controller
                     $missions = MissionModel::where('status', '<=', 2)
                         ->where('type_mission', 'OM')
                         ->with('vtrInfo')
+                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                        ->offset($requestData['start'])
+                        ->take($requestData['length'])
+                        ->get();
+                    break;
+                case 5:
+                    $missions = MissionModel::with('vtrInfo')
                         ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                         ->offset($requestData['start'])
                         ->take($requestData['length'])
@@ -225,6 +240,9 @@ class MissionController extends Controller
                         $dado[] = $btnInfo;
                         break;
                 }
+
+            } elseif (session('CESV')['profileType'] == 5) {
+                $dado[] = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
 
             } else {
                 $dado[] = '

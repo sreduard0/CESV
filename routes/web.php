@@ -14,6 +14,7 @@ Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middle
 Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('auth');
 Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('auth');
 Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('auth');
+Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('auth');
 
 // AÇÕES --------------------------------------------------------------------
 
@@ -43,6 +44,8 @@ Route::post('report_relgda_list', [GdaController::class, 'reportRelGda'])->name(
 // LISTA DE MOTORISTA
 Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_list')->middleware('auth');
 Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('auth');
+
+// ADMINISTRADOR
 
 // FIM ACÕES ----------------------------------------------------------------
 

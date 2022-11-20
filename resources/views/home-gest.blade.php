@@ -1,9 +1,32 @@
 @extends('layout')
-@section('title', 'Transporte')
-@section('home', 'active')
+@section('title')
+    @switch(session('CESV')['profileType'])
+        @case(1)
+            Transporte
+        @break
+
+        @case(5)
+            Missões
+        @break
+
+        @case(3)
+            Missões do OP
+        @break
+
+        @case(4)
+            Missões do OM
+        @break
+    @endswitch
+@endsection
+@if (session('CESV')['profileType'] == 5)
+    @section('mission', 'active')
+@else
+    @section('home', 'active')
+@endif
 @section('title-header')
     @switch(session('CESV')['profileType'])
         @case(1)
+        @case(5)
             Controle de missões OM/OP
         @break
 
@@ -27,13 +50,28 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     {{-- CRUD .JS --}}
     <script src="{{ asset('js/crud-missions.js') }}"></script>
-    <style>
-        .dataTables_wrapper .dataTables_filter {
-            float: right;
-            text-align: right;
-            visibility: hidden;
-        }
-    </style>
+    @switch(session('CESV')['profileType'])
+        @case(1)
+        @case(3)
+
+        @case(4)
+            <style>
+                .w-1 {
+                    width: 100px;
+                    column-width: 20px;
+                }
+            </style>
+        @break
+
+        @case(5)
+            <style>
+                .w-1 {
+                    width: 20px;
+                }
+            </style>
+        @break
+    @endswitch
+
 @endsection
 
 @section('content')
@@ -78,7 +116,7 @@
                             <th>Qtd. Vtrs</th>
                             <th>Prev. partida</th>
                             <th>Status</th>
-                            <th style="min-width:20px; max-width:100px"><i class="fs-20 fa fa-info-circle"></i> info</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                 </table>
@@ -433,29 +471,31 @@
                 ]
             });
         });
-        $('#edit-mission').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var modal = $(this);
-            var url = "{{ url('info_mission') }}/" + id;
-            $.get(url, function(result) {
-                //  Form edição
-                modal.find('#idMission').val(result.id)
-                modal.find('#e_nameMission').val(result.mission_name)
-                modal.find('#e_destinyMission').val(result.destiny)
-                modal.find('#e_classMission').val(result.class)
-                modal.find('#e_docMission').val(result.doc)
-                modal.find('#e_originMission').val(result.origin)
-                modal.find('#e_contactCmtMission').val(result.contact)
-                modal.find('#e_pgSegMission').val(result.pg_seg)
-                modal.find('#e_nameSegMission').val(result.name_seg)
-                modal.find('#e_datePrevPartMission').val(moment(result.prev_date_part).format(
-                    'DD-MM-YYYY H:m'))
-                modal.find('#e_datePrevChgdMission').val(moment(result.prev_date_chgd).format(
-                    'DD-MM-YYYY H:m'))
-                modal.find('#e_obsMission').summernote('code', result.obs)
-            })
-        });
+        @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4)
+            $('#edit-mission').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var modal = $(this);
+                var url = "{{ url('info_mission') }}/" + id;
+                $.get(url, function(result) {
+                    //  Form edição
+                    modal.find('#idMission').val(result.id)
+                    modal.find('#e_nameMission').val(result.mission_name)
+                    modal.find('#e_destinyMission').val(result.destiny)
+                    modal.find('#e_classMission').val(result.class)
+                    modal.find('#e_docMission').val(result.doc)
+                    modal.find('#e_originMission').val(result.origin)
+                    modal.find('#e_contactCmtMission').val(result.contact)
+                    modal.find('#e_pgSegMission').val(result.pg_seg)
+                    modal.find('#e_nameSegMission').val(result.name_seg)
+                    modal.find('#e_datePrevPartMission').val(moment(result.prev_date_part).format(
+                        'DD-MM-YYYY H:m'))
+                    modal.find('#e_datePrevChgdMission').val(moment(result.prev_date_chgd).format(
+                        'DD-MM-YYYY H:m'))
+                    modal.find('#e_obsMission').summernote('code', result.obs)
+                })
+            });
+        @endif
     </script>
     <script>
         $(function() {
@@ -465,9 +505,14 @@
                 "lengthChange": true,
                 "autoWidth": false,
                 "aoColumnDefs": [{
-                    'bSortable': false,
-                    'aTargets': [0, 8]
-                }],
+                        'bSortable': false,
+                        'aTargets': [0, 8]
+                    },
+                    {
+                        'className': 'w-1 text-center',
+                        "targets": [9]
+                    }
+                ],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },

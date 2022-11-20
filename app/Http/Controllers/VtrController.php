@@ -119,13 +119,20 @@ class VtrController extends Controller
                 $dado[] = 'Indisponível';
 
             }
-            $dado[] = '
+            if (session('CESV')['profileType'] == 5) {
+                $dado[] = '
+                        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
+                                        class="fa fa-car"></i></button>';
+
+            } else {
+                $dado[] = '
                         <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
                                         class="fa fa-car"></i></button>
                         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-vtr" data-id="' . $vtr->id . '"><i
                                         class="fa fa-edit"></i></button>
                         <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteVtr(' . $vtr->id . ')"><i
                                         class="fa fa-trash"></i></button>';
+            }
             $dados[] = $dado;
         }
 

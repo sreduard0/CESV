@@ -111,11 +111,14 @@ class MotController extends Controller
             $dado[] = date('d-m-Y', strtotime($driver->val_cnh));
             $dado[] = $driver->idt_mil;
             $dado[] = $driver->contact . "<a href='https://api.whatsapp.com/send?phone=55" . $driver->contact . "' target='_blank' class='float-r btn btn-sm btn-success'><i class='fab fa-whatsapp'></i></a>";
-            $dado[] = '
+            if (session('CESV')['profileType'] == 1) {
+                $dado[] = '
                          <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-drive" data-id="' . $driver->id . '"
                                     ><i class="fa fa-edit"></i></button>
                                 <button class="btn btn-sm btn-danger"  onclick="deleteMot(' . $driver->id . ')"><i
                                         class="fa fa-trash"></i></button>';
+            }
+
             $dados[] = $dado;
         }
 

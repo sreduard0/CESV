@@ -148,12 +148,17 @@ class FichaController extends Controller
                 $dado[] = 'Encerrada';
 
             }
-            $btns = $ficha->status == 1 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
+            if (session('CESV')['profileType'] == 5) {
+                $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
+                                        class="fa fa-car"></i></button> ';
+
+            } else { $btns = $ficha->status == 1 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
                                         class="fa fa-edit"></i></button>
                         <button title="Fechar ficha" class="btn btn-sm btn-danger" data-toggle="modal" onclick="finishFicha(' . $ficha->id . ')"><i
                                         class="fa fa-times"></i></button>' : '';
-            $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
+                $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
                                         class="fa fa-car"></i></button> ' . $btns;
+            }
             $dados[] = $dado;
         }
 

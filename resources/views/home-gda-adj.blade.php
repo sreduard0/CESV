@@ -139,7 +139,7 @@
                             <th>OM</th>
                             <th>Missão/Destino</th>
                             <th @if (session('CESV')['profileType'] == 0) style="width:5em" @else style="width:120px" @endif>
-                                <i class="fs-20 fa fa-info-circle"></i> info
+                                Ações
                             </th>
                         </tr>
                     </thead>

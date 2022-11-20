@@ -69,4 +69,12 @@ class ViewController extends Controller
 
         return view('reports', $data);
     }
+    public function missions()
+    {
+        $data = [
+            'fichas' => FichaModel::where('status', 1)->get(),
+        ];
+
+        return view('home-gest', $data);
+    }
 }

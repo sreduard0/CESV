@@ -14,13 +14,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Modal de registro manual -->
     <script src="{{ asset('js/crud-gda.js') }}"></script>
-    <style>
-        .dataTables_wrapper .dataTables_filter {
-            float: right;
-            text-align: right;
-            visibility: hidden;
-        }
-    </style>
+
 @endsection
 
 @section('content')
@@ -30,7 +24,7 @@
                 <div class="row d-flex justify-content-between">
                     <div class="col">
                         <div class="row ">
-                            <div class="form-group col">
+                            <div class="form-group col-md-2">
                                 <label for="typevtr_filter">Tipo de veículo</label>
                                 <select id="typevtr_filter" class="form-control">
                                     <option selected value="">TODOS</option>
@@ -40,7 +34,7 @@
                                     <option value="op">3º B Sup | Operacional</option>
                                 </select>
                             </div>
-                            <div class="form-group col">
+                            <div class="form-group col-md-2">
                                 <label for="vtr_filter">Veiculo</label>
                                 <select id="vtr_filter" class="form-control">
                                     <option selected value="">TODOS</option>
@@ -51,12 +45,12 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col">
+                            <div class="form-group col-md-2">
                                 <label for="mot_filter">Nome motorista</label>
                                 <input id="mot_filter" type="text" class="form-control" maxlength="199"
                                     placeholder="EX: João">
                             </div>
-                            <div class="form-group col">
+                            <div class="form-group col-md-2">
                                 <label for="om_filter">OM</label>
                                 <input id="om_filter" type="text" class="form-control" maxlength="199"
                                     placeholder="EX: 3º B Sup">
@@ -141,7 +135,8 @@
                 "autoWidth": false,
                 "aoColumnDefs": [{
                         'bSortable': false,
-                        'aTargets': [8]
+                        'aTargets': [8],
+                        "className": "text-center"
                     },
                     {
                         'aTargets': [5],
