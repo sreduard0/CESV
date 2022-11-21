@@ -209,6 +209,31 @@
                                     <!-- /.card-body -->
                                 </div>
                             </section>
+                            <script>
+                                $("#fichas_layout").DataTable({
+
+                                    "paging": true,
+                                    'pagingType': 'simple',
+                                    "responsive": true,
+                                    "lengthChange": true,
+                                    "iDisplayLength": 5,
+                                    "autoWidth": false,
+                                    "dom": '<"top">rt<"bottom"ip><"clear">',
+                                    "language": {
+                                        "url": "{{ asset('plugins/datatables/Portuguese3.json') }}"
+                                    },
+                                    "processing": true,
+                                    "serverSide": true,
+                                    "ajax": {
+                                        "url": "{{ route('fichas_layout') }}",
+                                        "type": "POST",
+                                        "headers": {
+                                            'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                                        },
+
+                                    }
+                                });
+                            </script>
                             <!-- right col -->
                         @endif
                     </div>
@@ -276,31 +301,7 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     @yield('plugins')
-    <script>
-        $("#fichas_layout").DataTable({
 
-            "paging": true,
-            'pagingType': 'simple',
-            "responsive": true,
-            "lengthChange": true,
-            "iDisplayLength": 5,
-            "autoWidth": false,
-            "dom": '<"top">rt<"bottom"ip><"clear">',
-            "language": {
-                "url": "{{ asset('plugins/datatables/Portuguese3.json') }}"
-            },
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": "{{ route('fichas_layout') }}",
-                "type": "POST",
-                "headers": {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                },
-
-            }
-        });
-    </script>
     {{-- ====================================/ PLUGINS ===================================== --}}
 </body>
 

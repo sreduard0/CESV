@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FichaController;
 use App\Http\Controllers\GdaController;
 use App\Http\Controllers\MissionController;
@@ -46,6 +47,7 @@ Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_
 Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('auth');
 
 // ADMINISTRADOR
+Route::get('getGraphicMissions', [AdminController::class, 'getGraphicMissions'])->middleware('auth')->name('getGraphicMissions');
 
 // FIM ACÕES ----------------------------------------------------------------
 

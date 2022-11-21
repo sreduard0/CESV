@@ -26,7 +26,7 @@
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
-                    <canvas id="missions-op" height="200"></canvas>
+                    <canvas id="missions-op" height="250"></canvas>
                 </div>
 
                 <div class="d-flex flex-row justify-content-end">
@@ -435,155 +435,55 @@
                 }
             })
 
-            var $visitorsChart = $('#missions-op')
-            // eslint-disable-next-line no-unused-vars
-            var visitorsChart = new Chart($visitorsChart, {
-                data: {
-                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov',
-                        'Dez'
-                    ],
-                    datasets: [{
-                            type: 'line',
-                            data: [10, 12, 17, 10, 18, 17, 3],
-                            backgroundColor: 'transparent',
-                            borderColor: '#28a745 ',
-                            pointBorderColor: '#28a745 ',
-                            pointBackgroundColor: '#28a745 ',
-                            fill: false
-
-                        },
-                        {
-                            type: 'line',
-                            data: [9, 10, 7, 6, 6, 2, 10],
-                            backgroundColor: 'tansparent',
-                            borderColor: '#007bff',
-                            pointBorderColor: '#007bff',
-                            pointBackgroundColor: '#007bff',
-                            fill: false
-
-                        },
-                        {
-                            type: 'line',
-                            data: [10, 40, 7, 77, 8, 20, 15],
-                            backgroundColor: 'tansparent',
-                            borderColor: '#6c757d ',
-                            pointBorderColor: '#6c757d ',
-                            pointBackgroundColor: '#6c757d ',
-                            fill: false
-                        },
-                        {
-                            type: 'line',
-                            data: [10, 32, 70, 67, 65, 19, 12],
-                            backgroundColor: 'tansparent',
-                            borderColor: '#ffc107',
-                            pointBorderColor: '#ffc107',
-                            pointBackgroundColor: '#ffc107',
-                            fill: false
-                        },
-                        {
-                            type: 'line',
-                            data: [15, 2, 25, 97, 65, 59, 12],
-                            backgroundColor: 'tansparent',
-                            borderColor: '#17a2b8 ',
-                            pointBorderColor: '#17a2b8 ',
-                            pointBackgroundColor: '#17a2b8 ',
-                            fill: false
-                        },
-                        {
-                            type: 'line',
-                            data: [10, 32, 70, 67, 65, 19, 12],
-                            backgroundColor: 'tansparent',
-                            borderColor: '#dc3545 ',
-                            pointBorderColor: '#dc3545 ',
-                            pointBackgroundColor: '#dc3545 ',
-                            fill: false
-                        },
-                        {
-                            type: 'line',
-                            data: [10, 32, 70, 150, 65, 19, 12],
-                            backgroundColor: 'tansparent',
-                            borderColor: 'blueviolet',
-                            pointBorderColor: 'blueviolet',
-                            pointBackgroundColor: 'blueviolet',
-                            fill: false
-
-                        },
-                        {
-                            type: 'line',
-                            data: [10, 32, 70, 67, 350, 19, 12],
-                            backgroundColor: 'tansparent',
-                            borderColor: 'rgb(250, 4, 151)',
-                            pointBorderColor: 'rgb(250, 4, 151)',
-                            pointBackgroundColor: 'rgb(250, 4, 151)',
-                            fill: false
-
-                        },
-                        {
-                            type: 'line',
-                            data: [10, 32, 70, 67, 65, 19, 12],
-                            backgroundColor: 'tansparent',
-                            borderColor: 'rgb(11, 2, 112)',
-                            pointBorderColor: 'rgb(11, 2, 112)',
-                            pointBackgroundColor: 'rgb(11, 2, 112)',
-                            fill: false
-                        },
-                        {
-                            type: 'line',
-                            data: [10, 32, 70, 67, 85, 19, 12],
-                            backgroundColor: 'tansparent',
-                            borderColor: 'rgb(7, 42, 20)',
-                            pointBorderColor: 'rgb(7, 42, 20)',
-                            pointBackgroundColor: 'rgb(7, 42, 20)',
-                            fill: false
-                        },
-                        {
-                            type: 'line',
-                            data: [10, 32, 70, 67, 65, 529, 12],
-                            backgroundColor: 'tansparent',
-                            borderColor: 'rgb(25, 8, 41)',
-                            pointBorderColor: 'rgb(25, 8, 41)',
-                            pointBackgroundColor: 'rgb(25, 8, 41)',
-                            fill: false
-                        }
-                    ]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    tooltips: {
-                        mode: mode,
-                        intersect: intersect
+            var $missionsCost = $('#missions-op')
+            $.get("{{ route('getGraphicMissions') }}", function(result) {
+                var missionsCost = new Chart($missionsCost, {
+                    data: {
+                        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set',
+                            'Out', 'Nov',
+                            'Dez'
+                        ],
+                        datasets: result
                     },
-                    hover: {
-                        mode: mode,
-                        intersect: intersect
-                    },
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        yAxes: [{
-                            // display: false,
-                            gridLines: {
+                    options: {
+                        maintainAspectRatio: false,
+                        tooltips: {
+                            mode: mode,
+                            intersect: intersect
+                        },
+                        hover: {
+                            mode: mode,
+                            intersect: intersect
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        scales: {
+                            yAxes: [{
+                                // display: false,
+                                gridLines: {
+                                    display: true,
+                                    lineWidth: '2px',
+                                    color: 'rgba(0, 0, 0, .2)',
+                                    zeroLineColor: 'transparent'
+                                },
+                                ticks: $.extend({
+                                    beginAtZero: true,
+                                    suggestedMax: 200
+                                }, ticksStyle)
+                            }],
+                            xAxes: [{
                                 display: true,
-                                lineWidth: '2px',
-                                color: 'rgba(0, 0, 0, .2)',
-                                zeroLineColor: 'transparent'
-                            },
-                            ticks: $.extend({
-                                beginAtZero: true,
-                                suggestedMax: 200
-                            }, ticksStyle)
-                        }],
-                        xAxes: [{
-                            display: true,
-                            gridLines: {
-                                display: false
-                            },
-                            ticks: ticksStyle
-                        }]
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: ticksStyle
+                            }]
+                        }
                     }
-                }
+                })
             })
+            // eslint-disable-next-line no-unused-vars
 
 
 
