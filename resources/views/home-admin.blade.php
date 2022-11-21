@@ -10,17 +10,18 @@
         <div class="card">
             <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Missões OP</h3>
+                    <h3 class="card-title">Grafíco de missões OP no ano de {{ date('Y') }}</h3>
                 </div>
             </div>
             <div class="card-body">
                 <div class="d-flex">
                     <p class="d-flex flex-column">
-                        <span class="text-bold text-lg">820</span>
-                        <span>Total em {{ date('Y') }}</span>
+                        <span>Total: <span id="TotalMissionsOp" class="text-bold text-lg"></span></span>
+
+
                     </p>
                     <p class="ml-auto d-flex flex-column text-right">
-                        <span class="text-muted">Responsavel: COST</span>
+                        <span class="text-muted">Responsável: COST</span>
                     </p>
                 </div>
                 <!-- /.d-flex -->
@@ -43,10 +44,10 @@
                         <i class="fas fa-square text-warning"></i> IV
                     </span>
                     <span class="mr-2">
-                        <i class="fas fa-square text-info"></i> V-arm
+                        <i class="fas fa-square text-info"></i> V-a
                     </span>
                     <span class="mr-2">
-                        <i class="fas fa-square text-danger"></i> V-mun
+                        <i class="fas fa-square text-danger"></i> V-m
                     </span>
                     <span class="mr-2">
                         <i style='color:blueviolet' class="fas fa-square"></i> VI
@@ -66,7 +67,6 @@
                 </div>
             </div>
         </div>
-        <!-- /.card -->
 
         <div class="card">
             <div class="card-header border-0">
@@ -238,43 +238,40 @@
         <div class="card">
             <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Sales</h3>
-                    <a href="javascript:void(0);">View Report</a>
+                    <h3 class="card-title">Comparativo de missões entre OM e OP</h3>
                 </div>
             </div>
             <div class="card-body">
                 <div class="d-flex">
                     <p class="d-flex flex-column">
-                        <span class="text-bold text-lg">$18,230.00</span>
-                        <span>Sales Over Time</span>
+                        <span>Total: <span id="totalOmOp" class="text-bold text-lg"></span></span>
+
                     </p>
                     <p class="ml-auto d-flex flex-column text-right">
-                        <span class="text-success">
-                            <i class="fas fa-arrow-up"></i> 33.1%
-                        </span>
-                        <span class="text-muted">Since last month</span>
+                        <span class="text-muted">Responsável: COST e Fisc Adm</span>
                     </p>
                 </div>
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
-                    <canvas id="sales-chart" height="200"></canvas>
+                    <canvas id="missionsOmOp" height="200"></canvas>
                 </div>
 
                 <div class="d-flex flex-row justify-content-end">
-                    <span class="mr-2">
-                        <i class="fas fa-square text-primary"></i> This year
+                    <span class="mr-3">
+                        <i class="fas fa-square text-gray"></i> OP
+                    </span>
+                    <span>
+                        <i class="fas fa-square text-warning"></i> OM
                     </span>
 
-                    <span>
-                        <i class="fas fa-square text-gray"></i> Last year
-                    </span>
+
                 </div>
             </div>
         </div>
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Browser Usage</h3>
+                <h3 class="card-title">Tráfego de veículos na OM</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
@@ -297,7 +294,7 @@
                                     <div class=""></div>
                                 </div>
                             </div>
-                            <canvas id="pieChart" style="display: block; width: 218px; height: 109px;"
+                            <canvas id="rel-gda" style="display: block; width: 218px; height: 109px;"
                                 class="chartjs-render-monitor" width="218" height="109"></canvas>
                         </div>
 
@@ -305,9 +302,9 @@
 
                     <div class="col-md-4">
                         <ul class="chart-legend clearfix">
-                            <li><i class="far fa-circle text-danger"></i> Civil</li>
-                            <li><i class="far fa-circle text-success"></i> Outra OM</li>
-                            <li><i class="far fa-circle text-warning"></i> 3° B Sup</li>
+                            <li><i class="far fa-circle text-warning"></i> Civil</li>
+                            <li><i class="far fa-circle text-secondary"></i> Outra OM</li>
+                            <li><i class="far fa-circle text-danger"></i> 3° B Sup</li>
 
                     </div>
 
@@ -350,7 +347,6 @@
 
 @endsection
 @section('plugins')
-
     <!-- OPTIONAL SCRIPTS -->
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -368,82 +364,68 @@
             var mode = 'index'
             var intersect = true
 
-            var $salesChart = $('#sales-chart')
+            var $missionsOmOp = $('#missionsOmOp')
             // eslint-disable-next-line no-unused-vars
-            var salesChart = new Chart($salesChart, {
-                type: 'bar',
-                data: {
-                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov',
-                        'Dez'
-                    ],
-                    datasets: [{
-                            backgroundColor: '#007bff',
-                            borderColor: '#007bff',
-                            data: [1000, 2000, 3000, 50000, 2700, 2500, 3000]
+            $.get("{{ route('getGraphicMissionsOmOp') }}", function(result) {
+                $('#totalOmOp').text(result.totalOmOp)
+                var missionsOmOp = new Chart($missionsOmOp, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set',
+                            'Out', 'Nov',
+                            'Dez'
+                        ],
+                        datasets: result.statistics
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        tooltips: {
+                            mode: mode,
+                            intersect: intersect
                         },
-                        {
-                            backgroundColor: '#ced4da',
-                            borderColor: '#ced4da',
-                            data: [700, 1700, 2700, 80000, 1800, 1500, 2000]
-                        }
-                    ]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    tooltips: {
-                        mode: mode,
-                        intersect: intersect
-                    },
-                    hover: {
-                        mode: mode,
-                        intersect: intersect
-                    },
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        yAxes: [{
-                            // display: false,
-                            gridLines: {
+                        hover: {
+                            mode: mode,
+                            intersect: intersect
+                        },
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
                                 display: true,
-                                lineWidth: '4px',
-                                color: 'rgba(0, 0, 0, .2)',
-                                zeroLineColor: 'transparent'
-                            },
-                            ticks: $.extend({
-                                beginAtZero: true,
+                                gridLines: {
+                                    display: true,
+                                    color: 'rgba(0, 0, 0, .1)',
+                                    zeroLineColor: 'transparent'
+                                },
 
-                                // Include a dollar sign in the ticks
-                                callback: function(value) {
-                                    if (value >= 1000) {
-                                        value /= 1000
-                                        value += 'k'
-                                    }
+                                ticks: $.extend({
+                                    beginAtZero: true,
+                                    suggestedMax: 50
+                                }, ticksStyle)
+                            }],
+                            xAxes: [{
+                                display: true,
+                                gridLines: {
+                                    display: true
 
-                                    return '$' + value
-                                }
-                            }, ticksStyle)
-                        }],
-                        xAxes: [{
-                            display: true,
-                            gridLines: {
-                                display: false
-                            },
-                            ticks: ticksStyle
-                        }]
+                                },
+                                ticks: ticksStyle
+                            }]
+                        }
                     }
-                }
+                })
             })
-
             var $missionsCost = $('#missions-op')
-            $.get("{{ route('getGraphicMissions') }}", function(result) {
+            $.get("{{ route('getGraphicMissionsOp') }}", function(result) {
+                $('#TotalMissionsOp').text(result.TotalMissionsOp);
                 var missionsCost = new Chart($missionsCost, {
                     data: {
                         labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set',
                             'Out', 'Nov',
                             'Dez'
                         ],
-                        datasets: result
+                        datasets: result.statisticsMission
                     },
                     options: {
                         maintainAspectRatio: false,
@@ -469,7 +451,7 @@
                                 },
                                 ticks: $.extend({
                                     beginAtZero: true,
-                                    suggestedMax: 200
+                                    suggestedMax: 50
                                 }, ticksStyle)
                             }],
                             xAxes: [{
@@ -487,23 +469,25 @@
 
 
 
-            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-            var pieData = {
-                labels: ['Civil', 'Outra OM', '3° B Sup'],
-                datasets: [{
-                    data: [700, 500, 400],
-                    backgroundColor: ['#f56954', '#00a65a', '#f39c12']
-                }]
-            }
-            var pieOptions = {
-                legend: {
-                    display: false
+            var relGda = $('#rel-gda').get(0).getContext('2d')
+            $.get("{{ route('getGraphicRelGda') }}", function(result) {
+                var pieData = {
+                    labels: ['Civil', 'Outra OM', '3° B Sup'],
+                    datasets: [{
+                        data: result.statistics,
+                        backgroundColor: ['#ffc107 ', '#6c757d ', '#dc3545 ']
+                    }]
                 }
-            }
-            var pieChart = new Chart(pieChartCanvas, {
-                type: 'doughnut',
-                data: pieData,
-                options: pieOptions
+                var pieOptions = {
+                    legend: {
+                        display: false
+                    }
+                }
+                var pieChart = new Chart(relGda, {
+                    type: 'doughnut',
+                    data: pieData,
+                    options: pieOptions
+                })
             })
         })
 

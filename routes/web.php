@@ -47,7 +47,9 @@ Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_
 Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('auth');
 
 // ADMINISTRADOR
-Route::get('getGraphicMissions', [AdminController::class, 'getGraphicMissions'])->middleware('auth')->name('getGraphicMissions');
+Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->middleware('auth')->name('getGraphicMissionsOp');
+Route::get('getGraphicMissionsOmOp', [AdminController::class, 'getGraphicMissionsOmOp'])->middleware('auth')->name('getGraphicMissionsOmOp');
+Route::get('getGraphicRelGda', [AdminController::class, 'getGraphicRelGda'])->middleware('auth')->name('getGraphicRelGda');
 
 // FIM ACÕES ----------------------------------------------------------------
 
