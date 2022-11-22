@@ -70,12 +70,13 @@
 
         <div class="card">
             <div class="card-header border-0">
-                <h3 class="card-title">Viaturas mais utilizadas na semana</h3>
+                <h3 class="card-title">Viaturas mais utilizadas no mês</h3>
             </div>
             <div class="card-body table-responsive p-0">
                 <table id="table" class="table table-striped table-valign-middle">
                     <thead>
                         <tr>
+                            <th>Qtd</th>
                             <th>Viatura</th>
                             <th>Tipo</th>
                             <th>EB/Placa</th>
@@ -383,16 +384,23 @@
 
         $(function() {
             $("#table").DataTable({
-                "paging": true,
+                "order": [
+                    [0, 'desc']
+                ],
+                "bInfo": false,
+                "paging": false,
+                "pagingType": 'simple',
                 "responsive": true,
-                "lengthChange": true,
+                "lengthChange": false,
+                "iDisplayLength": 10,
                 "autoWidth": false,
+                "dom": '<"top">rt<"bottom"ip><"clear">',
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
                 "aoColumnDefs": [{
                     'sortable': false,
-                    'aTargets': [0, 1, 2, 3]
+                    'aTargets': [1, 2, 3]
                 }],
                 "processing": true,
                 "serverSide": true,
@@ -403,8 +411,6 @@
                         'X-CSRF-TOKEN': "{{ csrf_token() }}",
                     },
                 },
-                "dom": "Bfrtip",
-
             });
 
         });

@@ -50,7 +50,7 @@ Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('
 Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->middleware('auth')->name('getGraphicMissionsOp');
 Route::get('getGraphicMissionsOmOp', [AdminController::class, 'getGraphicMissionsOmOp'])->middleware('auth')->name('getGraphicMissionsOmOp');
 Route::get('getGraphicRelGda', [AdminController::class, 'getGraphicRelGda'])->middleware('auth')->name('getGraphicRelGda');
-Route::get('post_rank_vtr', [AdminController::class, 'rankVtr'])->name('rankVtr')->middleware('auth');
+Route::post('post_rank_vtr', [AdminController::class, 'rankVtr'])->name('rankVtr')->middleware('auth');
 
 // FIM ACÕES ----------------------------------------------------------------
 

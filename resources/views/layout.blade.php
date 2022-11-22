@@ -92,7 +92,9 @@
                                 </p>
                             </a>
                         </li>
-                        @if (session('CESV')['profileType'] == 2 || session('CESV')['profileType'] == 5)
+                        @if (session('CESV')['profileType'] == 0 ||
+                            session('CESV')['profileType'] == 2 ||
+                            session('CESV')['profileType'] == 5)
                             <li class="nav-item ">
                                 <a href="{{ route('reports') }}" class="nav-link @yield('reports')">
                                     <i class="nav-icon fas fa-file-chart-line"></i>

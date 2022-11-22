@@ -14,7 +14,7 @@ class RelGdaModel extends Model
     }
     public function vtrinfo()
     {
-        return $this->hasOne('App\Models\VtrModel', 'ebplaca', 'placaeb');
+        return $this->hasOne('App\Models\VtrModel', 'ebplaca', 'placaeb')->withTrashed();
     }
     use HasFactory;
     use SoftDeletes;

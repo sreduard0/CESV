@@ -247,56 +247,53 @@ class AdminController extends Controller
 
     public function rankVtr(Request $request)
     {
-        //Receber a requisão da pesquisa
-        // $requestData = $request->all();
+        // Receber a requisão da pesquisa
+        $requestData = $request->all();
 
-        // //Indice da coluna na tabela visualizar resultado => nome da coluna no banco de dados
-        // $columns = array(
-        //     0 => 'mod_vtr',
-        //     1 => 'vtr_type',
-        //     2 => 'ebplaca',
-        //     3 => 'id',
-        // );
+        //Indice da coluna na tabela visualizar resultado => nome da coluna no banco de dados
+        $columns = array(
+            0 => 'mod_vtr',
+            1 => 'vtr_type',
+            2 => 'ebplaca',
+            3 => 'id',
+        );
 
-        // //Obtendo registros de número total sem qualquer pesquisa
-        // $rows = count(RelGdaModel::where('status', 2)->get());
-        $datalastmonth = RelGdaModel::select('id_vtr', DB::raw('COUNT(id) as type'))
+        //Obtendo registros de número total sem qualquer pesquisa
+        $rows = count(RelGdaModel::where('status', 2)->get());
+        $rankVtrs = RelGdaModel::select('placaeb', DB::raw('COUNT(id) as count'))
             ->whereYear('created_at', date('Y'))
-            ->whereMonth('created_at', date('m', strtotime('-1 month')))
+            ->whereMonth('created_at', date('m'))
             ->where('status', 2)
+            ->where('om', '3º B Sup')
+            ->with('vtrinfo')
             ->groupBy('type_veicle')
-            ->orderBy('type', 'asc');
+            ->orderBy('count', $requestData['order'][0]['dir'])
+            ->get();
 
-        return RelGdaModel::with('vtrinfo')->get();
-        // $fichas = RelGdaModel::where('status', 1)
-        //     ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
-        //     ->offset($requestData['start'])
-        //     ->take($requestData['length'])
-        //     ->get();
+        $filtered = count($rankVtrs);
 
-        // $filtered = count($fichas);
+        $dados = array();
+        foreach ($rankVtrs as $rankVtr) {
+            $dado = array();
+            $dado[] = $rankVtr->count;
+            $dado[] = $rankVtr->vtrinfo->mod_vtr;
+            $dado[] = $rankVtr->vtrinfo->type_vtr;
+            $dado[] = $rankVtr->vtrinfo->ebplaca;
+            $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $rankVtr->vtrinfo->id . '"><i
+                                        class="fa fa-car"></i></button> ';
 
-        // $dados = array();
-        // foreach ($fichas as $ficha) {
-        //     $dado = array();
-        //     $dado[] = $ficha->mod_vtr;
-        //     $dado[] = $ficha->vtr_type;
-        //     $dado[] = $ficha->ebplaca;
-        //     $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id . '"><i
-        //                                 class="fa fa-car"></i></button> ';
+            $dados[] = $dado;
+        }
 
-        //     $dados[] = $dado;
-        // }
+        //Cria o array de informações a serem retornadas para o Javascript
+        $json_data = array(
+            "draw" => intval($requestData['draw']), //para cada requisição é enviado um número como parâmetro
+            "recordsTotal" => intval($filtered), //Quantidade de registros que há no banco de dados
+            "recordsFiltered" => intval($rows), //Total de registros quando houver pesquisa
+            "data" => $dados, //Array de dados completo dos dados retornados da tabela
+        );
 
-        // //Cria o array de informações a serem retornadas para o Javascript
-        // $json_data = array(
-        //     "draw" => intval($requestData['draw']), //para cada requisição é enviado um número como parâmetro
-        //     "recordsTotal" => intval($filtered), //Quantidade de registros que há no banco de dados
-        //     "recordsFiltered" => intval($rows), //Total de registros quando houver pesquisa
-        //     "data" => $dados, //Array de dados completo dos dados retornados da tabela
-        // );
-
-        // return json_encode($json_data); //enviar dados como formato json
+        return json_encode($json_data); //enviar dados como formato json
     }
 
 }
