@@ -11,7 +11,7 @@ class Authenticate
     {
         session()->put([
             'CESV' => [
-                'profileType' => 5,
+                'profileType' => 0,
                 'notification' => 1,
                 'loginID' => 1,
             ],

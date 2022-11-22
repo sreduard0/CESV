@@ -70,164 +70,18 @@
 
         <div class="card">
             <div class="card-header border-0">
-                <h3 class="card-title">Products</h3>
-                <div class="card-tools">
-                    <a href="#" class="btn btn-tool btn-sm">
-                        <i class="fas fa-download"></i>
-                    </a>
-                    <a href="#" class="btn btn-tool btn-sm">
-                        <i class="fas fa-bars"></i>
-                    </a>
-                </div>
+                <h3 class="card-title">Viaturas mais utilizadas na semana</h3>
             </div>
             <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
+                <table id="table" class="table table-striped table-valign-middle">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Sales</th>
-                            <th>More</th>
+                            <th>Viatura</th>
+                            <th>Tipo</th>
+                            <th>EB/Placa</th>
+                            <th width="30px">Ver</th>
                         </tr>
                     </thead>
-                    <tbody>
-
-                        <tr>
-                            <td>
-                                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                                Some Product
-                            </td>
-                            <td>$13 USD</td>
-                            <td>
-                                <small class="text-success mr-1">
-                                    <i class="fas fa-arrow-up"></i>
-                                    12%
-                                </small>
-                                12,000 Sold
-                            </td>
-                            <td>
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                                Some Product
-                            </td>
-                            <td>$13 USD</td>
-                            <td>
-                                <small class="text-success mr-1">
-                                    <i class="fas fa-arrow-up"></i>
-                                    12%
-                                </small>
-                                12,000 Sold
-                            </td>
-                            <td>
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                                Some Product
-                            </td>
-                            <td>$13 USD</td>
-                            <td>
-                                <small class="text-success mr-1">
-                                    <i class="fas fa-arrow-up"></i>
-                                    12%
-                                </small>
-                                12,000 Sold
-                            </td>
-                            <td>
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                                Some Product
-                            </td>
-                            <td>$13 USD</td>
-                            <td>
-                                <small class="text-success mr-1">
-                                    <i class="fas fa-arrow-up"></i>
-                                    12%
-                                </small>
-                                12,000 Sold
-                            </td>
-                            <td>
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                                Another Product
-                            </td>
-                            <td>$29 USD</td>
-                            <td>
-                                <small class="text-warning mr-1">
-                                    <i class="fas fa-arrow-down"></i>
-                                    0.5%
-                                </small>
-                                123,234 Sold
-                            </td>
-                            <td>
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                                Amazing Product
-                            </td>
-                            <td>$1,230 USD</td>
-                            <td>
-                                <small class="text-danger mr-1">
-                                    <i class="fas fa-arrow-down"></i>
-                                    3%
-                                </small>
-                                198 Sold
-                            </td>
-                            <td>
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="dist/img/default-150x150.png" alt="Product 1"
-                                    class="img-circle img-size-32 mr-2">
-                                Perfect Item
-                                <span class="badge bg-danger">NEW</span>
-                            </td>
-                            <td>$199 USD</td>
-                            <td>
-                                <small class="text-success mr-1">
-                                    <i class="fas fa-arrow-up"></i>
-                                    63%
-                                </small>
-                                87 Sold
-                            </td>
-                            <td>
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -272,14 +126,6 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Tráfego de veículos na OM</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
             </div>
 
             <div class="card-body">
@@ -305,38 +151,43 @@
                             <li><i class="far fa-circle text-warning"></i> Civil</li>
                             <li><i class="far fa-circle text-secondary"></i> Outra OM</li>
                             <li><i class="far fa-circle text-danger"></i> 3° B Sup</li>
-
+                        </ul>
                     </div>
 
                 </div>
 
             </div>
+            <div class="m-l-5 m-t-30 col">
+                <h3 class="card-title">Comparativo com mês anterior</h3>
+
+            </div>
+            <hr>
 
             <div class="card-footer p-0">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            United States of America
-                            <span class="float-right text-danger">
-                                <i class="fas fa-arrow-down text-sm"></i>
-                                12%</span>
-                        </a>
+                        <div class="nav-link">
+                            Civil
+                            <span id="perCivil" class="float-right">
+
+                            </span>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            India
-                            <span class="float-right text-success">
-                                <i class="fas fa-arrow-up text-sm"></i> 4%
+                        <div class="nav-link">
+                            Outra OM
+                            <span id="perOom" class="float-right">
+
                             </span>
-                        </a>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            China
-                            <span class="float-right text-warning">
-                                <i class="fas fa-arrow-left text-sm"></i> 0%
+                        <div class="nav-link">
+                            3° B Sup
+                            <span id="perOm" class="float-right">
+
                             </span>
-                        </a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -344,7 +195,7 @@
         </div>
     </div>
     <!-- /.col-md-6 -->
-
+    @include('component.info-vtr')
 @endsection
 @section('plugins')
     <!-- OPTIONAL SCRIPTS -->
@@ -365,7 +216,6 @@
             var intersect = true
 
             var $missionsOmOp = $('#missionsOmOp')
-            // eslint-disable-next-line no-unused-vars
             $.get("{{ route('getGraphicMissionsOmOp') }}", function(result) {
                 $('#totalOmOp').text(result.totalOmOp)
                 var missionsOmOp = new Chart($missionsOmOp, {
@@ -465,12 +315,52 @@
                     }
                 })
             })
-            // eslint-disable-next-line no-unused-vars
-
-
-
             var relGda = $('#rel-gda').get(0).getContext('2d')
             $.get("{{ route('getGraphicRelGda') }}", function(result) {
+                // CIVIL
+                if (result.percentage.civil < 0) {
+                    $('#perCivil').html(
+                        '<strong class="text-danger"><i class="fas fa-arrow-down text-sm"></i> ' +
+                        result.percentage.civil + '% </strong>')
+                } else if (result.percentage.civil > 0) {
+                    $('#perCivil').html(
+                        '<strong class="text-success"><i class="fas fa-arrow-up text-sm"></i> ' +
+                        result.percentage.civil + '% </strong>')
+                } else {
+                    $('#perCivil').html(
+                        '<strong class="text-default"> ' +
+                        result.percentage.civil + '% </strong>')
+                }
+
+                // Outra OM
+                if (result.percentage.oom < 0) {
+                    $('#perOom').html(
+                        '<strong class="text-danger"><i class="fas fa-arrow-down text-sm"></i> ' +
+                        result.percentage.oom + '% </strong>')
+                } else if (result.percentage.oom > 0) {
+                    $('#perOom').html(
+                        '<strong class="text-success"><i class="fas fa-arrow-up text-sm"></i> ' +
+                        result.percentage.oom + '% </strong>')
+                } else {
+                    $('#perOom').html(
+                        '<strong class="text-default"> ' +
+                        result.percentage.oom + '% </strong>')
+                }
+
+                // OM
+                if (result.percentage.om < 0) {
+                    $('#perOm').html(
+                        '<strong class="text-danger"><i class="fas fa-arrow-down text-sm"></i> ' +
+                        result.percentage.om + '% </strong>')
+                } else if (result.percentage.om > 0) {
+                    $('#perOm').html(
+                        '<strong class="text-success"><i class="fas fa-arrow-up text-sm"></i> ' +
+                        result.percentage.om + '% </strong>')
+                } else {
+                    $('#perOm').html(
+                        '<strong class="text-default"> ' +
+                        result.percentage.om + '% </strong>')
+                }
                 var pieData = {
                     labels: ['Civil', 'Outra OM', '3° B Sup'],
                     datasets: [{
@@ -491,7 +381,32 @@
             })
         })
 
+        $(function() {
+            $("#table").DataTable({
+                "paging": true,
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "language": {
+                    "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
+                },
+                "aoColumnDefs": [{
+                    'sortable': false,
+                    'aTargets': [0, 1, 2, 3]
+                }],
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ route('rankVtr') }}",
+                    "type": "POST",
+                    "headers": {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    },
+                },
+                "dom": "Bfrtip",
 
-        // lgtm [js/unused-local-variable]
+            });
+
+        });
     </script>
 @endsection

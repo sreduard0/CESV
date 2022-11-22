@@ -24,7 +24,7 @@
                 <div class="row d-flex justify-content-between">
                     <div class="col">
                         <div class="row ">
-                            <div class="form-group col-md-2">
+                            <div class="form-group col">
                                 <label for="typevtr_filter">Tipo de veículo</label>
                                 <select id="typevtr_filter" class="form-control">
                                     <option selected value="">TODOS</option>
@@ -57,7 +57,7 @@
                             </div>
 
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-">
                                 <label>Data entrada</label>
                                 <div class="input-group date" id="dateEntTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"

@@ -12,6 +12,10 @@ class RelGdaModel extends Model
     {
         return $this->hasOne('App\Models\FichaModel', 'id', 'id_ficha')->with('missioninfo', 'vtrinfo')->withTrashed();
     }
+    public function vtrinfo()
+    {
+        return $this->hasOne('App\Models\VtrModel', 'ebplaca', 'placaeb');
+    }
     use HasFactory;
     use SoftDeletes;
     protected $table = 'rel_gda';

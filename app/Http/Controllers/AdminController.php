@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\MissionModel;
 use App\Models\RelGdaModel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -188,29 +189,114 @@ class AdminController extends Controller
     public function getGraphicRelGda()
     {
 
-        $response = [];
-        $data = RelGdaModel::select('type_veicle', DB::raw('COUNT(id) as type'))
+        $currentmonth['civil'] = 0;
+        $currentmonth['oom'] = 0;
+        $currentmonth['adm'] = 0;
+        $currentmonth['op'] = 0;
+        // MÊS ATUAL
+        $datacurrentmonth = RelGdaModel::select('type_veicle', DB::raw('COUNT(id) as type'))
             ->whereYear('created_at', date('Y'))
             ->whereMonth('created_at', date('m'))
             ->where('status', 2)
             ->groupBy('type_veicle')
             ->orderBy('type', 'asc');
 
-        foreach ($data->get()->toArray() as $res) {
-            $response[$res['type_veicle']] = $res['type'];
+        foreach ($datacurrentmonth->get()->toArray() as $res) {
+            $currentmonth[$res['type_veicle']] = $res['type'];
         }
 
-        $valN = 500;
-        $valA = 180;
-        $val = ($valN - $valA) / $valA * 100;
+        // MÊS ANTERIOR
+        $lastmonth = [];
+        $datalastmonth = RelGdaModel::select('type_veicle', DB::raw('COUNT(id) as type'))
+            ->whereYear('created_at', date('Y'))
+            ->whereMonth('created_at', date('m', strtotime('-1 month')))
+            ->where('status', 2)
+            ->groupBy('type_veicle')
+            ->orderBy('type', 'asc');
 
-        echo ($val . ' %');
-        // return [
-        //     // 'totalOmOp' => $totalOmOp,
-        //     'statistics' => [$response['civil'], $response['oom'], $response['adm'] + $response['op']],
+        foreach ($datalastmonth->get()->toArray() as $res) {
+            $lastmonth[$res['type_veicle']] = $res['type'];
+        }
 
-        // ];
+        $civilCurrent = isset($currentmonth['civil']) ? $currentmonth['civil'] : 0;
+        $civilLast = isset($lastmonth['civil']) ? $lastmonth['civil'] : 0;
+        $calcCivil = $civilLast == 0 ? 0 : ($civilCurrent - $civilLast) / $civilLast * 100;
+        $percentage['civil'] = round($calcCivil, 2, PHP_ROUND_HALF_DOWN);
 
+        $oomCurrent = isset($currentmonth['oom']) ? $currentmonth['oom'] : 0;
+        $oomLast = isset($lastmonth['oom']) ? $lastmonth['oom'] : 0;
+        $calcOom = $oomLast == 0 ? 0 : ($oomCurrent - $oomLast) / $oomLast * 100;
+        $percentage['oom'] = round($calcOom, 2, PHP_ROUND_HALF_DOWN);
+
+        $vtradmC = isset($currentmonth['adm']) ? $currentmonth['adm'] : 0;
+        $vtropC = isset($currentmonth['op']) ? $currentmonth['op'] : 0;
+        $vtradmL = isset($lastmonth['adm']) ? $lastmonth['adm'] : 0;
+        $vtropL = isset($lastmonth['op']) ? $lastmonth['op'] : 0;
+        $omCurrent = $vtradmC + $vtropC;
+        $omLast = $vtradmL + $vtropL;
+        $calcOm = $omLast == 0 ? 0 : ($omCurrent - $omLast) / $omLast * 100;
+        $percentage['om'] = round($calcOm, 2, PHP_ROUND_HALF_DOWN);
+
+        return [
+            'percentage' => $percentage,
+            'statistics' => [$currentmonth['civil'], $currentmonth['oom'], $currentmonth['adm'] + $currentmonth['op']],
+
+        ];
+
+    }
+
+    public function rankVtr(Request $request)
+    {
+        //Receber a requisão da pesquisa
+        // $requestData = $request->all();
+
+        // //Indice da coluna na tabela visualizar resultado => nome da coluna no banco de dados
+        // $columns = array(
+        //     0 => 'mod_vtr',
+        //     1 => 'vtr_type',
+        //     2 => 'ebplaca',
+        //     3 => 'id',
+        // );
+
+        // //Obtendo registros de número total sem qualquer pesquisa
+        // $rows = count(RelGdaModel::where('status', 2)->get());
+        $datalastmonth = RelGdaModel::select('id_vtr', DB::raw('COUNT(id) as type'))
+            ->whereYear('created_at', date('Y'))
+            ->whereMonth('created_at', date('m', strtotime('-1 month')))
+            ->where('status', 2)
+            ->groupBy('type_veicle')
+            ->orderBy('type', 'asc');
+
+        return RelGdaModel::with('vtrinfo')->get();
+        // $fichas = RelGdaModel::where('status', 1)
+        //     ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+        //     ->offset($requestData['start'])
+        //     ->take($requestData['length'])
+        //     ->get();
+
+        // $filtered = count($fichas);
+
+        // $dados = array();
+        // foreach ($fichas as $ficha) {
+        //     $dado = array();
+        //     $dado[] = $ficha->mod_vtr;
+        //     $dado[] = $ficha->vtr_type;
+        //     $dado[] = $ficha->ebplaca;
+        //     $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id . '"><i
+        //                                 class="fa fa-car"></i></button> ';
+
+        //     $dados[] = $dado;
+        // }
+
+        // //Cria o array de informações a serem retornadas para o Javascript
+        // $json_data = array(
+        //     "draw" => intval($requestData['draw']), //para cada requisição é enviado um número como parâmetro
+        //     "recordsTotal" => intval($filtered), //Quantidade de registros que há no banco de dados
+        //     "recordsFiltered" => intval($rows), //Total de registros quando houver pesquisa
+        //     "data" => $dados, //Array de dados completo dos dados retornados da tabela
+        // );
+
+        // return json_encode($json_data); //enviar dados como formato json
     }
 
 }

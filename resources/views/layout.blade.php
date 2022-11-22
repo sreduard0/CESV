@@ -53,7 +53,7 @@
 
 </head>
 
-<body class=" dark-mode  hold-transition sidebar-mini layout-fixed">
+<body class=" @if (session('theme') == 1) dark-mode @endif hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         @if (session('animation'))
             <div class="preloader">
@@ -209,31 +209,7 @@
                                     <!-- /.card-body -->
                                 </div>
                             </section>
-                            <script>
-                                $("#fichas_layout").DataTable({
 
-                                    "paging": true,
-                                    'pagingType': 'simple',
-                                    "responsive": true,
-                                    "lengthChange": true,
-                                    "iDisplayLength": 5,
-                                    "autoWidth": false,
-                                    "dom": '<"top">rt<"bottom"ip><"clear">',
-                                    "language": {
-                                        "url": "{{ asset('plugins/datatables/Portuguese3.json') }}"
-                                    },
-                                    "processing": true,
-                                    "serverSide": true,
-                                    "ajax": {
-                                        "url": "{{ route('fichas_layout') }}",
-                                        "type": "POST",
-                                        "headers": {
-                                            'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                                        },
-
-                                    }
-                                });
-                            </script>
                             <!-- right col -->
                         @endif
                     </div>
@@ -301,6 +277,33 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     @yield('plugins')
+    @if (session('CESV')['profileType'] < 5)
+        <script>
+            $("#fichas_layout").DataTable({
+
+                "paging": true,
+                'pagingType': 'simple',
+                "responsive": true,
+                "lengthChange": true,
+                "iDisplayLength": 5,
+                "autoWidth": false,
+                "dom": '<"top">rt<"bottom"ip><"clear">',
+                "language": {
+                    "url": "{{ asset('plugins/datatables/Portuguese3.json') }}"
+                },
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ route('fichas_layout') }}",
+                    "type": "POST",
+                    "headers": {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    },
+
+                }
+            });
+        </script>
+    @endif
 
     {{-- ====================================/ PLUGINS ===================================== --}}
 </body>
