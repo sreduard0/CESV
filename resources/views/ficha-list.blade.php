@@ -52,6 +52,12 @@
         <div class="card">
             <div class="card-header">
                 <div class="row d-flex justify-content-between">
+                    @if (session('CESV')['profileType'] == 1)
+                        <div class="col m-t-15">
+                            <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#register-ficha">Cadastrar</button>
+                        </div>
+                    @endif
                     <div class="col-md-5">
                         <div class="row ">
                             <div class="form-group col">
@@ -64,14 +70,6 @@
 
                         </div>
                     </div>
-                    @if (session('CESV')['profileType'] == 1)
-                        <div class="d-flex justify-content-sm-end">
-                            <div class="col">
-                                <button class="btn btn-primary" data-toggle="modal"
-                                    data-target="#register-ficha">Cadastrar</button>
-                            </div>
-                        </div>
-                    @endif
                 </div>
                 <div id="button-print"></div>
             </div>
@@ -87,7 +85,7 @@
                             <th>Segurança</th>
                             <th>Natureza</th>
                             <th>Status</th>
-                            <th style=" white-space: nowrap; width:auto;">Ações</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                 </table>

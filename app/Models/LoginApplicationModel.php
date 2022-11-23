@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class LoginApplicationModel extends Model
 {
-    public function app()
+    public function user_data()
     {
-        return $this->hasOne('App\Models\ApplicationsModel', 'id', 'applications_id');
+        return $this->hasOne('App\Models\UserModel', 'id', 'login_id')->withTrashed();
     }
-    public function apps()
+    public function permission()
     {
-        return $this->hasMany('App\Models\ApplicationsModel', 'id', 'applications_id');
+        return $this->hasOne('App\Models\ProfileModel', 'id_user', 'login_id');
     }
-
     use HasFactory;
     protected $connection = 'sistao';
     protected $table = 'login_application';

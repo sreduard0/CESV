@@ -306,10 +306,10 @@ class AdminController extends Controller
     public function loginSubmit(Request $request)
     {
 
-        //     //Verifica se o usuário esta logado
-        //     if (session()->has('user')) {
-        //         return redirect()->route('home');
-        //     }
+        //Verifica se o usuário esta logado
+        if (session()->has('user')) {
+            return redirect()->route('home');
+        }
 
         $data = $request->all();
         //Verificar dados de login
@@ -387,20 +387,107 @@ class AdminController extends Controller
 
     public function loginSistao()
     {
-        if (session()->has('CESV')) {
-            return redirect()->route('login');}
+        if (session('CES Vtr') == '') {
+            return redirect()->route('login');
+        }
+
+        if (session('CES Vtr')['profileType'] == 1) {
+            session()->pull('CES Vtr');
+            session()->put([
+                'CESV' => [
+                    'profileType' => 1,
+                ],
+            ]);
+
+            return redirect()->route('home');
+        }
+
         $cesv = ProfileModel::where('id_user', session('user')['id'])->first();
+
+        if (session('CES Vtr')['profileType'] == 1 && !$cesv) {
+            session()->pull('CES Vtr');
+            session()->put([
+                'CESV' => [
+                    'profileType' => 1,
+                ],
+            ]);
+
+            return redirect()->route('home');
+        }
+
         if (!$cesv) {
             session()->flash('erro', 'Este usuário ainda não tem funçâo.');
             return redirect()->back();
         }
-        session('CES Vtr')->flush();
+
+        session()->pull('CES Vtr');
         session()->put([
             'CESV' => [
                 'profileType' => $cesv->profile,
             ],
         ]);
 
-        return session('CESV');
+        return redirect()->route('home');
     }
+
+    public function userPerm($iduser, $profile = '', $id = '')
+    {
+        if ($id) {
+            $perm = ProfileModel::find($id);
+            if ($profile == 6) {
+                $perm->delete();
+            } else {
+                $perm->profile = $profile;
+                $perm->save();
+            }
+        } else {
+            $perm = new ProfileModel();
+            $perm->profile = $profile;
+            $perm->id_user = $iduser;
+            $perm->save();
+        }
+
+    }
+
+    public function listUsers(Request $request)
+    {
+        // Receber a requisão da pesquisa
+        $requestData = $request->all();
+
+        $rows = count(LoginApplicationModel::where('id_ext', 'CESV')->get());
+
+        //Obtendo registros de número total sem qualquer pesquisa
+        $users = LoginApplicationModel::where('id_ext', 'CESV')
+            ->with('user_data', 'permission')
+            ->orderBy('profileType', $requestData['order'][0]['dir'])
+            ->get();
+
+        $filtered = count($users);
+        $rank = [1 => 'Gen', 2 => 'Cel', 3 => 'TC', 4 => 'Maj', 5 => 'Cap', 6 => '1º Ten', 7 => '2º Ten', 8 => 'Asp', 9 => 'ST', 10 => '1º Sgt', 11 => '2º Sgt', 12 => '3º Sgt', 13 => 'Cb', 14 => 'Sd'];
+        $profile = [0 => 'CMT GDA', 1 => 'TRNP', 2 => 'ADJ ', 3 => 'COST', 4 => 'FISC ADM', 5 => 'ADM'];
+
+        $dados = array();
+        foreach ($users as $user) {
+            $id = $user->permission ? $user->permission->id : "''";
+            $prof = $user->permission ? $user->permission->profile : "''";
+            $dado = array();
+            $dado[] = $rank[$user->user_data->rank_id] . ' ' . $user->user_data->professionalName;
+            $dado[] = $user->permission ? $profile[$user->permission->profile] : 'Sem permissão';
+            $dado[] = '<button title="Editar permissão" class="btn btn-sm btn-success" onclick="altPermission(' . $user->user_data->id . ',' . $prof . ',' . $id . ',\'' . $rank[$user->user_data->rank_id] . ' ' . $user->user_data->professionalName . '\')" ><i
+                                        class="fa fa-edit"></i></button> ';
+
+            $dados[] = $dado;
+        }
+
+        //Cria o array de informações a serem retornadas para o Javascript
+        $json_data = array(
+            "draw" => intval($requestData['draw']), //para cada requisição é enviado um número como parâmetro
+            "recordsTotal" => intval($filtered), //Quantidade de registros que há no banco de dados
+            "recordsFiltered" => intval($rows), //Total de registros quando houver pesquisa
+            "data" => $dados, //Array de dados completo dos dados retornados da tabela
+        );
+
+        return json_encode($json_data); //enviar dados como formato json
+    }
+
 }

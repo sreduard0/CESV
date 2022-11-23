@@ -76,8 +76,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <span
-                            class="d-block">{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</span>
+                        <span>{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</span>
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -132,9 +131,19 @@
                             </li>
                             <li class="nav-item ">
                                 <a href="{{ route('drivers') }}" class="nav-link @yield('mot')">
-                                    <i class="nav-icon fas fa-users"></i>
+                                    <i class="nav-icon fas fa-tire"></i>
                                     <p>
                                         Motoristas
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
+                        @if (session('CESV')['profileType'] == 5)
+                            <li class="nav-item ">
+                                <a href="{{ route('users') }}" class="nav-link @yield('users')">
+                                    <i class="nav-icon fas fa-users-cog"></i>
+                                    <p>
+                                        Usuários
                                     </p>
                                 </a>
                             </li>

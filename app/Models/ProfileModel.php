@@ -9,5 +9,6 @@ class ProfileModel extends Model
 {
     use HasFactory;
     protected $table = 'profiles';
+    protected $connection = 'cesv';
     protected $primarykey = 'id';
 }

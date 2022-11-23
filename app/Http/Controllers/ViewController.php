@@ -75,6 +75,11 @@ class ViewController extends Controller
         return view('home-gest', $data);
     }
 
+    public function users()
+    {
+        return view('users');
+    }
+
     public function login()
     {
         if (session()->has('user')) {

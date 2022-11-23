@@ -40,7 +40,7 @@
                 <div class="small-box bg-primary">
                     <div class="inner">
                         <h3 id="countVtrOom">0</h3>
-                        <p class="bold">Outra OM</p>
+                        <p class="bold">OUTRA OM</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-android-car"></i>
@@ -197,7 +197,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="register-vtrLabel">Registrar entrada/saída
+                    <h5 class="modal-title" id="register-vtrLabel">Registrar entrada / saída
                         de viatura</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -223,7 +223,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <div class="form-group">
-                                <label>Data/Hora da saída</label>
+                                <label>Data / Hora</label>
                                 <div class="input-group">
                                     <input disabled id="_hora" type="text" class="form-control " value="">
                                     <input type="hidden" id="hourSai" value="">
@@ -265,15 +265,13 @@
                                 <div class="form-group col-md-3">
                                     <label for="qtdPassCivilRel">Qtd. de passageiros <span
                                             style="color:red">*</span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="qtdPassCivilRel"
-                                            name="qtdPassCivilRel" data-inputmask="'mask':'99'" data-mask=""
-                                            inputmode="text" placeholder="Qtd. de passageiros">
-                                    </div>
+                                    <select id="qtdPassCivilRel" name="qtdPassCivilRel" class="form-control">
+                                        <option selected value="0">0</option>
+                                        @for ($i = 1; $i < 30; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
 
+                                    </select>
                                 </div>
                                 <div class="form-group col">
                                     <label for="destinyCivilRel">Destino <span style="color:red">*</span></label>
@@ -315,6 +313,7 @@
                                         <option value="Sd">Sd</option>
                                     </select>
                                 </div>
+
                                 <div class="form-group col">
                                     <label for="nameMotOomRel">Nome do motorista <span style="color:red">*</span></label>
                                     <input id="nameMotOomRel" maxlength="199" name="nameMotOomRel" type="text"
