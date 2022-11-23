@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\LoginApplicationModel;
+use App\Models\LoginModel;
 use App\Models\MissionModel;
+use App\Models\ProfileModel;
 use App\Models\RelGdaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -244,7 +248,6 @@ class AdminController extends Controller
         ];
 
     }
-
     public function rankVtr(Request $request)
     {
         // Receber a requisão da pesquisa
@@ -296,4 +299,108 @@ class AdminController extends Controller
         return json_encode($json_data); //enviar dados como formato json
     }
 
+    // GERENCIAMENTO DE USUÁRIOS
+
+    // AÇÕES DE LOGIN
+    //======={ LOGIN SUBMIT }=======//
+    public function loginSubmit(Request $request)
+    {
+
+        //     //Verifica se o usuário esta logado
+        //     if (session()->has('user')) {
+        //         return redirect()->route('home');
+        //     }
+
+        $data = $request->all();
+        //Verificar dados de login
+        $login = trim($data['login']);
+        $password = trim($data['password']);
+
+        $user = LoginModel::with('data')->where('login', $login)->first();
+
+        // Retorna mensagem de erro
+        if (empty($user)) {
+            session()->flash('erro', 'Este usuário não existe.');
+            return redirect()->route('login');
+        }
+
+        if ($user->status == 3) {
+            session()->flash('erro', 'Aguarde até que um administrador aceite seu cadastro.');
+            return redirect()->route('login');
+        }
+
+        //Verifica se a senha ta correta
+        if (!Hash::check($password, $user->password)) {
+            session()->flash('erro', 'Usuário ou senha incorreto.');
+            return redirect()->route('login');
+        }
+
+        $loginSistao = LoginApplicationModel::where('applications_id', 6)->where('login_id', $user->users_id)->first(); // buscando permissoes do usuario
+        $loginCesv = LoginApplicationModel::where('id_ext', 'CESV')->where('login_id', $user->users_id)->first(); // buscando permissoes do usuario
+        if (!$loginSistao || !$loginCesv) {
+            session()->flash('erro', 'Este usuário não tem permissão para acessar esta aplicação.');
+            return redirect()->route('login');
+        }
+
+        $cesv = ProfileModel::where('id_user', $user->users_id)->first();
+        if (!$cesv) {
+            session()->flash('erro', 'Este usuário ainda não tem funçâo.');
+            return redirect()->route('login');
+        }
+
+        $rank = [1 => 'Gen', 2 => 'Cel', 3 => 'TC', 4 => 'Maj', 5 => 'Cap', 6 => '1º Ten', 7 => '2º Ten', 8 => 'Asp', 9 => 'ST', 10 => '1º Sgt', 11 => '2º Sgt', 12 => '3º Sgt', 13 => 'Cb', 14 => 'Sd'];
+        $company = [1 => 'EM', 2 => 'CCSv', 3 => '1ª Cia', 4 => '2ª Cia', 5 => '3ª Cia'];
+
+        // Inserindo permissoes na sessionecho $login;
+        session()->put([
+            'SisTAO' => [
+                'profileType' => $loginSistao->profileType,
+                'notification' => $loginSistao->notification,
+                'loginID' => $loginSistao->login_id,
+            ],
+            'CESV' => [
+                'profileType' => $cesv->profile,
+                'notification' => $loginCesv->notification,
+                'loginID' => $loginCesv->login_id,
+            ],
+
+            'user' => [
+                'id' => $user->data->id,
+                'name' => $user->data->name,
+                'departament_id' => $user->data->departament_id,
+                'photo' => $user->data->photoUrl,
+                'professionalName' => $user->data->professionalName,
+                'email' => $user->data->email,
+                'rank' => $rank[$user->data->rank_id],
+                'company' => [
+                    'id' => $user->data->company_id,
+                    'name' => $company[$user->data->company_id],
+                ],
+            ],
+
+            'theme' => $user->theme,
+
+        ]);
+
+        return redirect()->route('login');
+    }
+
+    public function loginSistao()
+    {
+        if (session()->has('CESV')) {
+            return redirect()->route('login');}
+        $cesv = ProfileModel::where('id_user', session('user')['id'])->first();
+        if (!$cesv) {
+            session()->flash('erro', 'Este usuário ainda não tem funçâo.');
+            return redirect()->back();
+        }
+        session('CES Vtr')->flush();
+        session()->put([
+            'CESV' => [
+                'profileType' => $cesv->profile,
+            ],
+        ]);
+
+        return session('CESV');
+    }
 }

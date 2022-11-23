@@ -55,14 +55,13 @@
 
 <body class=" @if (session('theme') == 1) dark-mode @endif hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        @if (session('animation'))
-            <div class="preloader">
-                <img src="{{ asset('img/logo.png') }}" alt="" height="180" width="180">
-                <br>
-                <h3 class="fs-40 bold">{{ config('app.name') }}</h3>
+        @if (session('animation') == 0)
+            <div class="preloader flex-column justify-content-center align-items-center">
+                <img class="animation__shake" src="{{ asset('img/logo.png') }}" height="200" width="200">
+                <span class="fs-30"><strong>SisTAO</strong> </span>
             </div>
             @php
-                session('animation')->put([1]);
+                session()->put('animation', 1);
             @endphp
         @endif
         <aside class="main-sidebar sidebar-dark-primary elevation-5">
@@ -140,7 +139,14 @@
                                 </a>
                             </li>
                         @endif
-
+                        <li class="nav-item ">
+                            <a href="{{ route('logout') }}" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    Sair
+                                </p>
+                            </a>
+                        </li>
                 </nav>
             </div>
         </aside>

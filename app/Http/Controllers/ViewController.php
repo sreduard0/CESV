@@ -74,4 +74,12 @@ class ViewController extends Controller
 
         return view('home-gest', $data);
     }
+
+    public function login()
+    {
+        if (session()->has('user')) {
+            return redirect()->route('home');
+        }
+        return view('form-login');
+    }
 }

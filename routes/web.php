@@ -16,6 +16,7 @@ Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware(
 Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('auth');
 Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('auth');
 Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('auth');
+Route::get('/login', [ViewController::class, 'login'])->name('login');
 
 // AÇÕES --------------------------------------------------------------------
 
@@ -51,6 +52,15 @@ Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsO
 Route::get('getGraphicMissionsOmOp', [AdminController::class, 'getGraphicMissionsOmOp'])->middleware('auth')->name('getGraphicMissionsOmOp');
 Route::get('getGraphicRelGda', [AdminController::class, 'getGraphicRelGda'])->middleware('auth')->name('getGraphicRelGda');
 Route::post('post_rank_vtr', [AdminController::class, 'rankVtr'])->name('rankVtr')->middleware('auth');
+
+// LOGIN
+Route::post('submit_login', [AdminController::class, 'loginSubmit'])->name('loginSubmit');
+Route::get('loginSistao', [AdminController::class, 'loginSistao'])->name('loginSistao');
+Route::get('logout', function () {
+    session()->flush();
+    return redirect()->route('login');
+
+})->name('logout');
 
 // FIM ACÕES ----------------------------------------------------------------
 
