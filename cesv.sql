@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16-Nov-2022 às 12:24
+-- Tempo de geração: 23-Nov-2022 às 12:09
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
@@ -151,7 +151,11 @@ CREATE TABLE `missions` (
 --
 
 INSERT INTO `missions` (`id`, `type_mission`, `mission_name`, `destiny`, `class`, `vtr`, `doc`, `origin`, `status`, `pg_mot`, `name_mot`, `pg_seg`, `name_seg`, `prev_date_part`, `prev_date_chgd`, `contact`, `obs`, `finish_mission`, `cons_gas`, `cons_diesel`, `peso`, `vol`, `alteration`, `obs_alteration`, `email_relat`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'OP', 'Feno', '3º RCG', 'I', 0, 'dec 888', 'OM', 3, '', '', '1º Sgt', 'Teste', '2022-11-14 02:10:00', '2022-11-14 02:10:00', '5551982805511', '<p>Teste<br></p>', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-14 17:11:05', '2022-11-15 00:29:17', NULL);
+(1, 'OP', 'Feno', '3º RCG', 'I', 0, 'dec 888', 'OM', 3, '', '', '1º Sgt', 'Teste', '2022-11-14 02:10:00', '2022-11-14 02:10:00', '5551982805511', '<p>Teste<br></p>', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-14 17:11:05', '2022-11-15 00:29:17', NULL),
+(2, 'OP', 'Teste op', 'TesteDEst', 'IV', 0, 'TesteTesteTesteTeste', 'TesteTeste', 3, '', '', 'Gen', 'Teste', '2022-10-18 01:52:00', '2022-11-18 01:52:00', '5555626515631', '<p>TesteTesteTesteTesteTesteTeste<br></p>', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-18 16:52:27', '2022-11-19 01:44:14', NULL),
+(3, 'OP', 'Teste OM', 'Om', 'IV', 0, 'Teste', 'OM', 3, '', '', 'TC', 'wrtçwrtgb', '2022-11-11 10:28:00', '2022-11-09 10:28:00', '5555524656482', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-19 01:28:21', '2022-11-19 02:02:34', NULL),
+(4, 'OP', 'Teste OM', 'Om', 'X', 0, 'Teste', 'OM', 3, '', '', 'TC', 'wrtçwrtgb', '2022-10-11 10:28:00', '2022-11-09 10:28:00', '5555524656482', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-19 01:28:21', '2022-11-19 02:02:34', NULL),
+(5, 'OP', 'Teste OM', 'Om', 'IV', 0, 'Teste', 'OM', 3, '', '', 'TC', 'wrtçwrtgb', '2022-11-11 10:28:00', '2022-11-09 10:28:00', '5555524656482', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-19 01:28:21', '2022-11-19 02:02:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -170,6 +174,30 @@ CREATE TABLE `personal_access_tokens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `profiles`
+--
+
+CREATE TABLE `profiles` (
+  `id` bigint(20) NOT NULL,
+  `id_user` bigint(20) NOT NULL,
+  `profile` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `profiles`
+--
+
+INSERT INTO `profiles` (`id`, `id_user`, `profile`) VALUES
+(1, 1, 0),
+(2, 53, 1),
+(3, 54, 2),
+(4, 55, 3),
+(5, 56, 4),
+(6, 57, 5);
 
 -- --------------------------------------------------------
 
@@ -197,6 +225,7 @@ CREATE TABLE `rel_gda` (
   `hour_ent` datetime DEFAULT NULL,
   `hour_sai` datetime DEFAULT NULL,
   `id_ficha` int(11) DEFAULT NULL,
+  `id_mot` bigint(20) NOT NULL,
   `status` int(11) NOT NULL,
   `user_rel_ent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_rel_sai` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -209,12 +238,15 @@ CREATE TABLE `rel_gda` (
 -- Extraindo dados da tabela `rel_gda`
 --
 
-INSERT INTO `rel_gda` (`id`, `type_veicle`, `pg_mot`, `name_mot`, `pg_seg`, `name_seg`, `idt`, `mod_veicle`, `placaeb`, `passengers`, `destiny`, `obs`, `om`, `od_ent`, `od_sai`, `total_od`, `hour_ent`, `hour_sai`, `id_ficha`, `status`, `user_rel_ent`, `user_rel_sai`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(42, 'op', 'Cb', 'Dallas', 'Cb', 'Eduardo', NULL, 'VTE MARRUA TESTE', '8695742685', NULL, 'Viatura de serviço', NULL, NULL, 580, 560, 20, '2022-11-15 18:43:00', '2022-11-15 18:42:00', 3, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-15 21:42:24', '2022-11-15 21:43:21', NULL),
-(43, 'op', 'Cb', 'Dallas', 'Cb', 'ervevr', NULL, 'VTE MARRUA TESTE', '8695742685', NULL, 'Viatura de serviço', NULL, NULL, 999, 580, 419, '2022-11-16 01:02:00', '2022-11-15 18:46:00', 3, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-15 21:47:43', '2022-11-16 04:02:56', NULL),
-(44, 'op', 'Cb', 'Teste 4', 'Cb', 'Celso', NULL, 'VTE MARRUA TESTE', '8695742685', NULL, 'Viatura de serviço', NULL, NULL, 670, 560, 110, '2022-11-16 01:02:00', '2022-11-16 01:01:00', 4, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-16 04:01:19', '2022-11-16 04:02:35', NULL),
-(45, 'adm', 'Cb', 'Teste 4', '2º Ten', 'Jdjd', NULL, 'FRONTIER', 'GHU8389', NULL, 'Viatura de serviço', NULL, NULL, NULL, 9898, NULL, NULL, '2022-11-16 01:03:00', 6, 1, NULL, 'Cb Eduardo', '2022-11-16 04:03:36', '2022-11-16 04:03:36', NULL),
-(46, 'op', 'Sd', 'Teste', '1º Ten', 'Jssjd', NULL, '5TON T', '8374728284', NULL, 'Viatura de serviço', NULL, NULL, 9899, 9898, 1, '2022-11-16 01:06:00', '2022-11-16 01:05:00', 5, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-16 04:05:44', '2022-11-16 04:06:37', NULL);
+INSERT INTO `rel_gda` (`id`, `type_veicle`, `pg_mot`, `name_mot`, `pg_seg`, `name_seg`, `idt`, `mod_veicle`, `placaeb`, `passengers`, `destiny`, `obs`, `om`, `od_ent`, `od_sai`, `total_od`, `hour_ent`, `hour_sai`, `id_ficha`, `id_mot`, `status`, `user_rel_ent`, `user_rel_sai`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(42, 'op', 'Cb', 'Dallas', 'Cb', 'Eduardo', NULL, 'VTE MARRUA TESTE', '8695742685', NULL, 'Viatura de serviço', NULL, NULL, 580, 560, 20, '2022-11-15 18:43:00', '2022-11-15 18:42:00', 3, 0, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-15 21:42:24', '2022-11-15 21:43:21', NULL),
+(43, 'op', 'Cb', 'Dallas', 'Cb', 'ervevr', NULL, 'VTE MARRUA TESTE', '8695742685', NULL, 'Viatura de serviço', NULL, NULL, 999, 580, 419, '2022-11-16 01:02:00', '2022-11-15 18:46:00', 3, 0, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-15 21:47:43', '2022-11-16 04:02:56', NULL),
+(44, 'op', 'Cb', 'Teste 4', 'Cb', 'Celso', NULL, 'VTE MARRUA TESTE', '8695742685', NULL, 'Viatura de serviço', NULL, NULL, 670, 560, 110, '2022-11-16 01:02:00', '2022-11-16 01:01:00', 4, 0, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-16 04:01:19', '2022-11-16 04:02:35', NULL),
+(45, 'adm', 'Cb', 'Teste 4', '2º Ten', 'Jdjd', NULL, 'FRONTIER', 'GHU8389', NULL, 'Viatura de serviço', NULL, NULL, NULL, 9898, NULL, NULL, '2022-11-16 01:03:00', 6, 4, 1, NULL, 'Cb Eduardo', '2022-11-16 04:03:36', '2022-11-18 03:54:54', '2022-11-18 03:54:54'),
+(46, 'op', 'Sd', 'Teste', '1º Ten', 'Jssjd', NULL, '5TON T', '8374728284', NULL, 'Viatura de serviço', NULL, NULL, 9899, 9898, 1, '2022-11-16 01:06:00', '2022-11-16 01:05:00', 5, 0, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-16 04:05:44', '2022-11-16 04:06:37', NULL),
+(47, 'civil', NULL, 'civiviv', NULL, NULL, '322232123123', 'ffwefwef', '12312312312', 1, 'asafa', NULL, 'Civil', NULL, NULL, NULL, '2022-11-18 00:54:00', '2022-11-18 00:55:00', NULL, 0, 2, 'Cb Eduardo', NULL, '2022-11-18 03:55:29', '2022-11-18 03:55:41', NULL),
+(48, 'oom', 'Maj', 'csdcasdcsd', 'Maj', 'dcsdcasdcdc', '341.341.234-1', 'casdcasd', 'asdcasdc', NULL, 'adcasdas', NULL, 'abcde', NULL, NULL, NULL, '2022-11-18 00:56:00', '2022-11-18 00:56:00', NULL, 0, 2, 'Cb Eduardo', NULL, '2022-11-18 03:56:44', '2022-11-18 03:56:51', NULL),
+(49, 'op', 'Cb', 'Teste 4', 'Cb', 'Celso', NULL, 'VTE MARRUA TESTE', '8695742685', NULL, 'Viatura de serviço', NULL, '3º B Sup', 76, 51, 25, '2022-11-23 00:23:00', '2022-11-23 00:13:00', 4, 4, 2, 'Cb Eduardo', 'Cb Eduardo', '2022-11-23 03:13:55', '2022-11-23 03:23:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -285,6 +317,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Índices para tabela `profiles`
+--
+ALTER TABLE `profiles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `rel_gda`
 --
 ALTER TABLE `rel_gda`
@@ -322,7 +360,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de tabela `missions`
 --
 ALTER TABLE `missions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `personal_access_tokens`
@@ -331,10 +369,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `profiles`
+--
+ALTER TABLE `profiles`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de tabela `rel_gda`
 --
 ALTER TABLE `rel_gda`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de tabela `viatura`
