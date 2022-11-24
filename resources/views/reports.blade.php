@@ -35,7 +35,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="vtr_filter">Veiculo</label>
+                                <label for="vtr_filter">Veículo</label>
                                 <select id="vtr_filter" class="form-control">
                                     <option selected value="">TODOS</option>
                                     @foreach ($viaturas as $viatura)

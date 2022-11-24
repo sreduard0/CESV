@@ -10,7 +10,11 @@ use App\Http\Controllers\VtrController;
 use Illuminate\Support\Facades\Route;
 
 // VIEWS
-Route::get('/', [ViewController::class, 'home'])->name('home')->middleware('auth', 'cmtgda');
+Route::middleware(['middleware' => 'adj', 'cmtgda'])->group(function () {
+    Route::get('/', [ViewController::class, 'home'])->name('home');
+
+});
+
 Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('auth');
 Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('auth');
 Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('auth');
