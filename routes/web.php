@@ -10,7 +10,7 @@ use App\Http\Controllers\VtrController;
 use Illuminate\Support\Facades\Route;
 
 // VIEWS
-Route::get('/', [ViewController::class, 'home'])->name('home')->middleware('auth');
+Route::get('/', [ViewController::class, 'home'])->name('home')->middleware('auth', 'cmtgda');
 Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('auth');
 Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('auth');
 Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('auth');
@@ -49,12 +49,12 @@ Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_
 Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('auth');
 
 // ADMINISTRADOR
-Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->middleware('auth')->name('getGraphicMissionsOp');
-Route::get('getGraphicMissionsOmOp', [AdminController::class, 'getGraphicMissionsOmOp'])->middleware('auth')->name('getGraphicMissionsOmOp');
-Route::get('getGraphicRelGda', [AdminController::class, 'getGraphicRelGda'])->middleware('auth')->name('getGraphicRelGda');
-Route::post('post_rank_vtr', [AdminController::class, 'rankVtr'])->name('rankVtr')->middleware('auth');
-Route::post('post_users_list', [AdminController::class, 'listUsers'])->name('listUsers')->middleware('auth');
-Route::get('/alt_permission_user/{iduser}/{profile?}/{id?}', [AdminController::class, 'userPerm'])->middleware('auth');
+Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->middleware('auth', 'adm')->name('getGraphicMissionsOp');
+Route::get('getGraphicMissionsOmOp', [AdminController::class, 'getGraphicMissionsOmOp'])->middleware('auth', 'adm')->name('getGraphicMissionsOmOp');
+Route::get('getGraphicRelGda', [AdminController::class, 'getGraphicRelGda'])->middleware('auth', 'adm')->name('getGraphicRelGda');
+Route::post('post_rank_vtr', [AdminController::class, 'rankVtr'])->name('rankVtr')->middleware('auth', 'adm');
+Route::post('post_users_list', [AdminController::class, 'listUsers'])->name('listUsers')->middleware('auth', 'adm');
+Route::get('/alt_permission_user/{iduser}/{profile?}/{id?}', [AdminController::class, 'userPerm'])->middleware('auth', 'adm');
 
 // LOGIN
 Route::post('submit_login', [AdminController::class, 'loginSubmit'])->name('loginSubmit');

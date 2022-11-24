@@ -308,7 +308,7 @@ class AdminController extends Controller
 
         //Verifica se o usuário esta logado
         if (session()->has('user')) {
-            return redirect()->route('home');
+            return redirect()->route('login');
         }
 
         $data = $request->all();
@@ -336,7 +336,7 @@ class AdminController extends Controller
         }
 
         $loginSistao = LoginApplicationModel::where('applications_id', 6)->where('login_id', $user->users_id)->first(); // buscando permissoes do usuario
-        $loginCesv = LoginApplicationModel::where('id_ext', 'CESV')->where('login_id', $user->users_id)->first(); // buscando permissoes do usuario
+        $loginCesv = LoginApplicationModel::where('id_ext', 'CES Vtr')->where('login_id', $user->users_id)->first(); // buscando permissoes do usuario
         if (!$loginSistao || !$loginCesv) {
             session()->flash('erro', 'Este usuário não tem permissão para acessar esta aplicação.');
             return redirect()->route('login');
@@ -344,7 +344,7 @@ class AdminController extends Controller
 
         $cesv = ProfileModel::where('id_user', $user->users_id)->first();
         if (!$cesv) {
-            session()->flash('erro', 'Este usuário ainda não tem funçâo.');
+            session()->flash('erro', 'Este usuário ainda não tem funçâo no CES Vtr.');
             return redirect()->route('login');
         }
 
@@ -382,7 +382,7 @@ class AdminController extends Controller
 
         ]);
 
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 
     public function loginSistao()
@@ -390,25 +390,13 @@ class AdminController extends Controller
         if (session('CES Vtr') == '') {
             return redirect()->route('login');
         }
-
-        if (session('CES Vtr')['profileType'] == 1) {
-            session()->pull('CES Vtr');
-            session()->put([
-                'CESV' => [
-                    'profileType' => 1,
-                ],
-            ]);
-
-            return redirect()->route('home');
-        }
-
         $cesv = ProfileModel::where('id_user', session('user')['id'])->first();
 
         if (session('CES Vtr')['profileType'] == 1 && !$cesv) {
             session()->pull('CES Vtr');
             session()->put([
                 'CESV' => [
-                    'profileType' => 1,
+                    'profileType' => 5,
                 ],
             ]);
 
@@ -454,10 +442,10 @@ class AdminController extends Controller
         // Receber a requisão da pesquisa
         $requestData = $request->all();
 
-        $rows = count(LoginApplicationModel::where('id_ext', 'CESV')->get());
+        $rows = count(LoginApplicationModel::where('id_ext', 'CES Vtr')->get());
 
         //Obtendo registros de número total sem qualquer pesquisa
-        $users = LoginApplicationModel::where('id_ext', 'CESV')
+        $users = LoginApplicationModel::where('id_ext', 'CES Vtr')
             ->with('user_data', 'permission')
             ->orderBy('profileType', $requestData['order'][0]['dir'])
             ->get();

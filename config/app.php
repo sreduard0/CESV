@@ -53,7 +53,8 @@ return [
     |
      */
 
-    'url' => 'https://cesv.3bsup.eb.mil.br',
+    'url' => 'https://localhost',
+    // 'url' => 'https://cesv.3bsup.eb.mil.br',
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -120,7 +121,7 @@ return [
     |
      */
 
-    'key' => 'base64:xMIFLmg7QO37+6g6y7UlUTnyrealbJi1FNBskXQRdtY=',
+    'key' => 'base64:dq/qEqnKcXTEfvXbJ9WPuVw7C08pGbxYMVe3oTDyeDk=',
 
     'cipher' => 'AES-256-CBC',
 
