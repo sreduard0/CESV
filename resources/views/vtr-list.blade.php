@@ -333,10 +333,13 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
-                        'messageTop': " ",
-                        'messageBottom': 'Seção de Saúde',
                         'exportOptions': {
-                            'columns': [0, 1, 2, 3, 4]
+                            'columns': [0, 1, 2, 3, 4],
+                            'title': 'Relatório de entrada e saída de veículos ',
+                            'pgUser': "{{ session('user')['rank'] }}",
+                            'nameUser': "{{ session('user')['professionalName'] }}",
+                            'fullNameUser': "{{ session('user')['name'] }}",
+                            'functionUser': "{{ session('CESV')['profileType'] }}",
                         },
                         "autoPrint": true,
                     },

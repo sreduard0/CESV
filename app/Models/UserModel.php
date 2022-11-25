@@ -12,7 +12,6 @@ class UserModel extends Model
     {
         return $this->hasOne('App\Models\LoginModel', 'users_id', 'id');
     }
-
     use HasFactory;
     protected $connection = 'sistao';
     use SoftDeletes;

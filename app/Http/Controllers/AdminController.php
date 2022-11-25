@@ -445,14 +445,13 @@ class AdminController extends Controller
         $rows = count(LoginApplicationModel::where('id_ext', 'CES Vtr')->get());
 
         //Obtendo registros de número total sem qualquer pesquisa
-        $users = LoginApplicationModel::where('id_ext', 'CES Vtr')
+        $users = LoginApplicationModel::select('login_id')->where('id_ext', 'CES Vtr')
             ->with('user_data', 'permission')
             ->orderBy('profileType', $requestData['order'][0]['dir'])
             ->get();
-
         $filtered = count($users);
         $rank = [1 => 'Gen', 2 => 'Cel', 3 => 'TC', 4 => 'Maj', 5 => 'Cap', 6 => '1º Ten', 7 => '2º Ten', 8 => 'Asp', 9 => 'ST', 10 => '1º Sgt', 11 => '2º Sgt', 12 => '3º Sgt', 13 => 'Cb', 14 => 'Sd'];
-        $profile = [0 => 'CMT GDA', 1 => 'TRNP', 2 => 'ADJ ', 3 => 'COST', 4 => 'FISC ADM', 5 => 'ADM'];
+        $profile = [0 => 'CMT GDA', 1 => 'TRNP', 2 => 'ADJ / OF ', 3 => 'COST', 4 => 'FISC ADM', 5 => 'ADM'];
 
         $dados = array();
         foreach ($users as $user) {

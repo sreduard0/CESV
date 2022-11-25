@@ -24,7 +24,7 @@
                 <div class="row d-flex justify-content-between">
                     <div class="col">
                         <div class="row ">
-                            <div class="form-group col">
+                            <div class="form-group col-md-2">
                                 <label for="typevtr_filter">Tipo de veículo</label>
                                 <select id="typevtr_filter" class="form-control">
                                     <option selected value="">TODOS</option>
@@ -50,14 +50,14 @@
                                 <input id="mot_filter" type="text" class="form-control" maxlength="199"
                                     placeholder="EX: João">
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label for="om_filter">OM</label>
                                 <input id="om_filter" type="text" class="form-control" maxlength="199"
-                                    placeholder="EX: 3º B Sup">
+                                    placeholder="3º B Sup">
                             </div>
 
 
-                            <div class="form-group col-md-">
+                            <div class="form-group col-md-2">
                                 <label>Data entrada</label>
                                 <div class="input-group date" id="dateEntTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
@@ -163,11 +163,13 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
-                        'messageTop': "{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}  ",
-                        'messageTp': "{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}  ",
-                        'messageBottom': 'Oficial de dia',
                         'exportOptions': {
-                            'columns': [0, 1, 2, 3, 4, 5, 6]
+                            'columns': [0, 1, 2, 3, 4, 5, 6],
+                            'title': 'Relatório de entrada e saída de veículos ',
+                            'pgUser': "{{ session('user')['rank'] }}",
+                            'nameUser': "{{ session('user')['professionalName'] }}",
+                            'fullNameUser': "{{ session('user')['name'] }}",
+                            'functionUser': "{{ session('CESV')['profileType'] }}",
                         },
                         "autoPrint": true,
                     },

@@ -590,12 +590,13 @@
                                         <label for="e_qtdPassCivilRel">Qtd. de passageiros <span
                                                 style="color:red">*</span></label>
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" id="e_qtdPassCivilRel"
-                                                name="e_qtdPassCivilRel" data-inputmask="'mask':'99'" data-mask=""
-                                                inputmode="text" placeholder="Qtd. de passageiros">
+                                            <select id="e_qtdPassCivilRel" name="e_qtdPassCivilRel" class="form-control">
+                                                <option selected value="0">0</option>
+                                                @for ($i = 1; $i < 30; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+
+                                            </select>
                                         </div>
 
                                     </div>
@@ -1006,10 +1007,13 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
-                        'messageTop': " ",
-                        'messageBottom': 'Oficial de dia',
                         'exportOptions': {
-                            'columns': [0, 1, 2, 3, 4, 5, 6, 7]
+                            'columns': [0, 1, 2, 3, 4, 5, 6, 7],
+                            'title': 'Relatório de entrada e saída de veículos ',
+                            'pgUser': "{{ session('user')['rank'] }}",
+                            'nameUser': "{{ session('user')['professionalName'] }}",
+                            'fullNameUser': "{{ session('user')['name'] }}",
+                            'functionUser': "{{ session('CESV')['profileType'] }}",
                         },
                         "autoPrint": true,
                     },

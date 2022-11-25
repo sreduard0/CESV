@@ -1,4 +1,10 @@
 function filterReports() {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    });
     data = {
         vtr: $('#vtr_filter').val(),
         driver: $('#mot_filter').val(),
@@ -31,7 +37,10 @@ function filterReports() {
             .draw()
     }
 
-
+    Toast.fire({
+        icon: 'success',
+        title: '&nbsp&nbsp Filtado com successo.'
+    });
 
 
 }

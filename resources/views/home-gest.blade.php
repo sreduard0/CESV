@@ -533,10 +533,13 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
-                        'messageTop': " ",
-                        'messageBottom': 'Seção de Transporte e Manutenção',
                         'exportOptions': {
-                            'columns': [1, 2, 3, 4, 5, 6, 7, 8]
+                            'columns': [1, 2, 3, 4, 5, 6, 7, 8],
+                            'title': 'Relatório de entrada e saída de veículos ',
+                            'pgUser': "{{ session('user')['rank'] }}",
+                            'nameUser': "{{ session('user')['professionalName'] }}",
+                            'fullNameUser': "{{ session('user')['name'] }}",
+                            'functionUser': "{{ session('CESV')['profileType'] }}",
                         },
                         "autoPrint": true,
                     },
