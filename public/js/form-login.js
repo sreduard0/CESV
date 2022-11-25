@@ -1,18 +1,66 @@
-function loginSubmit() {
-    const formData = new FormData(document.getElementById('form-login'))
+(function ($) {
+    "use strict";
 
-    // Verificação
-    if (formData.get('nrVtr') == '' || formData.get('nrVtr').length > 4) {
-        $('#nrVtr').addClass('is-invalid');
+
+    /*==================================================================
+    [ Focus input ]*/
+    $('.input100').each(function () {
+        $(this).on('blur', function () {
+            if ($(this).val().trim() != "") {
+                $(this).addClass('has-val');
+            } else {
+                $(this).removeClass('has-val');
+            }
+        })
+    })
+
+    /*==================================================================
+    [ Focus input   MODAL ALTERAR SENHA ]*/
+    $('.input').each(function () {
+        $(this).on('blur', function () {
+            if ($(this).val().trim() != "") {
+                $(this).addClass('has-val');
+            } else {
+                $(this).removeClass('has-val');
+            }
+        })
+    })
+
+    /*==================================================================
+    /*==================================================================
+    [ Show pass ]*/
+    var showPass = 0;
+    $('.btn-show-pass').on('click', function () {
+        if (showPass == 0) {
+            $(this).next('input').attr('type', 'text');
+            $(this).find('i').removeClass('fa-eye');
+            $(this).find('i').addClass('fa-eye-slash');
+            showPass = 1;
+        } else {
+            $(this).next('input').attr('type', 'password');
+            $(this).find('i').addClass('fa-eye');
+            $(this).find('i').removeClass('fa-eye-slash');
+            showPass = 0;
+        }
+
+    });
+
+    // Ocultar erro apos 4s
+    setTimeout(function () {
+        $("#error").detach();
+    }, 4000);
+})(jQuery);
+
+function loginSubmit() {
+    var user = form_login.login.value;
+    var pass = form_login.password.value;
+
+
+
+    if (user == "" || pass == "") {
+        form_login.login.value.focus();
+        form_login.password.value.focus();
         return false;
-    } else {
-        $('#nrVtr').removeClass('is-invalid');
-    }
-    if (formData.get('typeVtr') == '') {
-        $('#typeVtr').addClass('is-invalid');
-        return false;
-    } else {
-        $('#typeVtr').removeClass('is-invalid');
     }
 
     return true;

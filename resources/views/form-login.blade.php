@@ -8,7 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/logo.png') }}" />
     <!-- Theme style -->
-
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
+    <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">
@@ -19,7 +22,7 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form id="form-login " action="{{ route('loginSubmit') }}" method="POST"
+                <form id="form_login " action="{{ route('loginSubmit') }}" method="POST"
                     class="login100-form validate-form">
                     @csrf
                     <span class="login100-form-title p-b-26">
@@ -55,6 +58,15 @@
                         @if (session('erro'))
                             <p id="error" class="alert alert-danger">{{ session('erro') }}</p>
                         @endif
+                         @if ($errors->any())
+
+                            <ul id="error" class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+
+                        @endif
                     </div>
 
                     <div class="text-center">
@@ -77,8 +89,9 @@
             </div>
         </div>
     </div>
-
+    <script src="{{ asset('bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('js/form-login.js') }}"></script>
 </body>
-<script src="{{ asset('js/form-login.js') }}"></script>
+
 
 </html>

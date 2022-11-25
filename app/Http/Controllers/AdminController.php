@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Models\LoginApplicationModel;
 use App\Models\LoginModel;
 use App\Models\MissionModel;
@@ -303,7 +304,7 @@ class AdminController extends Controller
 
     // AÇÕES DE LOGIN
     //======={ LOGIN SUBMIT }=======//
-    public function loginSubmit(Request $request)
+    public function loginSubmit(LoginRequest $request)
     {
 
         //Verifica se o usuário esta logado
