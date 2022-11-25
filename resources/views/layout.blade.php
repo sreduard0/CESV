@@ -181,12 +181,12 @@
                     <div class="row">
                         {{-- Conteudo --}}
                         @yield('content')
-                        @if (session('CESV')['profileType'] < 5)
+
+                        @if (session('CESV')['profileType'] < 3 || session('CESV')['profileType'] == 4)
                             {{-- /CONTEUDO --}}
                             <section class="col-lg-3">
                                 <div class="card bg-default">
                                     <div class="card-header border-0 bg-success">
-
                                         <h3 class="card-title">
                                             <i class="far fa-list-alt"></i>
                                             Fichas abertas
@@ -228,6 +228,92 @@
 
                             <!-- right col -->
                         @endif
+
+                        @if (session('CESV')['profileType'] == 3)
+                            {{-- /CONTEUDO --}}
+                            <section class="col-lg-3">
+                                <div class="card bg-default">
+                                    <div class="card-header border-0 bg-success">
+
+                                        <h3 class="card-title">
+                                            <i class="far fa-calendar-alt"></i>
+                                            Calendário
+                                        </h3>
+                                        <!-- /. tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body pt-0">
+                                        <!--The calendar -->
+                                        <div id="calendar" style="width: 100%"></div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Grafíco de missões OP no ano de {{ date('Y') }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex">
+                                            <p class="d-flex flex-column">
+                                                <span>Total: <span id="TotalMissionsOp"
+                                                        class="text-bold text-lg"></span></span>
+
+
+                                            </p>
+                                            <p class="ml-auto d-flex flex-column text-right">
+                                                <span class="text-muted">Responsável: COST</span>
+                                            </p>
+                                        </div>
+                                        <!-- /.d-flex -->
+
+                                        <div class="position-relative mb-4">
+                                            <canvas id="graphicMission" height="250"></canvas>
+                                        </div>
+
+                                        <div class="d-flex flex-row justify-content-end">
+                                            <span class="mr-2">
+                                                <i class="fas fa-square text-success"></i> I
+                                            </span>
+                                            <span class="mr-2">
+                                                <i class="fas fa-square text-primary"></i> II
+                                            </span>
+                                            <span class="mr-2">
+                                                <i class="fas fa-square text-secondary"></i> II
+                                            </span>
+                                            <span class="mr-2">
+                                                <i class="fas fa-square text-warning"></i> IV
+                                            </span>
+                                            <span class="mr-2">
+                                                <i class="fas fa-square text-info"></i> V-a
+                                            </span>
+                                            <span class="mr-2">
+                                                <i class="fas fa-square text-danger"></i> V-m
+                                            </span>
+                                            <span class="mr-2">
+                                                <i style='color:blueviolet' class="fas fa-square"></i> VI
+                                            </span>
+                                            <span class="mr-2">
+                                                <i style='color:rgb(250, 4, 151)' class="fas fa-square"></i> VII
+                                            </span>
+                                            <span class="mr-2">
+                                                <i style='color:rgb(11, 2, 112)' class="fas fa-square"></i> VIII
+                                            </span>
+                                            <span class="mr-2">
+                                                <i style='color:rgb(7, 42, 20)' class="fas fa-square"></i> IX
+                                            </span>
+                                            <span class="mr-2">
+                                                <i style='color:rgb(25, 8, 41)' class="fas fa-square"></i> X
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- right col -->
+                        @endif
                     </div>
                     <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
@@ -254,8 +340,18 @@
     {{-- ==================================== PLUGINS ===================================== --}}
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <!-- OPTIONAL SCRIPTS -->
+    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+
     <script>
+        setInterval(() => {
+            $.get("{{ route('getSession') }}", function(result) {
+                if (result == false) {
+                    document.location.reload(true);
+                }
+            })
+        }, 60000);
+
         $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
@@ -293,7 +389,7 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     @yield('plugins')
-    @if (session('CESV')['profileType'] < 5)
+    @if (session('CESV')['profileType'] < 3 || session('CESV')['profileType'] == 4)
         <script>
             $("#fichas_layout").DataTable({
 
@@ -320,7 +416,72 @@
             });
         </script>
     @endif
+    @if (session('CESV')['profileType'] == 3)
+        <script>
+            var $missionsCost = $('#graphicMission')
+            $(function() {
+                'use strict'
 
+                var ticksStyle = {
+                    fontColor: '#495057',
+                    fontStyle: 'bold'
+                }
+
+                var mode = 'index'
+                var intersect = true
+
+                var $missionsOmOp = $('#missionsOmOp')
+                $.get("{{ route('getGraphicMissionsOp') }}", function(result) {
+                    $('#TotalMissionsOp').text(result.TotalMissionsOp);
+                    var missionsCost = new Chart($missionsCost, {
+                        data: {
+                            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set',
+                                'Out', 'Nov',
+                                'Dez'
+                            ],
+                            datasets: result.statisticsMission
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            tooltips: {
+                                mode: mode,
+                                intersect: intersect
+                            },
+                            hover: {
+                                mode: mode,
+                                intersect: intersect
+                            },
+                            legend: {
+                                display: false,
+                            },
+                            scales: {
+                                yAxes: [{
+                                    // display: false,
+                                    gridLines: {
+                                        display: true,
+                                        lineWidth: '2px',
+                                        color: 'rgba(0, 0, 0, .2)',
+                                        zeroLineColor: 'transparent'
+                                    },
+                                    ticks: $.extend({
+                                        beginAtZero: true,
+                                        suggestedMax: 50
+                                    }, ticksStyle)
+                                }],
+                                xAxes: [{
+                                    display: true,
+                                    gridLines: {
+                                        display: false
+                                    },
+                                    ticks: ticksStyle
+                                }]
+                            }
+                        }
+                    })
+                })
+            })
+        </script>
+    @endif
     {{-- ====================================/ PLUGINS ===================================== --}}
 </body>
 

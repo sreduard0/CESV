@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/logo.png') }}" />
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
@@ -48,7 +47,7 @@
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <button onclick="return loginSubmit()" type="submit" class="login100-form-btn">
+                            <button type="submit" class="login100-form-btn">
                                 Entrar
                             </button>
                         </div>
@@ -58,7 +57,7 @@
                         @if (session('erro'))
                             <p id="error" class="alert alert-danger">{{ session('erro') }}</p>
                         @endif
-                         @if ($errors->any())
+                        @if ($errors->any())
 
                             <ul id="error" class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
@@ -89,7 +88,6 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('js/form-login.js') }}"></script>
 </body>
 

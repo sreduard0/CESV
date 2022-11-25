@@ -199,9 +199,6 @@
     @include('component.info-vtr')
 @endsection
 @section('plugins')
-    <!-- OPTIONAL SCRIPTS -->
-    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script>
         /* global Chart:false */
 

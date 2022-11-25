@@ -51,17 +51,3 @@
     }, 4000);
 })(jQuery);
 
-function loginSubmit() {
-    var user = form_login.login.value;
-    var pass = form_login.password.value;
-
-
-
-    if (user == "" || pass == "") {
-        form_login.login.value.focus();
-        form_login.password.value.focus();
-        return false;
-    }
-
-    return true;
-}

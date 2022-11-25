@@ -21,17 +21,17 @@ Route::get('logout', function () {
 Route::middleware('auth')->group(function () {
 // VIEWS
     Route::get('/', [ViewController::class, 'home'])->name('home');
-    Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('role:trnp');
-    Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('role:trnp');
+    Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('role:trnp>adm');
+    Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('role:trnp>adm');
     Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('role:trnp>adm');
     Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('role:adj>cmtgda>adm');
-    Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('role:trnp>cost>fiscadm');
+    Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('role:trnp>cost>fiscadm>adm');
     Route::get('/usuarios', [ViewController::class, 'users'])->name('users')->middleware('role:adm');
 
 // AÇÕES --------------------------------------------------------------------
 
 // VIATURAS
-    Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('role:trnp>adm');
+    Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('role:adm>trnp');
     Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('role:trnp>adm');
 
 // MISSÕES
@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 // FICHAS
     Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp');
     Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adm');
-    Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('role:adj>cmtgda>trnp');
+    Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('role:adj>cmtgda>trnp>fiscadm');
 
 // RELA GUARDA
     Route::get('countRelGda', [GdaController::class, 'countRelGda'])->middleware('role:adj>trnp>cmtgda');
@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('role:trnp>adm');
 
 // ADMINISTRADOR
-    Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->name('getGraphicMissionsOp')->middleware('role:adm');
+    Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->name('getGraphicMissionsOp')->middleware('role:adm>cost>fiscadm');
     Route::get('getGraphicMissionsOmOp', [AdminController::class, 'getGraphicMissionsOmOp'])->name('getGraphicMissionsOmOp')->middleware('role:adm');
     Route::get('getGraphicRelGda', [AdminController::class, 'getGraphicRelGda'])->name('getGraphicRelGda')->middleware('role:adm');
     Route::post('post_rank_vtr', [AdminController::class, 'rankVtr'])->name('rankVtr')->middleware('role:adm');
@@ -96,3 +96,6 @@ Route::middleware('auth')->group(function () {
 
 // FIM CERUD ------------------------------------------------------------------
 });
+
+// VERIFICAR SESSÃO
+Route::get('getSession', function () {return session()->has('user');})->name('getSession');

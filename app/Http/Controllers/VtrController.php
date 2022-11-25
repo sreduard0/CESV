@@ -12,7 +12,7 @@ class VtrController extends Controller
     // AÇÕES
     public function get_info_vtr($id)
     {
-        return VtrModel::find($id);
+        return VtrModel::withTrashed()->find($id);
     }
 
     // CRUD VTR
