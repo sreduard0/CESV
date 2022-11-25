@@ -180,7 +180,6 @@
                 <div class="container-fluid ">
                     <div class="row">
                         {{-- Conteudo --}}
-
                         @yield('content')
                         @if (session('CESV')['profileType'] < 5)
                             {{-- /CONTEUDO --}}

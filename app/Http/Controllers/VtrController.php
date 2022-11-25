@@ -34,7 +34,7 @@ class VtrController extends Controller
         $vtr->nr_vtr = str_replace('_', '', $data['nrVtr']);
         $vtr->mod_vtr = $data['modVtr'];
         $vtr->type_vtr = $data['typeVtr'];
-        $vtr->ebplaca = $data['ebPlacaVtr'];
+        $vtr->ebplaca = strtoupper($data['ebPlacaVtr']);
         $vtr->ton = str_replace('_', '', $data['tonVtr']);
         $vtr->vol = str_replace('_', '', $data['volVtr']);
         $vtr->status = $data['statusVtr'];

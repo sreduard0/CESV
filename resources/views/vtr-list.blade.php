@@ -53,9 +53,9 @@
                     <div class="col-md-5">
                         <div class="row ">
                             <div class="form-group col">
-                                <label for="vtrStatus">Viatura</label>
+                                <label for="vtrStatus">Filtrar por status</label>
                                 <select id="vtrStatus" class="form-control">
-                                    <option selected value="">TODAS AS VIATURAS</option>
+                                    <option selected value="">TODAS</option>
                                     <option value="1">Disponível</option>
                                     <option value="2">Indisponível</option>
                                 </select>

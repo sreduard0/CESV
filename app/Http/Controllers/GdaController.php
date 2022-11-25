@@ -70,7 +70,7 @@ class GdaController extends Controller
                 $rel->pg_seg = $data['pgSeg'];
                 $rel->name_seg = $data['nameSeg'];
                 $rel->mod_veicle = $data['modVtr'];
-                $rel->placaeb = $data['ebPlaca'];
+                $rel->placaeb = strtoupper($data['ebPlaca']);
                 $rel->od_sai = str_replace('_', '', $data['odSai']);
                 $rel->destiny = $data['destiny'];
                 $rel->obs = $data['obs'];
@@ -109,7 +109,7 @@ class GdaController extends Controller
                 $rel->name_seg = $data['nameSeg'];
                 $rel->idt = $data['idtMil'];
                 $rel->mod_veicle = $data['modVtr'];
-                $rel->placaeb = $data['ebPlaca'];
+                $rel->placaeb = strtoupper($data['ebPlaca']);
                 $rel->om = $data['om'];
                 $rel->destiny = $data['destiny'];
                 $rel->obs = $data['obs'];
@@ -141,7 +141,7 @@ class GdaController extends Controller
                 $rel->name_mot = $data['nameMot'];
                 $rel->idt = $data['doc'];
                 $rel->mod_veicle = $data['modVtr'];
-                $rel->placaeb = $data['placaVtr'];
+                $rel->placaeb = strtoupper($data['placaVtr']);
                 $rel->passengers = str_replace('_', '', $data['qtdPass']);
                 $rel->om = 'Civil';
                 $rel->destiny = $data['destiny'];

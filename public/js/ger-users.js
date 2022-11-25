@@ -21,7 +21,7 @@ function altPermission(idUser, profile, id, name) {
                 value: '0',
             },
             {
-                text: 'ADJ',
+                text: 'ADJ / OF',
                 value: '2',
             },
             {

@@ -19,7 +19,8 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form action="{{ route('loginSubmit') }}" method="POST" class="login100-form validate-form">
+                <form id="form-login " action="{{ route('loginSubmit') }}" method="POST"
+                    class="login100-form validate-form">
                     @csrf
                     <span class="login100-form-title p-b-26">
                         SisTAO > CES Vtr
@@ -44,28 +45,16 @@
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <button type="submit" class="login100-form-btn">
+                            <button onclick="return loginSubmit()" type="submit" class="login100-form-btn">
                                 Entrar
                             </button>
                         </div>
                     </div>
 
                     <div class="height mt-3">
-
                         @if (session('erro'))
                             <p id="error" class="alert alert-danger">{{ session('erro') }}</p>
                         @endif
-
-                        @if ($errors->any())
-
-                            <ul id="error" class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-
-                        @endif
-
                     </div>
 
                     <div class="text-center">
@@ -90,5 +79,6 @@
     </div>
 
 </body>
+<script src="{{ asset('js/form-login.js') }}"></script>
 
 </html>

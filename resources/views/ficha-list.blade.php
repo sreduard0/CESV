@@ -52,16 +52,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="row d-flex justify-content-between">
-                    @if (session('CESV')['profileType'] == 1)
-                        <div class="col m-t-15">
-                            <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#register-ficha">Cadastrar</button>
-                        </div>
-                    @endif
                     <div class="col-md-5">
                         <div class="row ">
                             <div class="form-group col">
-                                <label for="statusFicha">Viatura</label>
+                                <label for="statusFicha">Filtrar por status</label>
                                 <select id="statusFicha" name="statusFicha" class="form-control">
                                     <option value="1">Abertas</option>
                                     <option value="2">Fechadas</option>
@@ -70,6 +64,14 @@
 
                         </div>
                     </div>
+                    @if (session('CESV')['profileType'] == 1)
+                        <div class="d-flex justify-content-sm-end">
+                            <div class="col">
+                                <button class="btn btn-primary" data-toggle="modal"
+                                    data-target="#register-ficha">Cadastrar</button>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <div id="button-print"></div>
             </div>
@@ -85,7 +87,7 @@
                             <th>Segurança</th>
                             <th>Natureza</th>
                             <th>Status</th>
-                            <th>Ações</th>
+                            <th style=" white-space: nowrap; width:auto;">Ações</th>
                         </tr>
                     </thead>
                 </table>
@@ -398,13 +400,10 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
+                        'messageTop': " ",
+                        'messageBottom': 'Seção de Transporte',
                         'exportOptions': {
-                            'columns': [1, 2, 3, 4, 5],
-                            'title': 'Relatório de entrada e saída de veículos ',
-                            'pgUser': "{{ session('user')['rank'] }}",
-                            'nameUser': "{{ session('user')['professionalName'] }}",
-                            'fullNameUser': "{{ session('user')['name'] }}",
-                            'functionUser': "{{ session('CESV')['profileType'] }}",
+                            'columns': [1, 2, 3, 4, 5]
                         },
                         "autoPrint": true,
                     },

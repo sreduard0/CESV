@@ -22,4 +22,8 @@ class LoginModel extends Model
     protected $connection = 'sistao';
     protected $table = 'login';
     protected $primarykey = 'id';
+    protected $hidden = [
+        'password',
+        'login',
+    ];
 }
