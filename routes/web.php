@@ -21,7 +21,7 @@ Route::get('logout', function () {
 Route::middleware('auth')->group(function () {
 // VIEWS
     Route::get('/', [ViewController::class, 'home'])->name('home');
-    Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('role:trnp>adm');
+    Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('role:trnp>adm>fiscadm');
     Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('role:trnp>adm');
     Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('role:trnp>adm');
     Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('role:adj>cmtgda>adm');
@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 // AÇÕES --------------------------------------------------------------------
 
 // VIATURAS
-    Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('role:adm>trnp');
+    Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('role:adm>trnp>fiscadm');
     Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('role:trnp>adm');
 
 // MISSÕES
@@ -42,7 +42,8 @@ Route::middleware('auth')->group(function () {
 
 // FICHAS
     Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp');
-    Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adm');
+    Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm');
+    Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adm>fiscadm');
     Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('role:adj>cmtgda>trnp>fiscadm');
 
 // RELA GUARDA

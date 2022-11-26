@@ -306,12 +306,6 @@ class AdminController extends Controller
     //======={ LOGIN SUBMIT }=======//
     public function loginSubmit(LoginRequest $request)
     {
-
-        //Verifica se o usuário esta logado
-        if (session()->has('user')) {
-            return redirect()->route('login');
-        }
-
         $data = $request->all();
         //Verificar dados de login
         $login = trim($data['login']);

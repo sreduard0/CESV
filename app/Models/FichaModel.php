@@ -22,7 +22,7 @@ class FichaModel extends Model
     }
     public function relgda()
     {
-        return $this->hasOne('App\Models\RelGdaModel', 'id_ficha', 'id')->where('status', 1);
+        return $this->hasOne('App\Models\RelGdaModel', 'id_ficha', 'id')->where('status', 1)->withTrashed();
     }
     use HasFactory;
     use SoftDeletes;

@@ -82,9 +82,9 @@
                     <div class="col-md-5">
                         <div class="row ">
                             <div class="form-group col">
-                                <label for="statusMission">Status</label>
+                                <label for="statusMission">Filtrar por status</label>
                                 <select id="statusMission" class="form-control">
-                                    <option selected value="">TODAS</option>
+                                    <option selected value="">TODOS</option>
                                     <option value="1">NA FILA</option>
                                     <option value="2">EM ANDAMENTO</option>
                                     <option value="3">ENCERRADA</option>

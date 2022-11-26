@@ -53,8 +53,8 @@ return [
     |
      */
 
-    'url' => 'https://localhost',
-    // 'url' => 'https://cesv.3bsup.eb.mil.br',
+    // 'url' => 'https://localhost',
+    'url' => 'https://cesv.3bsup.eb.mil.br',
 
     'asset_url' => env('ASSET_URL', null),
 

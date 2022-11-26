@@ -15,14 +15,13 @@ class FichaController extends Controller
     {
         return FichaModel::with('vtrinfo', 'missioninfo', 'motinfo')->find($id);
     }
-
     // CRUD FICHAS
     public function registerFicha(FichaRequest $request)
     {
         $data = $request->all();
 
         $checkVtr = FichaModel::where('status', 1)->where('id_vtr', $data['vtrFicha'])->first();
-        $checkFicha = FichaModel::where('status', 1)->where('nr_ficha', $data['nrFicha'])->first();
+        $checkFicha = FichaModel::where('status', '>=', 3)->where('nr_ficha', $data['nrFicha'])->first();
         if ($checkVtr) {
             return 'vtr';
         }
@@ -44,7 +43,7 @@ class FichaController extends Controller
         $ficha->name_seg = $nameSeg;
         $ficha->nat_of_serv = $data['natOfServFicha'];
         $ficha->in_order = $data['inOrderFicha'];
-        $ficha->status = 1;
+        $ficha->status = 3;
         $ficha->id_vtr = $data['vtrFicha'];
         $ficha->id_mission = $data['missionFicha'];
         $ficha->save();
@@ -77,9 +76,15 @@ class FichaController extends Controller
         $ficha->name_seg = $nameSeg;
         $ficha->nat_of_serv = $data['natOfServFicha'];
         $ficha->in_order = $data['inOrderFicha'];
-        $ficha->status = 1;
         $ficha->id_vtr = $data['vtrFicha'];
         $ficha->id_mission = $data['missionFicha'];
+        $ficha->save();
+
+    }
+    public function authFicha($id)
+    {
+        $ficha = FichaModel::find($id);
+        $ficha->status = 1;
         $ficha->save();
 
     }
@@ -122,9 +127,9 @@ class FichaController extends Controller
             $filtered = count($fichas);
             $rows = count(FichaModel::where('status', $requestData['columns'][3]['search']['value'])->get());
         } else {
-            $rows = count(FichaModel::where('status', 1)->get());
+            $rows = count(FichaModel::where('status', 1)->where('status', 3)->get());
 
-            $fichas = FichaModel::where('status', 1)->with('motinfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $fichas = FichaModel::where('status', 1)->orWhere('status', 3)->with('motinfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($fichas);
         }
         // Ler e criar o array de dados
@@ -144,18 +149,30 @@ class FichaController extends Controller
             $dado[] = $ficha->nat_of_serv;
             if ($ficha->status == 1) {
                 $dado[] = 'Aberta';
-            } else {
+            } elseif ($ficha->status == 2) {
                 $dado[] = 'Encerrada';
+
+            } elseif ($ficha->status == 3) {
+                $dado[] = 'Aguardando autorização';
 
             }
             if (session('CESV')['profileType'] == 5) {
                 $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
                                         class="fa fa-car"></i></button> ';
 
-            } else { $btns = $ficha->status == 1 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
+            } elseif (session('CESV')['profileType'] == 4) {
+                $btn = $ficha->status == 3 ? ' <button title="Autorizar ficha" class="btn btn-sm btn-success" onclick="return authFicha(' . $ficha->id . ')"><i
+                                        class="fa fa-check"></i></button>' : ' <button title="Ficha já autorizada" class="btn btn-sm btn-secondary"><i
+                                        class="fa fa-check"></i></button>';
+
+                $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
+                                        class="fa fa-car"></i></button> ' . $btn;
+
+            } else { $btns = $ficha->status == 1 || $ficha->status == 3 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
                                         class="fa fa-edit"></i></button>
                         <button title="Fechar ficha" class="btn btn-sm btn-danger" data-toggle="modal" onclick="finishFicha(' . $ficha->id . ')"><i
                                         class="fa fa-times"></i></button>' : '';
+
                 $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
                                         class="fa fa-car"></i></button> ' . $btns;
             }

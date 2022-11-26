@@ -1,3 +1,6 @@
+@php
+    $perm = ['Comandante da Guarda', 'Pel Manut e Transp', 'Adjunto', 'COST', 'Fiscal Administrativo', 'Administrador'];
+@endphp
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -58,7 +61,7 @@
         @if (session('animation') == 0)
             <div class="preloader flex-column justify-content-center align-items-center">
                 <img class="animation__shake" src="{{ asset('img/logo.png') }}" height="200" width="200">
-                <span class="fs-30"><strong>SisTAO</strong> </span>
+                <span class="fs-30"><strong>{{ config('app.name') }}</strong> </span>
             </div>
             @php
                 session()->put('animation', 1);
@@ -76,7 +79,8 @@
                             class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <span>{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</span>
+                        <span>{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</span><br>
+                        <span style="color:darkgray">{{ $perm[session('CESV')['profileType']] }}</span>
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -112,7 +116,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 5)
+                        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 4)
                             <li class="nav-item ">
                                 <a href="{{ route('fichas') }}" class="nav-link @yield('ficha')">
                                     <i class="nav-icon fas fa-clipboard-list"></i>
@@ -121,6 +125,9 @@
                                     </p>
                                 </a>
                             </li>
+                        @else
+                        @endif
+                        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 5)
                             <li class="nav-item ">
                                 <a href="{{ route('vtr') }}" class="nav-link @yield('vtr')">
                                     <i class="nav-icon fas fa-car"></i>

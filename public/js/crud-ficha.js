@@ -213,7 +213,6 @@ function editFicha() {
         }
     });
 }
-
 function finishFicha(id) {
     var Toast = Swal.mixin({
         toast: true,
@@ -256,6 +255,52 @@ function finishFicha(id) {
             },
             confirm: {
                 label: 'Fechar',
+                className: 'btn-success'
+            }
+
+        }
+    });
+}
+function authFicha(id) {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    });
+    bootbox.confirm({
+        title: ' Deseja autorizar esta ficha ?',
+        message: '<strong>Ao autorizar esta ficha você permitira que a viatura nela vinculada transite por vias publicas.</strong>',
+        callback: function (confirmacao) {
+
+            if (confirmacao)
+                $.ajax({
+                    url: '/auth_ficha/' + id,
+                    type: "GET",
+                    success: function (data) {
+                        $("#table").DataTable().clear().draw();
+                        Toast.fire({
+                            icon: 'success',
+                            title: '&nbsp&nbsp Ficha auto com sucesso.'
+                        });
+                        $("#table").DataTable().clear().draw();
+                    },
+                    error: function (data) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: '&nbsp&nbsp Erro ao fechar.'
+                        });
+
+                    }
+                });
+        },
+        buttons: {
+            cancel: {
+                label: 'Cancelar',
+                className: 'btn-default'
+            },
+            confirm: {
+                label: 'Autorizar',
                 className: 'btn-success'
             }
 

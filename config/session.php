@@ -149,8 +149,8 @@ return [
     |
      */
 
-    'domain' => 'localhost',
-    // 'domain' => '.3bsup.eb.mil.br',
+    // 'domain' => 'localhost',
+    'domain' => '.3bsup.eb.mil.br',
 
     /*
     |--------------------------------------------------------------------------
