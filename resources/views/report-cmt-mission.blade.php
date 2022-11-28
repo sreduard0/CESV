@@ -33,7 +33,9 @@
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('js/mask-jquery.js') }}"></script>
     <script src="{{ asset('js/bootbox.min.js') }}"></script>
-    <script src="{{ asset('js/form-report.js') }}"></script>
+    @if (!$mission->finish_mission)
+        <script src="{{ asset('js/form-report.js') }}"></script>
+    @endif
 
 
     {{-- ====================================/ CSS/JS ===================================== --}}
@@ -41,6 +43,7 @@
 </head>
 
 <body id="theme" class="dark-mode layout-top-nav">
+
     <div class="wrapper">
         @if (session('animation') == 0)
             <div class="preloader flex-column justify-content-center align-items-center">
@@ -51,8 +54,27 @@
                 session()->put('animation', 1);
             @endphp
         @endif
+        <div class="" id="send-loading"></div>
+        @if ($mission->finish_mission)
+            <div class="content-wrapper">
+                <section class="content align-items-center">
+                    <div class="container-fluid col-xl-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title card-title-background "> <i class="fas fa-info-circle mr-1"></i>
+                                    Informações da missão</h3>
+                            </div>
+                            <div class="card-body">
 
-        @if (1)
+
+                                teste
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        @else
             <div class="content-wrapper">
                 <section class="m-t-40 content align-items-center">
                     <div class="container-fluid col-xl-8">
@@ -263,14 +285,14 @@
                                                 <label>Data de fim da missão<span style="color:red">*</span></label>
                                                 <div class="input-group datet" id="dateFinishTarget"
                                                     data-target-input="nearest">
+                                                    <div class="input-group-prepend" data-target="#dateFinishTarget"
+                                                        data-toggle="datetimepicker">
+                                                        <span class="input-group-text"><i class="fa fa-calendar"></i>
+                                                        </span>
+                                                    </div>
                                                     <input type="text" class="form-control datetimepicker-input"
                                                         data-target="#dateFinishTarget" id="dateFinish"
                                                         name="dateFinish" value="">
-                                                    <div class="input-group-append" data-target="#dateFinishTarget"
-                                                        data-toggle="datetimepicker">
-                                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <hr>
@@ -392,7 +414,6 @@
                     </div>
                 </section>
             </div>
-        @else
         @endif
     </div>
     <div id="sandEmail"></div>

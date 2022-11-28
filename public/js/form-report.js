@@ -9,55 +9,55 @@ function saveReport() {
     const formData = new FormData(document.getElementById('form-report'))
 
     // Verificação
-    if (formData.get('dateFinish') == '') {
-        $('#dateFinish').addClass('is-invalid');
-        return false;
-    } else {
-        $('#dateFinish').removeClass('is-invalid');
-    }
+    // if (formData.get('dateFinish') == '') {
+    //     $('#dateFinish').addClass('is-invalid');
+    //     return false;
+    // } else {
+    //     $('#dateFinish').removeClass('is-invalid');
+    // }
 
-    if (formData.get('kiloGram') == '') {
-        $('#kiloGram').addClass('is-invalid');
-        return false;
-    } else {
-        $('#kiloGram').removeClass('is-invalid');
-    }
+    // if (formData.get('kiloGram') == '') {
+    //     $('#kiloGram').addClass('is-invalid');
+    //     return false;
+    // } else {
+    //     $('#kiloGram').removeClass('is-invalid');
+    // }
 
-    if (formData.get('metersCub') == '') {
-        $('#metersCub').addClass('is-invalid');
-        return false;
-    } else {
-        $('#metersCub').removeClass('is-invalid');
-    }
+    // if (formData.get('metersCub') == '') {
+    //     $('#metersCub').addClass('is-invalid');
+    //     return false;
+    // } else {
+    //     $('#metersCub').removeClass('is-invalid');
+    // }
 
-    if (formData.get('consGas') == '') {
-        $('#consGas').addClass('is-invalid');
-        return false;
-    } else {
-        $('#consGas').removeClass('is-invalid');
-    }
+    // if (formData.get('consGas') == '') {
+    //     $('#consGas').addClass('is-invalid');
+    //     return false;
+    // } else {
+    //     $('#consGas').removeClass('is-invalid');
+    // }
 
-    if (formData.get('consDiesel') == '') {
-        $('#consDiesel').addClass('is-invalid');
-        return false;
-    } else {
-        $('#consDiesel').removeClass('is-invalid');
-    }
+    // if (formData.get('consDiesel') == '') {
+    //     $('#consDiesel').addClass('is-invalid');
+    //     return false;
+    // } else {
+    //     $('#consDiesel').removeClass('is-invalid');
+    // }
 
-    if (formData.get('altMission') == '') {
-        $('#altMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#altMission').removeClass('is-invalid');
-    }
+    // if (formData.get('altMission') == '') {
+    //     $('#altMission').addClass('is-invalid');
+    //     return false;
+    // } else {
+    //     $('#altMission').removeClass('is-invalid');
+    // }
 
-    if ($('#sendReport').val() == '') {
-        2
-        $('#sendReport').addClass('is-invalid');
-        return false;
-    } else {
-        $('#sendReport').removeClass('is-invalid');
-    }
+    // if ($('#sendReport').val() == '') {
+    //     2
+    //     $('#sendReport').addClass('is-invalid');
+    //     return false;
+    // } else {
+    //     $('#sendReport').removeClass('is-invalid');
+    // }
 
     var values = {
         id: formData.get('id_mission'),
@@ -70,34 +70,59 @@ function saveReport() {
         obsMission: formData.get('obsMission'),
         sendReport: $('#sendReport').val(),
     }
-    console.log(values)
     const URL = '/save_report_cmt_mission'
 
-    $.ajax({
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        url: URL,
-        type: 'POST',
-        data: values,
-        dataType: 'text',
-        success: function (result) {
-            $('#dateFinMission').text(formData.get('dateFinish'))
-            $('#kg').text(formData.get('kiloGram').replace(/_/g, ''))
-            $('#m3').text(formData.get('metersCub').replace(/_/g, ''))
-            $('#conGas').text(formData.get('consGas').replace(/_/g, ''))
-            $('#conDiesel').text(formData.get('consDiesel').replace(/_/g, ''))
-            $('#alt').text(formData.get('altMission') == 1 ? "Sim " : "Não")
-            $('#obs').html(formData.get('obsMission') ? formData.get('obsMission') : 'Sem observações')
+    bootbox.confirm({
+        title: 'Deseja salvar este relatório de missão?',
+        message: '<strong>Após salvar você não poderá editar os dados preenchidos.</strong><br> Você optou por não receber este relatório em seu Email ou WhatsApp.',
+        callback: function (confirmacao) {
+
+            if (confirmacao)
+                $("#send-loading").addClass('loading').append(
+                    '<div class="load-block"><div class="c-loader"></div></div>'
+                );
+            $.ajax({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                url: URL,
+                type: 'POST',
+                data: values,
+                dataType: 'text',
+                success: function (result) {
+                    // $(".c-loader").remove()
+                    // $("#send-loading").remove()
+                    // setTimeout(() => {
+                    //     $('#dateFinMission').text(formData.get('dateFinish'))
+                    //     $('#kg').text(formData.get('kiloGram').replace(/_/g, ''))
+                    //     $('#m3').text(formData.get('metersCub').replace(/_/g, ''))
+                    //     $('#conGas').text(formData.get('consGas').replace(/_/g, ''))
+                    //     $('#conDiesel').text(formData.get('consDiesel').replace(/_/g, ''))
+                    //     $('#alt').text(formData.get('altMission') == 1 ? "Sim " : "Não")
+                    //     $('#obs').html(formData.get('obsMission') ? formData.get('obsMission') : 'Sem observações')
 
 
-            $('#form').remove()
-            $('#panelInfoCon').removeClass('d-none')
+                    //     $('#form').remove()
+                    //     $('#panelInfoCon').removeClass('d-none')
+                    // }, 1500);
+                },
+
+                error: function (data) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: '&nbsp&nbsp Erro ao registrar.'
+                    });
+                }
+            })
         },
+        buttons: {
+            cancel: {
+                label: 'Cancelar',
+                className: 'btn-default'
+            },
+            confirm: {
+                label: 'Salvar',
+                className: 'btn-success'
+            }
 
-        error: function (data) {
-            Toast.fire({
-                icon: 'error',
-                title: '&nbsp&nbsp Erro ao registrar.'
-            });
         }
-    })
+    });
 }

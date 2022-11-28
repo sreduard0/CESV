@@ -104,14 +104,13 @@ class MissionController extends Controller
     {
         $data = $request->all();
 
-        // $report = MissionModel::find($this->Tools->hash($data['id'], 'decrypt'));
-        // if ($report->finish_mission) {
-        //     return 'erro';
-        // }
+        print_r($data);
 
-        // $report->finish_mission = $data['dateFinish'];
+        // $report = MissionModel::find($this->Tools->hash($data['id'], 'decrypt'));
+
+        // $report->finish_mission = date('Y-m-d', strtotime($data['dateFinish']));
         // $report->peso = $data['kiloGram'];
-        // $report->vol = $data['metersCubic'];
+        // $report->vol = $data['metersCub'];
         // $report->cons_gas = $data['consGas'];
         // $report->cons_deisel = $data['consDiesel'];
         // $report->alteration = $data['altMission'];

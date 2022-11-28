@@ -11815,28 +11815,39 @@
 
 
 /* LOADER*/
-#loading {
+.loading {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    z-index: 999;
-    display: block;
+    z-index: 999999;
 }
 
 .load-block {
-    background-color: #2b2b2bfb;
+    background-color: #2f3236;
     width: 500px;
     height: 180px;
-    border-radius: 25px;
+    border-radius: 15px;
     text-align: center;
-    border: 1px solid #00664d;
+    border: 2px solid #00664d;
+    z-index: 9999;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .c-loader {
-    margin: 20px;
-    margin-left: 210px;
+    margin: 10px;
+    /* margin-left: 210px; */
     animation: is-rotating 1s infinite;
     border: 6px solid #e5e5e5;
     border-radius: 50%;
-    border-top-color: #00664d;
+    border-top-color: #003629;
     height: 80px;
     width: 80px;
 }
