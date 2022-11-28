@@ -10,7 +10,7 @@ class MissionModel extends Model
 {
     public function vtrinfo()
     {
-        return $this->hasMany('App\Models\FichaModel', 'id_mission', 'id')->with('vtrinfo')->withTrashed();
+        return $this->hasMany('App\Models\FichaModel', 'id_mission', 'id')->with('vtrinfo', 'motinfo')->withTrashed();
     }
     use HasFactory;
     use SoftDeletes;

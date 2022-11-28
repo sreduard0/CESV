@@ -90,7 +90,7 @@
                             <th>Segurança</th>
                             <th>Natureza</th>
                             <th>Status</th>
-                            <th style=" white-space: nowrap; width:auto;">Ações</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                 </table>
@@ -380,7 +380,7 @@
                 "lengthChange": true,
                 "autoWidth": false,
                 "aoColumnDefs": [{
-                    'className': 'w-1 text-center',
+                    'className': 'text-center',
                     'aTargets': [8]
                 }],
                 "language": {
@@ -403,11 +403,15 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
-                        'messageTop': " ",
-                        'messageBottom': 'Seção de Transporte',
                         'exportOptions': {
-                            'columns': [1, 2, 3, 4, 5]
+                            'columns': [1, 2, 3, 4, 5, 6, 7],
+                            'title': 'Fichas',
+                            'pgUser': "{{ session('user')['rank'] }}",
+                            'nameUser': "{{ session('user')['professionalName'] }}",
+                            'fullNameUser': "{{ session('user')['name'] }}",
+                            'functionUser': "{{ session('CESV')['profileType'] }}",
                         },
+
                         "autoPrint": true,
                     },
                     {

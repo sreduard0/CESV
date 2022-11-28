@@ -170,7 +170,8 @@
                  }
                  var od = vtr.od_total ? '<br>Percorrido: ' + vtr.od_total + 'KM(s)' : ''
                  var data = 'Ficha: ' + vtr.nr_ficha + ' | Vtr: ' + vtr.vtrinfo.mod_vtr +
-                     ' <br> Mot: ' + vtr.pg_mot + ' ' + vtr.name_mot + ' | Seg: ' + segName +
+                     ' <br> Mot: ' + vtr.motinfo.pg + ' ' + vtr.motinfo.name + ' | Seg: ' +
+                     segName +
                      od +
                      '<br><br>'
 

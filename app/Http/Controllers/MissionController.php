@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MissionRequest;
 use App\Models\FichaModel;
@@ -11,6 +12,11 @@ use Illuminate\Http\Request;
 
 class MissionController extends Controller
 {
+    private $Tools;
+    public function __construct()
+    {
+        $this->Tools = new Tools;
+    }
     // INFORMAÇÕES DA MISSÃO SOLICITADA
     public function infoMission($id)
     {
@@ -92,6 +98,25 @@ class MissionController extends Controller
     public function deleteMission($id)
     {
         MissionModel::find($id)->delete();
+    }
+
+    public function saveReport(Request $request)
+    {
+        $data = $request->all();
+
+        // $report = MissionModel::find($this->Tools->hash($data['id'], 'decrypt'));
+        // if ($report->finish_mission) {
+        //     return 'erro';
+        // }
+
+        // $report->finish_mission = $data['dateFinish'];
+        // $report->peso = $data['kiloGram'];
+        // $report->vol = $data['metersCubic'];
+        // $report->cons_gas = $data['consGas'];
+        // $report->cons_deisel = $data['consDiesel'];
+        // $report->alteration = $data['altMission'];
+        // $report->obs_alteration = $data['obsMission'];
+        // $report->save();
     }
 
     // TABELA DAS MISSÕES
@@ -224,7 +249,7 @@ class MissionController extends Controller
             }
             if (session('CESV')['profileType'] == 1) {
                 $btnInfo = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
-                $btnAltstatus = ' <button title="Iniciar missão" class="btn btn-sm btn-secondary" onclick="altStatusMission(' . $mission->id . ')"
+                $btnAltstatus = ' <button title="Iniciar missão" class="btn btn-sm btn-success" onclick="altStatusMission(' . $mission->id . ')"
                                     ><i class="fa fa-check"></i></button> ';
                 $btnFinMission = ' <button title="Finalizar missão" class="btn btn-sm btn-danger" onclick="finishMission(' . $mission->id . ')"
                                     ><i class=" fs-18 fa fa-times"></i></button> ';
@@ -245,13 +270,24 @@ class MissionController extends Controller
                 $dado[] = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
 
             } else {
-                $dado[] = '
-                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"
-                                    ><i class="fa fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-mission" data-id="' . $mission->id . '"
-                                    ><i class="fa fa-edit"></i></button>
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteMission(' . $mission->id . ')"><i
+
+                $btnInfo = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
+                $btnEdt = ' <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-mission" data-id="' . $mission->id . '"
+                                    ><i class="fa fa-edit"></i></button>';
+                $btnDel = ' <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteMission(' . $mission->id . ')"><i
                                         class="fa fa-trash"></i></button>';
+                switch ($mission->status) {
+                    case 1:
+                        $dado[] = $btnInfo . $btnEdt . $btnDel;
+                        break;
+                    case 2:
+                        $dado[] = $btnInfo . $btnEdt;
+
+                        break;
+                    case 3:
+                        $dado[] = $btnInfo;
+                        break;
+                }
 
             }
             $dados[] = $dado;

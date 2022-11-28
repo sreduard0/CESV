@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Models\FichaModel;
 use App\Models\MissionModel;
@@ -10,6 +11,11 @@ use App\Models\VtrModel;
 
 class ViewController extends Controller
 {
+    private $Tools;
+    public function __construct()
+    {
+        $this->Tools = new Tools();
+    }
     public function home()
     {
         switch (session('CESV')['profileType']) {
@@ -40,7 +46,7 @@ class ViewController extends Controller
     {
         $data = [
             'viaturas' => VtrModel::where('status', 1)->get(),
-            'missions' => MissionModel::where('status', 1)->get(),
+            'missions' => MissionModel::where('status', '>=', 2)->get(),
             'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
 
         ];
@@ -86,5 +92,12 @@ class ViewController extends Controller
             return redirect()->route('home');
         }
         return view('form-login');
+    }
+    public function reportForm($id)
+    {
+        $data = [
+            'mission' => MissionModel::with('vtrinfo')->find($this->Tools->hash($id, 'decrypt')),
+        ];
+        return view('report-cmt-mission', $data);
     }
 }

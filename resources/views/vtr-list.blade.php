@@ -83,7 +83,7 @@
                             <th>Ton</th>
                             <th>M <sup>3</sup></th>
                             <th>Status</th>
-                            <th>Ações</th>
+                            <th width="100px">Ações</th>
                         </tr>
                     </thead>
                 </table>
@@ -313,7 +313,7 @@
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
                 "aoColumnDefs": [{
-                    'className': 'w-1 text-center',
+                    'className': 'text-center',
                     'aTargets': [6]
                 }],
                 "processing": true,

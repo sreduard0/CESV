@@ -58,7 +58,7 @@
             <style>
                 .w-1 {
                     width: 100px;
-                    column-width: 20px;
+                    column-width: 90px;
                 }
             </style>
         @break

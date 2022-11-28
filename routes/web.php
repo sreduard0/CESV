@@ -9,6 +9,9 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\VtrController;
 use Illuminate\Support\Facades\Route;
 
+// RELATORIO DO CMT DA MISSAO
+Route::get('/relatorio/form/{id}', [ViewController::class, 'reportForm'])->name('reportForm');
+
 // LOGIN
 Route::get('/login', [ViewController::class, 'login'])->name('login');
 Route::post('submit_login', [AdminController::class, 'loginSubmit'])->name('loginSubmit');
@@ -17,6 +20,9 @@ Route::get('logout', function () {
     session()->flush();
     return redirect()->route('login');
 })->name('logout');
+
+// RELATÓRIO DA MISSÃO
+Route::post('save_report_cmt_mission', [MissionController::class, 'saveReport']);
 
 Route::middleware('auth')->group(function () {
 // VIEWS

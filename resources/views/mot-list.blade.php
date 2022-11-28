@@ -25,8 +25,8 @@
     <script src="{{ asset('js/crud-mot.js') }}"></script>
     <style>
         .w-1 {
-            width: 50px;
-            column-width: 20px;
+            width: 90px;
+            column-width: 90px;
         }
     </style>
 @endsection
