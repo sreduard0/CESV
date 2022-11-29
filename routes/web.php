@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 // RELATORIO DO CMT DA MISSAO
 Route::get('/relatorio/form/{id}', [ViewController::class, 'reportForm'])->name('reportForm');
+Route::get('/relatorio/print/{id}', [MissionController::class, 'printReport']);
 
 // LOGIN
 Route::get('/login', [ViewController::class, 'login'])->name('login');

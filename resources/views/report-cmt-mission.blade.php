@@ -57,18 +57,11 @@
         <div class="" id="send-loading"></div>
         @if ($mission->finish_mission)
             <div class="content-wrapper">
-                <section class="content align-items-center">
+                <section class="content align-items-center m-t-40">
                     <div class="container-fluid col-xl-8">
                         <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title card-title-background "> <i class="fas fa-info-circle mr-1"></i>
-                                    Informações da missão</h3>
-                            </div>
-                            <div class="card-body">
-
-
-                                teste
-
+                            <div class="card-body d-flex justify-content-center align-items-center ">
+                                <span class="text-muted">Este relatório já foi finalizado.</span>
                             </div>
                         </div>
                     </div>
@@ -143,7 +136,7 @@
                                     <hr>
                                 </div>
                                 <div class=" float-r col-md-6">
-                                    <strong>Viatura</strong>
+                                    <strong>Viaturas</strong>
                                     <table class="table table-hover">
                                         <tbody>
                                             @foreach ($mission->vtrinfo as $vtr)
@@ -397,8 +390,9 @@
                                             <select id="sendReport" name="sendReport" class="form-control">
                                                 <option selected value="">Selecione uma opcão</option>
                                                 <option value="0">Não receber</option>
-                                                <option value="1">Email</option>
+                                                <option disabled value="1">Email</option>
                                                 <option disabled value="2">WhatsApp</option>
+                                                <option value="3">Imprimir</option>
                                             </select>
                                         </div>
                                     </div>

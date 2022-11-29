@@ -53,6 +53,11 @@ class MissionController extends Controller
         }
     }
 
+    public function printReport($id)
+    {
+        echo $this->Tools->hash($id, 'decrypt');
+    }
+
     // CRUD DAS MISSÕES
     public function registerMission(MissionRequest $request)
     {
@@ -103,19 +108,15 @@ class MissionController extends Controller
     public function saveReport(Request $request)
     {
         $data = $request->all();
-
-        print_r($data);
-
-        // $report = MissionModel::find($this->Tools->hash($data['id'], 'decrypt'));
-
-        // $report->finish_mission = date('Y-m-d', strtotime($data['dateFinish']));
-        // $report->peso = $data['kiloGram'];
-        // $report->vol = $data['metersCub'];
-        // $report->cons_gas = $data['consGas'];
-        // $report->cons_deisel = $data['consDiesel'];
-        // $report->alteration = $data['altMission'];
-        // $report->obs_alteration = $data['obsMission'];
-        // $report->save();
+        $report = MissionModel::find($this->Tools->hash($data['id'], 'decrypt'));
+        $report->finish_mission = date('Y-m-d', strtotime($data['dateFinish']));
+        $report->peso = $data['kiloGram'];
+        $report->vol = $data['metersCub'];
+        $report->cons_gas = $data['consGas'];
+        $report->cons_diesel = $data['consDiesel'];
+        $report->alteration = $data['altMission'];
+        $report->obs_alteration = $data['obsMission'];
+        $report->save();
     }
 
     // TABELA DAS MISSÕES

@@ -19,79 +19,89 @@
                              Informações da missão</h3>
                      </div>
                      <div class="card-body">
-                         <div class="  float-l col-md-6">
-                             <strong>Missão</strong>
+                         <div class="row">
+                             <div class="  float-l col-md-6">
+                                 <strong>Missão</strong>
 
-                             <p id="nameMission" class="text-muted">-</p>
+                                 <p id="nameMission" class="text-muted">-</p>
 
-                             <hr>
+                                 <hr>
 
-                             <strong>Tipo</strong>
+                                 <strong>Tipo</strong>
 
-                             <p id="typeMission" class="text-muted">-</p>
+                                 <p id="typeMission" class="text-muted">-</p>
 
-                             <hr>
+                                 <hr>
 
-                             <strong>Destino</strong>
+                                 <strong>Destino</strong>
 
-                             <p id="destinyMission" class="text-muted">-</p>
+                                 <p id="destinyMission" class="text-muted">-</p>
 
-                             <hr>
-
-
-                             <strong>Classe</strong>
-
-                             <p id="classMission" class="text-muted">-</p>
-
-                             <hr>
-                             <strong>Domumento</strong>
-
-                             <p id="docMission" class="text-muted">-</p>
-                             <hr>
-
-                             <strong>Nome do cmt da missão</strong>
-                             <p id="nameSegMission" class="text-muted">-</p>
+                                 <hr>
 
 
-                             <hr>
+                                 <strong>Classe</strong>
 
-                             <strong>Contato</strong>
+                                 <p id="classMission" class="text-muted">-</p>
 
-                             <p id="contactCmtMission" class="text-muted">-</p>
+                                 <hr>
 
+                                 <strong>Nome do cmt da missão</strong>
+                                 <p id="nameSegMission" class="text-muted">-</p>
+
+
+                                 <hr>
+
+                                 <strong>Contato</strong>
+
+                                 <p id="contactCmtMission" class="text-muted">-</p>
+                                 <hr>
+
+                             </div>
+                             <div class=" float-r col-md-6">
+                                 <strong>Domumento</strong>
+
+                                 <p id="docMission" class="text-muted">-</p>
+                                 <hr>
+                                 <strong>Viaturas</strong>
+                                 <table class="table table-hover">
+                                     <tbody id="vtrMission">
+                                         <tr data-widget="expandable-table" aria-expanded="true">
+                                             <td>Não há viaturas</td>
+                                         </tr>
+                                     </tbody>
+                                 </table>
+
+                                 <hr>
+
+                                 <strong>Status</strong>
+
+                                 <p id="statusMission" class="text-muted">-</p>
+
+                                 <hr>
+
+                                 <strong>Prev. de partida</strong>
+
+                                 <p id="datePrevPart" class="text-muted">-</p>
+
+                                 <hr>
+
+                                 <strong>Prev. de chegada</strong>
+
+                                 <p id="datePrevChgd" class="text-muted">-</p>
+
+                                 <hr>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col">
+
+                                 <strong>Observações para execução </strong>
+
+                                 <p id="obsMission" class="text-muted">-</p>
+                             </div>
 
                          </div>
-                         <div class=" float-r col-md-6">
-                             <strong>Viatura</strong>
-
-                             <p id="vtrMission" class="text-muted">-</p>
-
-                             <hr>
-
-                             <strong>Status</strong>
-
-                             <p id="statusMission" class="text-muted">-</p>
-
-                             <hr>
-
-                             <strong>Prev. de partida</strong>
-
-                             <p id="datePrevPart" class="text-muted">-</p>
-
-                             <hr>
-
-                             <strong>Prev. de chegada</strong>
-
-                             <p id="datePrevChgd" class="text-muted">-</p>
-
-                             <hr>
-
-
-                             <strong>Observações </strong>
-
-                             <p id="obsMission" class="text-muted">-</p>
-                         </div>
-
                      </div>
                  </div>
                  <div class="card" id="panelInfoCon" style="display: none">
@@ -101,46 +111,55 @@
                              conclusão</h3>
                      </div>
                      <div class="card-body">
-                         <div class=" float-l col-md-6">
-                             <strong>Data de fim da missão</strong>
+                         <div class="row">
+                             <div class=" float-l col-md-6">
+                                 <strong>Data de fim da missão</strong>
 
-                             <p id="" class="text-muted">-</p>
+                                 <p id="dateFinMission" class="text-muted">-</p>
 
-                             <hr>
+                                 <hr>
 
-                             <strong>Peso</strong>
+                                 <strong>Peso</strong>
 
-                             <p id="" class="text-muted">-</p>
+                                 <p id="kg" class="text-muted">-</p>
 
-                             <hr>
-                             <strong>M <sup>3</sup></strong>
+                                 <hr>
+                                 <strong>M <sup>3</sup> da carga</strong>
 
-                             <p id="" class="text-muted">-</p>
+                                 <p id="m3" class="text-muted">-</p>
 
-                             <hr>
+                                 <hr>
 
-                             <strong>Consumo gasolina</strong>
 
-                             <p id="" class="text-muted">-</p>
 
+                             </div>
+                             <div class=" float-r col-md-6">
+                                 <strong>Consumo gasolina</strong>
+
+                                 <p id="conGas" class="text-muted">-</p>
+                                 <hr>
+
+                                 <strong>Consumo diesel</strong>
+
+                                 <p id="conDiesel" class="text-muted">-</p>
+                                 <hr>
+                                 <strong>Alteração</strong>
+
+                                 <p id="alt" class="text-muted">-</p>
+
+                                 <hr>
+
+
+                             </div>
                          </div>
-                         <div class=" float-r col-md-6">
 
+                         <div class="row">
+                             <div class="col">
+                                 <strong>Observações de conclusão</strong>
 
+                                 <p id="obs" class="text-muted">-</p>
+                             </div>
 
-                             <strong>Consumo diesel</strong>
-
-                             <p id="" class="text-muted">-</p>
-
-                             <strong>Alteração</strong>
-
-                             <p id="" class="text-muted">-</p>
-
-                             <hr>
-
-                             <strong>Observações </strong>
-
-                             <p id="" class="text-muted">-</p>
                          </div>
                      </div>
                  </div>
@@ -162,19 +181,24 @@
          $('#contactCmtMission').mask('+00 (00) 0 0000-0000')
 
          $.get(url, function(result) {
+             var i = 1
              const Vtrs = result.vtr_info.map(vtr => {
+                 var count = i++
                  if (vtr.pg_seg) {
                      var segName = vtr.pg_seg + ' ' + vtr.name_seg
                  } else {
                      var segName = 'Não informado'
                  }
-                 var od = vtr.od_total ? '<br>Percorrido: ' + vtr.od_total + 'KM(s)' : ''
-                 var data = 'Ficha: ' + vtr.nr_ficha + ' | Vtr: ' + vtr.vtrinfo.mod_vtr +
-                     ' <br> Mot: ' + vtr.motinfo.pg + ' ' + vtr.motinfo.name + ' | Seg: ' +
-                     segName +
-                     od +
-                     '<br><br>'
-
+                 var od = vtr.od_total ? '<p class="m-l-30 text-muted">Km(s) rodados: ' + vtr
+                     .od_total +
+                     '</p>' : ''
+                 var data = '<tr data-widget="expandable-table" aria-expanded="false"><td>' +
+                     count + ' - ' + vtr.vtrinfo.mod_vtr +
+                     ' <i class="text-success float-r fa fa-eye"></i></td></tr><tr class="expandable-body d-none"><td><p class="m-l-30 text-muted">Ficha: ' +
+                     vtr.nr_ficha + '</p><p class="m-l-30 text-muted">Motorista:' + vtr.motinfo
+                     .pg + ' ' + vtr.motinfo.name +
+                     '</p><p class=" m-l-30 text-muted">Segurança:   ' +
+                     segName + '</p>' + od + '</td></tr>'
                  return data
              })
              if (result.obs == null) {
@@ -206,12 +230,22 @@
                  result.contact +
                  '" target="_blank" class="float-r m-r-30 btn btn-success"><i class="fs-20 fab fa-whatsapp"></i></a>'
              )
-             modal.find('#vtrMission').html(Vtrs == '' ? 'Não há viaturas' : Vtrs)
+             modal.find('#vtrMission').html(Vtrs == '' ?
+                 '<tr data-widget="expandable-table" aria-expanded="true"><td>Não há viaturas</td></tr>' :
+                 Vtrs)
              modal.find('#nameSegMission').text(result.pg_seg + ' ' + result.name_seg)
              modal.find('#datePrevPart').text(moment(result.prev_date_part).format('DD-MM-YYYY HH:mm'))
              modal.find('#datePrevChgd').text(moment(result.prev_date_chgd).format('DD-MM-YYYY HH:mm'))
 
-             if (result.status > 2) {
+             if (result.finish_mission) {
+                 $('#dateFinMission').text(result.finish_mission)
+                 $('#kg').text(result.peso + ' Kg')
+                 $('#m3').text(result.vol + ' m')
+                 $('#conGas').text(result.cons_gas + ' L')
+                 $('#conDiesel').text(result.cons_diesel + ' L')
+                 $('#alt').text(result.alteration == 1 ? "Sim " : "Não")
+                 $('#obs').html(result.obs_alteration ? result.obs_alteration :
+                     'Sem observações')
                  $("#panelInfoCon").css("display", "block")
              } else {
                  $("#panelInfoCon").css("display", "none")

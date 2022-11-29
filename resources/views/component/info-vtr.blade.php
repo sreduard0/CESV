@@ -123,10 +123,17 @@
             } else {
                 modal.find('#obs_vtr').html(result.obs)
             }
-            if (result.status == 1) {
-                modal.find('#status').text('Disponível')
-            } else {
-                modal.find('#status').text('Indisponível')
+            switch (result.status) {
+                case 1:
+                    modal.find('#status').text('Disponível')
+                    break;
+                case 2:
+                    modal.find('#status').text('Indisponível')
+
+                    break;
+                case 3:
+                    modal.find('#status').text('Disp. c/ restrição')
+                    break;
             }
             $('.ger-qr').prop('disabled', false)
 

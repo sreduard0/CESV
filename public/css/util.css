@@ -11826,13 +11826,20 @@
     z-index: 999999;
 }
 
+.border-s {
+    border: 2px solid #00664d;
+}
+
+.border-r {
+    border: 2px solid #bc0000;
+}
+
 .load-block {
     background-color: #2f3236;
-    width: 500px;
+    width: 180px;
     height: 180px;
     border-radius: 15px;
     text-align: center;
-    border: 2px solid #00664d;
     z-index: 9999;
     position: fixed;
     display: flex;
@@ -11841,7 +11848,10 @@
     align-items: center;
 }
 
+
+
 .c-loader {
+
     margin: 10px;
     /* margin-left: 210px; */
     animation: is-rotating 1s infinite;

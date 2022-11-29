@@ -113,11 +113,17 @@ class VtrController extends Controller
             $dado[] = $vtr->ebplaca;
             $dado[] = $vtr->ton;
             $dado[] = $vtr->vol;
-            if ($vtr->status == 1) {
-                $dado[] = 'Disponível';
-            } else {
-                $dado[] = 'Indisponível';
+            switch ($vtr->status) {
+                case 1:
+                    $dado[] = 'Disponível';
+                    break;
+                case 2:
+                    $dado[] = 'Indisponível';
 
+                    break;
+                case 3:
+                    $dado[] = 'Disp. c/ restrição';
+                    break;
             }
             if (session('CESV')['profileType'] == 5) {
                 $dado[] = '
