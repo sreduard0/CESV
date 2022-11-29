@@ -46,7 +46,7 @@ class ViewController extends Controller
     {
         $data = [
             'viaturas' => VtrModel::where('status', 1)->orWhere('status', 3)->get(),
-            'missions' => MissionModel::where('status', '>=', 2)->get(),
+            'missions' => MissionModel::where('status', '<=', 2)->get(),
             'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
 
         ];
@@ -95,7 +95,8 @@ class ViewController extends Controller
     }
     public function reportForm($id)
     {
-        $mission = MissionModel::with('vtrinfo')->find($this->Tools->hash($id, 'decrypt'));
+        // $mission = MissionModel::with('vtrinfo')->find($this->Tools->hash($id, 'decrypt'));
+        $mission = MissionModel::with('vtrinfo')->find($id);
         if (empty($mission)) {
             return redirect()->route('login');
         }

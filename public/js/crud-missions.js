@@ -370,13 +370,18 @@ function altStatusMission(id) {
                     url: '/alt_sts_mission/' + id,
                     type: "GET",
                     success: function (data) {
-                        Toast.fire({
-                            icon: 'success',
-                            title: '&nbsp&nbsp Status da missão alterado.'
-                        });
-                        $("#table").DataTable().clear().draw();
-
-
+                        if (data == 'vtr') {
+                            Toast.fire({
+                                icon: 'warning',
+                                title: '&nbsp&nbsp Esta missão ainda não possui viatura.'
+                            });
+                        } else {
+                            Toast.fire({
+                                icon: 'success',
+                                title: '&nbsp&nbsp Status da missão alterado.'
+                            });
+                            $("#table").DataTable().clear().draw();
+                        }
                     },
                     error: function (data) {
                         Toast.fire({

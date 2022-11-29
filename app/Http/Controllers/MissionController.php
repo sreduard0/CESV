@@ -22,10 +22,14 @@ class MissionController extends Controller
     {
         return MissionModel::with('vtrInfo')->find($id);
     }
-    // MUDAR STATUS DA MISSÃO PADA EM ANDAMENTO
+    // MUDAR STATUS DA MISSÃO PARA EM ANDAMENTO
     public function altStsMission($id)
     {
-        $mission = MissionModel::find($id);
+        $mission = MissionModel::with('vtrinfo')->find($id);
+
+        if (count($mission->vtrinfo) == 0) {
+            return 'vtr';
+        }
         $mission->status = 2;
         $mission->save();
     }
@@ -53,9 +57,18 @@ class MissionController extends Controller
         }
     }
 
-    public function printReport($id)
+    public function printReport($id, $status)
     {
-        echo $this->Tools->hash($id, 'decrypt');
+        $mission = MissionModel::find($this->Tools->hash($id, 'decrypt'));
+        if (empty($mission)) {
+            return redirect()->route('login');
+        }
+        $data = [
+            'mission' => $mission,
+            'status' => $status,
+
+        ];
+        return view('print-report', $data);
     }
 
     // CRUD DAS MISSÕES

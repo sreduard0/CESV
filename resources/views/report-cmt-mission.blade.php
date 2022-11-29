@@ -81,120 +81,124 @@
                                     Informações da missão</h3>
                             </div>
                             <div class="card-body">
-                                <div class="  float-l col-md-6">
-                                    <strong>Missão</strong>
+                                <div class="row">
+                                    <div class="  float-l col-md-6">
+                                        <strong>Missão</strong>
 
-                                    <p class="text-muted">{{ $mission->mission_name }}</p>
+                                        <p class="text-muted">{{ $mission->mission_name }}</p>
 
-                                    <hr>
+                                        <hr>
 
-                                    <strong>Tipo</strong>
+                                        <strong>Tipo</strong>
 
-                                    <p class="text-muted">{{ $mission->type_mission }}</p>
+                                        <p class="text-muted">{{ $mission->type_mission }}</p>
 
-                                    <hr>
+                                        <hr>
 
-                                    <strong>Destino</strong>
+                                        <strong>Destino</strong>
 
-                                    <p class="text-muted">{{ $mission->destiny }}</p>
+                                        <p class="text-muted">{{ $mission->destiny }}</p>
 
-                                    <hr>
-
-
-                                    <strong>Classe</strong>
-
-                                    <p class="text-muted">{{ $mission->class }}</p>
-
-                                    <hr>
-                                    <strong>Domumento</strong>
-
-                                    <p class="text-muted">{{ $mission->doc }}</p>
-                                    <hr>
-
-                                    <strong>Nome do cmt da missão</strong>
-                                    <p class="text-muted">{{ $mission->pg_seg . ' ' . $mission->name_seg }}</p>
+                                        <hr>
 
 
-                                    <hr>
+                                        <strong>Classe</strong>
+
+                                        <p class="text-muted">{{ $mission->class }}</p>
+
+                                        <hr>
 
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <strong>Contato</strong>
-                                            <p class="text-muted">
-                                                {{ $tools->mask('+## (##) # ####-####', $mission->contact) }}
-                                            </p>
+                                        <strong>Nome do cmt da missão</strong>
+                                        <p class="text-muted">{{ $mission->pg_seg . ' ' . $mission->name_seg }}</p>
+
+
+                                        <hr>
+
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <strong>Contato</strong>
+                                                <p class="text-muted">
+                                                    {{ $tools->mask('+## (##) # ####-####', $mission->contact) }}
+                                                </p>
+                                            </div>
+                                            <div class="col">
+                                                <a href="https://api.whatsapp.com/send?phone={{ $mission->contact }}"
+                                                    target="_blank" class="float-r m-r-30 btn btn-success"><i
+                                                        class="fs-23 fab fa-whatsapp"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <a href="https://api.whatsapp.com/send?phone={{ $mission->contact }}"
-                                                target="_blank" class="float-r m-r-30 btn btn-success"><i
-                                                    class="fs-23 fab fa-whatsapp"></i></a>
-                                        </div>
+
+
+                                        <hr>
                                     </div>
+                                    <div class=" float-r col-md-6">
+                                        <strong>Domumento</strong>
 
+                                        <p class="text-muted">{{ $mission->doc }}</p>
+                                        <hr>
+                                        <strong>Viaturas</strong>
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                @foreach ($mission->vtrinfo as $vtr)
+                                                    @php
+                                                        $i++;
+                                                    @endphp
+                                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                                        <td>{{ $i }} - {{ $vtr->vtrinfo->mod_vtr }} <i
+                                                                class="text-success float-r fa fa-eye"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="expandable-body">
+                                                        <td>
+                                                            <p class="m-l-30 text-muted">Ficha: {{ $vtr->nr_ficha }}
+                                                            </p>
+                                                            <p class="m-l-30 text-muted">Motorista:
+                                                                {{ $vtr->motinfo->pg . ' ' . $vtr->motinfo->name }}
+                                                            </p>
+                                                            <p class=" m-l-30 text-muted">Segurança:
+                                                                {{ $vtr->pg_seg . ' ' . $vtr->name_seg }}
+                                                            </p>
+                                                            <p class="m-l-30 text-muted">Km(s) rodados:
+                                                                {{ $vtr->od_total }}
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
 
-                                    <hr>
+                                        <hr>
+
+                                        <strong>Status</strong>
+
+                                        <p class="text-muted">Finalizada</p>
+
+                                        <hr>
+
+                                        <strong>Prev. de partida</strong>
+
+                                        <p class="text-muted">
+                                            {{ date('d/m/Y H:i', strtotime($mission->prev_date_part)) }}</p>
+
+                                        <hr>
+
+                                        <strong>Prev. de chegada</strong>
+
+                                        <p class="text-muted">
+                                            {{ date('d/m/Y H:i', strtotime($mission->prev_date_chgd)) }}</p>
+
+                                        <hr>
+
+                                    </div>
                                 </div>
-                                <div class=" float-r col-md-6">
-                                    <strong>Viaturas</strong>
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            @foreach ($mission->vtrinfo as $vtr)
-                                                @php
-                                                    $i++;
-                                                @endphp
-                                                <tr data-widget="expandable-table" aria-expanded="false">
-                                                    <td>{{ $i }} - {{ $vtr->vtrinfo->mod_vtr }} <i
-                                                            class="text-success float-r fa fa-eye"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr class="expandable-body">
-                                                    <td>
-                                                        <p class="m-l-30 text-muted">Ficha: {{ $vtr->nr_ficha }}
-                                                        </p>
-                                                        <p class="m-l-30 text-muted">Motorista:
-                                                            {{ $vtr->motinfo->pg . ' ' . $vtr->motinfo->name }}
-                                                        </p>
-                                                        <p class=" m-l-30 text-muted">Segurança:
-                                                            {{ $vtr->pg_seg . ' ' . $vtr->name_seg }}
-                                                        </p>
-                                                        <p class="m-l-30 text-muted">Km(s) rodados:
-                                                            {{ $vtr->od_total }}
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-
-                                    <hr>
-
-                                    <strong>Status</strong>
-
-                                    <p class="text-muted">Finalizada</p>
-
-                                    <hr>
-
-                                    <strong>Prev. de partida</strong>
-
-                                    <p class="text-muted">
-                                        {{ date('d/m/Y H:i', strtotime($mission->prev_date_part)) }}</p>
-
-                                    <hr>
-
-                                    <strong>Prev. de chegada</strong>
-
-                                    <p class="text-muted">
-                                        {{ date('d/m/Y H:i', strtotime($mission->prev_date_chgd)) }}</p>
-
-                                    <hr>
-
-
-                                    <strong>Observações </strong>
-
-                                    <p class="text-muted">{{ $mission->obs ? $mission->obs : 'Sem observações' }}</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Observações para execução </strong>
+                                        <p class="text-muted">{!! $mission->obs ? $mission->obs : 'Sem observações' !!}</p>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
                         <div id="panelInfoCon" class="card d-none">
