@@ -78,9 +78,10 @@ function saveReport() {
         callback: function (confirmacao) {
 
             if (confirmacao)
-                $("#send-loading").addClass('loading').append(
-                    '<div class="load-block"><div class="c-loader"></div></div>'
-                );
+                $('#form').remove()
+            $("#send-loading").addClass('loading').append(
+                '<div class="load-block"><div class="c-loader"></div></div>'
+            );
             $.ajax({
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 url: URL,
@@ -88,21 +89,21 @@ function saveReport() {
                 data: values,
                 dataType: 'text',
                 success: function (result) {
-                    // $(".c-loader").remove()
-                    // $("#send-loading").remove()
-                    // setTimeout(() => {
-                    //     $('#dateFinMission').text(formData.get('dateFinish'))
-                    //     $('#kg').text(formData.get('kiloGram').replace(/_/g, ''))
-                    //     $('#m3').text(formData.get('metersCub').replace(/_/g, ''))
-                    //     $('#conGas').text(formData.get('consGas').replace(/_/g, ''))
-                    //     $('#conDiesel').text(formData.get('consDiesel').replace(/_/g, ''))
-                    //     $('#alt').text(formData.get('altMission') == 1 ? "Sim " : "Não")
-                    //     $('#obs').html(formData.get('obsMission') ? formData.get('obsMission') : 'Sem observações')
+                    $("#send-loading").addClass('loading').append(
+                        '<div class="load-block"><i class="fs-50 fa fa-check"></i></div>'
+                    );
 
-
-                    //     $('#form').remove()
-                    //     $('#panelInfoCon').removeClass('d-none')
-                    // }, 1500);
+                    setTimeout(() => {
+                        $("#send-loading").remove()
+                        //     $('#dateFinMission').text(formData.get('dateFinish'))
+                        //     $('#kg').text(formData.get('kiloGram').replace(/_/g, ''))
+                        //     $('#m3').text(formData.get('metersCub').replace(/_/g, ''))
+                        //     $('#conGas').text(formData.get('consGas').replace(/_/g, ''))
+                        //     $('#conDiesel').text(formData.get('consDiesel').replace(/_/g, ''))
+                        //     $('#alt').text(formData.get('altMission') == 1 ? "Sim " : "Não")
+                        //     $('#obs').html(formData.get('obsMission') ? formData.get('obsMission') : 'Sem observações')
+                        //     $('#panelInfoCon').removeClass('d-none')
+                    }, 1500);
                 },
 
                 error: function (data) {

@@ -96,7 +96,7 @@ class ViewController extends Controller
     public function reportForm($id)
     {
         $data = [
-            'mission' => MissionModel::with('vtrinfo')->find($this->Tools->hash($id, 'decrypt')),
+            'mission' => MissionModel::with('vtrinfo')->find($id),
         ];
         return view('report-cmt-mission', $data);
     }
