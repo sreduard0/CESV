@@ -25,11 +25,11 @@ class RelGda extends Migration
             $table->integer('od_ent')->nullable();
             $table->integer('od_sai')->nullable();
             $table->integer('total_od')->nullable();
-            $table->datetime('hour_ent');
-            $table->datetime('hour_sai');
+            $table->datetime('hour_ent')->nullable();
+            $table->datetime('hour_sai')->nullable();
             $table->integer('id_ficha')->nullable();
-            $table->integer('user_rel_ent', 255)->nullable();
-            $table->integer('user_rel_sai', 255)->nullable();
+            $table->string('user_rel_ent', 255)->nullable();
+            $table->string('user_rel_sai', 255)->nullable();
             $table->integer('status');
             $table->timestamps();
             $table->softDeletes();

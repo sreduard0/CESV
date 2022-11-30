@@ -19,6 +19,10 @@ class Drivers extends Migration
             $table->date('val_cnh');
             $table->string('contact', 255);
             $table->string('full_name', 255);
+            $table->integer('mopp')->default(0);
+            $table->integer('tc')->default(0);
+            $table->integer('cve')->default(0);
+            $table->integer('ci')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -58,7 +58,7 @@
                         <div class="d-flex justify-content-sm-end">
                             <div class="col">
                                 <button class="btn btn-primary" data-toggle="modal"
-                                    data-target="#edit-drive">Cadastrar</button>
+                                    data-target="#register-drive">Cadastrar</button>
                             </div>
                         </div>
                     @endif
@@ -198,6 +198,30 @@
                                             placeholder="___.___.___-_">
                                     </div>
 
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="custom-control custom-checkbox m-r-30">
+                                    <input class=" custom-control-input" type="checkbox" id="mopp" name="mopp"
+                                        value="1">
+                                    <label for="mopp" class="custom-control-label">MOPP</label>
+                                </div>
+                                <div class="custom-control custom-checkbox m-r-30">
+                                    <input class=" custom-control-input" type="checkbox" id="tc" name="tc"
+                                        value="1">
+                                    <label for="tc" class="custom-control-label">Transp. Coletivo</label>
+                                </div>
+                                <div class="custom-control custom-checkbox m-r-30">
+                                    <input class=" custom-control-input" type="checkbox" id="cve" name="cve"
+                                        value="1">
+                                    <label for="cve" class="custom-control-label">Con. de Veículo de
+                                        Emergência</label>
+                                </div>
+                                <div class="custom-control custom-checkbox m-r-30">
+                                    <input class=" custom-control-input" type="checkbox" id="ci" name="ci"
+                                        value="1">
+                                    <label for="ci" class="custom-control-label">Cargas Indivisíveis</label>
                                 </div>
                             </div>
                         </form>
