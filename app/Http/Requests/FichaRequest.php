@@ -20,6 +20,7 @@ class FichaRequest extends FormRequest
             'inOrderFicha' => 'required | max:255',
             'idMotFicha' => 'required',
             'natOfServFicha' => 'required | max:255',
+            'dateClose' => 'required',
         ];
     }
 }

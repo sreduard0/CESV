@@ -27,24 +27,21 @@ function registerMission() {
     } else {
         $('#destinyMission').removeClass('is-invalid');
     }
-    if (formData.get('classMission') == '') {
-        $('#classMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#classMission').removeClass('is-invalid');
+    if (formData.get('typeMission') == 'OP') {
+        if (formData.get('classMission') == '') {
+            $('#classMission').addClass('is-invalid');
+            return false;
+        } else {
+            $('#classMission').removeClass('is-invalid');
+        }
+        if (formData.get('docMission').length > 200) {
+            $('#docMission').addClass('is-invalid');
+            return false;
+        } else {
+            $('#docMission').removeClass('is-invalid');
+        }
     }
-    if (formData.get('docMission').length > 200) {
-        $('#docMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#docMission').removeClass('is-invalid');
-    }
-    if (formData.get('originMission') == '' || formData.get('originMission').length > 200) {
-        $('#originMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#originMission').removeClass('is-invalid');
-    }
+
     if (formData.get('pgSegMission') == '') {
         $('#pgSegMission').addClass('is-invalid');
         return false;
@@ -82,11 +79,8 @@ function registerMission() {
         nameMission: formData.get('nameMission'),
         destinyMission: formData.get('destinyMission'),
         classMission: formData.get('classMission'),
-        vtrMission: formData.get('vtrMission'),
         docMission: formData.get('docMission'),
-        originMission: formData.get('originMission'),
-        // pgMotMission: formData.get('pgMotMission'),
-        // nameMotMission: formData.get('nameMotMission'),
+        originMission: formData.get('originMission') ? formData.get('originMission') : '3º B Sup',
         pgSegMission: formData.get('pgSegMission'),
         nameSegMission: formData.get('nameSegMission'),
         datePrevPartMission: formData.get('datePrevPartMission'),
@@ -151,23 +145,19 @@ function editMission() {
     } else {
         $('#e_destinyMission').removeClass('is-invalid');
     }
-    if (formData.get('e_classMission') == '') {
-        $('#e_classMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#e_classMission').removeClass('is-invalid');
-    }
-    if (formData.get('e_docMission').length > 200) {
-        $('#e_docMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#e_docMission').removeClass('is-invalid');
-    }
-    if (formData.get('e_originMission') == '' || formData.get('e_originMission').length > 200) {
-        $('#e_originMission').addClass('is-invalid');
-        return false;
-    } else {
-        $('#e_originMission').removeClass('is-invalid');
+    if (formData.get('e_typeMission') == 'OP') {
+        if (formData.get('e_classMission') == '') {
+            $('#e_classMission').addClass('is-invalid');
+            return false;
+        } else {
+            $('#e_classMission').removeClass('is-invalid');
+        }
+        if (formData.get('e_docMission').length > 200) {
+            $('#e_docMission').addClass('is-invalid');
+            return false;
+        } else {
+            $('#e_docMission').removeClass('is-invalid');
+        }
     }
     if (formData.get('e_pgSegMission') == '') {
         $('#e_pgSegMission').addClass('is-invalid');
@@ -207,7 +197,7 @@ function editMission() {
         destinyMission: formData.get('e_destinyMission'),
         classMission: formData.get('e_classMission'),
         docMission: formData.get('e_docMission'),
-        originMission: formData.get('e_originMission'),
+        originMission: formData.get('e_originMission') ? formData.get('e_originMission') : '3º B Sup',
         pgSegMission: formData.get('e_pgSegMission'),
         nameSegMission: formData.get('e_nameSegMission'),
         datePrevPartMission: formData.get('e_datePrevPartMission'),

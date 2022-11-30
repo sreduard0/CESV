@@ -11,21 +11,21 @@ class Missions extends Migration
     {
         Schema::create('missions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('type_mission',3);
-            $table->string('mission_name',255);
-            $table->string('destiny',255);
-            $table->string('class',10);
+            $table->string('type_mission', 3);
+            $table->string('mission_name', 255);
+            $table->string('destiny', 255);
+            $table->string('class', 10)->nullable();
             $table->integer('vtr');
-            $table->string('doc',255);
-            $table->string('origin',255);
+            $table->string('doc', 255)->nullable();
+            $table->string('origin', 255)->nullable();
             $table->integer('status');
-            $table->string('pg_mot',6);
-            $table->string('name_mot',255);
-            $table->string('pg_seg',6);
-            $table->string('name_seg',255);
+            $table->string('pg_mot', 6);
+            $table->string('name_mot', 255);
+            $table->string('pg_seg', 6);
+            $table->string('name_seg', 255);
             $table->datetime('prev_date_part');
             $table->datetime('prev_date_chgd');
-            $table->string('contact',13);
+            $table->string('contact', 13);
             $table->text('obs')->nullable();
             $table->datetime('finish_mission')->nullable();
             $table->integer('cons_gas')->nullable();

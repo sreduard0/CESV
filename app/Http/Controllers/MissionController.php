@@ -81,8 +81,8 @@ class MissionController extends Controller
         $saveData->status = 1;
         $saveData->mission_name = $data['nameMission'];
         $saveData->destiny = $data['destinyMission'];
-        $saveData->class = $data['classMission'];
-        $saveData->doc = $data['docMission'];
+        $saveData->class = $data['classMission'] ? $data['classMission'] : ' - ';
+        $saveData->doc = $data['docMission'] ? $data['docMission'] : 'Não especificado';
         $saveData->origin = $data['originMission'];
         $saveData->pg_seg = $data['pgSegMission'];
         $saveData->name_seg = $data['nameSegMission'];
@@ -101,8 +101,8 @@ class MissionController extends Controller
         $saveData->type_mission = $data['typeMission'];
         $saveData->mission_name = $data['nameMission'];
         $saveData->destiny = $data['destinyMission'];
-        $saveData->class = $data['classMission'];
-        $saveData->doc = $data['docMission'];
+        $saveData->class = $data['classMission'] ? $data['classMission'] : ' - ';
+        $saveData->doc = $data['docMission'] ? $data['docMission'] : 'Não especificado';
         $saveData->origin = $data['originMission'];
         $saveData->pg_seg = $data['pgSegMission'];
         $saveData->name_seg = $data['nameSegMission'];

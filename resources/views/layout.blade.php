@@ -1,5 +1,5 @@
 @php
-    $perm = ['Comandante da Guarda', 'Pel Manut e Transp', 'Adjunto', 'COST', 'Fiscal Administrativo', 'Administrador'];
+    $perm = ['Cmt da Guarda', 'Pel Manut e Transp', 'Adjunto', 'COST', 'Fisc Adm', 'Administrador'];
 @endphp
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -106,7 +106,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if (session('CESV')['profileType'] == 5)
+                        @if (session('CESV')['profileType'] == 5 || session('CESV')['profileType'] == 4)
                             <li class="nav-item ">
                                 <a href="{{ route('missions') }}" class="nav-link @yield('mission')">
                                     <i class="nav-icon fas fa-truck-moving"></i>
@@ -189,7 +189,7 @@
                         {{-- Conteudo --}}
                         @yield('content')
 
-                        @if (session('CESV')['profileType'] < 3 || session('CESV')['profileType'] == 4)
+                        @if (session('CESV')['profileType'] < 3)
                             {{-- /CONTEUDO --}}
                             <section class="col-lg-3">
                                 <div class="card bg-default">

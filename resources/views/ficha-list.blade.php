@@ -32,7 +32,6 @@
             <style>
                 .w-1 {
                     width: 100px;
-                    column-width: 20px;
                 }
             </style>
         @break
@@ -40,7 +39,7 @@
         @case(5)
             <style>
                 .w-1 {
-                    width: 20px;
+                    width: 100px;
                 }
             </style>
         @break
@@ -89,6 +88,7 @@
                             <th>Motorista</th>
                             <th>Segurança</th>
                             <th>Natureza</th>
+                            <th>Encerramento</th>
                             <th>Status</th>
                             <th>Ações</th>
                         </tr>
@@ -212,6 +212,19 @@
                                     <input minlength="2" maxlength="200" id="natOfServFicha" name="natOfServFicha"
                                         type="text" class="form-control" placeholder="Ex: Transporte de pessoal">
                                 </div>
+                                <div class="form-group col-md-3">
+                                    <label>Prev. de encerramento<span style="color:red">*</span></label>
+                                    <div class="input-group datet" id="dateCloseTarget" data-target-input="nearest">
+                                        <div class="input-group-prepend" data-target="#dateCloseTarget"
+                                            data-toggle="datetimepicker">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control datetimepicker-input"
+                                            data-target="#dateCloseTarget" id="dateClose" name="dateClose"
+                                            value="">
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -273,7 +286,7 @@
                                     <label for="e_missionFicha">Missão<span style="color:red">*</span></label>
                                     <select class="form-control" name="e_missionFicha" id="e_missionFicha">
                                         <option selected value="">Selecione</option>
-                                        <option value="0">Serviço / Guarnição</option>
+                                        <option value="0">Missão interna</option>
                                         @foreach ($missions as $mission)
                                             <option value="{{ $mission->id }}">{{ $mission->type_mission }} |
                                                 {{ $mission->mission_name }}</option>
@@ -335,6 +348,19 @@
                                     <input minlength="2" maxlength="200" id="e_natOfServFicha" name="e_natOfServFicha"
                                         type="text" class="form-control" placeholder="Ex: Transporte de pessoal">
                                 </div>
+                                <div class="form-group col-md-3">
+                                    <label>Prev. de encerramento<span style="color:red">*</span></label>
+                                    <div class="input-group datet" id="e_dateCloseTarget" data-target-input="nearest">
+                                        <div class="input-group-prepend" data-target="#e_dateCloseTarget"
+                                            data-toggle="datetimepicker">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control datetimepicker-input"
+                                            data-target="#e_dateCloseTarget" id="e_dateClose" name="e_dateClose"
+                                            value="">
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -380,8 +406,8 @@
                 "lengthChange": true,
                 "autoWidth": false,
                 "aoColumnDefs": [{
-                    'className': 'text-center',
-                    'aTargets': [8]
+                    'className': 'w-1 text-center',
+                    'aTargets': [9]
                 }],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
@@ -438,7 +464,7 @@
                     modal.find('#e_pgSegFicha').val(result.pg_seg)
                     modal.find('#e_nameSegFicha').val(result.name_seg)
                     modal.find('#e_natOfServFicha').val(result.nat_of_serv)
-
+                    modal.find('#e_dateClose').val(moment(result.date_close).format('DD-MM-YYYY'))
                 })
             });
             $('#edit-ficha').on('hide.bs.modal', function(event) {

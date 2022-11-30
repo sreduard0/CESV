@@ -46,6 +46,7 @@ class FichaController extends Controller
         $ficha->status = 3;
         $ficha->id_vtr = $data['vtrFicha'];
         $ficha->id_mission = $data['missionFicha'];
+        $ficha->date_close = date('Y-m-d', strtotime($data['dateClose']));
         $ficha->save();
 
     }
@@ -75,6 +76,7 @@ class FichaController extends Controller
         $ficha->pg_seg = $pgSeg;
         $ficha->name_seg = $nameSeg;
         $ficha->nat_of_serv = $data['natOfServFicha'];
+        $ficha->date_close = date('Y-m-d', strtotime($data['dateClose']));
         $ficha->in_order = $data['inOrderFicha'];
         $ficha->id_vtr = $data['vtrFicha'];
         $ficha->id_mission = $data['missionFicha'];
@@ -97,6 +99,7 @@ class FichaController extends Controller
             $od[] = $relGda->total_od;
         }
         $ficha->od_total = array_sum($od);
+        $ficha->date_close = date('Y-m-d');
         $ficha->status = 2;
         $ficha->save();
         return array_sum($od);
@@ -147,6 +150,7 @@ class FichaController extends Controller
                 $dado[] = $ficha->pg_seg . ' ' . $ficha->name_seg;
             }
             $dado[] = $ficha->nat_of_serv;
+            $dado[] = date('d-m-Y', strtotime($ficha->date_close));
             if ($ficha->status == 1) {
                 $dado[] = 'Aberta';
             } elseif ($ficha->status == 2) {
@@ -162,11 +166,12 @@ class FichaController extends Controller
 
             } elseif (session('CESV')['profileType'] == 4) {
                 $btn = $ficha->status == 3 ? ' <button title="Autorizar ficha" class="btn btn-sm btn-success" onclick="return authFicha(' . $ficha->id . ')"><i
-                                        class="fa fa-check"></i></button>' : ' <button title="Ficha já autorizada" class="btn btn-sm btn-secondary"><i
-                                        class="fa fa-check"></i></button>';
+                                        class="fa fa-check"></i></button>' : '';
+                $btnclose = $ficha->status == 1 ? ' <button title="Encerrar ficha" class="btn btn-sm btn-danger" onclick="return finishFicha(' . $ficha->id . ')"><i
+                                        class="fs-18 fa fa-times"></i></button>' : '';
 
                 $dado[] = '<button title="Informações da viatura" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
-                                        class="fa fa-car"></i></button> ' . $btn;
+                                        class="fa fa-car"></i></button> ' . $btn . $btnclose;
 
             } else { $btns = $ficha->status == 1 || $ficha->status == 3 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
                                         class="fa fa-edit"></i></button>

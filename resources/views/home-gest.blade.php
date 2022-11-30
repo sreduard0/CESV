@@ -18,7 +18,7 @@
         @break
     @endswitch
 @endsection
-@if (session('CESV')['profileType'] == 5)
+@if (session('CESV')['profileType'] >= 4)
     @section('mission', 'active')
 @else
     @section('home', 'active')
@@ -153,7 +153,9 @@
                             @endif
                             <div class="row">
                                 <div class="form-group col">
-                                    <label for="nameMission">Missão <span style="color:red">*</span></label>
+                                    <label for="nameMission">Missão
+                                        <span style="color:red">*</span>
+                                    </label>
                                     <input minlength="2" maxlength="200" id="nameMission" name="nameMission" type="text"
                                         class="form-control" placeholder="Ex: Feno e Aveia">
                                 </div>
@@ -163,7 +165,10 @@
                                         type="text" class="form-control" placeholder="Destino da missão (OM ou local).">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="classMission">Classe <span style="color:red">*</span></label>
+                                    <label for="classMission">Classe @if (session('CESV')['profileType'] == 3)
+                                            <span style="color:red">*</span>
+                                        @endif
+                                    </label>
                                     <select class="form-control" name="classMission" id="classMission">
                                         <option selected value="">Selecione</option>
                                         <option value="I">I</option>
@@ -183,7 +188,10 @@
                             <div class="row">
 
                                 <div class="form-group col">
-                                    <label for="docMission">Documento</label>
+                                    <label for="docMission">Documento @if (session('CESV')['profileType'] == 3)
+                                            <span style="color:red">*</span>
+                                        @endif
+                                    </label>
                                     <input minlength="2" maxlength="200" id="docMission" name="docMission"
                                         type="text" class="form-control"
                                         placeholder="documento que deu ordem para a realizar a missão.">
@@ -236,13 +244,15 @@
 
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-3">
-                                    <label for="originMission">Origem <span style="color:red">*</span></label>
-                                    <input minlength="2" maxlength="200" id="originMission" name="originMission"
-                                        type="text" class="form-control" placeholder="De onde parte a missão.">
-                                </div>
+                                @if (session('CESV')['profileType'] == 3)
+                                    <div class="form-group col-md-3">
+                                        <label for="originMission">Origem </label>(Caso outra OM ou local)
+                                        <input minlength="2" maxlength="200" id="originMission" name="originMission"
+                                            type="text" class="form-control" placeholder="De onde parte a missão.">
+                                    </div>
+                                @endif
                                 <div class="form-group col">
-                                    <label>Prev. do dia e horário da partida</label>
+                                    <label>Prev. do dia e horário da partida <span style="color:red">*</span></label>
                                     <div class="input-group date" id="prev_part" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input"
                                             data-target="#prev_part" id="datePrevPartMission" name="datePrevPartMission"
@@ -255,7 +265,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col">
-                                    <label>Prev. do dia e horário da chegada</label>
+                                    <label>Prev. do dia e horário da chegada <span style="color:red">*</span></label>
                                     <div class="input-group date" id="prev_chgd" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input"
                                             data-target="#prev_chgd" id="datePrevChgdMission" name="datePrevChgdMission"
@@ -320,9 +330,13 @@
                                         placeholder="Destino da missão (OM ou local).">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="e_classMission">Classe <span style="color:red">*</span></label>
+                                    <label for="e_classMission">Classe @if (session('CESV')['profileType'] == 3)
+                                            <span style="color:red">*</span>
+                                        @endif
+                                    </label>
                                     <select class="form-control" name="e_classMission" id="e_classMission">
-                                        <option selected value="">Selecione</option>
+                                        <option selected value="@if (session('CESV')['profileType'] == 4) - @endif">Selecione
+                                        </option>
                                         <option value="I">I</option>
                                         <option value="II">II</option>
                                         <option value="III">III</option>
@@ -339,7 +353,10 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col">
-                                    <label for="e_docMission">Documento</label>
+                                    <label for="e_docMission">Documento @if (session('CESV')['profileType'] == 3)
+                                            <span style="color:red">*</span>
+                                        @endif
+                                    </label>
                                     <input minlength="2" maxlength="200" id="e_docMission" name="e_docMission"
                                         type="text" class="form-control"
                                         placeholder="documento que deu ordem para a realizar a missão.">
@@ -391,14 +408,18 @@
 
                             </div>
                             <div class="row">
-                                <div class="form-group colmd-3">
-                                    <label for="e_originMission">Origem <span style="color:red">*</span></label>
-                                    <input minlength="2" maxlength="200" id="e_originMission" name="e_originMission"
-                                        type="text" class="form-control" placeholder="De onde parte a missão.">
-                                </div>
+                                @if (session('CESV')['profileType'] == 3)
+                                    <div class="form-group colmd-3">
+                                        <label for="e_originMission">Origem <span style="color:red">*</span></label>
+                                        <input minlength="2" maxlength="200" id="e_originMission"
+                                            name="e_originMission" type="text" class="form-control"
+                                            placeholder="De onde parte a missão.">
+                                    </div>
+                                @endif
+
                                 <div class="form-group col">
 
-                                    <label>Prev. do dia e horário da partida</label>
+                                    <label>Prev. do dia e horário da partida <span style="color:red">*</span></label>
                                     <div class="input-group date" id="e_prev_part" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input"
                                             data-target="#e_prev_part" id="e_datePrevPartMission"
@@ -411,7 +432,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col">
-                                    <label>Prev. do dia e horário da chegada</label>
+                                    <label>Prev. do dia e horário da chegada <span style="color:red">*</span></label>
                                     <div class="input-group date" id="e_prev_chgd" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input"
                                             data-target="#e_prev_chgd" id="e_datePrevChgdMission"

@@ -27,8 +27,6 @@ class MissionRequest extends FormRequest
             'typeMission' => 'required | max:2',
             'nameMission' => 'required | max:255',
             'destinyMission' => 'required | max:255',
-            'classMission' => 'required | max:5',
-            'docMission' => 'max:255',
             'originMission' => 'required | max:255',
             'pgSegMission' => 'required',
             'nameSegMission' => 'required | max:255',

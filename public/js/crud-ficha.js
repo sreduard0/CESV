@@ -45,6 +45,12 @@ function registerFicha() {
     } else {
         $('#natOfServFicha').removeClass('is-invalid');
     }
+    if (formData.get('dateClose') == '' || formData.get('dateClose').length > 200) {
+        $('#dateClose').addClass('is-invalid');
+        return false;
+    } else {
+        $('#dateClose').removeClass('is-invalid');
+    }
 
 
 
@@ -57,6 +63,7 @@ function registerFicha() {
         idMotFicha: formData.get('idMotFicha'),
         pgSegFicha: formData.get('pgSegFicha'),
         nameSegFicha: formData.get('nameSegFicha'),
+        dateClose: formData.get('dateClose'),
         natOfServFicha: formData.get('natOfServFicha'),
     }
 
@@ -147,11 +154,18 @@ function editFicha() {
     } else {
         $('#e_idMotFicha').removeClass('is-invalid');
     }
+
     if (formData.get('e_natOfServFicha') == '' || formData.get('e_natOfServFicha').length > 200) {
         $('#e_natOfServFicha').addClass('is-invalid');
         return false;
     } else {
         $('#e_natOfServFicha').removeClass('is-invalid');
+    }
+    if (formData.get('e_dateClose') == '' || formData.get('e_dateClose').length > 200) {
+        $('#e_dateClose').addClass('is-invalid');
+        return false;
+    } else {
+        $('#e_dateClose').removeClass('is-invalid');
     }
 
 
@@ -167,6 +181,7 @@ function editFicha() {
         pgSegFicha: formData.get('e_pgSegFicha'),
         nameSegFicha: formData.get('e_nameSegFicha'),
         natOfServFicha: formData.get('e_natOfServFicha'),
+        dateClose: formData.get('e_dateClose'),
     }
 
     const URL = '/edit_ficha'

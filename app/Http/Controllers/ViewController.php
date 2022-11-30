@@ -30,12 +30,12 @@ class ViewController extends Controller
                 break;
             case 1:
             case 3:
-            case 4:
                 $data = [
                     'viaturas' => VtrModel::where('status', 1)->orderBy('nr_vtr', 'asc')->get(),
                 ];
                 return view('home-gest', $data);
                 break;
+            case 4:
             case 5:
                 return view('home-admin');
                 break;
@@ -95,8 +95,7 @@ class ViewController extends Controller
     }
     public function reportForm($id)
     {
-        // $mission = MissionModel::with('vtrinfo')->find($this->Tools->hash($id, 'decrypt'));
-        $mission = MissionModel::with('vtrinfo')->find($id);
+        $mission = MissionModel::with('vtrinfo')->find($this->Tools->hash($id, 'decrypt'));
         if (empty($mission)) {
             return redirect()->route('login');
         }

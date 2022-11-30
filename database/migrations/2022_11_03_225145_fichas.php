@@ -21,6 +21,7 @@ class Fichas extends Migration
             $table->integer('status');
             $table->integer('id_vtr');
             $table->integer('id_mission')->nullable();
+            $table->dateTime('date_close')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

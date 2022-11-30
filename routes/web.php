@@ -66,9 +66,9 @@ Route::middleware('auth')->group(function () {
 
 // ADMINISTRADOR
     Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->name('getGraphicMissionsOp')->middleware('role:adm>cost>fiscadm');
-    Route::get('getGraphicMissionsOmOp', [AdminController::class, 'getGraphicMissionsOmOp'])->name('getGraphicMissionsOmOp')->middleware('role:adm');
-    Route::get('getGraphicRelGda', [AdminController::class, 'getGraphicRelGda'])->name('getGraphicRelGda')->middleware('role:adm');
-    Route::post('post_rank_vtr', [AdminController::class, 'rankVtr'])->name('rankVtr')->middleware('role:adm');
+    Route::get('getGraphicMissionsOmOp', [AdminController::class, 'getGraphicMissionsOmOp'])->name('getGraphicMissionsOmOp')->middleware('role:adm>fiscadm');
+    Route::get('getGraphicRelGda', [AdminController::class, 'getGraphicRelGda'])->name('getGraphicRelGda')->middleware('role:adm>fiscadm');
+    Route::post('post_rank_vtr', [AdminController::class, 'rankVtr'])->name('rankVtr')->middleware('role:adm>fiscadm');
     Route::post('post_users_list', [AdminController::class, 'listUsers'])->name('listUsers')->middleware('role:adm');
     Route::get('/alt_permission_user/{iduser}/{profile?}/{id?}', [AdminController::class, 'userPerm'])->middleware('role:adm');
 
@@ -89,7 +89,7 @@ Route::middleware('auth')->group(function () {
 // FICHAS
     Route::post('register_ficha', [FichaController::class, 'registerFicha'])->middleware('role:trnp');
     Route::post('edit_ficha', [FichaController::class, 'editFicha'])->middleware('role:trnp');
-    Route::get('finish_ficha/{id}', [FichaController::class, 'finishFicha'])->middleware('role:trnp');
+    Route::get('finish_ficha/{id}', [FichaController::class, 'finishFicha'])->middleware('role:trnp>fiscadm');
 
 // RELA GDA
     Route::post('register_relgda', [GdaController::class, 'registerRelGda'])->middleware('role:adj>cmtgda');
