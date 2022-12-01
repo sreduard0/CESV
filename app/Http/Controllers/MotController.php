@@ -123,15 +123,13 @@ class MotController extends Controller
             $dado[] = $driver->full_name;
             $dado[] = $driver->cnh;
             $dado[] = $driver->cat;
-            $dado[] = $driver->mopp == 1 ? 'Sim' : 'Não';
-            $dado[] = $driver->tc == 1 ? 'Sim' : 'Não';
-            $dado[] = $driver->cve == 1 ? 'Sim' : 'Não';
-            $dado[] = $driver->ci == 1 ? 'Sim' : 'Não';
             $dado[] = date('d-m-Y', strtotime($driver->val_cnh));
             $dado[] = $driver->idt_mil;
-            $dado[] = "<a href='tel:55" . $driver->contact . "' target='_blank' title='" . $this->Tools->mask('+55 (##) # ####-####', $driver->contact) . "'class='btn btn-sm btn-primary'><i class='fas fa-phone'></i></a> <a href='https://api.whatsapp.com/send?phone=55" . $driver->contact . "' target='_blank' title='WhatsApp' class='btn btn-sm btn-success'><i class='fab fa-whatsapp'></i></a>";
+            $dado[] = $this->Tools->mask('(##) # ####-####', $driver->contact) . " <a href='https://api.whatsapp.com/send?phone=55" . $driver->contact . "' target='_blank' title='WhatsApp' class='float-r btn btn-sm btn-success'><i class='fab fa-whatsapp'></i></a>";
             if (session('CESV')['profileType'] == 1) {
                 $dado[] = '
+                         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mot-profile" data-id="' . $driver->id . '"
+                                    ><i class="fa fa-user"></i></button>
                          <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-drive" data-id="' . $driver->id . '"
                                     ><i class="fa fa-edit"></i></button>
                                 <button class="btn btn-sm btn-danger"  onclick="deleteMot(' . $driver->id . ')"><i

@@ -27,7 +27,7 @@
                                     <h3 id="mod_vtr" class="widget-user-desc text-center">
                                         Modelo</h3>
                                     <h4 id="ebplaca" class="widget-user-username text-center text-muted">
-                                        2292827 </h4>
+                                        0000000 </h4>
                                 </div>
                             </div>
                         </div>

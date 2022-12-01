@@ -25,8 +25,8 @@
     <script src="{{ asset('js/crud-mot.js') }}"></script>
     <style>
         .w-1 {
-            width: 80px;
-            column-width: 80px;
+            width: 100px;
+            column-width: 100px;
         }
     </style>
 @endsection
@@ -73,13 +73,9 @@
                             <th>Nome completo</th>
                             <th width="80px">CNH</th>
                             <th width="20px">Cat</th>
-                            <th width="20px">MOPP</th>
-                            <th width="20px">TC</th>
-                            <th width="20px">CVE</th>
-                            <th width="20px">CI</th>
                             <th width="70">Val. CNH</th>
                             <th width="80">Idt mil</th>
-                            <th width="50px">Contato</th>
+                            <th width="150px">Contato</th>
                             @if (session('CESV')['profileType'] == 1)
                                 <th width="50px">Ações</th>
                             @endif
@@ -94,6 +90,7 @@
 @endsection
 @if (session('CESV')['profileType'] == 1)
     @section('modal')
+        @include('component.mot-profile')
         <!-- MODAL CADASTRO MOTORA-->
         <div class="modal fade" id="register-drive" tabindex="-1" role="dialog" aria-labelledby="register-driveLabel"
             aria-hidden="true">
@@ -404,7 +401,7 @@
                 @if (session('CESV')['profileType'] == 1)
                     "aoColumnDefs": [{
                         'className': 'w-1 text-center',
-                        'aTargets': [10, 11]
+                        'aTargets': [7]
                     }],
                 @endif
                 "language": {
