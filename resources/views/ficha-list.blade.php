@@ -27,23 +27,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
     {{-- CRUD JS --}}
     <script src="{{ asset('js/crud-ficha.js') }}"></script>
-    @switch(session('CESV')['profileType'])
-        @case(1)
-            <style>
-                .w-1 {
-                    width: 100px;
-                }
-            </style>
-        @break
 
-        @case(5)
-            <style>
-                .w-1 {
-                    width: 100px;
-                }
-            </style>
-        @break
-    @endswitch
 
 @endsection
 
@@ -100,6 +84,7 @@
     </section>
 @endsection
 @section('modal')
+    @include('component.mot-profile')
     @if (session('CESV')['profileType'] == 1)
         <!-- MODAL CADASTRO FICHA-->
         <div class="modal fade" id="register-ficha" tabindex="-1" role="dialog" aria-labelledby="register-fichaLabel"

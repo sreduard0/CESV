@@ -11,6 +11,7 @@ class RelGda extends Migration
         Schema::create('rel_gda', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type_veicle');
+            $table->bigInteger('id_mot')->nullable();
             $table->string('pg_mot', 6)->nullable();
             $table->string('name_mot', 255);
             $table->string('pg_seg', 6)->nullable();

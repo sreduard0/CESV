@@ -78,6 +78,8 @@
                             <th width="150px">Contato</th>
                             @if (session('CESV')['profileType'] == 1)
                                 <th width="50px">Ações</th>
+                            @elseif (session('CESV')['profileType'] == 5)
+                                <th width="30px">Ver</th>
                             @endif
 
                         </tr>
@@ -87,10 +89,11 @@
             <!-- /.card-body -->
         </div>
     </section>
+    @include('component.mot-profile')
 @endsection
+
 @if (session('CESV')['profileType'] == 1)
     @section('modal')
-        @include('component.mot-profile')
         <!-- MODAL CADASTRO MOTORA-->
         <div class="modal fade" id="register-drive" tabindex="-1" role="dialog" aria-labelledby="register-driveLabel"
             aria-hidden="true">

@@ -134,6 +134,10 @@ class MotController extends Controller
                                     ><i class="fa fa-edit"></i></button>
                                 <button class="btn btn-sm btn-danger"  onclick="deleteMot(' . $driver->id . ')"><i
                                         class="fa fa-trash"></i></button>';
+            } else if (session('CESV')['profileType'] == 5) {
+                $dado[] = '
+                         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mot-profile" data-id="' . $driver->id . '"
+                                    ><i class="fa fa-user"></i></button>';
             }
 
             $dados[] = $dado;

@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
 
 // LISTA DE MOTORISTA
     Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_list')->middleware('role:trnp>adm');
-    Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('role:trnp>adm');
+    Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('role:trnp>adm>fiscadm');
 
 // ADMINISTRADOR
     Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->name('getGraphicMissionsOp')->middleware('role:adm>cost>fiscadm');
