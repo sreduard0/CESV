@@ -299,7 +299,7 @@ function finishMission(id) {
             return ' ' + vtr.nr_ficha
         })
 
-        const message = "<strong>Essa operação não pode ser desfeita e fechará todas as fichas vinculadas a esta missão.</strong><br><br>Fichas que serão fechadas: " + Vtrs
+        const message = "<strong>Essa operação não pode ser desfeita e fechará todas as fichas vinculadas a esta missão.</strong><br>O Cmt desta missão será notificado para preencher o relatório.<br><br>Fichas que serão fechadas: " + Vtrs
 
         bootbox.confirm({
             title: ' Deseja encerrar esta missão?',
@@ -316,8 +316,6 @@ function finishMission(id) {
                                 title: '&nbsp&nbsp Missão encerrada com sucesso.'
                             });
                             $("#table").DataTable().clear().draw();
-
-
                         },
                         error: function (data) {
                             Toast.fire({

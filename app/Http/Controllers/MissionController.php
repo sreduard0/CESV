@@ -72,8 +72,8 @@ class MissionController extends Controller
             $ficha->od_total = array_sum($od);
             $ficha->status = 2;
             $ficha->save();
-
         }
+        // Notificando CMT da MISSÃO
     }
 
     public function printReport($id, $status)

@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 class FichaController extends Controller
 {
     // AÇÕES
+    public function getNewFichas()
+    {
+        return FichaModel::where('status', 3)->count();
+    }
     public function infoFicha($id)
     {
         return FichaModel::with('vtrinfo', 'missioninfo', 'motinfo')->find($id);

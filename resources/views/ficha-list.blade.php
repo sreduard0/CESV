@@ -66,7 +66,7 @@
                     <thead>
                         <tr>
                             <th width="30px">N°</th>
-                            <th>Viatura</th>
+                            <th width="140px">Viatura</th>
                             <th>Missão</th>
                             <th>Por ordem </th>
                             <th>Motorista</th>
@@ -74,7 +74,11 @@
                             <th>Natureza</th>
                             <th>Encerramento</th>
                             <th>Status</th>
-                            <th>Ações</th>
+                            <th
+                                @if (session('CESV')['profileType'] == 1) width="130px"
+                            @else
+                                width="100px" @endif>
+                                Ações</th>
                         </tr>
                     </thead>
                 </table>
@@ -391,7 +395,7 @@
                 "lengthChange": true,
                 "autoWidth": false,
                 "aoColumnDefs": [{
-                    'className': 'w-1 text-center',
+                    'className': 'text-center',
                     'aTargets': [9]
                 }],
                 "language": {

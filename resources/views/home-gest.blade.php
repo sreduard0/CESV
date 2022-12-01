@@ -246,9 +246,9 @@
                             <div class="row">
                                 @if (session('CESV')['profileType'] == 3)
                                     <div class="form-group col-md-3">
-                                        <label for="originMission">Origem </label>(Caso outra OM ou local)
+                                        <label for="originMission">Origem </label>
                                         <input minlength="2" maxlength="200" id="originMission" name="originMission"
-                                            type="text" class="form-control" placeholder="De onde parte a missão.">
+                                            type="text" class="form-control" placeholder="3º B Sup">
                                     </div>
                                 @endif
                                 <div class="form-group col">

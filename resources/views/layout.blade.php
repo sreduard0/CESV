@@ -120,7 +120,7 @@
                             <li class="nav-item ">
                                 <a href="{{ route('fichas') }}" class="nav-link @yield('ficha')">
                                     <i class="nav-icon fas fa-clipboard-list"></i>
-                                    <p>
+                                    <p id='f-c'>
                                         Fichas
                                     </p>
                                 </a>
@@ -487,6 +487,34 @@
                     })
                 })
             })
+        </script>
+    @endif
+    @if (session('CESV')['profileType'] == 4)
+        <script>
+            window.onload = countFicha();
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 8000
+            })
+            var count = 0
+
+            function countFicha() {
+                $.get("{{ route('getNewFichas') }}", function(result) {
+                    $('#f-c').html('Fichas <span class="badge badge-success right">' + result + '</span>')
+
+                    if (count != result)
+                        Toast.fire({
+                            icon: 'success',
+                            title: '&nbsp&nbsp Nova ficha foi solicitada.'
+                        });
+                    count = result
+                })
+            }
+            setInterval(() => {
+                countFicha()
+            }, 30000);
         </script>
     @endif
     {{-- ====================================/ PLUGINS ===================================== --}}
