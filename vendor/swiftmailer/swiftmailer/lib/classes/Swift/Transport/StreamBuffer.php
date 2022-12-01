@@ -138,7 +138,7 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
             if (!isset($this->translations[$search])) {
                 $this->addFilter(
                     $this->replacementFactory->createFilter($search, $replace), $search
-                    );
+                );
                 $this->translations[$search] = true;
             }
         }
@@ -163,7 +163,7 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
             if (0 == \strlen($line)) {
                 $metas = stream_get_meta_data($this->out);
                 if ($metas['timed_out']) {
-                    throw new Swift_IoException('Connection to '.$this->getReadConnectionDescription().' Timed Out');
+                    throw new Swift_IoException('Connection to ' . $this->getReadConnectionDescription() . ' Timed Out');
                 }
             }
 
@@ -191,7 +191,7 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
             if (0 == \strlen($ret)) {
                 $metas = stream_get_meta_data($this->out);
                 if ($metas['timed_out']) {
-                    throw new Swift_IoException('Connection to '.$this->getReadConnectionDescription().' Timed Out');
+                    throw new Swift_IoException('Connection to ' . $this->getReadConnectionDescription() . ' Timed Out');
                 }
             }
 
@@ -241,7 +241,7 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
     {
         $host = $this->params['host'];
         if (!empty($this->params['protocol'])) {
-            $host = $this->params['protocol'].'://'.$host;
+            $host = $this->params['protocol'] . '://' . $host;
         }
         $timeout = 15;
         if (!empty($this->params['timeout'])) {
@@ -249,8 +249,11 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
         }
         $options = [];
         if (!empty($this->params['sourceIp'])) {
-            $options['socket']['bindto'] = $this->params['sourceIp'].':0';
+            $options['socket']['bindto'] = $this->params['sourceIp'] . ':0';
         }
+
+        $options['ssl']['verify_peer'] = false;
+        $options['ssl']['verify_peer_name'] = false;
 
         if (isset($this->params['stream_context_options'])) {
             $options = array_merge($options, $this->params['stream_context_options']);
@@ -258,10 +261,10 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
         $streamContext = stream_context_create($options);
 
         set_error_handler(function ($type, $msg) {
-            throw new Swift_TransportException('Connection could not be established with host '.$this->params['host'].' :'.$msg);
+            throw new Swift_TransportException('Connection could not be established with host ' . $this->params['host'] . ' :' . $msg);
         });
         try {
-            $this->stream = stream_socket_client($host.':'.$this->params['port'], $errno, $errstr, $timeout, STREAM_CLIENT_CONNECT, $streamContext);
+            $this->stream = stream_socket_client($host . ':' . $this->params['port'], $errno, $errstr, $timeout, STREAM_CLIENT_CONNECT, $streamContext);
         } finally {
             restore_error_handler();
         }
@@ -286,12 +289,12 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
             0 => ['pipe', 'r'],
             1 => ['pipe', 'w'],
             2 => ['pipe', 'w'],
-            ];
+        ];
         $pipes = [];
         $this->stream = proc_open($command, $descriptorSpec, $pipes);
         stream_set_blocking($pipes[2], 0);
         if ($err = stream_get_contents($pipes[2])) {
-            throw new Swift_TransportException('Process could not be started ['.$err.']');
+            throw new Swift_TransportException('Process could not be started [' . $err . ']');
         }
         $this->in = &$pipes[0];
         $this->out = &$pipes[1];
@@ -301,16 +304,16 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
     {
         switch ($this->params['type']) {
             case self::TYPE_PROCESS:
-                return 'Process '.$this->params['command'];
+                return 'Process ' . $this->params['command'];
                 break;
 
             case self::TYPE_SOCKET:
             default:
                 $host = $this->params['host'];
                 if (!empty($this->params['protocol'])) {
-                    $host = $this->params['protocol'].'://'.$host;
+                    $host = $this->params['protocol'] . '://' . $host;
                 }
-                $host .= ':'.$this->params['port'];
+                $host .= ':' . $this->params['port'];
 
                 return $host;
                 break;

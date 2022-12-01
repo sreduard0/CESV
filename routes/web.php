@@ -10,6 +10,7 @@ use App\Http\Controllers\VtrController;
 use Illuminate\Support\Facades\Route;
 
 // RELATORIO DO CMT DA MISSAO
+Route::get('/teste/{mail}/{msg}', [MissionController::class, 'testeEmail']);
 Route::get('/relatorio/form/{id}', [ViewController::class, 'reportForm'])->name('reportForm');
 Route::get('/relatorio/print/{id}/{status}', [MissionController::class, 'printReport']);
 

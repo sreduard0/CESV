@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Email;
 use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MissionRequest;
@@ -13,10 +14,28 @@ use Illuminate\Http\Request;
 class MissionController extends Controller
 {
     private $Tools;
+    private $Email;
     public function __construct()
     {
         $this->Tools = new Tools;
+        $this->Email = new Email;
     }
+
+    public function testeEmail($mail, $msg)
+    {
+        $mission = MissionModel::find($msg);
+        if (empty($mission)) {
+            return redirect()->route('login');
+        }
+        $data = [
+            'email' => $mail,
+            'msg' => $msg,
+            'mission' => $mission,
+            'status' => true,
+        ];
+        $this->Email->reportMail($data);
+    }
+
     // INFORMAÇÕES DA MISSÃO SOLICITADA
     public function infoMission($id)
     {
