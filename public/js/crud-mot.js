@@ -71,6 +71,10 @@ function registerMot() {
         cnhMot: formData.get('cnhMot'),
         ValCnhMot: formData.get('ValCnhMot'),
         idtMot: formData.get('idtMot'),
+        mopp: formData.get('mopp'),
+        tc: formData.get('tc'),
+        cve: formData.get('cve'),
+        ci: formData.get('ci'),
     }
 
     const URL = '/register_mot'
@@ -195,6 +199,10 @@ function editMot(id) {
         cnhMot: formData.get('e_cnhMot'),
         ValCnhMot: formData.get('e_ValCnhMot'),
         idtMot: formData.get('e_idtMot'),
+        mopp: formData.get('e_mopp'),
+        tc: formData.get('e_tc'),
+        cve: formData.get('e_cve'),
+        ci: formData.get('e_ci'),
     }
 
     const URL = '/edit_mot'
@@ -231,6 +239,10 @@ function editMot(id) {
 
                     $('#edit-drive').modal('hide');
                     $('#form-edit-drive')[0].reset();
+                    $('#e_mopp').removeAttr('checked');
+                    $('#e_tc').removeAttr('checked');
+                    $('#e_cve').removeAttr('checked');
+                    $('#e_ci').removeAttr('checked');
                     $("#table").DataTable().clear().draw();
                     break;
             }

@@ -25,8 +25,8 @@
     <script src="{{ asset('js/crud-mot.js') }}"></script>
     <style>
         .w-1 {
-            width: 90px;
-            column-width: 90px;
+            width: 80px;
+            column-width: 80px;
         }
     </style>
 @endsection
@@ -71,11 +71,15 @@
                         <tr>
                             <th>Nome</th>
                             <th>Nome completo</th>
-                            <th width="100px">CNH</th>
-                            <th width="40px">Cat</th>
-                            <th width="100px">Val. CNH</th>
-                            <th width="100px">Idt mil</th>
-                            <th width="110px">Contato</th>
+                            <th width="80px">CNH</th>
+                            <th width="20px">Cat</th>
+                            <th width="20px">MOPP</th>
+                            <th width="20px">TC</th>
+                            <th width="20px">CVE</th>
+                            <th width="20px">CI</th>
+                            <th width="70">Val. CNH</th>
+                            <th width="80">Idt mil</th>
+                            <th width="50px">Contato</th>
                             @if (session('CESV')['profileType'] == 1)
                                 <th width="50px">Ações</th>
                             @endif
@@ -200,25 +204,25 @@
 
                                 </div>
                             </div>
-                            <div class="row">
-
-                                <div class="custom-control custom-checkbox m-r-30">
+                            <label for="esp">Especialização</label>
+                            <div id="esp">
+                                <div class="custom-control custom-checkbox m-l-20">
                                     <input class=" custom-control-input" type="checkbox" id="mopp" name="mopp"
                                         value="1">
                                     <label for="mopp" class="custom-control-label">MOPP</label>
                                 </div>
-                                <div class="custom-control custom-checkbox m-r-30">
+                                <div class="custom-control custom-checkbox m-l-20">
                                     <input class=" custom-control-input" type="checkbox" id="tc" name="tc"
                                         value="1">
-                                    <label for="tc" class="custom-control-label">Transp. Coletivo</label>
+                                    <label for="tc" class="custom-control-label">Transporte Coletivo</label>
                                 </div>
-                                <div class="custom-control custom-checkbox m-r-30">
+                                <div class="custom-control custom-checkbox m-l-20">
                                     <input class=" custom-control-input" type="checkbox" id="cve" name="cve"
                                         value="1">
-                                    <label for="cve" class="custom-control-label">Con. de Veículo de
+                                    <label for="cve" class="custom-control-label">Condutor de Veículo de
                                         Emergência</label>
                                 </div>
-                                <div class="custom-control custom-checkbox m-r-30">
+                                <div class="custom-control custom-checkbox m-l-20">
                                     <input class=" custom-control-input" type="checkbox" id="ci" name="ci"
                                         value="1">
                                     <label for="ci" class="custom-control-label">Cargas Indivisíveis</label>
@@ -345,6 +349,30 @@
 
                                 </div>
                             </div>
+                            <label for="e_esp">Especialização</label>
+                            <div id="e_esp">
+                                <div class="custom-control custom-checkbox m-l-20">
+                                    <input class=" custom-control-input" type="checkbox" id="e_mopp" name="e_mopp"
+                                        value="1">
+                                    <label for="e_mopp" class="custom-control-label">MOPP</label>
+                                </div>
+                                <div class="custom-control custom-checkbox m-l-20">
+                                    <input class=" custom-control-input" type="checkbox" id="e_tc" name="e_tc"
+                                        value="1">
+                                    <label for="e_tc" class="custom-control-label">Transporte Coletivo</label>
+                                </div>
+                                <div class="custom-control custom-checkbox m-l-20">
+                                    <input class=" custom-control-input" type="checkbox" id="e_cve" name="e_cve"
+                                        value="1">
+                                    <label for="e_cve" class="custom-control-label">Condutor de Veículo de
+                                        Emergência</label>
+                                </div>
+                                <div class="custom-control custom-checkbox m-l-20">
+                                    <input class=" custom-control-input" type="checkbox" id="e_ci" name="e_ci"
+                                        value="1">
+                                    <label for="e_ci" class="custom-control-label">Cargas Indivisíveis</label>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -376,7 +404,7 @@
                 @if (session('CESV')['profileType'] == 1)
                     "aoColumnDefs": [{
                         'className': 'w-1 text-center',
-                        'aTargets': [7]
+                        'aTargets': [10, 11]
                     }],
                 @endif
                 "language": {
@@ -433,6 +461,19 @@
                     modal.find('#e_cnhMot').val(result.cnh)
                     modal.find('#e_ValCnhMot').val(moment(result.val_cnh).format('DD-MM-YYYY'))
                     modal.find('#e_idtMot').val(result.idt_mil)
+                    if (result.mopp == 1) {
+                        modal.find('#e_mopp').attr('checked', true)
+                    }
+                    if (result.tc == 1) {
+                        modal.find('#e_tc').attr('checked', true)
+                    }
+                    if (result.cve == 1) {
+                        modal.find('#e_cve').attr('checked', true)
+                    }
+                    if (result.ci == 1) {
+                        modal.find('#e_ci').attr('checked', true)
+
+                    }
                 })
             });
             $('#edit-drive').on('hide.bs.modal', function(event) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MotRequest;
 use App\Models\FichaModel;
@@ -10,6 +11,11 @@ use Illuminate\Http\Request;
 
 class MotController extends Controller
 {
+    private $Tools;
+    public function __construct()
+    {
+        $this->Tools = new Tools();
+    }
     // INFORMAÇÕES DO MOTORISTA
     public function infoMot($id)
     {
@@ -36,6 +42,10 @@ class MotController extends Controller
         $driver->cnh = $data['cnhMot'];
         $driver->val_cnh = date('Y-m-d', strtotime($data['ValCnhMot']));
         $driver->idt_mil = $data['idtMot'];
+        $driver->mopp = $data['mopp'] == null ? 0 : 1;
+        $driver->tc = $data['tc'] == null ? 0 : 1;
+        $driver->cve = $data['cve'] == null ? 0 : 1;
+        $driver->ci = $data['ci'] == null ? 0 : 1;
         $driver->save();
 
     }
@@ -58,6 +68,11 @@ class MotController extends Controller
         $driver->cnh = $data['cnhMot'];
         $driver->val_cnh = date('Y-m-d', strtotime($data['ValCnhMot']));
         $driver->idt_mil = $data['idtMot'];
+        $driver->mopp = $data['mopp'] == null ? 0 : 1;
+        $driver->tc = $data['tc'] == null ? 0 : 1;
+        $driver->cve = $data['cve'] == null ? 0 : 1;
+        $driver->ci = $data['ci'] == null ? 0 : 1;
+
         $driver->save();
 
     }
@@ -108,9 +123,13 @@ class MotController extends Controller
             $dado[] = $driver->full_name;
             $dado[] = $driver->cnh;
             $dado[] = $driver->cat;
+            $dado[] = $driver->mopp == 1 ? 'Sim' : 'Não';
+            $dado[] = $driver->tc == 1 ? 'Sim' : 'Não';
+            $dado[] = $driver->cve == 1 ? 'Sim' : 'Não';
+            $dado[] = $driver->ci == 1 ? 'Sim' : 'Não';
             $dado[] = date('d-m-Y', strtotime($driver->val_cnh));
             $dado[] = $driver->idt_mil;
-            $dado[] = $driver->contact . "<a href='https://api.whatsapp.com/send?phone=55" . $driver->contact . "' target='_blank' class='float-r btn btn-sm btn-success'><i class='fab fa-whatsapp'></i></a>";
+            $dado[] = "<a href='tel:55" . $driver->contact . "' target='_blank' title='" . $this->Tools->mask('+55 (##) # ####-####', $driver->contact) . "'class='btn btn-sm btn-primary'><i class='fas fa-phone'></i></a> <a href='https://api.whatsapp.com/send?phone=55" . $driver->contact . "' target='_blank' title='WhatsApp' class='btn btn-sm btn-success'><i class='fab fa-whatsapp'></i></a>";
             if (session('CESV')['profileType'] == 1) {
                 $dado[] = '
                          <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-drive" data-id="' . $driver->id . '"
