@@ -9,6 +9,7 @@ use App\Http\Requests\MissionRequest;
 use App\Models\FichaModel;
 use App\Models\MissionModel;
 use App\Models\RelGdaModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class MissionController extends Controller
@@ -23,17 +24,21 @@ class MissionController extends Controller
 
     public function testeEmail($mail, $msg)
     {
-        $mission = MissionModel::find($msg);
-        if (empty($mission)) {
-            return redirect()->route('login');
-        }
-        $data = [
-            'email' => $mail,
-            'msg' => $msg,
-            'mission' => $mission,
-            'status' => true,
-        ];
-        $this->Email->reportMail($data);
+
+        $pdf = Pdf::loadView('Mail.mail')->download();
+        // file_put_contents('pdfmake/teste.pdf','text');
+
+        // $mission = MissionModel::find($msg);
+        // if (empty($mission)) {
+        //     return redirect()->route('login');
+        // }
+        // $data = [
+        //     'email' => $mail,
+        //     'msg' => $msg,
+        //     'f' => $mission,
+        //     'status' => true,
+        // ];
+        // $this->Email->reportMail($data);
     }
 
     // INFORMAÇÕES DA MISSÃO SOLICITADA

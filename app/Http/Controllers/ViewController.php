@@ -88,7 +88,7 @@ class ViewController extends Controller
 
     public function login()
     {
-        if (session()->has('user')) {
+        if (session()->has('CESV') && session()->has('user')) {
             return redirect()->route('home');
         }
         return view('form-login');
