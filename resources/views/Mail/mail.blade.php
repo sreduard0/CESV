@@ -92,10 +92,7 @@
                                         <tr>
                                             <td valign="top">
                                                 <table border="0" cellspacing="0" cellpadding="0" width="600" class="100p">
-                                                    <tr>
-
-
-</tr>
+                                                    <tr></tr>
                                                 </table>
                                                 <table border="0" cellspacing="0" cellpadding="0" width="600" class="100p">
                                                     <tr>
@@ -111,13 +108,7 @@
                                                                 <span style="font-size:24px;">Batalhão Marechal Bitencourt</span>
                                                                 <br /><br />
 
-                                                                <a href="##" style="color:#FFFFFF; text-decoration:none;">
-                                                                </a></font><table border="0" cellspacing="0" cellpadding="10" style="border:2px solid #FFFFFF;">
-                                                                    <tr>
-                                                                        <td align="center" style="color:#FFFFFF; font-size:16px;"><font face="'Roboto', Arial, sans-serif"><a href="http://despacho.3bsup.eb.mil.br" style="color:#FFFFFF; text-decoration:none;">IR PARA DESPACHO</a></font></td>
-                                                                    </tr>
-                                                                </table>
-
+                                                               </font>
 
                                                         </td>
                                                     </tr>
@@ -136,7 +127,7 @@
             <table style="border-bottom: 2px solid #fff200" width="640" border="0" cellspacing="0" cellpadding="10" bgcolor="#4d4d4d" class="100p">
                 <tr>
                     <td align="left"  width="100" ><img src="https://nsmlzz.stripocdn.email/content/guids/CABINET_3d8d4b950214f4b9605a98488ea8b2a9/images/611616028254522.png" alt style="display: block;" width="60"></td>
-                    <td align="center"   width="202" style="font-size:15px; color:#FFFFFF;"><font face="'Roboto', Arial, sans-serif">FILA DE DESPACHO</font></td>
+                    <td align="center"   width="202" style="font-size:15px; color:#FFFFFF;"><font face="'Roboto', Arial, sans-serif">RELATÓRIO DE MISSÃO</font></td>
                     <td align="right"  width="100"><img src="https://nsmlzz.stripocdn.email/content/guids/CABINET_3d8d4b950214f4b9605a98488ea8b2a9/images/68911615935689966.png" alt style="display: block;" width="60"></td>
                 </tr>
             </table>
@@ -148,7 +139,7 @@
             </table>
             <table width="640" border="0" cellspacing="0" cellpadding="10" bgcolor="#ffffff" class="100p">
                 <tr>
-                    <td align="center"  width="402" style="font-size:16px; color:#848484;"><font face="'Roboto', Arial, sans-serif"><span style="color:#2a9d47; font-size:24px;">Prezado(a) Sr(a). mimim</span>
+                    <td align="center"  width="402" style="font-size:16px; color:#848484;"><font face="'Roboto', Arial, sans-serif"><span style="color:#2a9d47; font-size:24px;"> Olá, {{ $info['mission']->pg_seg . ' ' . $info['mission']->name_seg }}</span>
                         </font>
                     </td>
                 </tr>
@@ -156,7 +147,7 @@
             <table width="640" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" class="100p">
                 <tr>
                     <td align="center"  width="402" style="font-size:20px; color:#000;"><font face="'Roboto', Arial, sans-serif">
-                     TESTEEEEE
+                      Segue em anexo seu relatório.
                         </font>
                     </td>
                 </tr>
@@ -169,9 +160,12 @@
             </table>
             <table style="border-top: 2px solid #fff200" width="640" border="0" cellspacing="0" cellpadding="20" bgcolor="#000" class="100p">
                 <tr>
-                    <td align="center" height="120"  width="402" style="font-size:16px; color:#ffffff;"><font face="'Roboto', Arial, sans-serif"><span style="font-size:16px;">&copy;3º B Sup - 2021</span>
-                        <br />
-                        <span style="font-size:16px;">Desenvolvido por: Eduardo Martins - Cb</span></font>
+                    <td align="center" height="120"  width="402" style="font-size:16px; color:#ffffff;"><font face="'Roboto', Arial, sans-serif"><div class="text-center">
+                    ©CES Vtr 2022 (v1.0) | integrado com ©SisTAO
+                    2022 (v1.5)
+                    <br>
+                    Desenvolvido por: <a href="https://www.linkedin.com/in/eduardo-martins-a100b6211/" target="_blank" rel="noopener noreferrer">Eduardo Martins</a>
+                </div>
                     </td>
                 </tr>
             </table>

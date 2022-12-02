@@ -55,7 +55,6 @@ class MissionController extends Controller
     // FINALIZAR MISSÃO
     public function finishMission($id)
     {
-
         //MISSÃO
         $mission = MissionModel::find($id);
         $mission->status = 3;
