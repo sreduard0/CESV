@@ -3,14 +3,18 @@
 namespace App\Classes;
 
 use App\Mail\reportMail;
-use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Email
 {
 //=============================[fila do despacho]====================================
     public function reportMail($data)
     {
-        Mail::to($data['email'])->send(new reportMail($data));
+        $pdf = Pdf::loadView('Mail.mail', $data);
+        return $pdf->download('invoice.pdf');
+
+        // PDF::loadView('site.certificate.certificate', compact('products'))->download('nome-arquivo-pdf-gerado.pdf');
+        // Mail::to($data['email'])->send(new reportMail($data));
     }
 //=============================[Info_login]==========================================
     // public function info_login($info){
