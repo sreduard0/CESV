@@ -11,6 +11,7 @@ use App\Models\MissionModel;
 use App\Models\RelGdaModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class MissionController extends Controller
 {
@@ -24,9 +25,9 @@ class MissionController extends Controller
 
     public function testeEmail($mail, $msg)
     {
+        $html = View::make('Mail.mail')->render();
 
-        $pdf = Pdf::loadView('Mail.mail')->download();
-        // file_put_contents('pdfmake/teste.pdf','text');
+        Pdf::loadHTML($html)->save('pdfmake/my_stored_file.pdf');
 
         // $mission = MissionModel::find($msg);
         // if (empty($mission)) {
