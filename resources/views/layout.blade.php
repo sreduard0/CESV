@@ -502,7 +502,8 @@
 
             function countFicha() {
                 $.get("{{ route('getNewFichas') }}", function(result) {
-                    $('#f-c').html('Fichas <span class="badge badge-success right">' + result + '</span>')
+                    result == 0 ? '' : $('#f-c').html('Fichas <span class="badge badge-success right">' + result +
+                        '</span>')
 
                     if (count != result)
                         Toast.fire({

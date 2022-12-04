@@ -296,7 +296,7 @@ function authFicha(id) {
                         $("#table").DataTable().clear().draw();
                         Toast.fire({
                             icon: 'success',
-                            title: '&nbsp&nbsp Ficha auto com sucesso.'
+                            title: '&nbsp&nbsp Ficha autorizada com sucesso.'
                         });
                         $("#table").DataTable().clear().draw();
                     },

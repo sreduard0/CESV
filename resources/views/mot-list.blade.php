@@ -69,7 +69,7 @@
                 <table id="table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Nome</th>
+                            <th>P/G Nome</th>
                             <th>Nome completo</th>
                             <th width="80px">CNH</th>
                             <th width="20px">Cat</th>
@@ -428,8 +428,8 @@
                         "extend": "print",
                         "text": "Imprimir",
                         'exportOptions': {
-                            'columns': [1, 2, 3, 4, 5],
-                            'title': 'Relatório de entrada e saída de veículos ',
+                            'columns': [0, 1, 2, 3, 4, 5, 6],
+                            'title': 'Motoristas registrados',
                             'pgUser': "{{ session('user')['rank'] }}",
                             'nameUser': "{{ session('user')['professionalName'] }}",
                             'fullNameUser': "{{ session('user')['name'] }}",
