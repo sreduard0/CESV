@@ -19,7 +19,8 @@ class reportMail extends Mailable
     public function build()
     {
         return $this->subject('Relatório de missão')
-            ->view('Mail.mail');
+            ->view('Mail.mail')
+            ->attach(storage_path('pdfmake/' . $this->info['pdfName']));
 
     }
 }

@@ -13,7 +13,7 @@ return array(
      */
     'show_warnings' => false, // Throw an Exception on warnings from dompdf
 
-    'public_path' => null, // Override the public path if needed
+    'public_path' => null,
 
     /*
      * Dejavu Sans font is missing glyphs for converted entities, turn it off if you need to show € and £.
@@ -245,7 +245,7 @@ return array(
          *
          * @var bool
          */
-        "enable_javascript" => true,
+        "enable_javascript" => false,
 
         /**
          * Enable remote file access

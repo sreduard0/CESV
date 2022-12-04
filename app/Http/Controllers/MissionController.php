@@ -11,6 +11,7 @@ use App\Models\MissionModel;
 use App\Models\RelGdaModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
 class MissionController extends Controller
@@ -21,25 +22,6 @@ class MissionController extends Controller
     {
         $this->Tools = new Tools;
         $this->Email = new Email;
-    }
-
-    public function testeEmail($mail, $msg)
-    {
-        $html = View::make('Mail.mail')->render();
-
-        Pdf::loadHTML($html)->save('pdfmake/my_stored_file.pdf');
-
-        // $mission = MissionModel::find($msg);
-        // if (empty($mission)) {
-        //     return redirect()->route('login');
-        // }
-        // $data = [
-        //     'email' => $mail,
-        //     'msg' => $msg,
-        //     'f' => $mission,
-        //     'status' => true,
-        // ];
-        // $this->Email->reportMail($data);
     }
 
     // INFORMAÇÕES DA MISSÃO SOLICITADA
@@ -61,7 +43,7 @@ class MissionController extends Controller
     // FINALIZAR MISSÃO
     public function finishMission($id)
     {
-        //MISSÃO
+        // //MISSÃO
         $mission = MissionModel::find($id);
         $mission->status = 3;
         $mission->save();
@@ -78,7 +60,13 @@ class MissionController extends Controller
             $ficha->status = 2;
             $ficha->save();
         }
+
         // Notificando CMT da MISSÃO
+        $data = [
+            'link' => url('/relatorio/form') . '/' . $this->Tools->hash($id, 'encrypt'),
+            'contactCmtMission' => $mission->contact,
+        ];
+        return $data;
     }
 
     public function printReport($id, $status)
@@ -93,6 +81,31 @@ class MissionController extends Controller
 
         ];
         return view('print-report', $data);
+    }
+
+    public function sendEmailReport($id, $mail)
+    {
+        $mission = MissionModel::find($this->Tools->hash($id, 'decrypt'));
+        if (empty($mission)) {
+            return redirect()->route('login');
+        }
+        $reportData = [
+            'mission' => $mission,
+            'status' => true,
+
+        ];
+        $pdfName = 'relatório_missão_' . $mission->mission_name . '_' . $mission->pg_seg . ' ' . $mission->name_seg . '.pdf';
+        Pdf::loadView('print-report', $reportData)->save(storage_path('pdfmake/' . $pdfName));
+
+        $data = [
+            'email' => $mail,
+            'cmtMission' => $mission->pg_seg . ' ' . $mission->name_seg,
+            'pdfName' => $pdfName,
+        ];
+        $this->Email->reportMail($data);
+
+        File::delete(storage_path('pdfmake/' . $pdfName));
+
     }
 
     // CRUD DAS MISSÕES

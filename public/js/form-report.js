@@ -1,3 +1,28 @@
+function sendEmail(id) {
+    bootbox.prompt({
+        title: 'Digite o email que deseja receber o relatório.',
+        centerVertical: true,
+        inputType: 'email',
+        callback: function (result) {
+            if (result) {
+                $.get("/relatorio/send/email/" + id + "/" + result, function () {
+
+                })
+            }
+        },
+        buttons: {
+            cancel: {
+                label: 'Cancelar',
+                className: 'd-none'
+            },
+            confirm: {
+                label: 'Enviar',
+                className: 'btn-success'
+            }
+
+        }
+    });
+}
 function saveReport() {
     const formData = new FormData(document.getElementById('form-report'))
 
@@ -92,11 +117,13 @@ function saveReport() {
                             $('#panelInfoCon').removeClass('d-none')
                             $("#send-loading").remove()
                             $('#form').remove()
+                            if (values.sendReport == 1) {
+                                return sendEmail(values.id);
+                            }
                             if (values.sendReport == 3) {
                                 return window.open('/relatorio/print/' + values.id + '/true', '', 'height=700, width=700');
-
                             }
-                        }, 1500);
+                        }, 1200);
 
                     },
 

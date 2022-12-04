@@ -1,4 +1,19 @@
 
+async function copy() {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    });
+
+    let text = document.querySelector("#copyText").innerHTML;
+    await navigator.clipboard.writeText(text);
+    Toast.fire({
+        icon: 'success',
+        title: '&nbsp&nbsp Link copiado.'
+    });
+}
 function registerMission() {
     var Toast = Swal.mixin({
         toast: true,
@@ -311,11 +326,25 @@ function finishMission(id) {
                         url: '/finish_mission/' + id,
                         type: "GET",
                         success: function (data) {
-                            Toast.fire({
-                                icon: 'success',
-                                title: '&nbsp&nbsp Missão encerrada com sucesso.'
+                            let dialog = bootbox.dialog({
+                                title: 'Gerando link do relatório.',
+                                message: '<p><i class="fas fa-spin fa-spinner"></i> Finalizando missão e gerando link</p>',
+                                size: 'large',
+                                centerVertical: true,
                             });
-                            $("#table").DataTable().clear().draw();
+
+                            dialog.init(function () {
+                                setTimeout(function () {
+                                    dialog.find('.modal-title').text('Envie este link para o comandante da missão.');
+                                    dialog.find('.bootbox-body').html('<div class="row"><span id="copyText">' + data['link'] + '</span> <div class="col d-flex justify-content-end"><button title="Copiar link" onclick="return copy()" class="m-r-6 btn btn-default"><i class="far fa-clone"></i></button>  <a title="Enviar via WhatsApp" href="whatsapp://send?phone=' + data['contactCmtMission'] + '&text=Ol%c3%a1%2c+' + result.name_seg + '%0d%0aSegue+o+link+para+preenchimento+do+relat%c3%b3rio+da+miss%c3%a3o+' + result.mission_name + '+%0d%0a%0d%0aLink%3a+' + data['link'] + '%0d%0a%0d%0a*Lembrando+que+este+link+s%c3%b3+pode+ser+acessado+dentro+da+EBNet+ou+pela+VPN*" class= "m-r-30 btn btn-success" > <i class="fs-23 fab fa-whatsapp"></i></a ></div></div>');
+
+                                    $("#table").DataTable().clear().draw();
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: '&nbsp&nbsp Missão encerrada com sucesso.'
+                                    });
+                                }, 1500);
+                            });
                         },
                         error: function (data) {
                             Toast.fire({
@@ -340,6 +369,7 @@ function finishMission(id) {
         });
     })
 }
+
 function altStatusMission(id) {
     var Toast = Swal.mixin({
         toast: true,

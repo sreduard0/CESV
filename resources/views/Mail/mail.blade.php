@@ -105,7 +105,10 @@
                                                                 <br />
                                                                 <br />
                                                                 <span style="font-size:30px;">3º Batalhão de Suprimento</span><br />
-                                                                <span style="font-size:24px;">Batalhão Marechal Bitencourt</span>
+                                                                <span style="font-size:24px;">Batalhão Marechal Bitencourt</span><br />
+                                                                <span style="font-size:20px;"><strong>CES Vtr</strong></span>
+
+
                                                                 <br /><br />
 
                                                                </font>
@@ -139,7 +142,7 @@
             </table>
             <table width="640" border="0" cellspacing="0" cellpadding="10" bgcolor="#ffffff" class="100p">
                 <tr>
-                    {{-- <td align="center"  width="402" style="font-size:16px; color:#848484;"><font face="'Roboto', Arial, sans-serif"><span style="color:#2a9d47; font-size:24px;"> Olá, {{ $info['mission']->pg_seg . ' ' . $info['mission']->name_seg }}</span> --}}
+                    <td align="center"  width="402" style="font-size:16px; color:#848484;"><font face="'Roboto', Arial, sans-serif"><span style="color:#2a9d47; font-size:24px;"> Olá, {{ $info['cmtMission'] }}</span>
                         </font>
                     </td>
                 </tr>

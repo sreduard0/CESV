@@ -394,7 +394,7 @@
                                             <select id="sendReport" name="sendReport" class="form-control">
                                                 <option selected value="">Selecione uma opcão</option>
                                                 <option value="0">Não receber</option>
-                                                <option disabled value="1">Email</option>
+                                                <option value="1">Email</option>
                                                 <option disabled value="2">WhatsApp</option>
                                                 <option value="3">Imprimir</option>
                                             </select>
