@@ -90,7 +90,7 @@ function saveReport() {
     }
 
     const URL = '/save_report_cmt_mission'
-    var msg = { 0: 'Você optou por não receber nenhum relatório desta missão.', 1: 'Você optou por receber via WhatsApp o relatório desta missão.', 2: 'Você optou por receber via Email o relatório desta missão.', 3: 'Você optou por imprimir o relatório desta missão.' }
+    var msg = { 0: 'Você optou por não receber nenhum relatório desta missão.', 1: 'Você optou por receber via Email o relatório desta missão.', 2: 'Você optou por receber via WhatsApp o relatório desta missão.', 3: 'Você optou por imprimir o relatório desta missão.' }
     bootbox.confirm({
         title: 'Deseja salvar este relatório de missão?',
         message: '<strong>Após salvar você não poderá editar os dados preenchidos.</strong><br>' + msg[values.sendReport],
