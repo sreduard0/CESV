@@ -111,7 +111,7 @@ class VtrController extends Controller
             $dado[] = $vtr->nr_vtr;
             $dado[] = $vtr->mod_vtr;
             $dado[] = $vtr->ebplaca;
-            $dado[] = $vtr->ton;
+            $dado[] = $vtr->ton . ' Ton';
             $dado[] = $vtr->vol;
             switch ($vtr->status) {
                 case 1:

@@ -41,7 +41,7 @@
                             <div class="form-group col">
                                 <label for="statusFicha">Filtrar por status</label>
                                 <select id="statusFicha" name="statusFicha" class="form-control">
-                                    <option value="">Selecione</option>
+                                    <option value="">Todas</option>
                                     <option value="3">Aguardando autorização</option>
                                     <option value="1">Abertas</option>
                                     <option value="2">Fechadas</option>

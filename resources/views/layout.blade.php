@@ -101,7 +101,7 @@
                                 <a href="{{ route('reports') }}" class="nav-link @yield('reports')">
                                     <i class="nav-icon fas fa-file-chart-line"></i>
                                     <p>
-                                        Relatório gda
+                                        Relatório Guarda
                                     </p>
                                 </a>
                             </li>

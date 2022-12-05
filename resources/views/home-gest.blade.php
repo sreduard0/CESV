@@ -27,7 +27,7 @@
     @switch(session('CESV')['profileType'])
         @case(1)
         @case(5)
-            Controle de missões OM/OP
+            Controle de missões OM/ OP
         @break
 
         @case(3)
@@ -84,10 +84,10 @@
                             <div class="form-group col">
                                 <label for="statusMission">Filtrar por status</label>
                                 <select id="statusMission" class="form-control">
-                                    <option selected value="">TODOS</option>
-                                    <option value="1">NA FILA</option>
-                                    <option value="2">EM ANDAMENTO</option>
-                                    <option value="3">ENCERRADA</option>
+                                    <option selected value="">Todos</option>
+                                    <option value="1">Na fila</option>
+                                    <option value="2">Em andamento</option>
+                                    <option value="3">Encerradas</option>
                                 </select>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                 <table id="table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th width="30px">#</th>
+                            <th width="50px">Ord.</th>
                             <th>Missão</th>
                             <th width="30px">Tipo</th>
                             <th>Destino</th>

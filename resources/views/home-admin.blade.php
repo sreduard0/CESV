@@ -38,7 +38,7 @@
                         <i class="fas fa-square text-primary"></i> II
                     </span>
                     <span class="mr-2">
-                        <i class="fas fa-square text-secondary"></i> II
+                        <i class="fas fa-square text-secondary"></i> III
                     </span>
                     <span class="mr-2">
                         <i class="fas fa-square text-warning"></i> IV
@@ -70,7 +70,7 @@
 
         <div class="card">
             <div class="card-header border-0">
-                <h3 class="card-title">Viaturas mais utilizadas no mês</h3>
+                <h3 class="card-title">Viaturas mais utilizadas no mês corrente</h3>
             </div>
             <div class="card-body table-responsive p-0">
                 <table id="table" class="table table-striped table-valign-middle">
@@ -79,7 +79,7 @@
                             <th>Qtd</th>
                             <th>Viatura</th>
                             <th>Tipo</th>
-                            <th>EB/Placa</th>
+                            <th>EB/ Placa</th>
                             <th width="30px">Ver</th>
                         </tr>
                     </thead>

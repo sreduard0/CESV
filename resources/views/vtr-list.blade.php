@@ -55,7 +55,7 @@
                             <div class="form-group col">
                                 <label for="vtrStatus">Filtrar por status</label>
                                 <select id="vtrStatus" class="form-control">
-                                    <option selected value="">TODAS</option>
+                                    <option selected value="">Todas</option>
                                     <option value="1">Disponível</option>
                                     <option value="3">Disp. c/ restrição</option>
                                     <option value="2">Indisponível</option>
@@ -79,9 +79,9 @@
                     <thead>
                         <tr>
                             <th width="30px">Nr</th>
-                            <th>Modelo Vtr</th>
-                            <th>EB/Placa</th>
-                            <th>Ton</th>
+                            <th>Modelo da viatura</th>
+                            <th>EB/ Placa</th>
+                            <th width="100px">Capacidade</th>
                             <th>M <sup>3</sup></th>
                             <th>Status</th>
                             <th width="100px">Ações</th>
@@ -312,7 +312,7 @@
                 "paging": true,
                 "responsive": true,
                 "lengthChange": true,
-                "autoWidth": true,
+                "autoWidth": false,
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },

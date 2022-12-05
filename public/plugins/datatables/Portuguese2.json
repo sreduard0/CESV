@@ -44,7 +44,7 @@
         "print": "Imprimir"
     },
     "decimal": ",",
-    "infoFiltered": "(filtrado num total de _MAX_ registos)",
+    "infoFiltered": "",
     "infoThousands": ".",
     "searchBuilder": {
         "add": "Adicionar condição",
@@ -160,5 +160,5 @@
         }
     },
     "info": "Registros de _START_ a _END_, N° total de registros _TOTAL_",
-    "infoEmpty": "Não há registros."
+    "infoEmpty": ""
 }

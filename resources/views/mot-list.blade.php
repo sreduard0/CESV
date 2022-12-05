@@ -69,12 +69,13 @@
                 <table id="table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>P/G Nome</th>
+                            <th width="30px">P/ G</th>
+                            <th>Nome de guerra</th>
                             <th>Nome completo</th>
                             <th width="80px">CNH</th>
                             <th width="20px">Cat</th>
                             <th width="70">Val. CNH</th>
-                            <th width="80">Idt mil</th>
+                            <th width="80">Idt Mil</th>
                             <th width="150px">Contato</th>
                             @if (session('CESV')['profileType'] == 1)
                                 <th width="50px">Ações</th>

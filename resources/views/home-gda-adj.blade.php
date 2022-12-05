@@ -98,8 +98,8 @@
                             <div class="form-group col">
                                 <label for="typeVtr_filter">Tipo</label>
                                 <select id="typeVtr_filter" onchange="return filterRel()" class="form-control">
-                                    <option selected value="">TODAS ABERTAS</option>
-                                    <option value="civil">CIVIL</option>
+                                    <option selected value="">Todas abertas</option>
+                                    <option value="civil">Civil</option>
                                     <option value="oom">Outra OM</option>
                                     <option value="adm">3º B Sup | Administrativa</option>
                                     <option value="op">3º B Sup | Operacional</option>

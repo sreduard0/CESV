@@ -27,8 +27,8 @@
                             <div class="form-group col-md-2">
                                 <label for="typevtr_filter">Tipo de veículo</label>
                                 <select id="typevtr_filter" class="form-control">
-                                    <option selected value="">TODOS</option>
-                                    <option value="civil">CIVIL</option>
+                                    <option selected value="">Todos</option>
+                                    <option value="civil">Civil</option>
                                     <option value="oom">Outra OM</option>
                                     <option value="adm">3º B Sup | Administrativa</option>
                                     <option value="op">3º B Sup | Operacional</option>
@@ -37,7 +37,7 @@
                             <div class="form-group col-md-2">
                                 <label for="vtr_filter">Veículo</label>
                                 <select id="vtr_filter" class="form-control">
-                                    <option selected value="">TODOS</option>
+                                    <option selected value="">Todos</option>
                                     @foreach ($viaturas as $viatura)
                                         <option value="{{ $viatura->ebplaca }}">
                                             {{ $viatura->nr_vtr . ' | ' . $viatura->mod_vtr }}
@@ -104,7 +104,7 @@
                             <th>Hora - Saída</th>
                             <th>Km(s) rodados</th>
                             <th>OM</th>
-                            <th>Missão/Destino</th>
+                            <th>Missão/ Destino</th>
                             <th style="width:2em">Ver</th>
                         </tr>
                     </thead>

@@ -119,7 +119,8 @@ class MotController extends Controller
         $dados = array();
         foreach ($drivers as $driver) {
             $dado = array();
-            $dado[] = $driver->pg . ' ' . $driver->name;
+            $dado[] = $driver->pg;
+            $dado[] = $driver->name;
             $dado[] = $driver->full_name;
             $dado[] = $driver->cnh;
             $dado[] = $driver->cat;
