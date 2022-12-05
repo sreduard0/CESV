@@ -57,6 +57,7 @@
                                 <select id="vtrStatus" class="form-control">
                                     <option selected value="">TODAS</option>
                                     <option value="1">Disponível</option>
+                                    <option value="3">Disp. c/ restrição</option>
                                     <option value="2">Indisponível</option>
                                 </select>
                             </div>
@@ -305,12 +306,13 @@
         document.getElementById('vtrStatus').addEventListener('change', event => {
             $('#table').DataTable().column(3).search(event.target.value).draw();
         });
+
         $(function() {
             $("#table").DataTable({
                 "paging": true,
                 "responsive": true,
                 "lengthChange": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
@@ -336,8 +338,8 @@
                         "extend": "print",
                         "text": "Imprimir",
                         'exportOptions': {
-                            'columns': [0, 1, 2, 3, 4],
-                            'title': 'Relatório de entrada e saída de veículos ',
+                            'columns': [0, 1, 2, 3, 4, 5],
+                            'title': 'Relatório de viaturas',
                             'pgUser': "{{ session('user')['rank'] }}",
                             'nameUser': "{{ session('user')['professionalName'] }}",
                             'fullNameUser': "{{ session('user')['name'] }}",
