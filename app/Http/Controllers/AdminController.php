@@ -436,13 +436,20 @@ class AdminController extends Controller
     {
         // Receber a requisão da pesquisa
         $requestData = $request->all();
+        $columns = array(
+            0 => 'id',
+            1 => 'id_user',
+            2 => 'profile',
+        );
 
         $rows = count(LoginApplicationModel::where('id_ext', 'CES Vtr')->get());
 
         //Obtendo registros de número total sem qualquer pesquisa
         $users = LoginApplicationModel::select('login_id')->where('id_ext', 'CES Vtr')
             ->with('user_data', 'permission')
-            ->orderBy('profileType', $requestData['order'][0]['dir'])
+            ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+            ->offset($requestData['start'])
+            ->take($requestData['length'])
             ->get();
         $filtered = count($users);
         $rank = [1 => 'Gen', 2 => 'Cel', 3 => 'TC', 4 => 'Maj', 5 => 'Cap', 6 => '1º Ten', 7 => '2º Ten', 8 => 'Asp', 9 => 'ST', 10 => '1º Sgt', 11 => '2º Sgt', 12 => '3º Sgt', 13 => 'Cb', 14 => 'Sd'];

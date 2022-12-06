@@ -14612,7 +14612,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
     line-height: .8;
     margin-top: -.1rem;
     max-height: 33px;
-    width: auto;
+    width: 50px;
 }
 
 .brand-link .brand-image-xl {

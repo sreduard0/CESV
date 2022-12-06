@@ -68,9 +68,10 @@
             @endphp
         @endif
         <aside class="main-sidebar sidebar-dark-primary elevation-5">
-            <div class="brand-link">
+            <div class="brand-link info">
                 <img src="{{ asset('img/logo.png') }}" alt="CESV" class="brand-image img-circle">
-                <span class="bold">CES Vtr</span>
+                <span class="m-l-12 bold">CES Vtr</span>
+
             </div>
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -79,7 +80,8 @@
                             class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <span>{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</span><br>
+                        <span
+                            class="bold">{{ session('user')['rank'] . ' ' . session('user')['professionalName'] }}</span><br>
                         <span style="color:darkgray">{{ $perm[session('CESV')['profileType']] }}</span>
                     </div>
                 </div>

@@ -199,6 +199,8 @@ class GdaController extends Controller
                 $rel->hour_sai = date('Y-m-d H:i', strtotime($data['dateSai']));
                 $rel->destiny = $data['destiny'];
                 $rel->obs = $data['obs'];
+                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'];
                 if ($data['odEnt'] && $data['dateEnt']) {
                     $rel->status = 2;
                 }
@@ -241,6 +243,8 @@ class GdaController extends Controller
                 $rel->hour_ent = date('Y-m-d H:i', strtotime($data['dateEnt']));
                 $rel->hour_sai = $data['dateSai'] ? date('Y-m-d H:i', strtotime($data['dateSai'])) : null;
                 $rel->status = $data['dateSai'] ? 2 : 1;
+                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'];
                 $rel->save();
 
                 break;
@@ -274,6 +278,8 @@ class GdaController extends Controller
                 $rel->obs = $data['obs'];
                 $rel->hour_ent = date('Y-m-d H:i', strtotime($data['dateEnt']));
                 $rel->hour_sai = $data['dateSai'] ? date('Y-m-d H:i', strtotime($data['dateSai'])) : null;
+                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'];
                 $rel->status = $data['dateSai'] ? 2 : 1;
                 $rel->save();
 
