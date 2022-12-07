@@ -211,18 +211,18 @@
                             <div class=" float-l col-md-6">
                                 <strong>Data de fim da missão</strong>
 
-                                <p id="dateFinMission" class="text-muted">-</p>
+                                <p class="text-muted">{{ $mission->finish_mission }}</p>
 
                                 <hr>
 
                                 <strong>Peso</strong>
 
-                                <p id="kg" class="text-muted">-</p>
+                                <p class="text-muted">{{ $mission->peso }}</p>
 
                                 <hr>
                                 <strong>M <sup>3</sup> da carga</strong>
 
-                                <p id="m3" class="text-muted">-</p>
+                                <p class="text-muted">{{ $mission->vol }}</p>
 
                                 <hr>
 
@@ -232,16 +232,16 @@
                             <div class=" float-r col-md-6">
                                 <strong>Consumo gasolina</strong>
 
-                                <p id="conGas" class="text-muted">-</p>
+                                <p class="text-muted">{{ $mission->cons_gas }}</p>
                                 <hr>
 
                                 <strong>Consumo diesel</strong>
 
-                                <p id="conDiesel" class="text-muted">-</p>
+                                <p class="text-muted">{{ $mission->cons_diesel }}</p>
                                 <hr>
                                 <strong>Alteração</strong>
 
-                                <p id="alt" class="text-muted">-</p>
+                                <p class="text-muted">{{ $mission->alteration == 1 ? 'Sim' : 'Não' }}</p>
 
                                 <hr>
 
@@ -251,9 +251,11 @@
 
                         <div class="row">
                             <div class="col">
-                                <strong>Observações </strong>
+                                <strong>Observações de conclusão</strong>
 
-                                <p id="obs" class="text-muted">-</p>
+                                <p class="text-muted">
+                                    {{ $mission->obs_alteration ? $mission->obs_alteration : 'Não há observações.' }}
+                                </p>
                             </div>
 
                         </div>
@@ -263,11 +265,10 @@
         </section>
         <div>
             <div
-                style="font-family:times new roman; font-size:12pt; margin-left:0cm; margin-right:0.1cm; margin-top:3cm">
+                style="font-family:times new roman; font-size:14pt; margin-left:0cm; margin-right:0.1cm; margin-top:3cm">
                 <div>
-                    <div class="topico_nome" style="text-align:center"> ____________________________________________
-                        <br>
-                        {{ $mission->pg_seg . ' ' . $mission->name_seg }}
+                    <div class="topico_nome" style="text-align:center">
+                        <strong>{{ $ass }}</strong>
                     </div>
                     <div>
                         <div class="funcao-signatario" style="text-align:center">Chefe da missão</div>

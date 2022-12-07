@@ -69,7 +69,7 @@ class MissionController extends Controller
         return $data;
     }
 
-    public function printReport($id, $status)
+    public function printReport($id, $status, $ass)
     {
         $mission = MissionModel::find($this->Tools->hash($id, 'decrypt'));
         if (empty($mission)) {
@@ -78,12 +78,13 @@ class MissionController extends Controller
         $data = [
             'mission' => $mission,
             'status' => $status,
+            'ass' => $ass,
 
         ];
         return view('print-report', $data);
     }
 
-    public function sendEmailReport($id, $mail)
+    public function sendEmailReport($id, $mail, $ass)
     {
         $mission = MissionModel::find($this->Tools->hash($id, 'decrypt'));
         if (empty($mission)) {
@@ -92,6 +93,7 @@ class MissionController extends Controller
         $reportData = [
             'mission' => $mission,
             'status' => true,
+            'ass' => $ass,
 
         ];
         $pdfName = 'relatório_missão_' . $mission->mission_name . '_' . $mission->pg_seg . ' ' . $mission->name_seg . '.pdf';

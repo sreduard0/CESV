@@ -1,11 +1,11 @@
-function sendEmail(id) {
+function sendEmail(id, ass) {
     bootbox.prompt({
         title: 'Digite o email que deseja receber o relatório.',
         centerVertical: true,
         inputType: 'email',
         callback: function (result) {
             if (result) {
-                $.get("/relatorio/send/email/" + id + "/" + result, function () {
+                $.get("/relatorio/send/email/" + id + "/" + result + "/" + ass, function () {
 
                 })
             }
@@ -77,6 +77,25 @@ function saveReport() {
         $('#sendReport').removeClass('is-invalid');
     }
 
+    if ($('#sendReport').val() >= 1) {
+        if ($('#pg').val() == '') {
+            2
+            $('#pg').addClass('is-invalid');
+            return false;
+        } else {
+            $('#pg').removeClass('is-invalid');
+        }
+
+        if ($('#fullName').val() == '') {
+            2
+            $('#fullName').addClass('is-invalid');
+            return false;
+        } else {
+            $('#fullName').removeClass('is-invalid');
+        }
+    }
+
+
     var values = {
         id: formData.get('id_mission'),
         dateFinish: formData.get('dateFinish'),
@@ -87,8 +106,9 @@ function saveReport() {
         altMission: formData.get('altMission'),
         obsMission: formData.get('obsMission'),
         sendReport: $('#sendReport').val(),
-    }
 
+    }
+    var fullname = $('#fullName').val().toUpperCase() + ' - ' + $('#pg').val()
     const URL = '/save_report_cmt_mission'
     var msg = { 0: 'Você optou por não receber nenhum relatório desta missão.', 1: 'Você optou por receber via Email o relatório desta missão.', 2: 'Você optou por receber via WhatsApp o relatório desta missão.', 3: 'Você optou por imprimir o relatório desta missão.' }
     bootbox.confirm({
@@ -118,10 +138,10 @@ function saveReport() {
                             $("#send-loading").remove()
                             $('#form').remove()
                             if (values.sendReport == 1) {
-                                return sendEmail(values.id);
+                                return sendEmail(values.id, fullname);
                             }
                             if (values.sendReport == 3) {
-                                return window.open('/relatorio/print/' + values.id + '/true', '', 'height=700, width=700');
+                                return window.open('/relatorio/print/' + values.id + '/true/' + fullname, '', 'height=700, width=700');
                             }
                         }, 1200);
 

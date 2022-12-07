@@ -383,8 +383,35 @@
                                                 class=" text form-control"></textarea>
                                         </div>
                                     </div>
+                                    <div id="ass" class="d-none row">
+                                        <div class="form-group col-md-1">
+                                            <label for="pg">Posto/Grad<span style="color:red">*</span></label>
+                                            <select class="form-control" name="pg" id="pg">
+                                                <option value="">-</option>
+                                                <option value="Gen">Gen</option>
+                                                <option value="Cel">Cel</option>
+                                                <option value="TC">TC</option>
+                                                <option value="Maj">Maj</option>
+                                                <option value="Cap">Cap</option>
+                                                <option value="1º Ten">1º Ten</option>
+                                                <option value="2º Ten">2º Ten</option>
+                                                <option value="Asp">Asp</option>
+                                                <option value="ST">ST</option>
+                                                <option value="1º Sgt">1º Sgt</option>
+                                                <option value="2º Sgt">2º Sgt</option>
+                                                <option value="3º Sgt">3º Sgt</option>
+                                                <option value="Cb">Cb</option>
+                                                <option value="Sd">Sd</option>
+                                            </select>
+                                        </div>
 
-
+                                        <div class="form-group col-md-5">
+                                            <label for="fullName">Nome completo<span
+                                                    style="color:red">*</span></label>
+                                            <input minlength="2" maxlength="200" id="fullName" name="fullName"
+                                                type="text" class="form-control" placeholder="Nome completo">
+                                        </div>
+                                    </div>
                                 </form>
                                 <div class="row  d-flex justify-content-between">
                                     <div class="form-group col-md-3">
@@ -426,6 +453,15 @@
     </footer>
 
     {{-- ==================================== PLUGINS ===================================== --}}
+    <script>
+        document.getElementById('sendReport').addEventListener('change', event => {
+            if (event.target.value >= 1) {
+                $('#ass').removeClass('d-none')
+            } else {
+                $('#ass').addClass('d-none')
+            }
+        });
+    </script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Bootstrap 4 -->
