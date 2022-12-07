@@ -432,7 +432,6 @@
                             'columns': [0, 1, 2, 3, 4, 5, 6],
                             'title': 'Motoristas registrados',
                             'pgUser': "{{ session('user')['rank'] }}",
-                            'nameUser': "{{ session('user')['professionalName'] }}",
                             'fullNameUser': "{{ session('user')['name'] }}",
                             'functionUser': "{{ session('CESV')['profileType'] }}",
                         },
