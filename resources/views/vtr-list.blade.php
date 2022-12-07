@@ -20,8 +20,6 @@
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
     {{-- CRUD JS --}}
     <script src="{{ asset('js/crud-vtr.js') }}"></script>
     @switch(session('CESV')['profileType'])
