@@ -78,7 +78,7 @@
                             <th width="80">Idt Mil</th>
                             <th width="150px">Contato</th>
                             @if (session('CESV')['profileType'] == 1)
-                                <th width="50px">Ações</th>
+                                <th>Ações</th>
                             @elseif (session('CESV')['profileType'] == 5)
                                 <th width="30px">Ver</th>
                             @endif
@@ -405,7 +405,7 @@
                 @if (session('CESV')['profileType'] == 1)
                     "aoColumnDefs": [{
                         'className': 'w-1 text-center',
-                        'aTargets': [7]
+                        'aTargets': [8]
                     }],
                 @endif
                 "language": {
