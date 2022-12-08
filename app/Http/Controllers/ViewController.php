@@ -20,6 +20,17 @@ class ViewController extends Controller
     {
         switch (session('CESV')['profileType']) {
             case 0:
+                if (!isset(session('CESV')['gda'])) {
+                    return view('select-pa-po');
+                }
+                $data = [
+                    'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
+                    'fichas' => FichaModel::where('status', 1)->get(),
+                ];
+
+                return view('home-gda-adj', $data);
+
+                break;
             case 2:
                 $data = [
                     'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
