@@ -95,7 +95,7 @@ class VtrController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['search']['value']) {
-            $vtrs = VtrModel::where('ebplaca', $requestData['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $vtrs = VtrModel::where('ebplaca', 'LIKE', '%' . $requestData['search']['value'] . '%')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($vtrs);
             $rows = count(VtrModel::all());
         } elseif ($requestData['columns'][3]['search']['value']) {
