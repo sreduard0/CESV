@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('get_info_register/{id}', [GdaController::class, 'infoRegister'])->middleware('role:adj>cmtgda>adm');
     Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('role:adj>cmtgda');
     Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('post_relgda_list')->middleware('role:adm>cmtgda>adj');
-    Route::post('report_relgda_list', [GdaController::class, 'reportRelGda'])->name('report_relgda_list')->middleware('role:adm>cmtgda>adj');
+    Route::post('report_relgda_list', [GdaController::class, 'reportRelGda'])->name('report_relgda_list')->middleware('role:adm>cmtgda>adj>fiscadm');
 
 // LISTA DE MOTORISTA
     Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_list')->middleware('role:trnp>adm');

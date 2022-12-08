@@ -433,7 +433,11 @@ class GdaController extends Controller
         //Se há pesquisa ou não
         if ($requestData['columns'][6]['search']['value'] == 'find') {
 
-            $search = RelGdaModel::query();
+            if (session('CESV')['profileType'] == 4) {
+                $search = RelGdaModel::where('type_veicle', 'OP')->orWhere('type_veicle', 'OM');
+            } else {
+                $search = RelGdaModel::query();
+            }
 
             if ($requestData['columns'][5]['search']['value']) {
                 $search->where('type_veicle', $requestData['columns'][5]['search']['value']);
@@ -465,7 +469,12 @@ class GdaController extends Controller
             $filtered = count($registers);
             $rows = count(RelGdaModel::all());
         } else {
-            $registers = RelGdaModel::with('ficha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            if (session('CESV')['profileType'] == 4) {
+                $registers = RelGdaModel::with('ficha')->where('type_veicle', 'OP')->orWhere('type_veicle', 'OM')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            } else {
+                $registers = RelGdaModel::with('ficha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            }
+
             $filtered = count($registers);
             $rows = count(RelGdaModel::all());
 
