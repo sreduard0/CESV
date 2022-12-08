@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
     <!-- Modal de registro manual -->
     <script src="{{ asset('js/crud-gda.js') }}"></script>
+    <style>
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            visibility: hidden;
+        }
+    </style>
 
 @endsection
 

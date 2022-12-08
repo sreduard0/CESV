@@ -11,13 +11,7 @@
     <title>{{ config('app.name') }} - @yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
     {{-- ==================================== CSS/JS ===================================== --}}
-    <style>
-        .dataTables_wrapper .dataTables_filter {
-            float: right;
-            text-align: right;
-            visibility: hidden;
-        }
-    </style>
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="{{ asset('css/gfonts.css') }}">
     <!-- Font Awesome -->

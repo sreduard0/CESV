@@ -29,6 +29,13 @@
             column-width: 100px;
         }
     </style>
+    <style>
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            visibility: hidden;
+        }
+    </style>
 @endsection
 
 @section('content')

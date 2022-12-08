@@ -8,10 +8,16 @@
 @section('css')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
-
+    <style>
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            visibility: hidden;
+        }
+    </style>
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
-    <link rel="stylesheet" href="{{asset('ionicon/css/ionicons.css')}}">
+    <link rel="stylesheet" href="{{ asset('ionicon/css/ionicons.css') }}">
     <!-- Modal de registro manual -->
     <script src="{{ asset('js/crud-gda.js') }}"></script>
     <style>

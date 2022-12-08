@@ -43,7 +43,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('css')
-
+    <style>
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            visibility: hidden;
+        }
+    </style>
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
     <!-- summernote -->

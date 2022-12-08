@@ -6,6 +6,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
+    <style>
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            visibility: hidden;
+        }
+    </style>
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header border-0">
