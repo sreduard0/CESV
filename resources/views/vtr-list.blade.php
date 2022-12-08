@@ -269,6 +269,7 @@
                                     <select class="form-control" name="e_statusVtr" id="e_statusVtr">
                                         <option value="">Selecione</option>
                                         <option value="1">Disponível</option>
+                                        <option value="3">Disp. c/ restrição</option>
                                         <option value="2">Indisponível</option>
                                     </select>
                                 </div>
