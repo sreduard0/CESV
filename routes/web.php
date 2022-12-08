@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('role:trnp>adm>fiscadm');
     Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('role:trnp>adm');
     Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('role:trnp>adm');
-    Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('role:adj>cmtgda>adm');
+    Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('role:adj>cmtgda>adm>fiscadm');
     Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('role:trnp>cost>fiscadm>adm');
     Route::get('/usuarios', [ViewController::class, 'users'])->name('users')->middleware('role:adm');
 
