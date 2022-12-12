@@ -462,12 +462,12 @@ class GdaController extends Controller
                 $search->where('hour_sai', '<=', $dateSai);
             }
 
+            $rows = $search->count();
             $registers = $search->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                 ->offset($requestData['start'])
                 ->take($requestData['length'])->get();
 
             $filtered = count($registers);
-            $rows = count(RelGdaModel::all());
         } else {
             if (session('CESV')['profileType'] == 4) {
                 $registers = RelGdaModel::with('ficha')->where('type_veicle', 'OP')->orWhere('type_veicle', 'OM')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();

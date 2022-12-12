@@ -13,7 +13,6 @@ function filterReports() {
         om: $('#om_filter').val(),
         typeVtr: $('#typevtr_filter').val(),
     }
-    console.log(data)
     if (
         data.vtr ||
         data.driver ||
