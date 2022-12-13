@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
 
 // RELA GUARDA
     Route::get('countRelGda', [GdaController::class, 'countRelGda'])->middleware('role:adj>trnp>cmtgda');
+    Route::get('setGda/{gda}', [ViewController::class, 'setGda'])->name('setGda')->middleware('role:cmtgda');
     Route::get('get_info_register/{id}', [GdaController::class, 'infoRegister'])->middleware('role:adj>cmtgda>adm');
     Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('role:adj>cmtgda');
     Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('post_relgda_list')->middleware('role:adm>cmtgda>adj');

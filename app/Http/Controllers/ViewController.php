@@ -16,20 +16,33 @@ class ViewController extends Controller
     {
         $this->Tools = new Tools();
     }
+    public function setGda($gda)
+    {
+        if (!empty($gda)) {
+            session()->put([
+                'CESV' => [
+                    'guarda' => $gda,
+                    'profileType' => 0,
+                ],
+            ]);
+            return redirect()->route('home');
+        }
+
+    }
     public function home()
     {
         switch (session('CESV')['profileType']) {
             case 0:
-                if (!isset(session('CESV')['gda'])) {
+                if (!isset(session('CESV')['guarda'])) {
                     return view('select-pa-po');
                 }
+
                 $data = [
                     'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
                     'fichas' => FichaModel::where('status', 1)->get(),
                 ];
 
                 return view('home-gda-adj', $data);
-
                 break;
             case 2:
                 $data = [

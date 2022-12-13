@@ -471,12 +471,15 @@ class GdaController extends Controller
         } else {
             if (session('CESV')['profileType'] == 4) {
                 $registers = RelGdaModel::with('ficha')->where('type_veicle', 'OP')->orWhere('type_veicle', 'OM')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+                $rows = RelGdaModel::with('ficha')->where('type_veicle', 'OP')->orWhere('type_veicle', 'OM')->count();
+
             } else {
                 $registers = RelGdaModel::with('ficha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+                $rows = count(RelGdaModel::all());
+
             }
 
             $filtered = count($registers);
-            $rows = count(RelGdaModel::all());
 
         }
         // Ler e criar o array de dados
