@@ -1,7 +1,7 @@
 @extends('layout')
 @section('title', 'Guarda')
 @section('home', 'active')
-@section('title-header', 'Controle de viaturas')
+@section('title-header', 'Controle de viaturas | ' . session('CESV')['guarda'])
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -467,13 +467,17 @@
                             <div class="row">
                                 <div class="form-group col-md-3">
                                     <label for="modVtrRel">Modelo veículo <span style="color:red">*</span></label>
-                                    <input id="modVtrRel" maxlength="199" name="modVtrRel" type="text"
+                                    <input id="modVtrRelDes" name="modVtrRel" disabled type="text"
                                         class="form-control" placeholder="Modelo veículo">
+
+                                    <input id="modVtrRel" name="modVtrRel" type="hidden">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="ebPlacaRel">Placa / EB <span style="color:red">*</span></label>
-                                    <input id="ebPlacaRel" maxlength="15" name="ebPlacaRel" type="text"
+                                    <input id="ebPlacaRelDes" disabled name="ebPlacaRel" type="text"
                                         class="form-control" placeholder="Placa / EB">
+
+                                    <input id="ebPlacaRel" name="ebPlacaRel" type="hidden">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="odSaiRel">Odômetro <span style="color:red">*</span></label>

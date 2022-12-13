@@ -18,7 +18,7 @@
     <section class="col m-b-150">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-3 col-6">
-                <a href="{{ route('setGda', ['gda' => 'pa']) }}" class="small-box bg-success">
+                <a href="{{ route('setGda', ['gda' => 'PA']) }}" class="small-box bg-success">
                     <div class="inner">
                         <h3>PA</h3>
                         <p>Portão das Armas</p>
@@ -31,7 +31,7 @@
 
             <div class="col-lg-3 col-6">
 
-                <a href="{{ route('setGda', ['gda' => 'po']) }}" class="small-box bg-primary">
+                <a href="{{ route('setGda', ['gda' => 'PO']) }}" class="small-box bg-primary">
                     <div class="inner">
                         <h3>PO</h3>
                         <p>Portão Oeste</p>

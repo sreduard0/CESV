@@ -15,12 +15,9 @@ class Missions extends Migration
             $table->string('mission_name', 255);
             $table->string('destiny', 255);
             $table->string('class', 10)->nullable();
-            $table->integer('vtr');
             $table->string('doc', 255)->nullable();
             $table->string('origin', 255)->nullable();
             $table->integer('status');
-            $table->string('pg_mot', 6);
-            $table->string('name_mot', 255);
             $table->string('pg_seg', 6);
             $table->string('name_seg', 255);
             $table->datetime('prev_date_part');

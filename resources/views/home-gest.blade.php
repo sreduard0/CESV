@@ -242,8 +242,8 @@
                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                         </div>
                                         <input type="text" class="form-control" id="contactCmtMission"
-                                            name="contactCmtMission" data-inputmask="'mask':'(99) 9 9999-9999'"
-                                            data-mask="" inputmode="text" placeholder="EX: (51) 9 8020-4426">
+                                            name="contactCmtMission" data-inputmask="'mask':'+55 (99) 9 9999-9999'"
+                                            data-mask="" inputmode="text" placeholder="EX: +55 (51) 9 8020-4426">
                                     </div>
 
                                 </div>
@@ -406,7 +406,7 @@
                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                         </div>
                                         <input type="text" class="form-control" id="e_contactCmtMission"
-                                            name="e_contactCmtMission" data-inputmask="'mask':'(99) 9 9999-9999'"
+                                            name="e_contactCmtMission" data-inputmask="'mask':'+99 (99) 9 9999-9999'"
                                             data-mask="" inputmode="text" placeholder="EX: (51) 9 8020-4426">
                                     </div>
 

@@ -77,7 +77,7 @@ class GdaController extends Controller
                 $rel->hour_sai = date('Y-m-d H:i', strtotime($data['hourSai']));
                 $rel->status = 1;
                 $rel->om = '3º B Sup';
-
+                $rel->gda = 'pa-po';
                 $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
                 $rel->save();
                 break;
@@ -117,7 +117,7 @@ class GdaController extends Controller
                 $rel->type_veicle = $data['vtrType'];
                 $rel->status = 1;
                 $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
-
+                $rel->gda = session('CESV')['guarda'];
                 $rel->save();
                 break;
             case 'civil':
@@ -150,7 +150,7 @@ class GdaController extends Controller
                 $rel->type_veicle = $data['vtrType'];
                 $rel->status = 1;
                 $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
-
+                $rel->gda = session('CESV')['guarda'];
                 $rel->save();
 
                 break;
@@ -357,6 +357,7 @@ class GdaController extends Controller
             0 => 'mod_veicle',
             1 => 'mot_name',
             2 => 'seg_name',
+
             3 => 'hour_sai',
             4 => 'od_sai',
             5 => 'om',
@@ -367,19 +368,44 @@ class GdaController extends Controller
         //Obtendo registros de número total sem qualquer pesquisa
 
         //Se há pesquisa ou não
-        if ($requestData['columns'][3]['search']['value'] || $requestData['columns'][4]['search']['value']) {
-            $registers = RelGdaModel::where('type_veicle', $requestData['columns'][3]['search']['value'])
-                ->where('status', 1)
-                ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+        if ($requestData['columns'][3]['search']['value']) {
+            $query = RelGdaModel::where('type_veicle', $requestData['columns'][3]['search']['value'])
+                ->where('status', 1);
+            if (session('CESV')['profileType'] == 0) {
+                $query->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
+
+            }
+            $registers = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                 ->offset($requestData['start'])
-                ->take($requestData['length'])->get();
+                ->take($requestData['length'])
+                ->get();
 
             $filtered = count($registers);
-            $rows = count(RelGdaModel::all());
+            $query_count = RelGdaModel::where('status', 1);
+            if (session('CESV')['profileType'] == 0) {
+                $query->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
+            }
+            $result = $query_count->count();
+            $rows = $result;
+
         } else {
-            $registers = RelGdaModel::where('status', 1)->with('ficha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $query = RelGdaModel::where('status', 1);
+            if (session('CESV')['profileType'] == 0) {
+                $query->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
+            }
+
+            $registers = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                ->offset($requestData['start'])
+                ->take($requestData['length'])
+                ->get();
+
             $filtered = count($registers);
-            $rows = count(RelGdaModel::where('status', 1)->get());
+            $query_count = RelGdaModel::where('status', 1);
+            if (session('CESV')['profileType'] == 0) {
+                $query->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
+            }
+            $result = $query_count->count();
+            $rows = $result;
 
         }
 

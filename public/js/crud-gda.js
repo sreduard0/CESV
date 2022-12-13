@@ -46,7 +46,9 @@ function selectFichaRel(value) {
         $('#idMotRel').val(result.id_mot)
         $('#pgSegRel').val(result.pg_seg)
         $('#nameSegRel').val(result.name_seg)
+        $('#modVtrRelDes').val(result.vtrinfo.mod_vtr)
         $('#modVtrRel').val(result.vtrinfo.mod_vtr)
+        $('#ebPlacaRelDes').val(result.vtrinfo.ebplaca)
         $('#ebPlacaRel').val(result.vtrinfo.ebplaca)
         if (result.missioninfo) {
             $('#destinyRel').val(result.missioninfo.destiny + " | " + result.missioninfo.mission_name)
