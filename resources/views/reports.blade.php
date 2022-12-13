@@ -135,6 +135,9 @@
     <script>
         $(function() {
             $("#table").DataTable({
+                "order": [
+                    [8, 'desc']
+                ],
                 "paging": true,
                 "responsive": true,
                 "lengthChange": true,

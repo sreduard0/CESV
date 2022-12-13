@@ -78,7 +78,7 @@ class GdaController extends Controller
                 $rel->status = 1;
                 $rel->om = '3º B Sup';
 
-                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'];
+                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
                 $rel->save();
                 break;
             case 'oom':
@@ -116,7 +116,7 @@ class GdaController extends Controller
                 $rel->hour_ent = date('Y-m-d H:i', strtotime($data['hourEnt']));
                 $rel->type_veicle = $data['vtrType'];
                 $rel->status = 1;
-                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
 
                 $rel->save();
                 break;
@@ -149,7 +149,7 @@ class GdaController extends Controller
                 $rel->hour_ent = date('Y-m-d H:i', strtotime($data['hourEnt']));
                 $rel->type_veicle = $data['vtrType'];
                 $rel->status = 1;
-                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
 
                 $rel->save();
 
@@ -311,7 +311,7 @@ class GdaController extends Controller
                 $rel->total_od = str_replace('_', '', $data['od']) - $rel->od_sai;
                 $rel->hour_ent = date('Y-m-d H:i', strtotime($data['hour']));
                 $rel->status = 2;
-                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
 
                 $rel->save();
 
@@ -331,7 +331,7 @@ class GdaController extends Controller
 
                 $rel->hour_sai = date('Y-m-d H:i', strtotime($data['hour']));
                 $rel->status = 2;
-                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'];
+                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
 
                 $rel->save();
                 break;
