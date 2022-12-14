@@ -438,8 +438,8 @@ class AdminController extends Controller
         $requestData = $request->all();
         $columns = array(
             0 => 'id',
-            1 => 'id_user',
-            2 => 'profile',
+            1 => 'profileType',
+            2 => 'profileType',
         );
 
         $rows = count(LoginApplicationModel::where('id_ext', 'CES Vtr')->get());

@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('post_missions_list', [MissionController::class, 'listMission'])->name('post_missions_list')->middleware('role:cost>fiscadm>trnp>adm');
 
 // FICHAS
-    Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp');
+    Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp>adm');
     Route::get('get_new_ficha_count', [FichaController::class, 'getNewFichas'])->name('getNewFichas')->middleware('role:fiscadm');
     Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm');
     Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adm>fiscadm');
