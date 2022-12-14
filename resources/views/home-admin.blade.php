@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Administrador')
+@section('title', 'Estatísticas')
 @section('home', 'active')
 @section('title-header', 'Painel de controle')
 @section('meta')

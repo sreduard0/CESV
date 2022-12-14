@@ -9,6 +9,9 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\VtrController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('teste', function () {
+    return view('sislogmnt');
+});
 // RELATORIO DO CMT DA MISSAO
 Route::get('/relatorio/form/{id}', [ViewController::class, 'reportForm'])->name('reportForm');
 Route::get('/relatorio/print/{id}/{status}/{ass}', [MissionController::class, 'printReport']);
@@ -49,7 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::post('post_missions_list', [MissionController::class, 'listMission'])->name('post_missions_list')->middleware('role:cost>fiscadm>trnp>adm');
 
 // FICHAS
-    Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp>adm');
+    Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp>adm>fiscadm');
     Route::get('get_new_ficha_count', [FichaController::class, 'getNewFichas'])->name('getNewFichas')->middleware('role:fiscadm');
     Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm');
     Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adm>fiscadm');
@@ -58,7 +61,7 @@ Route::middleware('auth')->group(function () {
 // RELA GUARDA
     Route::get('countRelGda', [GdaController::class, 'countRelGda'])->middleware('role:adj>trnp>cmtgda');
     Route::get('setGda/{gda}', [ViewController::class, 'setGda'])->name('setGda')->middleware('role:cmtgda');
-    Route::get('get_info_register/{id}', [GdaController::class, 'infoRegister'])->middleware('role:adj>cmtgda>adm');
+    Route::get('get_info_register/{id}', [GdaController::class, 'infoRegister'])->middleware('role:adj>cmtgda>adm>fiscadm');
     Route::get('get_info_relgda/{ebplaca}', [GdaController::class, 'infoRelGda'])->middleware('role:adj>cmtgda');
     Route::post('post_relgda_list', [GdaController::class, 'listRelGda'])->name('post_relgda_list')->middleware('role:adm>cmtgda>adj');
     Route::post('report_relgda_list', [GdaController::class, 'reportRelGda'])->name('report_relgda_list')->middleware('role:adm>cmtgda>adj>fiscadm');

@@ -25,12 +25,24 @@ class GdaController extends Controller
     // COUNTAR VTRS PARA EXIBIR NOS CARDS
     public function countRelGda()
     {
-        $data = [
-            'civil' => RelGdaModel::where('type_veicle', 'civil')->where('status', 1)->count(),
-            'oom' => RelGdaModel::where('type_veicle', 'oom')->where('status', 1)->count(),
-            'adm' => RelGdaModel::where('type_veicle', 'adm')->where('status', 1)->count(),
-            'op' => RelGdaModel::where('type_veicle', 'op')->where('status', 1)->count(),
-        ];
+        if (session('CESV')['profileType'] == 0) {
+
+            $data = [
+                'civil' => RelGdaModel::where('type_veicle', 'civil')->where('gda', session('CESV')['guarda'])->where('status', 1)->count(),
+                'oom' => RelGdaModel::where('type_veicle', 'oom')->where('gda', session('CESV')['guarda'])->where('status', 1)->count(),
+                'adm' => RelGdaModel::where('type_veicle', 'adm')->where('status', 1)->count(),
+                'op' => RelGdaModel::where('type_veicle', 'op')->where('status', 1)->count(),
+            ];
+
+        } else {
+            $data = [
+                'civil' => RelGdaModel::where('type_veicle', 'civil')->where('status', 1)->count(),
+                'oom' => RelGdaModel::where('type_veicle', 'oom')->where('status', 1)->count(),
+                'adm' => RelGdaModel::where('type_veicle', 'adm')->where('status', 1)->count(),
+                'op' => RelGdaModel::where('type_veicle', 'op')->where('status', 1)->count(),
+            ];
+        }
+
         return $data;
     }
 
@@ -357,7 +369,6 @@ class GdaController extends Controller
             0 => 'mod_veicle',
             1 => 'mot_name',
             2 => 'seg_name',
-
             3 => 'hour_sai',
             4 => 'od_sai',
             5 => 'om',
@@ -369,12 +380,14 @@ class GdaController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['columns'][3]['search']['value']) {
-            $query = RelGdaModel::where('type_veicle', $requestData['columns'][3]['search']['value'])
-                ->where('status', 1);
-            if (session('CESV')['profileType'] == 0) {
-                $query->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
+            $query = RelGdaModel::where('type_veicle', $requestData['columns'][3]['search']['value']);
 
+            if (session('CESV')['profileType'] == 0) {
+                $query->where('gda', session('CESV')['guarda'])->where('status', 1)->orWhere('gda', 'pa-po')->where('status', 1);
+            } else {
+                $query->where('status', 1);
             }
+
             $registers = $query->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                 ->offset($requestData['start'])
                 ->take($requestData['length'])
@@ -383,10 +396,9 @@ class GdaController extends Controller
             $filtered = count($registers);
             $query_count = RelGdaModel::where('status', 1);
             if (session('CESV')['profileType'] == 0) {
-                $query->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
+                $query_count->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
             }
-            $result = $query_count->count();
-            $rows = $result;
+            $rows = $query_count->count();
 
         } else {
             $query = RelGdaModel::where('status', 1);
@@ -402,10 +414,9 @@ class GdaController extends Controller
             $filtered = count($registers);
             $query_count = RelGdaModel::where('status', 1);
             if (session('CESV')['profileType'] == 0) {
-                $query->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
+                $query_count->where('gda', session('CESV')['guarda'])->orWhere('gda', 'pa-po')->where('status', 1);
             }
-            $result = $query_count->count();
-            $rows = $result;
+            $rows = $query_count->count();
 
         }
 

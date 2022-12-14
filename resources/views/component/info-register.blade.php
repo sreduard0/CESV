@@ -177,18 +177,18 @@
                                         </div>
                                         <div class="float-r col-md-6">
 
-
-                                            <strong>Horário de saída</strong>
-
-                                            <p id="hourSaiOm" class="m-l-10 text-muted">-</p>
-
-                                            <hr>
                                             <strong>Horário de entrada</strong>
 
                                             <p id="hourEntOm" class="m-l-10 text-muted">-</p>
+                                            -</p>
 
                                             <hr>
-                                            <strong>Odômetro de entrada</strong>
+                                            <strong>Horário de saída</strong>
+
+                                            <p id="hourSaiOm" class="m-l-10 text-muted">
+
+                                                <hr>
+                                                <strong>Odômetro de entrada</strong>
                                             <p id="odEntOm" class="m-l-10 text-muted">-</p>
                                             <hr>
                                             <strong>Odômetro de saída</strong>
@@ -252,7 +252,8 @@
                     modal.find('#hourSaiOm').text(moment(result.hour_sai).format('DD-MM-YYYY HH:mm'))
                     modal.find('#odEntOm').text(result.od_ent ? result.od_ent : 'Está fora da OM')
                     modal.find('#odSaiOm').text(result.od_sai)
-                    modal.find('#odTotalSaiOm').text(result.total_od + ' Km(s)')
+                    modal.find('#odTotalSaiOm').text(result.total_od == null ? '-' : result.total_od +
+                        ' Km(s)')
                     modal.find('#obsOm').html(result.obs ? result.obs : 'Sem observações')
 
                     $("#infoVtrOm").css("display", "block")

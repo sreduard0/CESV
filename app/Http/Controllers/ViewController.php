@@ -45,6 +45,13 @@ class ViewController extends Controller
                 return view('home-gda-adj', $data);
                 break;
             case 2:
+                session()->put([
+                    'CESV' => [
+                        'guarda' => 'Adjunto',
+                        'profileType' => 2,
+                    ],
+                ]);
+
                 $data = [
                     'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
                     'fichas' => FichaModel::where('status', 1)->get(),
