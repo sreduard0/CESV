@@ -127,7 +127,7 @@ class MissionController extends Controller
         $saveData->name_seg = $data['nameSegMission'];
         $saveData->prev_date_part = date('Y-m-d h:i', strtotime($data['datePrevPartMission']));
         $saveData->prev_date_chgd = date('Y-m-d h:i', strtotime($data['datePrevChgdMission']));
-        $saveData->contact = '55' . str_replace(['(', ')', '-', ' ', '_'], '', $data['contactCmtMission']);
+        $saveData->contact = str_replace(['(', ')', '+', '-', ' ', '_'], '', $data['contactCmtMission']);
         $saveData->obs = $data['obsMission'];
         $saveData->save();
     }

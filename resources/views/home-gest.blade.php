@@ -96,6 +96,18 @@
                                     <option value="3">Encerradas</option>
                                 </select>
                             </div>
+                            <div class="form-group col">
+                                <label>Data de saída</label>
+                                <div class="input-group date" id="date_saiTarget" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        data-target="#date_saiTarget" id="date_sai" name="date_sai" value="">
+                                    <div class="input-group-append" data-target="#date_saiTarget"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4)
@@ -484,6 +496,10 @@
     <script>
         document.getElementById('statusMission').addEventListener('change', event => {
             $('#table').DataTable().column(3).search(event.target.value).draw();
+        });
+        document.getElementById('date_sai').addEventListener('load', event => {
+            // $('#table').DataTable().column(4).search(event.target.value).draw();
+            console.log(event.target.value)
         });
         $(function() {
             $('.text').summernote({

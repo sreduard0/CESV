@@ -82,7 +82,7 @@ function registerMission() {
         $('#datePrevChgdMission').removeClass('is-invalid');
     }
 
-    if (formData.get('contactCmtMission').length != 16) {
+    if (formData.get('contactCmtMission').length != 20) {
         $('#contactCmtMission').addClass('is-invalid');
         return false;
     } else {

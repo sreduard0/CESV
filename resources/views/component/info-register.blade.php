@@ -180,7 +180,7 @@
                                             <strong>Horário de entrada</strong>
 
                                             <p id="hourEntOm" class="m-l-10 text-muted">-</p>
-                                            -</p>
+                                            </p>
 
                                             <hr>
                                             <strong>Horário de saída</strong>
