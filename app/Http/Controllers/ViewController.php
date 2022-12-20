@@ -47,7 +47,7 @@ class ViewController extends Controller
             case 2:
                 session()->put([
                     'CESV' => [
-                        'guarda' => 'Adjunto',
+                        'guarda' => 'Of de Dia/ Adj',
                         'profileType' => 2,
                     ],
                 ]);

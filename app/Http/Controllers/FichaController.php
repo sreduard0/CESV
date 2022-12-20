@@ -24,7 +24,7 @@ class FichaController extends Controller
     {
         $data = $request->all();
 
-        $checkVtr = FichaModel::where('status', 1)->where('id_vtr', $data['vtrFicha'])->first();
+        $checkVtr = FichaModel::where('status', '!=', 2)->where('id_vtr', $data['vtrFicha'])->first();
         $checkFicha = FichaModel::where('status', '>=', 3)->where('nr_ficha', $data['nrFicha'])->first();
         if ($checkVtr) {
             return 'vtr';

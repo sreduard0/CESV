@@ -254,14 +254,6 @@ class AdminController extends Controller
         // Receber a requisão da pesquisa
         $requestData = $request->all();
 
-        //Indice da coluna na tabela visualizar resultado => nome da coluna no banco de dados
-        $columns = array(
-            0 => 'mod_vtr',
-            1 => 'vtr_type',
-            2 => 'ebplaca',
-            3 => 'id',
-        );
-
         //Obtendo registros de número total sem qualquer pesquisa
         $rows = count(RelGdaModel::where('status', 2)->get());
         $rankVtrs = RelGdaModel::select('placaeb', DB::raw('COUNT(id) as count'))
@@ -270,8 +262,9 @@ class AdminController extends Controller
             ->where('status', 2)
             ->where('om', '3º B Sup')
             ->with('vtrinfo')
-            ->groupBy('type_veicle')
+            ->groupBy('placaeb')
             ->orderBy('count', $requestData['order'][0]['dir'])
+            ->limit(10)
             ->get();
 
         $filtered = count($rankVtrs);

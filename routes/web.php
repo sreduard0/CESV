@@ -7,10 +7,25 @@ use App\Http\Controllers\MissionController;
 use App\Http\Controllers\MotController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\VtrController;
+use App\Models\RelGdaModel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('teste', function () {
-    return view('sislogmnt');
+    $rankVtrs = RelGdaModel::select('placaeb', DB::raw('COUNT(id) as count'))
+        ->whereYear('created_at', date('Y'))
+        ->whereMonth('created_at', date('m'))
+        ->where('status', 2)
+        ->where('om', '3º B Sup')
+        ->with('vtrinfo')
+        ->groupBy('placaeb')
+        ->orderBy('count', 'asc')
+        ->get();
+
+    foreach ($rankVtrs as $vtr) {
+        echo $vtr . '<br><br><br><br><br><br>';
+    }
+
 });
 // RELATORIO DO CMT DA MISSAO
 Route::get('/relatorio/form/{id}', [ViewController::class, 'reportForm'])->name('reportForm');

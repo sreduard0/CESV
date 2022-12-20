@@ -383,7 +383,7 @@ class GdaController extends Controller
             $query = RelGdaModel::where('type_veicle', $requestData['columns'][3]['search']['value']);
 
             if (session('CESV')['profileType'] == 0) {
-                $query->where('gda', session('CESV')['guarda'])->where('status', 1)->orWhere('gda', 'pa-po')->where('status', 1);
+                $query->where('gda', session('CESV')['guarda'])->where('status', 1)->orWhere('gda', 'pa-po')->where('type_veicle', $requestData['columns'][3]['search']['value'])->where('status', 1);
             } else {
                 $query->where('status', 1);
             }
