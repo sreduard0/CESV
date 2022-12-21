@@ -134,7 +134,7 @@ class FichaController extends Controller
             $filtered = count($fichas);
             $rows = count(FichaModel::where('status', $requestData['columns'][3]['search']['value'])->get());
         } else {
-            $rows = count(FichaModel::where('status', 1)->where('status', 3)->get());
+            $rows = count(FichaModel::where('status', 1)->orWhere('status', 3)->get());
 
             $fichas = FichaModel::where('status', 1)->orWhere('status', 3)->with('motinfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($fichas);
