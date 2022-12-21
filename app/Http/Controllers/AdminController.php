@@ -25,8 +25,8 @@ class AdminController extends Controller
             $data = MissionModel::select('created_at', DB::raw('COUNT(id) as date'))
                 ->whereYear('created_at', date('Y'))
                 ->where('class', $class)
+                ->where('status', 3)
                 ->groupBy('created_at')
-                ->orderBy('date', 'asc')
                 ->get()->toArray();
 
             for ($i = 0; $i <= date('n') - 1; $i++) {
