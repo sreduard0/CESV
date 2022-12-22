@@ -10,7 +10,7 @@ class RolesMiddleware
     {
         $roles = explode(">", $role);
         foreach ($roles as $role) {
-            $roles = [0 => 'cmtgda', 1 => 'trnp', 2 => 'adj', 3 => 'cost', 4 => 'fiscadm', 5 => 'adm'];
+            $roles = [0 => 'cmtgda', 1 => 'trnp', 2 => 'adj', 3 => 'cost', 4 => 'fiscadm', 5 => 'adt', 6 => 'adm'];
             if ($roles[session('CESV')['profileType']] == $role) {
                 return $next($request);
             }

@@ -111,7 +111,7 @@
                             <th>Km(s) rodados</th>
                             <th>OM</th>
                             <th>Missão/ Destino</th>
-                            <th style="width:2em">Ver</th>
+                            <th style="width:2em">Ações</th>
                         </tr>
                     </thead>
                 </table>

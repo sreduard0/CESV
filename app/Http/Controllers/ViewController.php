@@ -68,6 +68,7 @@ class ViewController extends Controller
                 break;
             case 4:
             case 5:
+            case 6:
                 return view('home-admin');
                 break;
         }

@@ -254,7 +254,7 @@
                                 <strong>Observações de conclusão</strong>
 
                                 <p class="text-muted">
-                                    {{ $mission->obs_alteration ? $mission->obs_alteration : 'Não há observações.' }}
+                                    {!! $mission->obs_alteration ? $mission->obs_alteration : 'Não há observações.' !!}
                                 </p>
                             </div>
 

@@ -37,8 +37,12 @@ function altPermission(idUser, profile, id, name) {
                 value: '4',
             },
             {
-                text: 'ADM',
+                text: 'AUDITOR',
                 value: '5',
+            },
+            {
+                text: 'ADM',
+                value: '6',
             }
         ],
         callback: function (result) {

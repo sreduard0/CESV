@@ -1,5 +1,5 @@
 @php
-    $perm = ['Cmt da Guarda', 'Pel Manut e Transp', 'Adjunto', 'COST', 'Fisc Adm', 'Administrador'];
+    $perm = ['Cmt da Guarda', 'Pel Manut e Transp', 'Adjunto', 'COST', 'Fisc Adm', 'Auditor', 'Administrador'];
 @endphp
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -93,7 +93,8 @@
                         @if (session('CESV')['profileType'] == 0 ||
                             session('CESV')['profileType'] == 2 ||
                             session('CESV')['profileType'] == 5 ||
-                            session('CESV')['profileType'] == 4)
+                            session('CESV')['profileType'] == 4 ||
+                            session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('reports') }}" class="nav-link @yield('reports')">
                                     <i class="nav-icon fas fa-file-chart-line"></i>
@@ -103,7 +104,9 @@
                                 </a>
                             </li>
                         @endif
-                        @if (session('CESV')['profileType'] == 5 || session('CESV')['profileType'] == 4)
+                        @if (session('CESV')['profileType'] == 5 ||
+                            session('CESV')['profileType'] == 4 ||
+                            session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('missions') }}" class="nav-link @yield('mission')">
                                     <i class="nav-icon fas fa-truck-moving"></i>
@@ -113,7 +116,10 @@
                                 </a>
                             </li>
                         @endif
-                        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 4)
+                        @if (session('CESV')['profileType'] == 1 ||
+                            session('CESV')['profileType'] == 4 ||
+                            session('CESV')['profileType'] == 5 ||
+                            session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('fichas') }}" class="nav-link @yield('ficha')">
                                     <i class="nav-icon fas fa-clipboard-list"></i>
@@ -124,7 +130,9 @@
                             </li>
                         @else
                         @endif
-                        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 5)
+                        @if (session('CESV')['profileType'] == 1 ||
+                            session('CESV')['profileType'] == 5 ||
+                            session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('vtr') }}" class="nav-link @yield('vtr')">
                                     <i class="nav-icon fas fa-car"></i>
@@ -142,7 +150,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if (session('CESV')['profileType'] == 5)
+                        @if (session('CESV')['profileType'] == 5 || session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('users') }}" class="nav-link @yield('users')">
                                     <i class="nav-icon fas fa-users-cog"></i>

@@ -25,6 +25,7 @@ class AdminController extends Controller
             $data = MissionModel::select('created_at', DB::raw('COUNT(id) as date'))
                 ->whereYear('created_at', date('Y'))
                 ->where('class', $class)
+                ->where('type_mission', 'OP')
                 ->where('status', 3)
                 ->groupBy('created_at')
                 ->get()->toArray();
@@ -34,7 +35,7 @@ class AdminController extends Controller
             }
 
             foreach ($data as $res) {
-                $months[date('n', strtotime($res['created_at'])) - 1] = $res['date'];
+                $months[date('n', strtotime($res['created_at'])) - 1] += $res['date'];
             }
 
             $statistics[$class] = $months;
@@ -158,7 +159,6 @@ class AdminController extends Controller
                 ->whereYear('created_at', date('Y'))
                 ->where('type_mission', $t)
                 ->groupBy('created_at')
-                ->orderBy('type', 'asc')
                 ->get()->toArray();
 
             for ($i = 0; $i <= date('n') - 1; $i++) {
@@ -166,7 +166,7 @@ class AdminController extends Controller
             }
 
             foreach ($data as $res) {
-                $months[date('n', strtotime($res['created_at'])) - 1] = $res['type'];
+                $months[date('n', strtotime($res['created_at'])) - 1] += $res['type'];
             }
 
             $statistics[$t] = $months;
@@ -455,9 +455,11 @@ class AdminController extends Controller
             $dado = array();
             $dado[] = $rank[$user->user_data->rank_id] . ' ' . $user->user_data->professionalName;
             $dado[] = $user->permission ? $profile[$user->permission->profile] : 'Sem permissão';
+           if(session('CESV')['profileType'] == 6){
             $dado[] = '<button title="Editar permissão" class="btn btn-sm btn-success" onclick="altPermission(' . $user->user_data->id . ',' . $prof . ',' . $id . ',\'' . $rank[$user->user_data->rank_id] . ' ' . $user->user_data->professionalName . '\')" ><i
                                         class="fa fa-edit"></i></button> ';
 
+           }
             $dados[] = $dado;
         }
 

@@ -41,7 +41,9 @@
                         <tr>
                             <th>Usuário</th>
                             <th width="100px">Permissão</th>
-                            <th>Editar</th>
+                            @if (session('CESV')['profileType'] == 6)
+                                <th>Editar</th>
+                            @endif
                         </tr>
                     </thead>
                 </table>
@@ -52,9 +54,11 @@
 @endsection
 
 @section('plugins')
-    <!-- Select2 -->
-    <script src="{{ asset('js/ger-users.js') }}"></script>
-    <script src="{{ asset('js/inputmask.js') }}"></script>
+    @if (session('CESV')['profileType'] == 6)
+        <!-- Select2 -->
+        <script src="{{ asset('js/ger-users.js') }}"></script>
+        <script src="{{ asset('js/inputmask.js') }}"></script>
+    @endif
 
     <script>
         $(function() {
@@ -63,10 +67,12 @@
                 "order": [
                     [0, 'desc']
                 ],
-                "aoColumnDefs": [{
-                    'className': 'w-1 text-center',
-                    "targets": [2]
-                }],
+                @if (session('CESV')['profileType'] == 6)
+                    "aoColumnDefs": [{
+                        'className': 'w-1 text-center',
+                        "targets": [2]
+                    }],
+                @endif
                 "bInfo": false,
                 "paging": true,
                 "responsive": true,
