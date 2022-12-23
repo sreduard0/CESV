@@ -195,19 +195,44 @@ class MissionController extends Controller
         //Obtendo registros de número total sem qualquer pesquisa
 
         //Se há pesquisa ou não
-        if ($requestData['columns'][3]['search']['value']) {
+        if ($requestData['columns'][3]['search']['value'] == 'find') {
             switch (session('CESV')['profileType']) {
                 case 1:
-                    $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
-                        ->with('vtrInfo')
+                case 5:
+                case 6:
+                    $search = MissionModel::query();
+
+                    if ($requestData['columns'][0]['search']['value']) {
+                        $search->where('status', $requestData['columns'][0]['search']['value']);
+                    }
+                    if ($requestData['columns'][1]['search']['value']) {
+                        $search->where('destiny', 'LIKE', '%' . $requestData['columns'][1]['search']['value'] . '%');
+                    }
+                    if ($requestData['columns'][2]['search']['value']) {
+                        $search->where('prev_date_part', 'LIKE', '%' . date('Y-m-d', strtotime($requestData['columns'][2]['search']['value'])) . '%');
+                    }
+
+                    $missions = $search->with('vtrInfo')
                         ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                         ->offset($requestData['start'])
                         ->take($requestData['length'])
                         ->get();
                     break;
                 case 3:
-                    $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
-                        ->where('type_mission', 'OP')
+                    $search = MissionModel::query();
+
+                    if ($requestData['columns'][0]['search']['value']) {
+                        $search->where('status', $requestData['columns'][0]['search']['value']);
+                    }
+                    if ($requestData['columns'][1]['search']['value']) {
+                        $search->where('destiny', 'LIKE', '%' . $requestData['columns'][1]['search']['value'] . '%');
+                    }
+                    if ($requestData['columns'][2]['search']['value']) {
+                        $search->where('prev_date_part', date('Y-m-d', strtotime($requestData['columns'][2]['search']['value'])));
+
+                    }
+
+                    $missions = $search->where('type_mission', 'OP')
                         ->with('vtrInfo')
                         ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                         ->offset($requestData['start'])
@@ -215,17 +240,20 @@ class MissionController extends Controller
                         ->get();
                     break;
                 case 4:
-                    $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
-                        ->where('type_mission', 'OM')
-                        ->with('vtrInfo')
-                        ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
-                        ->offset($requestData['start'])
-                        ->take($requestData['length'])
-                        ->get();
-                    break;
-                case 5:
-                case 6:
-                    $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
+                    $search = MissionModel::query();
+
+                    if ($requestData['columns'][0]['search']['value']) {
+                        $search->where('status', $requestData['columns'][0]['search']['value']);
+                    }
+                    if ($requestData['columns'][1]['search']['value']) {
+                        $search->where('destiny', 'LIKE', '%' . $requestData['columns'][1]['search']['value'] . '%');
+                    }
+                    if ($requestData['columns'][2]['search']['value']) {
+                        $search->where('prev_date_part', date('Y-m-d', strtotime($requestData['columns'][2]['search']['value'])));
+
+                    }
+
+                    $missions = $search->where('type_mission', 'OM')
                         ->with('vtrInfo')
                         ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                         ->offset($requestData['start'])

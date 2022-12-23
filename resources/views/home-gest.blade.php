@@ -88,22 +88,23 @@
         <div class="card">
             <div class="card-header">
                 <div class="row d-flex justify-content-between">
-                    <div class="col-md-5">
+                    <div class="col">
                         <div class="row ">
-                            <div class="form-group col">
-                                <label for="statusMission">Filtrar por status</label>
-                                <select id="statusMission" class="form-control">
+                            <div class="form-group col-md-2">
+                                <label for="statusFilter">Status</label>
+                                <select id="statusFilter" class="form-control">
                                     <option selected value="">Todos</option>
                                     <option value="1">Na fila</option>
                                     <option value="2">Em andamento</option>
                                     <option value="3">Encerradas</option>
                                 </select>
                             </div>
-                            <div class="form-group col">
+                            <div class="form-group col-md-2">
                                 <label>Data de saída</label>
-                                <div class="input-group date" id="date_saiTarget" data-target-input="nearest">
+                                <div class="input-group datet" id="date_saiTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#date_saiTarget" id="date_sai" name="date_sai" value="">
+                                        data-target="#date_saiTarget" id="dateSaiFilter" name="dateSaiFilter"
+                                        value="">
                                     <div class="input-group-append" data-target="#date_saiTarget"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -111,6 +112,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group col-md-2">
+                                <label for="destinyFilter">Destino
+                                </label>
+                                <input minlength="2" maxlength="200" id="destinyFilter" name="destinyFilter" type="text"
+                                    class="form-control" placeholder="Ex: 3° B Sup">
+                            </div>
+                            <button onclick="filterMission()" style="height: 40px;" class="btn btn-success m-t-30"><i
+                                    class="fa fa-search"></i></button>
                         </div>
                     </div>
                     @if (session('CESV')['profileType'] == 3 ||
@@ -198,8 +207,8 @@
                                     <label for="nameMission">Missão
                                         <span style="color:red">*</span>
                                     </label>
-                                    <input minlength="2" maxlength="200" id="nameMission" name="nameMission" type="text"
-                                        class="form-control" placeholder="Ex: Feno e Aveia">
+                                    <input minlength="2" maxlength="200" id="nameMission" name="nameMission"
+                                        type="text" class="form-control" placeholder="Ex: Feno e Aveia">
                                 </div>
                                 <div class="form-group col">
                                     <label for="destinyMission">Destino <span style="color:red">*</span></label>
@@ -536,13 +545,6 @@
     <!-- Summernote -->
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
-        document.getElementById('statusMission').addEventListener('change', event => {
-            $('#table').DataTable().column(3).search(event.target.value).draw();
-        });
-        document.getElementById('date_sai').addEventListener('load', event => {
-            // $('#table').DataTable().column(4).search(event.target.value).draw();
-            console.log(event.target.value)
-        });
         $(function() {
             $('.text').summernote({
                 toolbar: [
@@ -639,6 +641,43 @@
             });
 
         });
+
+        function filterMission() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000
+            });
+            data = {
+                status: $('#statusFilter').val(),
+                destiny: $('#destinyFilter').val(),
+                dateSai: $('#dateSaiFilter').val(),
+            }
+            if (
+                data.status ||
+                data.destiny ||
+                data.dateSai
+            ) {
+                $('#table').DataTable()
+                    .column(0).search(data.status)
+                    .column(1).search(data.destiny)
+                    .column(2).search(data.dateSai)
+                    .column(3).search('find')
+                    .draw()
+            } else {
+                $('#table').DataTable()
+                    .column(3).search('')
+                    .draw()
+            }
+            console.log(data)
+            Toast.fire({
+                icon: 'success',
+                title: '&nbsp&nbsp Filtado com successo.'
+            });
+
+
+        }
     </script>
 
 @endsection
