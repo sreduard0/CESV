@@ -97,6 +97,7 @@ class ViewController extends Controller
     public function reports()
     {
         $data = [
+            'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
             'viaturas' => VtrModel::withTrashed()->get(),
             'fichas' => FichaModel::where('status', 1)->get(),
 

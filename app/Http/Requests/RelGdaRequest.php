@@ -8,7 +8,7 @@ class RelGdaRequest extends FormRequest
 {
     public function authorize()
     {
-        if (session('CESV')['profileType'] == 0 || session('CESV')['profileType'] == 2) {
+        if (session('CESV')['profileType'] == 0 || session('CESV')['profileType'] == 2 || session('CESV')['profileType'] == 6) {
             return true;
         } else {
             return false;

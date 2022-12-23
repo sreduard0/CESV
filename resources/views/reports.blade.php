@@ -12,7 +12,7 @@
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
     <!-- Modal de registro manual -->
-    <script src="{{ asset('js/crud-gda.js') }}"></script>
+
     <style>
         .dataTables_wrapper .dataTables_filter {
             float: right;
@@ -20,7 +20,7 @@
             visibility: hidden;
         }
     </style>
-
+    <script src="{{ asset('js/crud-gda.js') }}"></script>
 @endsection
 
 @section('content')
@@ -30,23 +30,34 @@
                 <div class="row d-flex justify-content-between">
                     <div class="col">
                         <div class="row ">
-                            <div class="form-group col-md-2">
-                                <label for="typevtr_filter">Tipo de veículo</label>
-                                <select id="typevtr_filter" class="form-control">
-                                    <option selected value="">Todos</option>
-                                    <option value="civil">Civil</option>
-                                    <option value="oom">Outra OM</option>
-                                    <option value="adm">3º B Sup | Administrativa</option>
-                                    <option value="op">3º B Sup | Operacional</option>
-                                </select>
-                            </div>
+                            @if (session('CESV')['profileType'] == 4)
+                                <div class="form-group col-md-2">
+                                    <label for="typevtr_filter">Tipo de veículo</label>
+                                    <select id="typevtr_filter" class="form-control">
+                                        <option selected value="">Todos</option>
+                                        <option value="1">Administrativa</option>
+                                        <option value="2">Operacional</option>
+                                    </select>
+                                </div>
+                            @else
+                                <div class="form-group col-md-2">
+                                    <label for="typevtr_filter">Tipo de veículo</label>
+                                    <select id="typevtr_filter" class="form-control">
+                                        <option selected value="">Todos</option>
+                                        <option value="civil">Civil</option>
+                                        <option value="oom">Outra OM</option>
+                                        <option value="adm">3º B Sup | Administrativa</option>
+                                        <option value="op">3º B Sup | Operacional</option>
+                                    </select>
+                                </div>
+                            @endif
                             <div class="form-group col-md-2">
                                 <label for="vtr_filter">Veículo</label>
                                 <select id="vtr_filter" class="form-control">
                                     <option selected value="">Todos</option>
                                     @foreach ($viaturas as $viatura)
                                         <option value="{{ $viatura->ebplaca }}">
-                                            {{ $viatura->nr_vtr . ' | ' . $viatura->mod_vtr }}
+                                            {{ $viatura->ebplaca . ' | ' . $viatura->mod_vtr }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -121,6 +132,406 @@
     </section>
 @endsection
 @section('modal')
+
+    @if (session('CESV')['profileType'] == 2 || session('CESV')['profileType'] == 6)
+        <!-- MODAL EDIT REGISTER VTR -->
+        <div class="modal fade" id="edit-register-gda" tabindex="-1" role="dialog"
+            aria-labelledby="edit-register-gdaLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="edit-register-gdaLabel">Editar registro de viatura</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col">
+                            <div class="d-flex justify-content-sm-end">
+                                <p class="f-s-13">(Campos com <span style="color:red">*</span>
+                                    são obrigatórios)</p>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="idEditRegister">
+                        <input type="hidden" id="editTypeVtr">
+
+                        <div id="e-f-civil" style="display:none">
+                            <form id="e-form-civil">
+                                <div class="row">
+
+                                    <div class="form-group col-md-3">
+                                        <label>Data entrada <span style="color:red">*</span></label>
+                                        <div class="input-group date" id="dateEntCivilRelTarget"
+                                            data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateEntCivilRelTarget" id="e_dateEntCivilRel"
+                                                name="e_dateEntCivilRel" value="">
+                                            <div class="input-group-append" data-target="#dateEntCivilRelTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Data saída</label>
+                                        <div class="input-group date" id="dateSaiCivilRelTarget"
+                                            data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateSaiCivilRelTarget" id="e_dateSaiCivilRel"
+                                                name="e_dateSaiCivilRel" value="">
+                                            <div class="input-group-append" data-target="#dateSaiCivilRelTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="e_nameMotCivilRel">Nome do motorista <span
+                                                style="color:red">*</span></label>
+                                        <input id="e_nameMotCivilRel" name="e_nameMotCivilRel" type="text"
+                                            class="form-control" maxlength="199" placeholder="Nome do motorista">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_docCivilRel">CPF/RG/CNH <span style="color:red">*</span></label>
+                                        <input id="e_docCivilRel" maxlength="15" name="e_docCivilRel" type="text"
+                                            class="form-control" placeholder="CPF/RG/CNH">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label for="e_modVeiCivilRel">Modelo veículo <span
+                                                style="color:red">*</span></label>
+                                        <input id="e_modVeiCivilRel" maxlength="199" name="e_modVeiCivilRel"
+                                            type="text" class="form-control" placeholder="Modelo veículo">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_placaCivilRel">Placa <span style="color:red">*</span></label>
+                                        <input id="e_placaCivilRel" maxlength="15" name="e_placaCivilRel" type="text"
+                                            class="form-control" placeholder="Placa">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_qtdPassCivilRel">Qtd. de passageiros <span
+                                                style="color:red">*</span></label>
+                                        <div class="input-group">
+                                            <select id="e_qtdPassCivilRel" name="e_qtdPassCivilRel" class="form-control">
+                                                <option selected value="0">0</option>
+                                                @for ($i = 1; $i < 30; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="e_destinyCivilRel">Destino <span style="color:red">*</span></label>
+                                        <input maxlength="199" id="e_destinyCivilRel" name="e_destinyCivilRel"
+                                            type="text" class="form-control" placeholder="Destino">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="e_obsCivilRel">Observações</label>
+                                        <textarea name="e_obsCivilRel" id="e_obsCivilRel" rows="8" placeholder="Ex: Carro com impressoras."
+                                            class=" text form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="e-f-oom" style="display:none">
+                            <form id="e-form-oom">
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label>Data entrada<span style="color:red">*</span></label>
+                                        <div class="input-group date" id="dateEntOomRelTarget"
+                                            data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateEntOomRelTarget" id="e_dateEntOomRel"
+                                                name="e_dateEntOomRel" value="">
+                                            <div class="input-group-append" data-target="#dateEntOomRelTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Data saída</label>
+                                        <div class="input-group date" id="dateSaiOomRelTarget"
+                                            data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateSaiOomRelTarget" id="e_dateSaiOomRel"
+                                                name="e_dateSaiOomRel" value="">
+                                            <div class="input-group-append" data-target="#dateSaiOomRelTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-2">
+                                        <label for="e_pgMotOomRel">Posto/Grad <span style="color:red">*</span></label>
+                                        <select class="form-control" name="e_pgMotOomRel" id="e_pgMotOomRel">
+                                            <option value="">Selecione</option>
+                                            <option value="Gen">Gen</option>
+                                            <option value="Cel">Cel</option>
+                                            <option value="TC">TC</option>
+                                            <option value="Maj">Maj</option>
+                                            <option value="Cap">Cap</option>
+                                            <option value="1º Ten">1º Ten</option>
+                                            <option value="2º Ten">2º Ten</option>
+                                            <option value="Asp">Asp</option>
+                                            <option value="ST">ST</option>
+                                            <option value="1º Sgt">1º Sgt</option>
+                                            <option value="2º Sgt">2º Sgt</option>
+                                            <option value="3º Sgt">3º Sgt</option>
+                                            <option value="Cb">Cb</option>
+                                            <option value="Sd">Sd</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="e_nameMotOomRel">Nome do motorista <span
+                                                style="color:red">*</span></label>
+                                        <input id="e_nameMotOomRel" maxlength="199" name="e_nameMotOomRel"
+                                            type="text" class="form-control" placeholder="Nome do motorista">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="e_pgSegOomRel">Posto/Grad <span style="color:red">*</span></label>
+                                        <select class="form-control" name="e_pgSegOomRel" id="e_pgSegOomRel">
+                                            <option value="">Selecione</option>
+                                            <option value="Gen">Gen</option>
+                                            <option value="Cel">Cel</option>
+                                            <option value="TC">TC</option>
+                                            <option value="Maj">Maj</option>
+                                            <option value="Cap">Cap</option>
+                                            <option value="1º Ten">1º Ten</option>
+                                            <option value="2º Ten">2º Ten</option>
+                                            <option value="Asp">Asp</option>
+                                            <option value="ST">ST</option>
+                                            <option value="1º Sgt">1º Sgt</option>
+                                            <option value="2º Sgt">2º Sgt</option>
+                                            <option value="3º Sgt">3º Sgt</option>
+                                            <option value="Cb">Cb</option>
+                                            <option value="Sd">Sd</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="e_nameSegOomRel">Nome do segurança <span
+                                                style="color:red">*</span></label>
+                                        <input maxlength="199" id="e_nameSegOomRel" name="e_nameSegOomRel"
+                                            type="text" class="form-control" placeholder="Nome do segurança">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="e_idtMilOomRel">Idt mil <span style="color:red">*</span> </label> (do
+                                        mais
+                                        antigo)
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="e_idtMilOomRel"
+                                                name="e_idtMilOomRel" data-inputmask="'mask':'999.999.999-9'"
+                                                data-mask="" inputmode="text" placeholder="___.___.___-_">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="e_modVtrOomRel">Modelo viatura<span style="color:red">*</span></label>
+                                        <input id="e_modVtrOomRel" name="e_modVtrOomRel" type="text" maxlength="199"
+                                            class="form-control" placeholder="Modelo da viatura">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_ebPlacaOomRel">Placa / EB <span style="color:red">*</span></label>
+                                        <input id="e_ebPlacaOomRel" maxlength="15" name="e_ebPlacaOomRel" type="text"
+                                            class="form-control" placeholder="Placa / EB">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label for="e_omOomRel">OM <span style="color:red">*</span></label>
+                                        <input id="e_omOomRel" maxlength="15" name="e_omOomRel" type="text"
+                                            class="form-control" placeholder="OM">
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="e_destinyOomRel">Destino / Missão <span
+                                                style="color:red">*</span></label>
+                                        <input id="e_destinyOomRel" maxlength="199" name="e_destinyOomRel"
+                                            type="text" class="form-control" placeholder="Destino / Missão">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="e_obsOomRel">Observações</label>
+                                        <textarea name="e_obsOomRel" id="e_obsOomRel" rows="8"
+                                            placeholder="Ex: Autorizado sair sem segurança pelo CMT." class="text form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="e-f-om" style="display:none">
+                            <form id="e-form-om">
+                                <input type="hidden" id="e_vtrTypeRel">
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label>Data entrada</label>
+                                        <div class="input-group date" id="dateEntTarget" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateEntTarget" id="e_dateEntRel" name="e_dateEntRel"
+                                                value="">
+                                            <div class="input-group-append" data-target="#dateEntTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Data saída<span style="color:red">*</span></label>
+                                        <div class="input-group date" id="dateSaiTarget" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input"
+                                                data-target="#dateSaiTarget" id="e_dateSaiRel" name="e_dateSaiRel"
+                                                value="">
+                                            <div class="input-group-append" data-target="#dateSaiTarget"
+                                                data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_odEntRel">Odômetro entrada</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-car"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="e_odEntRel" name="e_odEntRel"
+                                                data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                                placeholder="Odômetro">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_odSaiRel">Odômetro saída<span style="color:red">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-car"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="e_odSaiRel" name="e_odSaiRel"
+                                                data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                                placeholder="Odômetro">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="e_nrFichaRel">Número da ficha</label>
+                                        <select onchange="selectFichaRel(this.value)" class="form-control" disabled
+                                            id="e_nrFichaRel">
+                                            <option selected value="">Selecione</option>
+                                            @foreach ($fichas as $ficha)
+                                                <option value="{{ $ficha->id }}">{{ $ficha->nr_ficha }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_typeVtr">Tipo</span></label>
+                                        <select disabled class="form-control" id="e_typeVtr">
+                                            <option selected value="">-</option>
+                                            <option value="op">Operacional</option>
+                                            <option value="adm">Administrativa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="e_idMotRel">Motorista <span style="color:red">*</span></label>
+                                        <select class="form-control" name="e_idMotRel" id="e_idMotRel">
+                                            <option value="">Selecione</option>
+                                            @foreach ($motoristas as $motorista)
+                                                <option value="{{ $motorista->id }}">
+                                                    {{ $motorista->pg . ' ' . $motorista->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label for="e_pgSegRel">Posto/Grad <span style="color:red">*</span></label>
+                                        <select class="form-control" name="e_pgSegRel" id="e_pgSegRel">
+                                            <option value="">Selecione</option>
+                                            <option value="Gen">Gen</option>
+                                            <option value="Cel">Cel</option>
+                                            <option value="TC">TC</option>
+                                            <option value="Maj">Maj</option>
+                                            <option value="Cap">Cap</option>
+                                            <option value="1º Ten">1º Ten</option>
+                                            <option value="2º Ten">2º Ten</option>
+                                            <option value="Asp">Asp</option>
+                                            <option value="ST">ST</option>
+                                            <option value="1º Sgt">1º Sgt</option>
+                                            <option value="2º Sgt">2º Sgt</option>
+                                            <option value="3º Sgt">3º Sgt</option>
+                                            <option value="Cb">Cb</option>
+                                            <option value="Sd">Sd</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="e_nameSegRel">Nome do segurança <span
+                                                style="color:red">*</span></label>
+                                        <input id="e_nameSegRel" name="e_nameSegRel" maxlength="199" type="text"
+                                            class="form-control" placeholder="Nome do segurança">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label for="e_modVtrRel">Modelo veículo</label>
+                                        <input id="e_modVtrRel" maxlength="199" disabled type="text"
+                                            class="form-control" placeholder="Modelo veículo">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="e_ebPlacaRel">Placa / EB</label>
+                                        <input id="e_ebPlacaRel" maxlength="15" disabled type="text"
+                                            class="form-control" placeholder="Placa / EB">
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="e_destinyRel">Destino / Missão <span
+                                                style="color:red">*</span></label>
+                                        <input id="e_destinyRel" maxlength="199" name="e_destinyRel" type="text"
+                                            class="form-control" placeholder="Destino / Missão">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="e_obsRel">Observações</label>
+                                        <textarea name="e_obsRel" id="e_obsRel" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
+                                            class="text form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success" onclick="return EditRegisterVtr()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     {{--  INFORMÇOES DO REGISTRO DE ENTRADA E saída --}}
     @include('component.info-register')
     {{-- INFORMAçÔES DA FICHA --}}

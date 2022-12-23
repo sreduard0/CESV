@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('get_new_ficha_count', [FichaController::class, 'getNewFichas'])->name('getNewFichas')->middleware('role:fiscadm>adm');
     Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm>adm');
     Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adt>fiscadm>adm');
-    Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout>adm')->middleware('role:adj>cmtgda>trnp>fiscadm>adm');
+    Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('role:adj>cmtgda>trnp>fiscadm>adm');
 
 // RELA GUARDA
     Route::get('countRelGda', [GdaController::class, 'countRelGda'])->middleware('role:adj>trnp>cmtgda>adm');

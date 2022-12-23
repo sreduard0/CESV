@@ -353,7 +353,7 @@ class GdaController extends Controller
 
     public function deleteRelGda($id)
     {
-        if (session('CESV')['profileType'] == 2) {
+        if (session('CESV')['profileType'] == 2 || session('CESV')['profileType'] == 6) {
             return RelGdaModel::find($id)->delete();
         }
     }
@@ -469,16 +469,19 @@ class GdaController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['columns'][6]['search']['value'] == 'find') {
-
+            $search = RelGdaModel::query();
             if (session('CESV')['profileType'] == 4) {
-                $search = RelGdaModel::where('type_veicle', 'OP')->orWhere('type_veicle', 'OM');
+
+                if ($requestData['columns'][5]['search']['value']) {
+                    $value = $requestData['columns'][5]['search']['value'] == 1 ? 'adm' : 'op';
+                    $search->where('type_veicle', $value);
+                }
             } else {
-                $search = RelGdaModel::query();
+                if ($requestData['columns'][5]['search']['value']) {
+                    $search->where('type_veicle', $requestData['columns'][5]['search']['value']);
+                }
             }
 
-            if ($requestData['columns'][5]['search']['value']) {
-                $search->where('type_veicle', $requestData['columns'][5]['search']['value']);
-            }
             if ($requestData['columns'][0]['search']['value']) {
                 $search->where('placaeb', $requestData['columns'][0]['search']['value']);
             }
@@ -532,10 +535,13 @@ class GdaController extends Controller
             $dado[] = $register->om ? $register->om : '3º B Sup';
             $dado[] = $register->destiny;
             if (session('CESV')['profileType'] == 6) {
-                $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-edit"></i></button> <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-trash"></i></button>';
-            } elseif (session('CESV')['profileType'] == 4) {
+                $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success"onclick="selectEditVtrType(' . $register->id . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="deleteRelGda(' . $register->id . ')"><i class="fa fa-trash"></i> </button>';
+            } elseif (session('CESV')['profileType'] == 4 || session('CESV')['profileType'] == 5) {
                 $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button>';
+            } elseif (session('CESV')['profileType'] == 2) {
+                $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success"onclick="selectEditVtrType(' . $register->id . ')"><i class="fa fa-edit"></i></button>';
             }
+
             $dados[] = $dado;
         }
 
