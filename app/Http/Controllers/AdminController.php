@@ -446,7 +446,7 @@ class AdminController extends Controller
             ->get();
         $filtered = count($users);
         $rank = [1 => 'Gen', 2 => 'Cel', 3 => 'TC', 4 => 'Maj', 5 => 'Cap', 6 => '1º Ten', 7 => '2º Ten', 8 => 'Asp', 9 => 'ST', 10 => '1º Sgt', 11 => '2º Sgt', 12 => '3º Sgt', 13 => 'Cb', 14 => 'Sd'];
-        $profile = [0 => 'CMT GDA', 1 => 'TRNP', 2 => 'ADJ / OF ', 3 => 'COST', 4 => 'FISC ADM', 5 => 'ADM'];
+        $profile = [0 => 'CMT GDA', 1 => 'TRNP', 2 => 'ADJ / OF ', 3 => 'COST', 4 => 'FISC ADM', 5 => 'ADT', 6 => 'ADM'];
 
         $dados = array();
         foreach ($users as $user) {
@@ -455,11 +455,11 @@ class AdminController extends Controller
             $dado = array();
             $dado[] = $rank[$user->user_data->rank_id] . ' ' . $user->user_data->professionalName;
             $dado[] = $user->permission ? $profile[$user->permission->profile] : 'Sem permissão';
-           if(session('CESV')['profileType'] == 6){
-            $dado[] = '<button title="Editar permissão" class="btn btn-sm btn-success" onclick="altPermission(' . $user->user_data->id . ',' . $prof . ',' . $id . ',\'' . $rank[$user->user_data->rank_id] . ' ' . $user->user_data->professionalName . '\')" ><i
+            if (session('CESV')['profileType'] == 6) {
+                $dado[] = '<button title="Editar permissão" class="btn btn-sm btn-success" onclick="altPermission(' . $user->user_data->id . ',' . $prof . ',' . $id . ',\'' . $rank[$user->user_data->rank_id] . ' ' . $user->user_data->professionalName . '\')" ><i
                                         class="fa fa-edit"></i></button> ';
 
-           }
+            }
             $dados[] = $dado;
         }
 

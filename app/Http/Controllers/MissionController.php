@@ -189,6 +189,7 @@ class MissionController extends Controller
             6 => 'vtr',
             7 => 'prev_date_part',
             8 => 'status',
+            9 => 'id',
         );
 
         //Obtendo registros de número total sem qualquer pesquisa
@@ -223,6 +224,7 @@ class MissionController extends Controller
                         ->get();
                     break;
                 case 5:
+                case 6:
                     $missions = MissionModel::where('status', $requestData['columns'][3]['search']['value'])
                         ->with('vtrInfo')
                         ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
@@ -262,6 +264,7 @@ class MissionController extends Controller
                         ->get();
                     break;
                 case 5:
+                case 6:
                     $missions = MissionModel::with('vtrInfo')
                         ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                         ->offset($requestData['start'])
@@ -299,49 +302,81 @@ class MissionController extends Controller
                     $dado[] = 'Encerrada';
                     break;
             }
-            if (session('CESV')['profileType'] == 1) {
-                $btnInfo = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
-                $btnAltstatus = ' <button title="Iniciar missão" class="btn btn-sm btn-success" onclick="altStatusMission(' . $mission->id . ')"
+            switch (session('CESV')['profileType']) {
+                case 1:
+                    $btnInfo = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
+                    $btnAltstatus = ' <button title="Iniciar missão" class="btn btn-sm btn-success" onclick="altStatusMission(' . $mission->id . ')"
                                     ><i class="fa fa-check"></i></button> ';
-                $btnFinMission = ' <button title="Finalizar missão" class="btn btn-sm btn-danger" onclick="finishMission(' . $mission->id . ')"
+                    $btnFinMission = ' <button title="Finalizar missão" class="btn btn-sm btn-danger" onclick="finishMission(' . $mission->id . ')"
                                     ><i class=" fs-18 fa fa-times"></i></button> ';
-                switch ($mission->status) {
-                    case 1:
-                        $dado[] = $btnInfo . $btnAltstatus;
-                        break;
-                    case 2:
-                        $dado[] = $btnInfo . $btnFinMission;
+                    switch ($mission->status) {
+                        case 1:
+                            $dado[] = $btnInfo . $btnAltstatus;
+                            break;
+                        case 2:
+                            $dado[] = $btnInfo . $btnFinMission;
 
-                        break;
-                    case 3:
-                        $dado[] = $btnInfo;
-                        break;
-                }
+                            break;
+                        case 3:
+                            $dado[] = $btnInfo;
+                            break;
+                    }
 
-            } elseif (session('CESV')['profileType'] == 5) {
-                $dado[] = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
-
-            } else {
-
-                $btnInfo = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
-                $btnEdt = ' <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-mission" data-id="' . $mission->id . '"
+                    break;
+                case 3:
+                case 4:
+                    $btnInfo = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
+                    $btnEdt = ' <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-mission" data-id="' . $mission->id . '"
                                     ><i class="fa fa-edit"></i></button>';
-                $btnDel = ' <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteMission(' . $mission->id . ')"><i
+                    $btnDel = ' <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteMission(' . $mission->id . ')"><i
                                         class="fa fa-trash"></i></button>';
-                switch ($mission->status) {
-                    case 1:
-                        $dado[] = $btnInfo . $btnEdt . $btnDel;
-                        break;
-                    case 2:
-                        $dado[] = $btnInfo . $btnEdt;
+                    switch ($mission->status) {
+                        case 1:
+                            $dado[] = $btnInfo . $btnEdt . $btnDel;
+                            break;
+                        case 2:
+                            $dado[] = $btnInfo . $btnEdt;
 
-                        break;
-                    case 3:
-                        $dado[] = $btnInfo;
-                        break;
-                }
+                            break;
+                        case 3:
+                            $dado[] = $btnInfo;
+                            break;
+                    }
+
+                    break;
+                case 5:
+                    $dado[] = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
+
+                    break;
+                case 6:
+                    $btnInfo = ' <button title="Informações da missão" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-mission" data-id="' . $mission->id . '"><i class="fa fa-eye"></i></button> ';
+                    $btnEdt = ' <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-mission" data-id="' . $mission->id . '"
+                                    ><i class="fa fa-edit"></i></button>';
+                    $btnDel = ' <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteMission(' . $mission->id . ')"><i
+                                        class="fa fa-trash"></i></button>';
+                    $btnAltstatus = ' <button title="Iniciar missão" class="btn btn-sm btn-success" onclick="altStatusMission(' . $mission->id . ')"
+                                    ><i class="fa fa-check"></i></button> ';
+                    $btnFinMission = ' <button title="Finalizar missão" class="btn btn-sm btn-danger" onclick="finishMission(' . $mission->id . ')"
+                                    ><i class=" fs-18 fa fa-times"></i></button> ';
+
+                    switch ($mission->status) {
+                        case 1:
+                            $dado[] = $btnInfo . $btnEdt . $btnAltstatus . $btnDel;
+                            break;
+                        case 2:
+                            $dado[] = $btnInfo . $btnEdt . $btnFinMission . $btnDel;
+
+                            break;
+                        case 3:
+                            $dado[] = $btnInfo . $btnEdt . $btnDel;
+
+                            break;
+                    }
+
+                    break;
 
             }
+
             $dados[] = $dado;
         }
 

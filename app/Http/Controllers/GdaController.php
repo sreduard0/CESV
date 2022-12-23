@@ -531,7 +531,11 @@ class GdaController extends Controller
             $dado[] = $register->total_od ? $register->total_od : ' - ';
             $dado[] = $register->om ? $register->om : '3º B Sup';
             $dado[] = $register->destiny;
-            $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button>';
+            if (session('CESV')['profileType'] == 6) {
+                $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-edit"></i></button> <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-trash"></i></button>';
+            } elseif (session('CESV')['profileType'] == 4) {
+                $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button>';
+            }
             $dados[] = $dado;
         }
 

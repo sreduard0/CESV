@@ -6,6 +6,7 @@
         @break
 
         @case(5)
+        @case(6)
             Motoristas
         @break
     @endswitch
@@ -61,7 +62,7 @@
                     </div>
 
 
-                    @if (session('CESV')['profileType'] == 1)
+                    @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
                         <div class="d-flex justify-content-sm-end">
                             <div class="col">
                                 <button class="btn btn-primary" data-toggle="modal"
@@ -84,7 +85,7 @@
                             <th width="70">Val. CNH</th>
                             <th width="80">Idt Mil</th>
                             <th width="150px">Contato</th>
-                            @if (session('CESV')['profileType'] == 1)
+                            @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
                                 <th>Ações</th>
                             @elseif (session('CESV')['profileType'] == 5)
                                 <th width="30px">Ver</th>
@@ -100,7 +101,7 @@
     @include('component.mot-profile')
 @endsection
 
-@if (session('CESV')['profileType'] == 1)
+@if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
     @section('modal')
         <!-- MODAL CADASTRO MOTORA-->
         <div class="modal fade" id="register-drive" tabindex="-1" role="dialog" aria-labelledby="register-driveLabel"
@@ -409,7 +410,7 @@
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,
-                @if (session('CESV')['profileType'] == 1)
+                @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
                     "aoColumnDefs": [{
                         'className': 'w-1 text-center',
                         'aTargets': [8]
@@ -452,7 +453,7 @@
             });
 
         });
-        @if (session('CESV')['profileType'] == 1)
+        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
             $('#edit-drive').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');

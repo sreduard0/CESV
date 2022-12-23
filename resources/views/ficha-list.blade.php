@@ -6,6 +6,8 @@
         @break
 
         @case(5)
+        @case(6)
+
         @case(4)
             Fichas
         @break
@@ -56,7 +58,7 @@
 
                         </div>
                     </div>
-                    @if (session('CESV')['profileType'] == 1)
+                    @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
                         <div class="d-flex justify-content-sm-end">
                             <div class="col">
                                 <button class="btn btn-primary" data-toggle="modal"
@@ -81,7 +83,7 @@
                             <th>Encerramento</th>
                             <th>Status</th>
                             <th
-                                @if (session('CESV')['profileType'] == 1) width="130px"
+                                @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6) width="130px"
                             @else
                                 width="100px" @endif>
                                 Ações</th>
@@ -95,7 +97,7 @@
 @endsection
 @section('modal')
     @include('component.mot-profile')
-    @if (session('CESV')['profileType'] == 1)
+    @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
         <!-- MODAL CADASTRO FICHA-->
         <div class="modal fade" id="register-ficha" tabindex="-1" role="dialog" aria-labelledby="register-fichaLabel"
             aria-hidden="true">
@@ -135,7 +137,7 @@
                                     <select class="form-control" name="vtrFicha" id="vtrFicha">
                                         <option selected value="">Selecione</option>
                                         @foreach ($viaturas as $viatura)
-                                            <option value="{{ $viatura->id }}">{{ $viatura->nr_vtr }} |
+                                            <option value="{{ $viatura->id }}">{{ $viatura->ebplaca }} |
                                                 {{ $viatura->mod_vtr }}
                                             </option>
                                         @endforeach
@@ -237,7 +239,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="edit-fichaLabel">Cadastrar ficha</h5>
+                        <h5 class="modal-title" id="edit-fichaLabel">Editar ficha</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -443,7 +445,7 @@
             });
 
         });
-        @if (session('CESV')['profileType'] == 1)
+        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
             $('#edit-ficha').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');

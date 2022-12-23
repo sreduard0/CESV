@@ -198,7 +198,7 @@ function editMission() {
     } else {
         $('#e_datePrevChgdMission').removeClass('is-invalid');
     }
-    if (formData.get('e_contactCmtMission').length != 16) {
+    if (formData.get('e_contactCmtMission').length != 20) {
         $('#e_contactCmtMission').addClass('is-invalid');
         return false;
     } else {

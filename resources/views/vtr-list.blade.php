@@ -6,6 +6,7 @@
         @break
 
         @case(5)
+        @case(6)
             Viaturas
         @break
     @endswitch
@@ -61,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (session('CESV')['profileType'] == 1)
+                    @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
                         <div class="d-flex justify-content-sm-end">
                             <div class="col">
                                 <button class="btn btn-primary" data-toggle="modal"
@@ -92,7 +93,7 @@
     </section>
 @endsection
 @section('modal')
-    @if (session('CESV')['profileType'] == 1)
+    @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
         <!-- MODAL CADASTRO VTR-->
         <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="register-vtrLabel"
             aria-hidden="true">
@@ -354,7 +355,7 @@
             });
 
         });
-        @if (session('CESV')['profileType'] == 1)
+        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
             $('#edit-vtr').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');

@@ -6,6 +6,7 @@
         @break
 
         @case(5)
+        @case(6)
             Missões
         @break
 
@@ -27,6 +28,8 @@
     @switch(session('CESV')['profileType'])
         @case(1)
         @case(5)
+
+        @case(6)
             Controle de missões OM/ OP
         @break
 
@@ -110,7 +113,9 @@
                             </div>
                         </div>
                     </div>
-                    @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4)
+                    @if (session('CESV')['profileType'] == 3 ||
+                        session('CESV')['profileType'] == 4 ||
+                        session('CESV')['profileType'] == 6)
                         <div class="d-flex justify-content-sm-end">
                             <div class="col">
                                 <button class="btn btn-primary" data-toggle="modal"
@@ -144,7 +149,9 @@
     </section>
 @endsection
 @section('modal')
-    @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4)
+    @if (session('CESV')['profileType'] == 3 ||
+        session('CESV')['profileType'] == 4 ||
+        session('CESV')['profileType'] == 6)
         <!-- MODAL REGISTRAR MISSÃO-->
         <div class="modal fade" id="register-mission" tabindex="-1" role="dialog" aria-labelledby="register-missionLabel"
             aria-hidden="true">
@@ -164,12 +171,29 @@
                             </div>
                         </div>
                         <form id="form-register-mission">
-                            @if (session('CESV')['profileType'] == 3)
-                                <input type="hidden" name="typeMission" id="typeMission" value="OP">
-                            @else
-                                <input type="hidden" name="typeMission" id="typeMission" value="OM">
-                            @endif
                             <div class="row">
+                                @switch(session('CESV')['profileType'])
+                                    @case(3)
+                                        <input type="hidden" name="typeMission" id="e_typeMission" value="OP">
+                                    @break
+
+                                    @case(4)
+                                        <input type="hidden" name="typeMission" id="e_typeMission" value="OM">
+                                    @break
+
+                                    @case(6)
+                                        <div class="form-group col-md-2">
+                                            <label for="typeMission">Tipo
+                                                <span style="color:red">*</span>
+
+                                            </label>
+                                            <select class="form-control" name="typeMission" id="typeMission">
+                                                <option value="OM">OM</option>
+                                                <option value="OP">OP</option>
+                                            </select>
+                                        </div>
+                                    @break
+                                @endswitch
                                 <div class="form-group col">
                                     <label for="nameMission">Missão
                                         <span style="color:red">*</span>
@@ -180,7 +204,8 @@
                                 <div class="form-group col">
                                     <label for="destinyMission">Destino <span style="color:red">*</span></label>
                                     <input minlength="2" maxlength="200" id="destinyMission" name="destinyMission"
-                                        type="text" class="form-control" placeholder="Destino da missão (OM ou local).">
+                                        type="text" class="form-control"
+                                        placeholder="Destino da missão (OM ou local).">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="classMission">Classe @if (session('CESV')['profileType'] == 3)
@@ -330,12 +355,29 @@
                     <div class="modal-body">
                         <form id="form-edit-mission">
                             <input type="hidden" id="idMission" name="idMission">
-                            @if (session('CESV')['profileType'] == 3)
-                                <input type="hidden" name="e_typeMission" id="e_typeMission" value="OP">
-                            @else
-                                <input type="hidden" name="e_typeMission" id="e_typeMission" value="OM">
-                            @endif
                             <div class="row">
+                                @switch(session('CESV')['profileType'])
+                                    @case(3)
+                                        <input type="hidden" name="e_typeMission" id="e_typeMission" value="OP">
+                                    @break
+
+                                    @case(4)
+                                        <input type="hidden" name="e_typeMission" id="e_typeMission" value="OM">
+                                    @break
+
+                                    @case(6)
+                                        <div class="form-group col-md-2">
+                                            <label for="e_typeMission">Missão
+                                                <span style="color:red">*</span>
+
+                                            </label>
+                                            <select class="form-control" name="e_typeMission" id="e_typeMission">
+                                                <option value="OM">OM</option>
+                                                <option value="OP">OP</option>
+                                            </select>
+                                        </div>
+                                    @break
+                                @endswitch
                                 <div class="form-group col">
                                     <label for="e_nameMission">Missão <span style="color:red">*</span></label>
                                     <input minlength="2" maxlength="200" id="e_nameMission" name="e_nameMission"
@@ -426,7 +468,7 @@
 
                             </div>
                             <div class="row">
-                                @if (session('CESV')['profileType'] == 3)
+                                @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 6)
                                     <div class="form-group colmd-3">
                                         <label for="e_originMission">Origem <span style="color:red">*</span></label>
                                         <input minlength="2" maxlength="200" id="e_originMission"
@@ -514,7 +556,9 @@
                 ]
             });
         });
-        @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4)
+        @if (session('CESV')['profileType'] == 3 ||
+            session('CESV')['profileType'] == 4 ||
+            session('CESV')['profileType'] == 6)
             $('#edit-mission').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
@@ -536,6 +580,7 @@
                     modal.find('#e_datePrevChgdMission').val(moment(result.prev_date_chgd).format(
                         'DD-MM-YYYY H:m'))
                     modal.find('#e_obsMission').summernote('code', result.obs)
+                    modal.find('#e_typeMission').val(result.type_mission)
                 })
             });
         @endif

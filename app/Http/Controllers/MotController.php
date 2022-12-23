@@ -127,7 +127,7 @@ class MotController extends Controller
             $dado[] = date('d-m-Y', strtotime($driver->val_cnh));
             $dado[] = $driver->idt_mil;
             $dado[] = $this->Tools->mask('(##) # ####-####', $driver->contact) . " <a href='https://api.whatsapp.com/send?phone=55" . $driver->contact . "' target='_blank' title='WhatsApp' class='float-r btn btn-sm btn-success'><i class='fab fa-whatsapp'></i></a>";
-            if (session('CESV')['profileType'] == 1) {
+            if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6) {
                 $dado[] = '
                          <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mot-profile" data-id="' . $driver->id . '"
                                     ><i class="fa fa-user"></i></button>
