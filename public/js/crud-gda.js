@@ -11,12 +11,15 @@ function selectVtrType(value) {
             $("#f-civil").css("display", "block")
             $("#f-oom").css("display", "none")
             $("#f-om").css("display", "none")
+            $("#register-vtrLabel").text("REGISTRO DE ENTRADA DE VEÍCULO CIVIL")
             break;
         case 'oom':
             $('#veicle_type').val('oom')
             $("#f-oom").css("display", "block")
             $("#f-civil").css("display", "none")
             $("#f-om").css("display", "none")
+            $("#register-vtrLabel").text("REGISTRO DE ENTRADA DE VEÍCULO MDE OUTRA OM")
+
             break;
         case 'adm':
         case 'op':
@@ -25,6 +28,7 @@ function selectVtrType(value) {
             $("#f-civil").css("display", "none")
             $("#f-oom").css("display", "none")
             $("#f-om").css("display", "block")
+            $("#register-vtrLabel").text("REGISTRO DE SÁIDA DE VIATURA")
 
             break;
         default:
@@ -32,6 +36,7 @@ function selectVtrType(value) {
             $("#f-civil").css("display", "none")
             $("#f-oom").css("display", "none")
             $("#f-om").css("display", "none")
+            $("#register-vtrLabel").text("REGISTRO DE VEÍCULO")
 
             break;
     }

@@ -164,29 +164,49 @@ class FichaController extends Controller
                 $dado[] = 'Aguardando autorização';
 
             }
-            if (session('CESV')['profileType'] == 5) {
-                $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
-                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
-                                        class="fa fa-car"></i></button> ';
 
-            } elseif (session('CESV')['profileType'] == 4) {
-                $btn = $ficha->status == 3 ? ' <button title="Autorizar ficha" class="btn btn-sm btn-success" onclick="return authFicha(' . $ficha->id . ')"><i
-                                        class="fa fa-check"></i></button>' : '';
-                $btnclose = $ficha->status == 1 ? ' <button title="Encerrar ficha" class="btn btn-sm btn-danger" onclick="return finishFicha(' . $ficha->id . ')"><i
-                                        class="fs-18 fa fa-times"></i></button>' : '';
-
-                $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
-                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
-                                        class="fa fa-car"></i></button> ' . $btn . $btnclose;
-
-            } else { $btns = $ficha->status == 1 || $ficha->status == 3 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
+            switch (session('CESV')['profileType']) {
+                case 1:
+                    $btns = $ficha->status == 1 || $ficha->status == 3 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
                                         class="fa fa-edit"></i></button>
                         <button title="Fechar ficha" class="btn btn-sm btn-danger" data-toggle="modal" onclick="finishFicha(' . $ficha->id . ')"><i
                                         class="fa fa-times"></i></button>' : '';
 
-                $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
+                    $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
                                     ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
                                         class="fa fa-car"></i></button> ' . $btns;
+
+                    break;
+                case 4:
+                    $btn = $ficha->status == 3 ? ' <button title="Autorizar ficha" class="btn btn-sm btn-success" onclick="return authFicha(' . $ficha->id . ')"><i
+                                        class="fa fa-check"></i></button>' : '';
+                    $btnclose = $ficha->status == 1 ? ' <button title="Encerrar ficha" class="btn btn-sm btn-danger" onclick="return finishFicha(' . $ficha->id . ')"><i
+                                        class="fs-18 fa fa-times"></i></button>' : '';
+
+                    $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
+                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
+                                        class="fa fa-car"></i></button> ' . $btn . $btnclose;
+
+                    break;
+                case 5:
+                    $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
+                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
+                                        class="fa fa-car"></i></button> ';
+
+                    break;
+                case 6:
+                    $btn = $ficha->status == 3 ? ' <button title="Autorizar ficha" class="btn btn-sm btn-success" onclick="return authFicha(' . $ficha->id . ')"><i
+                                        class="fa fa-check"></i></button>' : ' <button title="Fechar ficha" class="btn btn-sm btn-danger" data-toggle="modal" onclick="finishFicha(' . $ficha->id . ')"><i
+                                        class="fa fa-times"></i></button>';
+
+                    $btns = $ficha->status == 1 || $ficha->status == 3 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
+                                        class="fa fa-edit"></i></button>' . $btn : '';
+
+                    $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
+                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
+                                        class="fa fa-car"></i></button> ' . $btns;
+
+                    break;
             }
             $dados[] = $dado;
         }
