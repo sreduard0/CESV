@@ -341,7 +341,8 @@
 
                             <div class="row">
                                 <div class="form-group col">
-                                    <label for="e_natOfServFicha">Natureza do serviço</label>
+                                    <label for="e_natOfServFicha">Natureza do serviço<span
+                                            style="color:red">*</span></label>
                                     <input minlength="2" maxlength="200" id="e_natOfServFicha" name="e_natOfServFicha"
                                         type="text" class="form-control" placeholder="Ex: Transporte de pessoal">
                                 </div>

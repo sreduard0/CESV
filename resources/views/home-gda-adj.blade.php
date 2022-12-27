@@ -953,6 +953,13 @@
                                         placeholder="Odômetro">
                                 </div>
                             </div>
+                            <div class="obs row">
+                                <div class="form-group col">
+                                    <label for="obsFinish">Observações</label>
+                                    <textarea name="obsFinish" id="obsFinish" rows="8" placeholder="Ex: Carro com impressoras."
+                                        class=" text form-control"></textarea>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">

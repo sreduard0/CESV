@@ -58,7 +58,7 @@ function selectFichaRel(value) {
         if (result.missioninfo) {
             $('#destinyRel').val(result.missioninfo.destiny + " | " + result.missioninfo.mission_name)
         } else {
-            $('#destinyRel').val('Viatura de serviço')
+            $('#destinyRel').val(result.nat_of_serv)
 
         }
     })
@@ -447,6 +447,8 @@ function closeRegisterModal(id, vtr) {
         $('.od').addClass('d-none');
     } else {
         $('.od').removeClass('d-none');
+        $('.obs').removeClass('d-none');
+
     }
 
 }
@@ -489,6 +491,7 @@ function closeRegister() {
         hour: formData.get('hourEnt'),
         id_rel: formData.get('idResgister'),
         vtrType: formData.get('vtr'),
+        obs: formData.get('obsFinish')
     }
 
     const URL = '/close_relgda'
