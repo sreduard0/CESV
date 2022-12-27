@@ -49,6 +49,8 @@ class GdaController extends Controller
     // CRUD
     public function registerRelGda(RelGdaRequest $request)
     {
+        $by = session('CESV')['profileType'] == 6 ? 'Adm' : session('CESV')['guarda'];
+        $gda = session('CESV')['profileType'] == 6 ? 'pa-po' : session('CESV')['guarda'];
         $vtr = $request->only('vtrType');
         switch ($vtr['vtrType']) {
             case 'op':
@@ -65,7 +67,6 @@ class GdaController extends Controller
                     'destiny' => 'required|max:255',
                     'hourSai' => 'required',
                     'obs' => '',
-                    'vtrType' => '',
                 ]);
 
                 $checkFicha = RelGdaModel::where('id_ficha', $data['nrFicha'])->where('status', 1)->first();
@@ -90,7 +91,7 @@ class GdaController extends Controller
                 $rel->status = 1;
                 $rel->om = '3º B Sup';
                 $rel->gda = 'pa-po';
-                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
+                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . $by;
                 $rel->save();
                 break;
             case 'oom':
@@ -128,8 +129,8 @@ class GdaController extends Controller
                 $rel->hour_ent = date('Y-m-d H:i', strtotime($data['hourEnt']));
                 $rel->type_veicle = $data['vtrType'];
                 $rel->status = 1;
-                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
-                $rel->gda = session('CESV')['guarda'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . $by;
+                $rel->gda = $gda;
                 $rel->save();
                 break;
             case 'civil':
@@ -161,8 +162,8 @@ class GdaController extends Controller
                 $rel->hour_ent = date('Y-m-d H:i', strtotime($data['hourEnt']));
                 $rel->type_veicle = $data['vtrType'];
                 $rel->status = 1;
-                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
-                $rel->gda = session('CESV')['guarda'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . $by;
+                $rel->gda = $gda;
                 $rel->save();
 
                 break;
@@ -534,14 +535,24 @@ class GdaController extends Controller
             $dado[] = $register->total_od ? $register->total_od : ' - ';
             $dado[] = $register->om ? $register->om : '3º B Sup';
             $dado[] = $register->destiny;
-            if (session('CESV')['profileType'] == 6) {
-                $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success"onclick="selectEditVtrType(' . $register->id . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="deleteRelGda(' . $register->id . ')"><i class="fa fa-trash"></i> </button>';
-            } elseif (session('CESV')['profileType'] == 4 || session('CESV')['profileType'] == 5) {
-                $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button>';
-            } elseif (session('CESV')['profileType'] == 2) {
-                $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success"onclick="selectEditVtrType(' . $register->id . ')"><i class="fa fa-edit"></i></button>';
-            }
+            switch (session('CESV')['profileType']) {
 
+                case 2:
+                    $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success"onclick="selectEditVtrType(' . $register->id . ')"><i class="fa fa-edit"></i></button>';
+
+                    break;
+
+                case 0:
+                case 4:
+                case 5:
+                    $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button>';
+
+                    break;
+                case 6:
+                    $dado[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-register" data-id="' . $register->id . '"><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-success"onclick="selectEditVtrType(' . $register->id . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="deleteRelGda(' . $register->id . ')"><i class="fa fa-trash"></i> </button>';
+
+                    break;
+            }
             $dados[] = $dado;
         }
 

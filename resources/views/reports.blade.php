@@ -8,11 +8,6 @@
 @section('css')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
-
-    {{-- QR Code --}}
-    <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
-    <!-- Modal de registro manual -->
-
     <style>
         .dataTables_wrapper .dataTables_filter {
             float: right;
@@ -101,6 +96,12 @@
                             <button onclick="filterReports()" style="height: 40px;" class="btn btn-success m-t-30"><i
                                     class="fa fa-search"></i></button>
                         </div>
+                        @if (session('CESV')['profileType'] == 6)
+                            <div class="row">
+                                <button class="m-l-8 btn btn-primary" data-toggle="modal"
+                                    data-target="#register-vtr">Registrar</button>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -527,6 +528,329 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         <button type="button" class="btn btn-success" onclick="return EditRegisterVtr()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (session('CESV')['profileType'] == 6)
+        <!-- MODAL REGISTER VTR MANUAL-->
+        <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="register-vtrLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="register-vtrLabel">REGISTRO DE VEÍCULO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col">
+                            <div class="d-flex justify-content-sm-end">
+                                <p class="f-s-13">(Campos com <span style="color:red">*</span>
+                                    são obrigatórios)</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="veicle_type">Tipo de veículo</label>
+                                <select onchange="selectVtrType(this.value)" id="veicle_type" name="veicle_type"
+                                    class="form-control">
+                                    <option selected value="">SELECIONE O TIPO DE VEÍCULO</option>
+                                    <option value="civil">CIVIL</option>
+                                    <option value="oom">Outra OM</option>
+                                    <option value="om">3º B Sup</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label>Data / Hora</label>
+                                    <div class="input-group">
+                                        <input disabled id="_hora" type="text" class="form-control "
+                                            value="">
+                                        <input type="hidden" id="hourSai" value="">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- FORM CIVIL --}}
+                        <div id="f-civil" style="display:none">
+                            <form id="form-civil">
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="nameMotCivilRel">Nome do motorista <span
+                                                style="color:red">*</span></label>
+                                        <input id="nameMotCivilRel" name="nameMotCivilRel" type="text"
+                                            class="form-control" maxlength="199" placeholder="Nome do motorista">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="docCivilRel">CPF/RG/CNH <span style="color:red">*</span></label>
+                                        <input id="docCivilRel" maxlength="15" name="docCivilRel" type="text"
+                                            class="form-control" placeholder="CPF/RG/CNH">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label for="modVeiCivilRel">Modelo veículo <span
+                                                style="color:red">*</span></label>
+                                        <input id="modVeiCivilRel" maxlength="199" name="modVeiCivilRel" type="text"
+                                            class="form-control" placeholder="Modelo veículo">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="placaCivilRel">Placa <span style="color:red">*</span></label>
+                                        <input id="placaCivilRel" maxlength="15" name="placaCivilRel" type="text"
+                                            class="form-control" placeholder="Placa">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="qtdPassCivilRel">Qtd. de passageiros <span
+                                                style="color:red">*</span></label>
+                                        <select id="qtdPassCivilRel" name="qtdPassCivilRel" class="form-control">
+                                            <option selected value="0">0</option>
+                                            @for ($i = 1; $i < 30; $i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="destinyCivilRel">Destino <span style="color:red">*</span></label>
+                                        <input maxlength="199" id="destinyCivilRel" name="destinyCivilRel"
+                                            type="text" class="form-control" placeholder="Destino">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="obsCivilRel">Observações</label>
+                                        <textarea name="obsCivilRel" id="obsCivilRel" rows="8" placeholder="Ex: Carro com impressoras."
+                                            class=" text form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        {{-- FORM OUTRA OM --}}
+                        <div id="f-oom" style="display:none">
+                            <form id="form-oom">
+                                <div class="row">
+                                    <div class="form-group col-md-2">
+                                        <label for="pgMotOomRel">Posto/Grad <span style="color:red">*</span></label>
+                                        <select class="form-control" name="pgMotOomRel" id="pgMotOomRel">
+                                            <option value="">Selecione</option>
+                                            <option value="Gen">Gen</option>
+                                            <option value="Cel">Cel</option>
+                                            <option value="TC">TC</option>
+                                            <option value="Maj">Maj</option>
+                                            <option value="Cap">Cap</option>
+                                            <option value="1º Ten">1º Ten</option>
+                                            <option value="2º Ten">2º Ten</option>
+                                            <option value="Asp">Asp</option>
+                                            <option value="ST">ST</option>
+                                            <option value="1º Sgt">1º Sgt</option>
+                                            <option value="2º Sgt">2º Sgt</option>
+                                            <option value="3º Sgt">3º Sgt</option>
+                                            <option value="Cb">Cb</option>
+                                            <option value="Sd">Sd</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col">
+                                        <label for="nameMotOomRel">Nome do motorista <span
+                                                style="color:red">*</span></label>
+                                        <input id="nameMotOomRel" maxlength="199" name="nameMotOomRel" type="text"
+                                            class="form-control" placeholder="Nome do motorista">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="pgSegOomRel">Posto/Grad <span style="color:red">*</span></label>
+                                        <select class="form-control" name="pgSegOomRel" id="pgSegOomRel">
+                                            <option value="">Selecione</option>
+                                            <option value="Gen">Gen</option>
+                                            <option value="Cel">Cel</option>
+                                            <option value="TC">TC</option>
+                                            <option value="Maj">Maj</option>
+                                            <option value="Cap">Cap</option>
+                                            <option value="1º Ten">1º Ten</option>
+                                            <option value="2º Ten">2º Ten</option>
+                                            <option value="Asp">Asp</option>
+                                            <option value="ST">ST</option>
+                                            <option value="1º Sgt">1º Sgt</option>
+                                            <option value="2º Sgt">2º Sgt</option>
+                                            <option value="3º Sgt">3º Sgt</option>
+                                            <option value="Cb">Cb</option>
+                                            <option value="Sd">Sd</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="nameSegOomRel">Nome do segurança <span
+                                                style="color:red">*</span></label>
+                                        <input maxlength="199" id="nameSegOomRel" name="nameSegOomRel" type="text"
+                                            class="form-control" placeholder="Nome do segurança">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="idtMilOomRel">Idt mil <span style="color:red">*</span> </label> (do
+                                        mais
+                                        antigo)
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="idtMilOomRel"
+                                                name="idtMilOomRel" data-inputmask="'mask':'999.999.999-9'"
+                                                data-mask="" inputmode="text" placeholder="___.___.___-_">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="modVtrOomRel">Modelo viatura<span style="color:red">*</span></label>
+                                        <input id="modVtrOomRel" name="modVtrOomRel" type="text" maxlength="199"
+                                            class="form-control" placeholder="Modelo da viatura">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="ebPlacaOomRel">Placa / EB <span style="color:red">*</span></label>
+                                        <input id="ebPlacaOomRel" maxlength="15" name="ebPlacaOomRel" type="text"
+                                            class="form-control" placeholder="Placa / EB">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label for="omOomRel">OM <span style="color:red">*</span></label>
+                                        <input id="omOomRel" maxlength="15" name="omOomRel" type="text"
+                                            class="form-control" placeholder="OM">
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="destinyOomRel">Destino / Missão <span
+                                                style="color:red">*</span></label>
+                                        <input id="destinyOomRel" maxlength="199" name="destinyOomRel" type="text"
+                                            class="form-control" placeholder="Destino / Missão">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="obsOomRel">Observações</label>
+                                        <textarea name="obsOomRel" id="obsOomRel" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
+                                            class="text form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        {{-- FORM ADM/OP --}}
+                        <div id="f-om" style="display:none">
+                            <form id="form-om">
+                                <input type="hidden" id="vtrTypeRel">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="nrFichaRel">Número da ficha <span style="color:red">*</span></label>
+                                        <select onchange="selectFichaRel(this.value)" class="form-control"
+                                            name="nrFichaRel" id="nrFichaRel">
+                                            <option selected value="">Selecione</option>
+                                            @foreach ($fichas as $ficha)
+                                                <option value="{{ $ficha->id }}">{{ $ficha->nr_ficha }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="typeVtr">Tipo</span></label>
+                                        <select disabled class="form-control" id="typeVtr">
+                                            <option selected value="">-</option>
+                                            <option value="op">Operacional</option>
+                                            <option value="adm">Administrativa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="idMotRel">Motorista <span style="color:red">*</span></label>
+                                        <select class="form-control" name="idMotRel" id="idMotRel">
+                                            <option value="">Selecione</option>
+                                            @foreach ($motoristas as $motorista)
+                                                <option value="{{ $motorista->id }}">
+                                                    {{ $motorista->pg . ' ' . $motorista->name . ' | ' . $motorista->cat }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="pgSegRel">Posto/Grad <span style="color:red">*</span></label>
+                                        <select class="form-control" name="pgSegRel" id="pgSegRel">
+                                            <option value="">Selecione</option>
+                                            <option value="Gen">Gen</option>
+                                            <option value="Cel">Cel</option>
+                                            <option value="TC">TC</option>
+                                            <option value="Maj">Maj</option>
+                                            <option value="Cap">Cap</option>
+                                            <option value="1º Ten">1º Ten</option>
+                                            <option value="2º Ten">2º Ten</option>
+                                            <option value="Asp">Asp</option>
+                                            <option value="ST">ST</option>
+                                            <option value="1º Sgt">1º Sgt</option>
+                                            <option value="2º Sgt">2º Sgt</option>
+                                            <option value="3º Sgt">3º Sgt</option>
+                                            <option value="Cb">Cb</option>
+                                            <option value="Sd">Sd</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="nameSegRel">Nome do segurança <span style="color:red">*</span></label>
+                                        <input id="nameSegRel" maxlength="199" name="nameSegRel" type="text"
+                                            class="form-control" placeholder="Nome do segurança">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label for="modVtrRel">Modelo veículo <span style="color:red">*</span></label>
+                                        <input id="modVtrRelDes" name="modVtrRel" disabled type="text"
+                                            class="form-control" placeholder="Modelo veículo">
+
+                                        <input id="modVtrRel" name="modVtrRel" type="hidden">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="ebPlacaRel">Placa / EB <span style="color:red">*</span></label>
+                                        <input id="ebPlacaRelDes" disabled name="ebPlacaRel" type="text"
+                                            class="form-control" placeholder="Placa / EB">
+
+                                        <input id="ebPlacaRel" name="ebPlacaRel" type="hidden">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="odSaiRel">Odômetro <span style="color:red">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-car"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="odSaiRel" name="odSaiRel"
+                                                data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                                placeholder="Odômetro">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col">
+                                        <label for="destinyRel">Destino / Missão <span style="color:red">*</span></label>
+                                        <input id="destinyRel" maxlength="199" name="destinyRel" type="text"
+                                            class="form-control" placeholder="Destino / Missão">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="obsRel">Observações</label>
+                                        <textarea name="obsRel" id="obsRel" rows="8" placeholder="Ex: Autorizado sair sem segurança pelo CMT."
+                                            class="text form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success" onclick="return registerVtr()">Registrar</button>
                     </div>
                 </div>
             </div>
