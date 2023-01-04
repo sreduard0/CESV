@@ -608,7 +608,7 @@ function selectEditVtrType(id) {
         switch (result.type_veicle) {
             case 'op':
             case 'adm':
-                $('#e_dateEntRel').val(result.hour_ent ? moment(result.hour_ent).format('DD.MM.YYYY HH:mm') : '')
+                $('#e_dateEntRel').val(result.hour_ent ? moment(result.hour_ent).format('DD-MM-YYYY HH:mm') : '')
                 $('#e_dateSaiRel').val(moment(result.hour_sai).format('DD-MM-YYYY HH:mm'))
                 $('#e_odEntRel').val(result.od_ent)
                 $('#e_odSaiRel').val(result.od_sai)
@@ -627,7 +627,7 @@ function selectEditVtrType(id) {
                 $("#e-f-civil").css("display", "none")
                 break;
             case 'oom':
-                $('#e_dateSaiOomRel').val(result.hour_sai ? moment(result.hour_sai).format('DD.MM.YYYY HH:mm') : '')
+                $('#e_dateSaiOomRel').val(result.hour_sai ? moment(result.hour_sai).format('DD-MM-YYYY HH:mm') : '')
                 $('#e_dateEntOomRel').val(moment(result.hour_ent).format('DD-MM-YYYY HH:mm'))
                 $('#e_pgMotOomRel').val(result.pg_mot)
                 $('#e_nameMotOomRel').val(result.name_mot)

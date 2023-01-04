@@ -303,6 +303,8 @@ class GdaController extends Controller
 
     public function closeRelGda(RelGdaRequest $request)
     {
+        $by = session('CESV')['profileType'] == 6 ? 'Adm' : session('CESV')['guarda'];
+
         $data = $request->all();
 
         switch ($data['vtrType']) {
@@ -325,7 +327,7 @@ class GdaController extends Controller
                 $rel->hour_ent = date('Y-m-d H:i', strtotime($data['hour']));
                 $rel->obs = $rel->obs . '<br>' . $data['obs'];
                 $rel->status = 2;
-                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
+                $rel->user_rel_ent = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . $by;
 
                 $rel->save();
 
@@ -345,7 +347,7 @@ class GdaController extends Controller
 
                 $rel->hour_sai = date('Y-m-d H:i', strtotime($data['hour']));
                 $rel->status = 2;
-                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . session('CESV')['guarda'];
+                $rel->user_rel_sai = session('user')['rank'] . ' ' . session('user')['professionalName'] . " - " . $by;
                 $rel->obs = $rel->obs . '<br>' . $data['obs'];
 
                 $rel->save();

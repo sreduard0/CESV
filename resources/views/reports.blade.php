@@ -15,6 +15,11 @@
             visibility: hidden;
         }
     </style>
+    @if (session('CESV')['profileType'] == 6)
+        {{-- QR Code --}}
+        <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
+    @endif
+
     <script src="{{ asset('js/crud-gda.js') }}"></script>
 @endsection
 
@@ -71,10 +76,10 @@
 
                             <div class="form-group col-md-2">
                                 <label>Data entrada</label>
-                                <div class="input-group date" id="dateEntTarget" data-target-input="nearest">
+                                <div class="input-group date" id="dateEntFilterTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#dateEntTarget" id="dateEnt_filter" value="">
-                                    <div class="input-group-append" data-target="#dateEntTarget"
+                                        data-target="#dateEntFilterTarget" id="dateEnt_filter" value="">
+                                    <div class="input-group-append" data-target="#dateEntFilterTarget"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i>
                                         </div>
@@ -83,10 +88,10 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Data saída</label>
-                                <div class="input-group date" id="dateSaiTarget" data-target-input="nearest">
+                                <div class="input-group date" id="dateSaiFilterTarget" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#dateSaiTarget" id="dateSai_filter" value="">
-                                    <div class="input-group-append" data-target="#dateSaiTarget"
+                                        data-target="#dateSaiFilterTarget" id="dateSai_filter" value="">
+                                    <div class="input-group-append" data-target="#dateSaiFilterTarget"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i>
                                         </div>
@@ -97,19 +102,18 @@
                                     class="fa fa-search"></i></button>
                         </div>
                         @if (session('CESV')['profileType'] == 6)
-                            <div class="row">
-                                <button class="m-l-8 btn btn-primary" data-toggle="modal"
+                            <div class="m-t-5 row">
+                                <button class="btn btn-primary" data-toggle="modal"
                                     data-target="#register-vtr">Registrar</button>
+                                <button id="qr-read" class="m-l-3  btn btn-success" data-toggle="modal"
+                                    data-target="#qr-code-modal">
+                                    <i class="fa fa-qrcode"></i> Ler QR
+                                    Code</button>
                             </div>
                         @endif
                     </div>
                 </div>
-
-
                 <div id="button-print"></div>
-
-
-
             </div>
             <div class="card-body">
                 <table id="table" class="table table-bordered table-striped">
@@ -534,6 +538,48 @@
         </div>
     @endif
     @if (session('CESV')['profileType'] == 6)
+
+        <!-- MODAL REGISTER VTR QR Code-->
+        <div class="modal fade" id="qr-code-modal" tabindex="-1" role="dialog" aria-labelledby="qr-code-modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="qr-code-modalLabel">Escaneie o QR Code da viatura</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body" style="max-height:550px">
+                            <div id="video-container" class="style-2">
+                                <video id="qr-video"></video>
+                            </div>
+
+                            <div style="margin-top: 10px" class="d-flex justify-content-between">
+
+                                <div class="form-group col-md-3">
+                                    <select id="cam-list" class="form-control">
+                                        <option value="environment" selected>Câmera traseira
+                                        </option>
+                                        <option value="user">Camera frontal</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <div class="d-flex justify-content-sm-end">
+                                        <button id='flash-btn' class='btn btn-secondary'><i
+                                                class="fa fa-bolt"></i></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- MODAL REGISTER VTR MANUAL-->
         <div class="modal fade" id="register-vtr" tabindex="-1" role="dialog" aria-labelledby="register-vtrLabel"
             aria-hidden="true">
@@ -855,6 +901,62 @@
                 </div>
             </div>
         </div>
+        <!-- MODAL FECHAR REGISTRO VTR-->
+        <div class="modal fade" id="close-register-modal" tabindex="-1" role="dialog"
+            aria-labelledby="close-register-modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="close-register-modalLabel">FINALIZAR REGISTRO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-reg-close">
+                            <input type="hidden" id="idResgister" name="idResgister">
+                            <input type="hidden" id="vtr" name="vtr">
+                            <input type="hidden" id="hourEnt" name="hourEnt">
+                            <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label>Data/Hora</label>
+                                    <div class="input-group">
+                                        <input disabled id="ent_hora" type="text" class="form-control "
+                                            value="">
+
+                                        <div class="input-group-append">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="od form-group col-md-4">
+                                <label for="od">Odômetro <span style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-car"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="odEntRel" name="odEntRel"
+                                        data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                        placeholder="Odômetro">
+                                </div>
+                            </div>
+                            <div class="obs row">
+                                <div class="form-group col">
+                                    <label for="obsFinish">Observações</label>
+                                    <textarea name="obsFinish" id="obsFinish" rows="8" placeholder="Ex: Carro com impressoras."
+                                        class=" text form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success" onclick="return closeRegister()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endif
     {{--  INFORMÇOES DO REGISTRO DE ENTRADA E saída --}}
     @include('component.info-register')
@@ -864,7 +966,10 @@
 @section('plugins')
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-
+    @if (session('CESV')['profileType'] == 6)
+        {{-- QrCode --}}
+        <script type="module" src="{{ asset('plugins/qr-scanner/qr-code.js') }}"></script>
+    @endif
     <script src="{{ asset('js/inputmask.js') }}"></script>
     <script src="{{ asset('js/reports-filter.js') }}"></script>
     <script>
