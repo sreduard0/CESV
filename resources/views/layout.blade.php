@@ -132,6 +132,7 @@
                         @endif
                         @if (session('CESV')['profileType'] == 1 ||
                             session('CESV')['profileType'] == 5 ||
+                            session('CESV')['profileType'] == 3 ||
                             session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('vtr') }}" class="nav-link @yield('vtr')">

@@ -7,6 +7,8 @@
 
         @case(5)
         @case(6)
+
+        @case(3)
             Viaturas
         @break
     @endswitch
@@ -83,7 +85,12 @@
                             <th width="100px">Capacidade</th>
                             <th>M <sup>3</sup></th>
                             <th>Status</th>
-                            <th width="100px">Ações</th>
+                            @if (session('CESV')['profileType'] == 3)
+                                <th width="130px">Missão</th>
+                                <th width="30px">ver</th>
+                            @else
+                                <th width="100px">Ações</th>
+                            @endif
                         </tr>
                     </thead>
                 </table>

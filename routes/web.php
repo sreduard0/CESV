@@ -30,8 +30,8 @@ Route::middleware('auth')->group(function () {
 // VIEWS
     Route::get('/', [ViewController::class, 'home'])->name('home');
     Route::get('/fichas', [ViewController::class, 'fichas'])->name('fichas')->middleware('role:trnp>adt>fiscadm>adm');
-    Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('role:trnp>adt>adm');
-    Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('role:trnp>adt>adm');
+    Route::get('/vtr', [ViewController::class, 'viatura'])->name('vtr')->middleware('role:trnp>adt>adm>cost');
+    Route::get('/motoristas', [ViewController::class, 'drivers'])->name('drivers')->middleware('role:trnp>adt>adm>cost');
     Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('role:adj>cmtgda>adt>fiscadm>adm');
     Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('role:trnp>cost>fiscadm>adt>adm');
     Route::get('/usuarios', [ViewController::class, 'users'])->name('users')->middleware('role:adt>adm');
@@ -39,8 +39,8 @@ Route::middleware('auth')->group(function () {
 // AÇÕES --------------------------------------------------------------------
 
 // VIATURAS
-    Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('role:adt>trnp>fiscadm>adm');
-    Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('role:trnp>adt>adm');
+    Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('role:adt>trnp>fiscadm>adm>cost');
+    Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('role:trnp>adt>adm>cost');
 
 // MISSÕES
     Route::get('info_mission/{id}', [MissionController::class, 'infoMission'])->name('info_mission')->middleware('role:cost>fiscadm>trnp>adt>adm');
@@ -64,8 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::post('report_relgda_list', [GdaController::class, 'reportRelGda'])->name('report_relgda_list')->middleware('role:adt>cmtgda>adj>fiscadm>adm');
 
 // LISTA DE MOTORISTA
-    Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_list')->middleware('role:trnp>adt>adm');
-    Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('role:trnp>adt>fiscadm>adm');
+    Route::post('post_mot_list', [MotController::class, 'listMot'])->name('post_mot_list')->middleware('role:trnp>adt>adm>cost');
+    Route::get('get_info_mot/{id}', [MotController::class, 'infoMot'])->middleware('role:trnp>adt>fiscadm>adm>cost');
 
 // ADMINISTRADOR
     Route::get('getGraphicMissionsOp', [AdminController::class, 'getGraphicMissionsOp'])->name('getGraphicMissionsOp')->middleware('role:adt>cost>fiscadm>adm');

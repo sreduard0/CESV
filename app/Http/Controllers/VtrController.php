@@ -95,15 +95,15 @@ class VtrController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['search']['value']) {
-            $vtrs = VtrModel::where('ebplaca', 'LIKE', '%' . $requestData['search']['value'] . '%')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $vtrs = VtrModel::where('ebplaca', 'LIKE', '%' . $requestData['search']['value'] . '%')->with('infoFicha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($vtrs);
             $rows = count(VtrModel::all());
         } elseif ($requestData['columns'][3]['search']['value']) {
-            $vtrs = VtrModel::where('status', $requestData['columns'][3]['search']['value'])->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $vtrs = VtrModel::where('status', $requestData['columns'][3]['search']['value'])->with('infoFicha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($vtrs);
             $rows = count(VtrModel::all());
         } else {
-            $vtrs = VtrModel::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $vtrs = VtrModel::with('infoFicha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
             $filtered = count($vtrs);
         }
 
@@ -129,20 +129,30 @@ class VtrController extends Controller
                     $dado[] = 'Disp. c/ restrição';
                     break;
             }
-            if (session('CESV')['profileType'] == 5) {
-                $dado[] = '
+            switch (session('CESV')['profileType']) {
+                case 5:
+                    $dado[] = '
                         <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
                                         class="fa fa-car"></i></button>';
+                    break;
+                case 3:
+                    $dado[] = $vtr->infoFicha == null ? 'Livre' : $vtr->infoFicha->nat_of_serv;
+                    $dado[] = '
+                        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
+                                        class="fa fa-car"></i></button>';
+                    break;
+                default:
 
-            } else {
-                $dado[] = '
+                    $dado[] = '
                         <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
                                         class="fa fa-car"></i></button>
                         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-vtr" data-id="' . $vtr->id . '"><i
                                         class="fa fa-edit"></i></button>
                         <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteVtr(' . $vtr->id . ')"><i
                                         class="fa fa-trash"></i></button>';
+                    break;
             }
+
             $dados[] = $dado;
         }
 
