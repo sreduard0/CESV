@@ -150,7 +150,7 @@ class AdminController extends Controller
     }
     public function getGraphicMissionsOmOp()
     {
-        $totalOmOp = MissionModel::where('status','<', 3)->whereYear('created_at', date('Y'))->count();
+        $totalOmOp = MissionModel::where('status', 3)->whereYear('created_at', date('Y'))->count();
         $type = ['OM', 'OP'];
 
         foreach ($type as $t) {
@@ -158,6 +158,7 @@ class AdminController extends Controller
             $data = MissionModel::select('created_at', DB::raw('COUNT(id) as type'))
                 ->whereYear('created_at', date('Y'))
                 ->where('type_mission', $t)
+                ->where('status', 3)
                 ->groupBy('created_at')
                 ->get()->toArray();
 
