@@ -312,16 +312,20 @@ function registerOm() {
     }
 
     if (formData.get('pgSegRel') == '') {
-        $('#pgSegRel').addClass('is-invalid');
-        return false;
-    } else {
-        $('#pgSegRel').removeClass('is-invalid');
-    }
-
-    if (formData.get('nameSegRel') == '' || formData.get('nameSegRel').length > 200) {
+        $('#pgSegRel').css('border', '1px solid #dc3545');
         $('#nameSegRel').addClass('is-invalid');
         return false;
     } else {
+        $('#pgSegRel').removeAttr("style");
+        $('#nameSegRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('nameSegRel') == '' || formData.get('nameSegRel').length > 200) {
+        $('#pgSegRel').css('border', '1px solid #dc3545');
+        $('#nameSegRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#pgSegRel').removeAttr("style");
         $('#nameSegRel').removeClass('is-invalid');
     }
 
@@ -946,16 +950,20 @@ function EditRegisterOm() {
     }
 
     if (formData.get('e_pgSegRel') == '') {
-        $('#e_pgSegRel').addClass('is-invalid');
-        return false;
-    } else {
-        $('#e_pgSegRel').removeClass('is-invalid');
-    }
-
-    if (formData.get('e_nameSegRel') == '' || formData.get('e_nameSegRel').length > 200) {
+        $('#e_pgSegRel').css('border', '1px solid #dc3545');
         $('#e_nameSegRel').addClass('is-invalid');
         return false;
     } else {
+        $('#e_pgSegRel').removeAttr("style");
+        $('#e_nameSegRel').removeClass('is-invalid');
+    }
+
+    if (formData.get('e_nameSegRel') == '' || formData.get('e_nameSegRel').length > 200) {
+        $('#e_pgSegRel').css('border', '1px solid #dc3545');
+        $('#e_nameSegRel').addClass('is-invalid');
+        return false;
+    } else {
+        $('#e_pgSegRel').removeAttr("style");
         $('#e_nameSegRel').removeClass('is-invalid');
     }
 
