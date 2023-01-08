@@ -473,33 +473,32 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-md-2">
-                                        <label for="e_pgSegRel">Posto/Grad <span style="color:red">*</span></label>
-                                        <select class="form-control" name="e_pgSegRel" id="e_pgSegRel">
-                                            <option value="">Selecione</option>
-                                            <option value="Gen">Gen</option>
-                                            <option value="Cel">Cel</option>
-                                            <option value="TC">TC</option>
-                                            <option value="Maj">Maj</option>
-                                            <option value="Cap">Cap</option>
-                                            <option value="1º Ten">1º Ten</option>
-                                            <option value="2º Ten">2º Ten</option>
-                                            <option value="Asp">Asp</option>
-                                            <option value="ST">ST</option>
-                                            <option value="1º Sgt">1º Sgt</option>
-                                            <option value="2º Sgt">2º Sgt</option>
-                                            <option value="3º Sgt">3º Sgt</option>
-                                            <option value="Cb">Cb</option>
-                                            <option value="Sd">Sd</option>
-                                        </select>
-                                    </div>
                                     <div class="form-group col">
-                                        <label for="e_nameSegRel">Nome do segurança <span
-                                                style="color:red">*</span></label>
-                                        <input id="e_nameSegRel" name="e_nameSegRel" maxlength="199" type="text"
-                                            class="form-control" placeholder="Nome do segurança">
+                                        <label for="e_nameSegRel">Segurança <span style="color:red">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <select class="input-group-text" name="e_pgSegRel" id="e_pgSegRel">
+                                                    <option value="">Post/ Grad</option>
+                                                    <option value="Gen">Gen</option>
+                                                    <option value="Cel">Cel</option>
+                                                    <option value="TC">TC</option>
+                                                    <option value="Maj">Maj</option>
+                                                    <option value="Cap">Cap</option>
+                                                    <option value="1º Ten">1º Ten</option>
+                                                    <option value="2º Ten">2º Ten</option>
+                                                    <option value="Asp">Asp</option>
+                                                    <option value="ST">ST</option>
+                                                    <option value="1º Sgt">1º Sgt</option>
+                                                    <option value="2º Sgt">2º Sgt</option>
+                                                    <option value="3º Sgt">3º Sgt</option>
+                                                    <option value="Cb">Cb</option>
+                                                    <option value="Sd">Sd</option>
+                                                </select>
+                                            </div>
+                                            <input id="e_nameSegRel" maxlength="199" name="e_nameSegRel" type="text"
+                                                class="form-control" placeholder="Nome do segurança">
+                                        </div>
                                     </div>
-
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-3">
@@ -824,30 +823,31 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="pgSegRel">Posto/Grad <span style="color:red">*</span></label>
-                                        <select class="form-control" name="pgSegRel" id="pgSegRel">
-                                            <option value="">Selecione</option>
-                                            <option value="Gen">Gen</option>
-                                            <option value="Cel">Cel</option>
-                                            <option value="TC">TC</option>
-                                            <option value="Maj">Maj</option>
-                                            <option value="Cap">Cap</option>
-                                            <option value="1º Ten">1º Ten</option>
-                                            <option value="2º Ten">2º Ten</option>
-                                            <option value="Asp">Asp</option>
-                                            <option value="ST">ST</option>
-                                            <option value="1º Sgt">1º Sgt</option>
-                                            <option value="2º Sgt">2º Sgt</option>
-                                            <option value="3º Sgt">3º Sgt</option>
-                                            <option value="Cb">Cb</option>
-                                            <option value="Sd">Sd</option>
-                                        </select>
-                                    </div>
                                     <div class="form-group col">
-                                        <label for="nameSegRel">Nome do segurança <span style="color:red">*</span></label>
-                                        <input id="nameSegRel" maxlength="199" name="nameSegRel" type="text"
-                                            class="form-control" placeholder="Nome do segurança">
+                                        <label for="e_nameSegRel">Segurança <span style="color:red">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <select class="input-group-text" name="e_pgSegRel" id="e_pgSegRel">
+                                                    <option value="">Post/ Grad</option>
+                                                    <option value="Gen">Gen</option>
+                                                    <option value="Cel">Cel</option>
+                                                    <option value="TC">TC</option>
+                                                    <option value="Maj">Maj</option>
+                                                    <option value="Cap">Cap</option>
+                                                    <option value="1º Ten">1º Ten</option>
+                                                    <option value="2º Ten">2º Ten</option>
+                                                    <option value="Asp">Asp</option>
+                                                    <option value="ST">ST</option>
+                                                    <option value="1º Sgt">1º Sgt</option>
+                                                    <option value="2º Sgt">2º Sgt</option>
+                                                    <option value="3º Sgt">3º Sgt</option>
+                                                    <option value="Cb">Cb</option>
+                                                    <option value="Sd">Sd</option>
+                                                </select>
+                                            </div>
+                                            <input id="e_nameSegRel" maxlength="199" name="e_nameSegRel" type="text"
+                                                class="form-control" placeholder="Nome do segurança">
+                                        </div>
                                     </div>
 
                                 </div>
