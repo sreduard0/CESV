@@ -166,6 +166,7 @@
 
              </div>
              <div class="modal-footer">
+                 <div class="link"></div>
                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
              </div>
          </div>
@@ -179,7 +180,7 @@
          var modal = $(this);
          var url = "{{ url('info_mission') }}/" + id;
          $('#contactCmtMission').mask('+00 (00) 0 0000-0000')
-
+         $(".link").html('')
          $.get(url, function(result) {
              var i = 1
              const Vtrs = result.vtr_info.map(vtr => {
@@ -246,9 +247,17 @@
                  $('#alt').text(result.alteration == 1 ? "Sim " : "Não")
                  $('#obs').html(result.obs_alteration ? result.obs_alteration :
                      'Sem observações')
+
                  $("#panelInfoCon").css("display", "block")
+
              } else {
                  $("#panelInfoCon").css("display", "none")
+                 $(".link").html(
+                     '<button title="Gerar link da missão" class="btn btn-primary" onclick="generatelink(' +
+                     id + ')">Gerar link</button>'
+                 )
+
+
              }
          })
 

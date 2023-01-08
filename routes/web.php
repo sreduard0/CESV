@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('info_mission/{id}', [MissionController::class, 'infoMission'])->name('info_mission')->middleware('role:cost>fiscadm>trnp>adt>adm');
     Route::get('alt_sts_mission/{id}', [MissionController::class, 'altStsMission'])->middleware('role:trnp>adm');
     Route::get('finish_mission/{id}', [MissionController::class, 'finishMission'])->middleware('role:trnp>adm');
+    Route::get('/generate_link_mission/{id}', [MissionController::class, 'generateLinkMission'])->middleware('role:cost>adm');
     Route::post('post_missions_list', [MissionController::class, 'listMission'])->name('post_missions_list')->middleware('role:cost>fiscadm>trnp>adt>adm');
 
 // FICHAS

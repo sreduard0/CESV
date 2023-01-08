@@ -424,3 +424,33 @@ function altStatusMission(id) {
     });
 }
 
+
+function generatelink(id) {
+    $.ajax({
+        url: '/generate_link_mission/' + id,
+        type: "GET",
+        success: function (result) {
+            let dialog = bootbox.dialog({
+                title: 'Gerando link do relatório.',
+                message: '<p><i class="fas fa-spin fa-spinner"></i>Aguarde um momento.</p>',
+                size: 'large',
+                centerVertical: true,
+            });
+
+            dialog.init(function () {
+                setTimeout(function () {
+                    dialog.find('.modal-title').text('Envie este link para o comandante da missão.');
+                    dialog.find('.bootbox-body').html('<div class="row"><span id="copyText">' + result.link + '</span> <div class="col d-flex justify-content-end"><button title="Copiar link" onclick="return copy()" class="m-r-6 btn btn-default"><i class="far fa-clone"></i></button>  <a title="Enviar via WhatsApp" href="https://api.whatsapp.com/send?phone=' + result.contactCmtMission + '&text=Ol%c3%a1%2c+' + result.nameSeg + '%0d%0aSegue+o+link+para+preenchimento+do+relat%c3%b3rio+da+miss%c3%a3o+' + result.missionName + '+%0d%0a%0d%0aLink%3a+' + result.link + '%0d%0a%0d%0a*Lembrando+que+este+link+s%c3%b3+pode+ser+acessado+dentro+da+EBNet+ou+pela+VPN*" class= "m-r-30 btn btn-success" > <i class="fs-23 fab fa-whatsapp"></i></a ></div></div>');
+
+                }, 1500);
+            });
+        },
+        error: function (data) {
+            Toast.fire({
+                icon: 'error',
+                title: '&nbsp&nbsp Erro encerrar.'
+            });
+
+        }
+    });
+}

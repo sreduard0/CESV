@@ -24,6 +24,21 @@ class MissionController extends Controller
         $this->Email = new Email;
     }
 
+    // Gerar link da missão
+    public function generateLinkMission($id)
+    {
+        // //MISSÃO
+        $mission = MissionModel::find($id);
+        // Notificando CMT da MISSÃO
+        $data = [
+            'link' => url('/relatorio/form') . '/' . $this->Tools->hash($id, 'encrypt'),
+            'nameSeg' => $mission->pg_seg . ' ' . $mission->name_seg,
+            'missionName' => $mission->mission_name,
+            'contactCmtMission' => $mission->contact,
+        ];
+
+        return $data;
+    }
     // INFORMAÇÕES DA MISSÃO SOLICITADA
     public function infoMission($id)
     {
