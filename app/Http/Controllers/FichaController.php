@@ -123,7 +123,9 @@ class FichaController extends Controller
             4 => 'id_mot',
             5 => 'pg_seg',
             6 => 'nat_of_serv',
-            7 => 'status',
+            7 => 'date_close',
+            8 => 'status',
+            9 => 'id',
         );
 
         //Obtendo registros de número total sem qualquer pesquisa

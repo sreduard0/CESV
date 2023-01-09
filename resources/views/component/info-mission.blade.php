@@ -254,7 +254,7 @@
                  $("#panelInfoCon").css("display", "none")
                  $(".link").html(
                      '<button title="Gerar link da missão" class="btn btn-primary" onclick="generatelink(' +
-                     id + ')">Gerar link</button>'
+                     id + ')">Gerar link de relatório</button>'
                  )
 
 

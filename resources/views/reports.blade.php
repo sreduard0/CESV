@@ -824,10 +824,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group col">
-                                        <label for="e_nameSegRel">Segurança <span style="color:red">*</span></label>
+                                        <label for="nameSegRel">Segurança <span style="color:red">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <select class="input-group-text" name="e_pgSegRel" id="e_pgSegRel">
+                                                <select class="input-group-text" name="pgSegRel" id="pgSegRel">
                                                     <option value="">Post/ Grad</option>
                                                     <option value="Gen">Gen</option>
                                                     <option value="Cel">Cel</option>
@@ -845,7 +845,7 @@
                                                     <option value="Sd">Sd</option>
                                                 </select>
                                             </div>
-                                            <input id="e_nameSegRel" maxlength="199" name="e_nameSegRel" type="text"
+                                            <input id="nameSegRel" maxlength="199" name="nameSegRel" type="text"
                                                 class="form-control" placeholder="Nome do segurança">
                                         </div>
                                     </div>
