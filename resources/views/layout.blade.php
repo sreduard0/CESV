@@ -91,10 +91,10 @@
                             </a>
                         </li>
                         @if (session('CESV')['profileType'] == 0 ||
-                            session('CESV')['profileType'] == 2 ||
-                            session('CESV')['profileType'] == 5 ||
-                            session('CESV')['profileType'] == 4 ||
-                            session('CESV')['profileType'] == 6)
+                                session('CESV')['profileType'] == 2 ||
+                                session('CESV')['profileType'] == 5 ||
+                                session('CESV')['profileType'] == 4 ||
+                                session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('reports') }}" class="nav-link @yield('reports')">
                                     <i class="nav-icon fas fa-file-chart-line"></i>
@@ -104,9 +104,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if (session('CESV')['profileType'] == 5 ||
-                            session('CESV')['profileType'] == 4 ||
-                            session('CESV')['profileType'] == 6)
+                        @if (session('CESV')['profileType'] == 5 || session('CESV')['profileType'] == 4 || session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('missions') }}" class="nav-link @yield('mission')">
                                     <i class="nav-icon fas fa-truck-moving"></i>
@@ -117,9 +115,9 @@
                             </li>
                         @endif
                         @if (session('CESV')['profileType'] == 1 ||
-                            session('CESV')['profileType'] == 4 ||
-                            session('CESV')['profileType'] == 5 ||
-                            session('CESV')['profileType'] == 6)
+                                session('CESV')['profileType'] == 4 ||
+                                session('CESV')['profileType'] == 5 ||
+                                session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('fichas') }}" class="nav-link @yield('ficha')">
                                     <i class="nav-icon fas fa-clipboard-list"></i>
@@ -128,12 +126,20 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item ">
+                                <a href="{{ route('fuel') }}" class="nav-link @yield('fuel')">
+                                    <i class="nav-icon fas fa-gas-pump"></i>
+                                    <p id='f-c'>
+                                        Combustível
+                                    </p>
+                                </a>
+                            </li>
                         @else
                         @endif
                         @if (session('CESV')['profileType'] == 1 ||
-                            session('CESV')['profileType'] == 5 ||
-                            session('CESV')['profileType'] == 3 ||
-                            session('CESV')['profileType'] == 6)
+                                session('CESV')['profileType'] == 5 ||
+                                session('CESV')['profileType'] == 3 ||
+                                session('CESV')['profileType'] == 6)
                             <li class="nav-item ">
                                 <a href="{{ route('vtr') }}" class="nav-link @yield('vtr')">
                                     <i class="nav-icon fas fa-car"></i>
@@ -336,7 +342,8 @@
         <footer class="main-footer align-items-center ">
             <footer>
                 <div class="text-center">
-                    &copy;{{ config('app.name') . ' ' . date('Y') }} (v1.0) | integrado com &copy;SisTAO
+                    &copy;{{ config('app.name') . ' ' . date('Y') }} (v{{ config('app.version') }}) | integrado com
+                    &copy;SisTAO
                     {{ date('Y') }} (v1.5)
                     <br>
                     Desenvolvido por: <a href="https://www.linkedin.com/in/eduardo-martins-a100b6211/" target="_blank"

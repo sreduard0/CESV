@@ -157,6 +157,13 @@ class FichaController extends Controller
             }
             $dado[] = $ficha->nat_of_serv;
             $dado[] = date('d-m-Y', strtotime($ficha->date_close));
+
+            if ($ficha->od_total) {
+                $dado[] = $ficha->od_total;
+            } else {
+                $dado[] = '-';
+            }
+
             if ($ficha->status == 1) {
                 $dado[] = 'Aberta';
             } elseif ($ficha->status == 2) {

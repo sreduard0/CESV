@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FichaController;
+use App\Http\Controllers\FuelController;
 use App\Http\Controllers\GdaController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\MotController;
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/relatorio', [ViewController::class, 'reports'])->name('reports')->middleware('role:adj>cmtgda>adt>fiscadm>adm');
     Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('role:trnp>cost>fiscadm>adt>adm');
     Route::get('/usuarios', [ViewController::class, 'users'])->name('users')->middleware('role:adt>adm');
+    Route::get('/combustivel', [ViewController::class, 'fuel'])->name('fuel')->middleware('role:trnp>adt>fiscadm>adm');
 
 // AÇÕES --------------------------------------------------------------------
 
@@ -55,6 +57,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm>adm');
     Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adt>fiscadm>adm');
     Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('role:adj>cmtgda>trnp>fiscadm>adm');
+
+// FICHAS
+    // Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp>adt>fiscadm>adm');
+    // Route::get('get_new_ficha_count', [FichaController::class, 'getNewFichas'])->name('getNewFichas')->middleware('role:fiscadm>adm');
+    // Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm>adm');
+    // Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adt>fiscadm>adm');
+    Route::post('post_fuel_request', [FuelController::class, 'fuelRequestList'])->name('post_fuel_request')->middleware('role:adj>cmtgda>trnp>fiscadm>adm');
 
 // RELA GUARDA
     Route::get('countRelGda', [GdaController::class, 'countRelGda'])->middleware('role:adj>trnp>cmtgda>adm');

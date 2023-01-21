@@ -2,9 +2,6 @@
 @section('title')
     @switch(session('CESV')['profileType'])
         @case(1)
-            Transporte
-        @break
-
         @case(5)
         @case(6)
             Missões

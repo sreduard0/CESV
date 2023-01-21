@@ -1,7 +1,7 @@
 @extends('layout')
-@section('title', 'Fichas')
-@section('ficha', 'active')
-@section('title-header', 'Fichas')
+@section('title', 'Combustível')
+@section('fuel', 'active')
+@section('title-header', 'Controle de combustível')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -15,7 +15,7 @@
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
     {{-- CRUD JS --}}
-    <script src="{{ asset('js/crud-ficha.js') }}"></script>
+    <script src="{{ asset('js/crud-fuel.js') }}"></script>
     <style>
         .dataTables_wrapper .dataTables_filter {
             float: right;
@@ -34,12 +34,12 @@
                     <div class="col-md-5">
                         <div class="row ">
                             <div class="form-group col">
-                                <label for="statusFicha">Filtrar por status</label>
-                                <select id="statusFicha" name="statusFicha" class="form-control">
+                                <label for="statusFuel">Filtrar por status</label>
+                                <select id="statusFuel" name="statusFuel" class="form-control">
                                     <option value="">Todas</option>
-                                    <option value="3">Aguardando autorização</option>
-                                    <option value="1">Abertas</option>
-                                    <option value="2">Fechadas</option>
+                                    <option value="1">Aguardando autorização</option>
+                                    <option value="2">Autorizado</option>
+                                    <option value="3">Abastecidos</option>
                                 </select>
                             </div>
 
@@ -48,8 +48,8 @@
                     @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
                         <div class="d-flex justify-content-sm-end">
                             <div class="col">
-                                <button class="btn btn-primary" data-toggle="modal"
-                                    data-target="#register-ficha">Cadastrar</button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#request-fuel">Solicicar
+                                    combustível</button>
                             </div>
                         </div>
                     @endif
@@ -60,15 +60,10 @@
                 <table id="table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th width="30px">N°</th>
-                            <th width="140px">Viatura</th>
+                            <th width="30px">Ord.</th>
+                            <th>Viatura</th>
                             <th>Missão</th>
-                            <th>Por ordem </th>
                             <th>Motorista</th>
-                            <th>Segurança</th>
-                            <th>Natureza</th>
-                            <th>Encerramento</th>
-                            <th>KM/s rodados</th>
                             <th>Status</th>
                             <th
                                 @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6) width="130px"
@@ -86,13 +81,13 @@
 @section('modal')
     @include('component.mot-profile')
     @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
-        <!-- MODAL CADASTRO FICHA-->
-        <div class="modal fade" id="register-ficha" tabindex="-1" role="dialog" aria-labelledby="register-fichaLabel"
+        <!-- MODAL SOLICITAR COMBUSTIVEL -->
+        <div class="modal fade" id="request-fuel" tabindex="-1" role="dialog" aria-labelledby="request-fuelLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="register-fichaLabel">Cadastrar ficha</h5>
+                        <h5 class="modal-title" id="request-fuelLabel">Solicitar combustivel</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -104,119 +99,73 @@
                                     são obrigatórios)</p>
                             </div>
                         </div>
-                        <form id="form-register-ficha">
+                        <form id="form-request-fuel">
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="nrFicha">Nº ficha<span style="color:red">*</span></label>
+                                    <label for="nrFichaRel">Ficha <span style="color:red">*</span></label>
+                                    <select onchange="selectFichaRel(this.value)" class="form-control" name="nrFichaRel"
+                                        id="nrFichaRel">
+                                        <option selected value="">Selecione</option>
+                                        @foreach ($fichas as $ficha)
+                                            <option value="{{ $ficha->id }}">{{ $ficha->nr_ficha }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="od form-group col-md-4">
+                                    <label for="od">Odômetro <span style="color:red">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-list"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-car"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="nrFicha" name="nrFicha"
-                                            data-inputmask="'mask':'9999'" data-mask="" inputmode="text"
-                                            placeholder="EX: 1515">
+                                        <input type="text" class="form-control" id="odEntRel" name="odEntRel"
+                                            data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
+                                            placeholder="Odômetro">
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label for="vtrFicha">Viatura<span style="color:red">*</span></label>
-                                    <select class="form-control" name="vtrFicha" id="vtrFicha">
-                                        <option selected value="">Selecione</option>
-                                        @foreach ($viaturas as $viatura)
-                                            <option value="{{ $viatura->id }}">{{ $viatura->ebplaca }} |
-                                                {{ $viatura->mod_vtr }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="missionFicha">Missão<span style="color:red">*</span></label>
-                                    <select class="form-control" name="missionFicha" id="missionFicha">
-                                        <option selected value="0">Missão interna</option>
-                                        @foreach ($missions as $mission)
-                                            <option value="{{ $mission->id }}">{{ $mission->type_mission }} |
-                                                {{ $mission->mission_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
                                 <div class="form-group col">
-                                    <label for="inOrderFicha">Por ordem<span style="color:red">*</span></label>
-                                    <select class="form-control" name="inOrderFicha" id="inOrderFicha">
-                                        <option value="">Selecione</option>
-                                        <option value="Fisc Adm">Fisc Adm</option>
-                                        <option value="COST">COST</option>
-                                    </select>
-
+                                    <label for="vtr">Viatura</label>
+                                    <input disabled id="vtr" name="vtr" type="text" class="form-control"
+                                        placeholder="EB | Viatura">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="mission">Missão</label>
+                                    <input disabled id="mission" name="mission" type="text" class="form-control"
+                                        placeholder="Missão">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="in_order">Por ordem</label>
+                                    <input disabled id="in_order" name="in_order" type="text" class="form-control"
+                                        placeholder="Por ordem">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label for="idMotFicha">Motorista <span style="color:red">*</span></label>
-                                    <select class="form-control" name="idMotFicha" id="idMotFicha">
-                                        <option value="">Selecione</option>
-                                        @foreach ($motoristas as $motorista)
-                                            <option value="{{ $motorista->id }}">
-                                                {{ $motorista->pg . ' ' . $motorista->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label for="driver">Motorista</label>
+                                    <input disabled minlength="2" maxlength="200" id="driver" name="driver"
+                                        type="text" class="form-control" placeholder="Motorista">
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="pgSegFicha">Posto/Grad</label>
-                                    <select class="form-control" name="pgSegFicha" id="pgSegFicha">
-                                        <option value="">Selecione</option>
-                                        <option value="Gen">Gen</option>
-                                        <option value="Cel">Cel</option>
-                                        <option value="TC">TC</option>
-                                        <option value="Maj">Maj</option>
-                                        <option value="Cap">Cap</option>
-                                        <option value="1º Ten">1º Ten</option>
-                                        <option value="2º Ten">2º Ten</option>
-                                        <option value="Asp">Asp</option>
-                                        <option value="ST">ST</option>
-                                        <option value="1º Sgt">1º Sgt</option>
-                                        <option value="2º Sgt">2º Sgt</option>
-                                        <option value="3º Sgt">3º Sgt</option>
-                                        <option value="Cb">Cb</option>
-                                        <option value="Sd">Sd</option>
-                                    </select>
+                                <div class="form-group col">
+                                    <label for="destiny">Etinerário <span style="color:red">*</span></label>
+                                    <input minlength="2" maxlength="200" id="destiny" name="destiny" type="text"
+                                        class="form-control" placeholder="Ex: Etinerário">
                                 </div>
 
-                                <div class="form-group col">
-                                    <label for="nameSegFicha">Nome do segurança</label>
-                                    <input minlength="2" maxlength="200" id="nameSegFicha" name="nameSegFicha"
-                                        type="text" class="form-control" placeholder="Nome do segurança">
-                                </div>
                             </div>
-
-                            <div class="row">
+                            <div class="obs row">
                                 <div class="form-group col">
-                                    <label for="natOfServFicha">Natureza do serviço</label>
-                                    <input minlength="2" maxlength="200" id="natOfServFicha" name="natOfServFicha"
-                                        type="text" class="form-control" placeholder="Ex: Transporte de pessoal">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label>Prev. de encerramento<span style="color:red">*</span></label>
-                                    <div class="input-group datet" id="dateCloseTarget" data-target-input="nearest">
-                                        <div class="input-group-prepend" data-target="#dateCloseTarget"
-                                            data-toggle="datetimepicker">
-                                            <span class="input-group-text"><i class="fa fa-calendar"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#dateCloseTarget" id="dateClose" name="dateClose"
-                                            value="">
-                                    </div>
+                                    <label for="obsFinish">Observações</label>
+                                    <textarea name="obsFinish" id="obsFinish" rows="8" placeholder="Ex: Carro com impressoras."
+                                        class=" text form-control"></textarea>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-success"
-                            onclick="return registerFicha()">Cadastrar</button>
+                        <button type="button" class="btn btn-success" onclick="return requestFuel()">Solicitar</button>
                     </div>
                 </div>
             </div>
@@ -382,13 +331,13 @@
     <script src="{{ asset('js/inputmask.js') }}"></script>
 
     <script>
-        document.getElementById('statusFicha').addEventListener('change', event => {
+        document.getElementById('statusFuel').addEventListener('change', event => {
             $('#table').DataTable().column(3).search(event.target.value).draw();
         });
         $(function() {
             $("#table").DataTable({
                 "order": [
-                    [8, 'desc']
+                    [4, 'desc']
                 ],
                 "paging": true,
                 "responsive": true,
@@ -396,7 +345,7 @@
                 "autoWidth": false,
                 "aoColumnDefs": [{
                     'className': 'text-center',
-                    'aTargets': [9]
+                    'aTargets': [5]
                 }],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
@@ -404,7 +353,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "{{ url('post_fichas_list') }}",
+                    "url": "{{ url('post_fuel_request') }}",
                     "type": "POST",
                     "headers": {
                         'X-CSRF-TOKEN': "{{ csrf_token() }}",
@@ -419,7 +368,7 @@
                         "extend": "print",
                         "text": "Imprimir",
                         'exportOptions': {
-                            'columns': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                            'columns': [1, 2, 3, 4, 5, 6, 7],
                             'title': 'Fichas',
                             'pgUser': "{{ session('user')['rank'] }}",
                             'nameUser': "{{ session('user')['professionalName'] }}",

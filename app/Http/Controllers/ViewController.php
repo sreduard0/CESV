@@ -84,6 +84,17 @@ class ViewController extends Controller
         ];
         return view('ficha-list', $data);
     }
+    public function fuel()
+    {
+        $data = [
+            'viaturas' => VtrModel::where('status', 1)->orWhere('status', 3)->get(),
+            'missions' => MissionModel::where('status', '<=', 2)->get(),
+            'motoristas' => MotModel::where('val_cnh', '>', date('Y-m-d'))->get(),
+            'fichas' => FichaModel::where('status', 1)->get(),
+
+        ];
+        return view('fuel', $data);
+    }
     public function viatura()
     {
         return view('vtr-list');

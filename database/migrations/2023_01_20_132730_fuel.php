@@ -12,12 +12,14 @@ class Fuel extends Migration
         Schema::create('fuel', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_vtr');
-            $table->string('id_ficha', 255);
-            $table->string('id_mission', 3);
-            $table->string('ebplaca', 255);
-            $table->integer('ton');
-            $table->integer('vol');
+            $table->integer('id_ficha');
+            $table->integer('id_mission');
+            $table->integer('id_mot');
+            $table->integer('qnt_released')->nullable();
             $table->integer('status');
+            $table->integer('od');
+            $table->string('destiny');
+            $table->string('code_auth')->nullable();
             $table->text('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -26,7 +28,7 @@ class Fuel extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('viatura');
+        Schema::dropIfExists('fuel');
 
     }
 }

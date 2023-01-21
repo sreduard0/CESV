@@ -1,18 +1,5 @@
 @extends('layout')
-@section('title')
-    @switch(session('CESV')['profileType'])
-        @case(1)
-            Transporte
-        @break
-
-        @case(5)
-        @case(6)
-
-        @case(3)
-            Motoristas
-        @break
-    @endswitch
-@endsection
+@section('title','Motoristas')
 @section('mot', 'active')
 @section('title-header', 'Motoristas')
 @section('meta')
