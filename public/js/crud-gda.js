@@ -18,7 +18,7 @@ function selectVtrType(value) {
             $("#f-oom").css("display", "block")
             $("#f-civil").css("display", "none")
             $("#f-om").css("display", "none")
-            $("#register-vtrLabel").text("REGISTRO DE ENTRADA DE VEÍCULO MDE OUTRA OM")
+            $("#register-vtrLabel").text("REGISTRO DE ENTRADA DE VEÍCULO DE OUTRA OM")
 
             break;
         case 'adm':

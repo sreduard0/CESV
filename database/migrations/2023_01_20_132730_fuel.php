@@ -18,8 +18,10 @@ class Fuel extends Migration
             $table->integer('qnt_released')->nullable();
             $table->integer('status');
             $table->integer('od');
-            $table->string('destiny');
-            $table->string('code_auth')->nullable();
+            $table->string('destiny', 255);
+            $table->string('request_by', 255);
+            $table->string('autorized_by', 255)->nullable();
+            $table->string('code_auth', 255)->nullable();
             $table->text('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();

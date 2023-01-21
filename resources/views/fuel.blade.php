@@ -79,7 +79,6 @@
     </section>
 @endsection
 @section('modal')
-    @include('component.mot-profile')
     @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
         <!-- MODAL SOLICITAR COMBUSTIVEL -->
         <div class="modal fade" id="request-fuel" tabindex="-1" role="dialog" aria-labelledby="request-fuelLabel"
@@ -102,9 +101,9 @@
                         <form id="form-request-fuel">
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label for="nrFichaRel">Ficha <span style="color:red">*</span></label>
-                                    <select onchange="selectFichaRel(this.value)" class="form-control" name="nrFichaRel"
-                                        id="nrFichaRel">
+                                    <label for="id_ficha">Ficha <span style="color:red">*</span></label>
+                                    <select onchange="selectFichaRel(this.value)" class="form-control" name="id_ficha"
+                                        id="id_ficha">
                                         <option selected value="">Selecione</option>
                                         @foreach ($fichas as $ficha)
                                             <option value="{{ $ficha->id }}">{{ $ficha->nr_ficha }}</option>
@@ -118,7 +117,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-car"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="odEntRel" name="odEntRel"
+                                        <input type="text" class="form-control" id="od" name="od"
                                             data-inputmask="'mask':'99999999999999'" data-mask="" inputmode="text"
                                             placeholder="Odômetro">
                                     </div>
@@ -166,142 +165,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         <button type="button" class="btn btn-success" onclick="return requestFuel()">Solicitar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- MODAL EDITAR FICHA-->
-        <div class="modal fade" id="edit-ficha" tabindex="-1" role="dialog" aria-labelledby="edit-fichaLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="edit-fichaLabel">Editar ficha</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col">
-                            <div class="d-flex justify-content-sm-end">
-                                <p class="f-s-13">(Campos com <span style="color:red">*</span>
-                                    são obrigatórios)</p>
-                            </div>
-                        </div>
-                        <form id="form-edit-ficha">
-                            <input type="hidden" name="id_ficha" id="id_ficha">
-                            <div class="row">
-                                <div class="form-group col-md-3">
-                                    <label for="e_nrFicha">Nº<span style="color:red">*</span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-list"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="e_nrFicha" name="e_nrFicha"
-                                            data-inputmask="'mask':'9999'" data-mask="" inputmode="text"
-                                            placeholder="EX: 1515">
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label for="e_vtrFicha">Viatura<span style="color:red">*</span></label>
-                                    <select class="form-control" name="e_vtrFicha" id="e_vtrFicha">
-                                        <option selected value="">Selecione</option>
-                                        @foreach ($viaturas as $viatura)
-                                            <option value="{{ $viatura->id }}">{{ $viatura->nr_vtr }} |
-                                                {{ $viatura->mod_vtr }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="e_missionFicha">Missão<span style="color:red">*</span></label>
-                                    <select class="form-control" name="e_missionFicha" id="e_missionFicha">
-                                        <option selected value="">Selecione</option>
-                                        <option value="0">Missão interna</option>
-                                        @foreach ($missions as $mission)
-                                            <option value="{{ $mission->id }}">{{ $mission->type_mission }} |
-                                                {{ $mission->mission_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col">
-                                    <label for="e_inOrderFicha">Por ordem<span style="color:red">*</span></label>
-                                    <select class="form-control" name="e_inOrderFicha" id="e_inOrderFicha">
-                                        <option value="">Selecione</option>
-                                        <option value="Fisc Adm">Fisc Adm</option>
-                                        <option value="COST">COST</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-2">
-                                    <label for="e_idMotFicha">Motorista <span style="color:red">*</span></label>
-                                    <select class="form-control" name="e_idMotFicha" id="e_idMotFicha">
-                                        <option value="">Selecione</option>
-                                        @foreach ($motoristas as $motorista)
-                                            <option value="{{ $motorista->id }}">
-                                                {{ $motorista->pg . ' ' . $motorista->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="e_pgSegFicha">Posto/Grad</label>
-                                    <select class="form-control" name="e_pgSegFicha" id="e_pgSegFicha">
-                                        <option value="">Selecione</option>
-                                        <option value="Gen">Gen</option>
-                                        <option value="Cel">Cel</option>
-                                        <option value="TC">TC</option>
-                                        <option value="Maj">Maj</option>
-                                        <option value="Cap">Cap</option>
-                                        <option value="1º Ten">1º Ten</option>
-                                        <option value="2º Ten">2º Ten</option>
-                                        <option value="Asp">Asp</option>
-                                        <option value="ST">ST</option>
-                                        <option value="1º Sgt">1º Sgt</option>
-                                        <option value="2º Sgt">2º Sgt</option>
-                                        <option value="3º Sgt">3º Sgt</option>
-                                        <option value="Cb">Cb</option>
-                                        <option value="Sd">Sd</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group col">
-                                    <label for="e_nameSegFicha">Nome do segurança</label>
-                                    <input minlength="2" maxlength="200" id="e_nameSegFicha" name="e_nameSegFicha"
-                                        type="text" class="form-control" placeholder="Nome do segurança">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col">
-                                    <label for="e_natOfServFicha">Natureza do serviço<span
-                                            style="color:red">*</span></label>
-                                    <input minlength="2" maxlength="200" id="e_natOfServFicha" name="e_natOfServFicha"
-                                        type="text" class="form-control" placeholder="Ex: Transporte de pessoal">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label>Prev. de encerramento<span style="color:red">*</span></label>
-                                    <div class="input-group datet" id="e_dateCloseTarget" data-target-input="nearest">
-                                        <div class="input-group-prepend" data-target="#e_dateCloseTarget"
-                                            data-toggle="datetimepicker">
-                                            <span class="input-group-text"><i class="fa fa-calendar"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#e_dateCloseTarget" id="e_dateClose" name="e_dateClose"
-                                            value="">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-success" onclick="return editFicha()">Salvar</button>
                     </div>
                 </div>
             </div>
