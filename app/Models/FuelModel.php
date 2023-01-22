@@ -20,6 +20,10 @@ class FuelModel extends Model
     {
         return $this->hasOne('App\Models\MissionModel', 'id', 'id_mission')->withTrashed();
     }
+    public function fichainfo()
+    {
+        return $this->hasOne('App\Models\FichaModel', 'id', 'id_ficha')->withTrashed();
+    }
     use HasFactory;
     use SoftDeletes;
     protected $table = 'fuel';

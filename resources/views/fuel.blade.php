@@ -39,7 +39,8 @@
                                     <option value="">Todas</option>
                                     <option value="1">Aguardando autorização</option>
                                     <option value="2">Autorizado</option>
-                                    <option value="3">Abastecidos</option>
+                                    <option value="3">Abastecido</option>
+                                    <option value="4">Negado</option>
                                 </select>
                             </div>
 
@@ -60,16 +61,13 @@
                 <table id="table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th width="30px">Ord.</th>
+                            <th width="100px">Data</th>
                             <th>Viatura</th>
+                            <th>EB/ Placa</th>
                             <th>Missão</th>
                             <th>Motorista</th>
                             <th>Status</th>
-                            <th
-                                @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6) width="130px"
-                            @else
-                                width="100px" @endif>
-                                Ações</th>
+                            <th width="35px">Ações</th>
                         </tr>
                     </thead>
                 </table>
@@ -111,7 +109,19 @@
                                     </select>
                                 </div>
 
-                                <div class="od form-group col-md-4">
+                                <div class="form-group col-md-2">
+                                    <label for="in_order">Por ordem</label>
+                                    <input disabled id="in_order" name="in_order" type="text" class="form-control"
+                                        placeholder="Por ordem">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="vtr">Viatura</label>
+                                    <input disabled id="vtr" name="vtr" type="text" class="form-control"
+                                        placeholder="EB | Viatura">
+                                </div>
+                                <div class="od form-group col-md-3">
                                     <label for="od">Odômetro <span style="color:red">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -122,23 +132,13 @@
                                             placeholder="Odômetro">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col">
-                                    <label for="vtr">Viatura</label>
-                                    <input disabled id="vtr" name="vtr" type="text" class="form-control"
-                                        placeholder="EB | Viatura">
-                                </div>
                                 <div class="form-group col-md-4">
                                     <label for="mission">Missão</label>
                                     <input disabled id="mission" name="mission" type="text" class="form-control"
                                         placeholder="Missão">
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="in_order">Por ordem</label>
-                                    <input disabled id="in_order" name="in_order" type="text" class="form-control"
-                                        placeholder="Por ordem">
-                                </div>
+
+
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
@@ -208,7 +208,7 @@
                 "autoWidth": false,
                 "aoColumnDefs": [{
                     'className': 'text-center',
-                    'aTargets': [5]
+                    'aTargets': [6]
                 }],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"

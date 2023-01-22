@@ -15,6 +15,7 @@ class Fuel extends Migration
             $table->integer('id_ficha');
             $table->integer('id_mission');
             $table->integer('id_mot');
+            $table->string('fuel');
             $table->integer('qnt_released')->nullable();
             $table->integer('status');
             $table->integer('od');
@@ -22,7 +23,8 @@ class Fuel extends Migration
             $table->string('request_by', 255);
             $table->string('autorized_by', 255)->nullable();
             $table->string('code_auth', 255)->nullable();
-            $table->text('obs')->nullable();
+            $table->longText('obs')->nullable();
+            $table->longText('obs_fiscadm')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

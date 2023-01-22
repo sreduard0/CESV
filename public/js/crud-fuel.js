@@ -58,44 +58,41 @@ function requestFuel() {
         obs: formData.get('obs'),
     }
 
-    // const URL = '/register_relgda'
+    const URL = '/request_fuel'
 
-    // $.ajax({
-    //     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-    //     url: URL,
-    //     type: 'POST',
-    //     data: values,
-    //     dataType: 'text',
-    //     success: function (data) {
-    //         switch (data) {
-    //             case 'veicle':
-    //                 Toast.fire({
-    //                     icon: 'warning',
-    //                     title: '&nbsp&nbsp Este veículo já está registrado.'
-    //                 });
-    //                 break;
-    //             default:
-    //                 Toast.fire({
-    //                     icon: 'success',
-    //                     title: '&nbsp&nbsp Veículo registrado.'
-    //                 });
-    //                 $('#register-vtr ').modal('hide');
-    //                 selectVtrType('')
-    //                 $('#form-civil')[0].reset();
-    //                 $('#obsCivilRel').summernote('code', '');
-    //                 $("#table").DataTable().clear().draw();
-    //                 selectVtrType('')
-    //                 contRel()
-    //                 break;
-    //         }
-    //     },
+    $.ajax({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        url: URL,
+        type: 'POST',
+        data: values,
+        dataType: 'text',
+        success: function (data) {
+            switch (data) {
+                case 'ficha':
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '&nbsp&nbsp Ja há uma solicitação de combustível para esta ficha.'
+                    });
+                    break;
+                default:
+                    Toast.fire({
+                        icon: 'success',
+                        title: '&nbsp&nbsp Solicitação enviada.'
+                    });
+                    $('#request-fuel').modal('hide');
+                    $('#form-request-fuel')[0].reset();
+                    $('#obs').summernote('code', '');
+                    $("#table").DataTable().clear().draw();
+                    break;
+            }
+        },
 
-    //     error: function (data) {
-    //         Toast.fire({
-    //             icon: 'error',
-    //             title: '&nbsp&nbsp Erro ao registrar.'
-    //         });
-    //     }
-    // });
+        error: function (data) {
+            Toast.fire({
+                icon: 'error',
+                title: '&nbsp&nbsp Erro ao solicitar.'
+            });
+        }
+    });
 
 }

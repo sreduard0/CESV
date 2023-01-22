@@ -3,11 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FuelRequest;
+use App\Models\FichaModel;
 use App\Models\FuelModel;
 use Illuminate\Http\Request;
 
 class FuelController extends Controller
 {
+
+    // CRUD
+    public function requestFuel(FuelRequest $request)
+    {
+        $data = $request->all();
+
+        $ficha = FichaModel::find($data['id_ficha']);
+
+        if (FuelModel::where('id_ficha', $data['id_ficha'])->where('status', '<', 4)->first()) {
+            return 'ficha';
+        }
+
+        $fuel = new FuelModel();
+        $fuel->id_vtr = $ficha->id_vtr;
+        $fuel->id_ficha = $ficha->id;
+        $fuel->id_mission = $ficha->id_mission;
+        $fuel->id_mot = $ficha->id_mot;
+        $fuel->fuel = "Gasolina";
+        $fuel->status = 1;
+        $fuel->od = str_replace('_', '', $data['od']);
+        $fuel->destiny = $data['destiny'];
+        $fuel->request_by = session('user')['rank'] . ' ' . session('user')['professionalName'];
+        $fuel->obs = $data['obs'];
+        $fuel->save();
+
+    }
+
+    // TABELA DE SOLICITAÇOES
     public function fuelRequestList(Request $request)
     {
         //Receber a requisão da pesquisa
@@ -27,77 +57,50 @@ class FuelController extends Controller
 
         //Se há pesquisa ou não
         if ($requestData['columns'][3]['search']['value']) {
-            $fichas = FuelModel::where('status', $requestData['columns'][3]['search']['value'])->with('motinfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
-            $filtered = count($fichas);
+            $requestsFuel = FuelModel::where('status', $requestData['columns'][3]['search']['value'])->with('motinfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $filtered = count($requestsFuel);
             $rows = count(FuelModel::where('status', $requestData['columns'][3]['search']['value'])->get());
         } else {
-            $rows = count(FuelModel::where('status', '>=', 2)->get());
+            $rows = count(FuelModel::where('status', '<=', 2)->get());
 
-            $fichas = FuelModel::where('status', '>=', 2)->with('motinfo', 'vtrinfo', 'missioninfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
-            $filtered = count($fichas);
+            $requestsFuel = FuelModel::where('status', '<=', 2)->with('motinfo', 'vtrinfo', 'missioninfo', 'fichainfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $filtered = count($requestsFuel);
         }
         // Ler e criar o array de dados
         $dados = array();
-        foreach ($fichas as $ficha) {
+        foreach ($requestsFuel as $requestFuel) {
             $dado = array();
-            $dado[] = $ficha->id;
-            $dado[] = $ficha->vtrinfo->id;
-            $dado[] = $ficha->missioninfo->id;
-            $dado[] = $ficha->motinfo->id;
-
-            if ($ficha->status == 1) {
-                $dado[] = 'Aguardando autorização';
-            } elseif ($ficha->status == 2) {
-                $dado[] = 'Autorizada';
-
-            } elseif ($ficha->status == 3) {
-                $dado[] = 'Abastecida';
-
+            $dado[] = date('d-m-Y', strtotime($requestFuel->created_at));
+            $dado[] = $requestFuel->vtrinfo->mod_vtr;
+            $dado[] = $requestFuel->vtrinfo->ebplaca;
+            if ($requestFuel->missioninfo) {
+                $dado[] = $requestFuel->missioninfo->name_mission;
+            } else {
+                $dado[] = $requestFuel->fichainfo->nat_of_serv;
             }
-
-            switch (session('CESV')['profileType']) {
+            $dado[] = $requestFuel->motinfo->pg . ' ' . $requestFuel->motinfo->name;
+            switch ($requestFuel->status) {
                 case 1:
-                    $btns = $ficha->status == 1 || $ficha->status == 3 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
-                                        class="fa fa-edit"></i></button>
-                        <button title="Fechar ficha" class="btn btn-sm btn-danger" data-toggle="modal" onclick="finishFicha(' . $ficha->id . ')"><i
-                                        class="fa fa-times"></i></button>' : '';
+                    $dado[] = 'Aguardando autorização';
 
-                    $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
-                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
-                                        class="fa fa-car"></i></button> ' . $btns;
+                    break;
+                case 2:
+                    $dado[] = 'Autorizada';
+
+                    break;
+                case 3:
+                    $dado[] = 'Abastecida';
 
                     break;
                 case 4:
-                    $btn = $ficha->status == 3 ? ' <button title="Autorizar ficha" class="btn btn-sm btn-success" onclick="return authFicha(' . $ficha->id . ')"><i
-                                        class="fa fa-check"></i></button>' : '';
-                    $btnclose = $ficha->status == 1 ? ' <button title="Encerrar ficha" class="btn btn-sm btn-danger" onclick="return finishFicha(' . $ficha->id . ')"><i
-                                        class="fs-18 fa fa-times"></i></button>' : '';
-
-                    $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
-                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
-                                        class="fa fa-car"></i></button> ' . $btn . $btnclose;
+                    $dado[] = 'Negado';
 
                     break;
-                case 5:
-                    $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
-                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
-                                        class="fa fa-car"></i></button> ';
 
-                    break;
-                case 6:
-                    $btn = $ficha->status == 3 ? ' <button title="Autorizar ficha" class="btn btn-sm btn-success" onclick="return authFicha(' . $ficha->id . ')"><i
-                                        class="fa fa-check"></i></button>' : ' <button title="Fechar ficha" class="btn btn-sm btn-danger" data-toggle="modal" onclick="finishFicha(' . $ficha->id . ')"><i
-                                        class="fa fa-times"></i></button>';
-
-                    $btns = $ficha->status == 1 || $ficha->status == 3 ? '<button title="Editar ficha" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-ficha" data-id="' . $ficha->id . '"><i
-                                        class="fa fa-edit"></i></button>' . $btn : '';
-
-                    $dado[] = ' <button class="btn btn-sm btn-info" title="Motorista" data-toggle="modal" data-target="#mot-profile" data-id="' . $ficha->id_mot . '"
-                                    ><i class="fa fa-user"></i></button> <button title="Informações da viatura" class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $ficha->id_vtr . '"><i
-                                        class="fa fa-car"></i></button> ' . $btns;
-
-                    break;
             }
+            $dado[] = ' <button class="btn btn-sm btn-primary" title="Ver dados" data-toggle="modal" data-target="#requestFuelData" data-id="' . $requestFuel->id . '"
+                                    ><i class="fas fa-arrow-right"></i></button>';
+
             $dados[] = $dado;
         }
 
