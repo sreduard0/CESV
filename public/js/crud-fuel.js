@@ -58,7 +58,7 @@ function requestFuel() {
         obs: formData.get('obs'),
     }
 
-    const URL = '/request_fuel'
+    const URL = '/CESV/public/request_fuel'
 
     $.ajax({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },

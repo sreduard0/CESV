@@ -31,10 +31,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="row d-flex justify-content-between">
-                    <div class="col-md-5">
+                    <div class="col">
                         <div class="row ">
-                            <div class="form-group col">
-                                <label for="statusFuel">Filtrar por status</label>
+                            <div class="form-group col-md-2">
+                                <label for="statusFuel">Status</label>
                                 <select id="statusFuel" name="statusFuel" class="form-control">
                                     <option value="">Todas</option>
                                     <option value="1">Aguardando autorização</option>
@@ -43,7 +43,46 @@
                                     <option value="4">Negado</option>
                                 </select>
                             </div>
+                            <div class="form-group col-md-4">
+                                <label>Data</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="betweenDate">
+                                </div>
 
+                            </div>
+                            {{-- <div class="form-group col-md-2">
+                                <label>Data inicial</label>
+                                <div class="input-group datet" id="date_saiTarget" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        data-target="#date_saiTarget" id="dateSaiFilter" name="dateSaiFilter"
+                                        value="">
+                                    <div class="input-group-append" data-target="#date_saiTarget"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Data final</label>
+                                <div class="input-group datet" id="date_saiTarget" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        data-target="#date_saiTarget" id="dateSaiFilter" name="dateSaiFilter"
+                                        value="">
+                                    <div class="input-group-append" data-target="#date_saiTarget"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
+                            <button onclick="filterMission()" style="height: 40px;" class="btn btn-success m-t-30"><i
+                                    class="fa fa-search"></i></button>
                         </div>
                     </div>
                     @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
@@ -194,9 +233,42 @@
     <script src="{{ asset('js/inputmask.js') }}"></script>
 
     <script>
-        document.getElementById('statusFuel').addEventListener('change', event => {
-            $('#table').DataTable().column(3).search(event.target.value).draw();
-        });
+        function filterRequestFuel() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000
+            });
+            data = {
+                status: $('#statusFilter').val(),
+                destiny: $('#destinyFilter').val(),
+                dateSai: $('#dateSaiFilter').val(),
+            }
+            if (
+                data.status ||
+                data.destiny ||
+                data.dateSai
+            ) {
+                $('#table').DataTable()
+                    .column(0).search(data.status)
+                    .column(1).search(data.destiny)
+                    .column(2).search(data.dateSai)
+                    .column(3).search('find')
+                    .draw()
+            } else {
+                $('#table').DataTable()
+                    .column(3).search('')
+                    .draw()
+            }
+            console.log(data)
+            Toast.fire({
+                icon: 'success',
+                title: '&nbsp&nbsp Filtado com successo.'
+            });
+
+
+        }
         $(function() {
             $("#table").DataTable({
                 "order": [

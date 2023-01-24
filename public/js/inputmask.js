@@ -68,16 +68,16 @@ $('.time').datetimepicker({
 
 
 
-//         //Date range picker
-//         $('#reservation').daterangepicker()
-//             //Date range picker with time picker
-//         $('#reservationtime').daterangepicker({
-//                 timePicker: true,
-//                 timePickerIncrement: 30,
-//                 locale: {
-//                     format: 'DD/MM/YYYY'
-//
-//             })
+//Date range picker
+$('#betweenDate').daterangepicker()
+            //Date range picker with time picker
+        // $('#reservationtime').daterangepicker({
+        //         timePicker: true,
+        //         timePickerIncrement: 30,
+        //         locale: {
+        //             format: 'DD/MM/YYYY'
+
+        //     })
 //             //Date range as a button
 //         $('#daterange-btn').daterangepicker({
 //                 ranges: {

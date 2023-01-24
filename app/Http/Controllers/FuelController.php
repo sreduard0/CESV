@@ -56,14 +56,34 @@ class FuelController extends Controller
         //Obtendo registros de número total sem qualquer pesquisa
 
         //Se há pesquisa ou não
-        if ($requestData['columns'][3]['search']['value']) {
-            $requestsFuel = FuelModel::where('status', $requestData['columns'][3]['search']['value'])->with('motinfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
-            $filtered = count($requestsFuel);
-            $rows = count(FuelModel::where('status', $requestData['columns'][3]['search']['value'])->get());
+        if ($requestData['columns'][3]['search']['value'] == 'find') {
+
+            $search = FuelModel::query();
+
+            if ($requestData['columns'][0]['search']['value']) {
+                $search->where('status', $requestData['columns'][0]['search']['value']);
+            }
+            if ($requestData['columns'][1]['search']['value'] || $requestData['columns'][2]['search']['value']) {
+                $search->whereBetween('created_at', [date('Y-m-d', strtotime($requestData['columns'][1]['search']['value'])), date('Y-m-d', strtotime($requestData['columns'][2]['search']['value']))]);
+            }
+
+            $rows = $search->count();
+
+            $requestsFuel = $search->with('motinfo', 'vtrinfo', 'missioninfo', 'fichainfo')
+                ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                ->offset($requestData['start'])
+                ->take($requestData['length'])
+                ->get();
+
         } else {
             $rows = count(FuelModel::where('status', '<=', 2)->get());
 
-            $requestsFuel = FuelModel::where('status', '<=', 2)->with('motinfo', 'vtrinfo', 'missioninfo', 'fichainfo')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $requestsFuel = FuelModel::where('status', '<=', 2)
+                ->with('motinfo', 'vtrinfo', 'missioninfo', 'fichainfo')
+                ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+                ->offset($requestData['start'])
+                ->take($requestData['length'])
+                ->get();
             $filtered = count($requestsFuel);
         }
         // Ler e criar o array de dados
