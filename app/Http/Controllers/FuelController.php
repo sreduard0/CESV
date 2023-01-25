@@ -60,14 +60,18 @@ class FuelController extends Controller
 
             $search = FuelModel::query();
 
-            if ($requestData['columns'][0]['search']['value']) {
-                $search->where('status', $requestData['columns'][0]['search']['value']);
-            }
-            if ($requestData['columns'][1]['search']['value'] || $requestData['columns'][2]['search']['value']) {
-                $search->whereBetween('created_at', [date('Y-m-d', strtotime($requestData['columns'][1]['search']['value'])), date('Y-m-d', strtotime($requestData['columns'][2]['search']['value']))]);
+            if ($requestData['columns'][1]['search']['value']) {
+                $search->where('status', $requestData['columns'][1]['search']['value']);
             }
 
-            $rows = $search->count();
+            if ($requestData['columns'][4]['search']['value']) {
+                $search->where('fuel', $requestData['columns'][4]['search']['value']);
+            }
+
+            if ($requestData['columns'][2]['search']['value']) {
+                $betweenDate = explode('>', $requestData['columns'][2]['search']['value']);
+                $search->whereBetween('created_at', [date('Y-m-d', strtotime($betweenDate[0])) . ' 00:00', date('Y-m-d', strtotime($betweenDate[1])) . ' 23:59']);
+            }
 
             $requestsFuel = $search->with('motinfo', 'vtrinfo', 'missioninfo', 'fichainfo')
                 ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
@@ -75,6 +79,9 @@ class FuelController extends Controller
                 ->take($requestData['length'])
                 ->get();
 
+            // print_r($requestsFuel);
+            $filtered = count($requestsFuel);
+            $rows = $search->count();
         } else {
             $rows = count(FuelModel::where('status', '<=', 2)->get());
 
@@ -98,6 +105,7 @@ class FuelController extends Controller
             } else {
                 $dado[] = $requestFuel->fichainfo->nat_of_serv;
             }
+            $dado[] = $requestFuel->destiny;
             $dado[] = $requestFuel->motinfo->pg . ' ' . $requestFuel->motinfo->name;
             switch ($requestFuel->status) {
                 case 1:
@@ -118,7 +126,8 @@ class FuelController extends Controller
                     break;
 
             }
-            $dado[] = ' <button class="btn btn-sm btn-primary" title="Ver dados" data-toggle="modal" data-target="#requestFuelData" data-id="' . $requestFuel->id . '"
+            $dado[] = $requestFuel->fuel;
+            $dado[] = ' <button class="btn btn-sm btn-primary" title="Ver dados" data-toggle="modal" data-target="#info-request-fuel" data-id="' . $requestFuel->id . '"
                                     ><i class="fas fa-arrow-right"></i></button>';
 
             $dados[] = $dado;

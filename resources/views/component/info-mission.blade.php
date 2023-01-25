@@ -7,7 +7,7 @@
      <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content ">
              <div class="modal-header">
-                 <h5 class="modal-title" id="info-missionLabel">Informações da missão</h5>
+                 <h5 class="modal-title" id="info-missionLabel"></h5>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
@@ -221,6 +221,7 @@
 
                      break;
              }
+             modal.find('#missionLabel').text(result.mission_name)
              modal.find('#nameMission').text(result.mission_name)
              modal.find('#typeMission').text(result.type_mission)
              modal.find('#destinyMission').text(result.origin + '  >>  ' + result.destiny)
@@ -252,12 +253,12 @@
 
              } else {
                  $("#panelInfoCon").css("display", "none")
-                 $(".link").html(
-                     '<button title="Gerar link da missão" class="btn btn-primary" onclick="generatelink(' +
-                     id + ')">Gerar link de relatório</button>'
-                 )
-
-
+                 @if (session('CESV')['profileType'] != 5)
+                     $(".link").html(
+                         '<button title="Gerar link da missão" class="btn btn-primary" onclick="generatelink(' +
+                         id + ')">Gerar link de relatório</button>'
+                     )
+                 @endif
              }
          })
 

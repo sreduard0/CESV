@@ -43,6 +43,14 @@
                                     <option value="4">Negado</option>
                                 </select>
                             </div>
+                            <div class="form-group col-md-2">
+                                <label for="typeFuel">Status</label>
+                                <select id="typeFuel" name="typeFuel" class="form-control">
+                                    <option value="">Todos</option>
+                                    <option value="Gasolina">Gasolina</option>
+                                    <option value="Diesel">Diesel</option>
+                                </select>
+                            </div>
                             <div class="form-group col-md-4">
                                 <label>Data</label>
                                 <div class="input-group">
@@ -51,37 +59,12 @@
                                             <i class="far fa-calendar-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control float-right" id="betweenDate">
+                                    <input type="text" class="form-control float-right" id="betweenDate"
+                                        name="betweenDate">
                                 </div>
 
                             </div>
-                            {{-- <div class="form-group col-md-2">
-                                <label>Data inicial</label>
-                                <div class="input-group datet" id="date_saiTarget" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#date_saiTarget" id="dateSaiFilter" name="dateSaiFilter"
-                                        value="">
-                                    <div class="input-group-append" data-target="#date_saiTarget"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label>Data final</label>
-                                <div class="input-group datet" id="date_saiTarget" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#date_saiTarget" id="dateSaiFilter" name="dateSaiFilter"
-                                        value="">
-                                    <div class="input-group-append" data-target="#date_saiTarget"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <button onclick="filterMission()" style="height: 40px;" class="btn btn-success m-t-30"><i
+                            <button onclick="filterRequestFuel()" style="height: 40px;" class="btn btn-success m-t-30"><i
                                     class="fa fa-search"></i></button>
                         </div>
                     </div>
@@ -100,12 +83,14 @@
                 <table id="table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th width="100px">Data</th>
+                            <th width="80px">Data</th>
                             <th>Viatura</th>
                             <th>EB/ Placa</th>
                             <th>Missão</th>
+                            <th>Etinerário</th>
                             <th>Motorista</th>
                             <th>Status</th>
+                            <th>Combustível</th>
                             <th width="35px">Ações</th>
                         </tr>
                     </thead>
@@ -212,6 +197,8 @@
 
     <!-- MODAL INFORMAÇÕES DA VTR -->
     @include('component.info-vtr')
+    {{-- Modal visualização da solicitação --}}
+    @include('component.info-request-fuel')
 @endsection
 @section('plugins')
     <!-- Select2 -->
@@ -241,19 +228,19 @@
                 timer: 4000
             });
             data = {
-                status: $('#statusFilter').val(),
-                destiny: $('#destinyFilter').val(),
-                dateSai: $('#dateSaiFilter').val(),
+                status: $('#statusFuel').val(),
+                typefuel: $('#typeFuel').val(),
+                date: $('#betweenDate').val(),
             }
             if (
                 data.status ||
-                data.destiny ||
-                data.dateSai
+                data.typefuel ||
+                data.date
             ) {
                 $('#table').DataTable()
-                    .column(0).search(data.status)
-                    .column(1).search(data.destiny)
-                    .column(2).search(data.dateSai)
+                    .column(1).search(data.status)
+                    .column(4).search(data.typefuel)
+                    .column(2).search(data.date)
                     .column(3).search('find')
                     .draw()
             } else {
@@ -261,7 +248,6 @@
                     .column(3).search('')
                     .draw()
             }
-            console.log(data)
             Toast.fire({
                 icon: 'success',
                 title: '&nbsp&nbsp Filtado com successo.'
@@ -272,16 +258,21 @@
         $(function() {
             $("#table").DataTable({
                 "order": [
-                    [4, 'desc']
+                    [0, 'desc']
                 ],
                 "paging": true,
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,
                 "aoColumnDefs": [{
-                    'className': 'text-center',
-                    'aTargets': [6]
-                }],
+                        'className': 'text-center',
+                        'aTargets': [7]
+                    },
+                    {
+                        'visible': false,
+                        'aTargets': [7]
+                    }
+                ],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
@@ -303,8 +294,8 @@
                         "extend": "print",
                         "text": "Imprimir",
                         'exportOptions': {
-                            'columns': [1, 2, 3, 4, 5, 6, 7],
-                            'title': 'Fichas',
+                            'columns': [0, 1, 2, 3, 4, 5, 7],
+                            'title': 'Solicitações de abastecimento',
                             'pgUser': "{{ session('user')['rank'] }}",
                             'nameUser': "{{ session('user')['professionalName'] }}",
                             'fullNameUser': "{{ session('user')['name'] }}",
