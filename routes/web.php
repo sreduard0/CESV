@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('role:adj>cmtgda>trnp>fiscadm>adm');
 
 // COMBUSTIVEL
-    // Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp>adt>fiscadm>adm');
+    Route::get('info_request_fuel/{id}', [FuelController::class, 'infoRequestFuel'])->name('infoRequestFuel')->middleware('role:trnp>adt>fiscadm>adm');
     // Route::get('get_new_ficha_count', [FichaController::class, 'getNewFichas'])->name('getNewFichas')->middleware('role:fiscadm>adm');
     // Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm>adm');
     // Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adt>fiscadm>adm');

@@ -44,7 +44,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="typeFuel">Status</label>
+                                <label for="typeFuel">Combustível</label>
                                 <select id="typeFuel" name="typeFuel" class="form-control">
                                     <option value="">Todos</option>
                                     <option value="Gasolina">Gasolina</option>
@@ -266,7 +266,7 @@
                 "autoWidth": false,
                 "aoColumnDefs": [{
                         'className': 'text-center',
-                        'aTargets': [7]
+                        'aTargets': [8]
                     },
                     {
                         'visible': false,

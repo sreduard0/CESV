@@ -10,7 +10,11 @@ use Illuminate\Http\Request;
 
 class FuelController extends Controller
 {
-
+    // AÇÕES
+    public function infoRequestFuel($id)
+    {
+        return FuelModel::with('motinfo', 'vtrinfo', 'missioninfo', 'fichainfo')->find($id);
+    }
     // CRUD
     public function requestFuel(FuelRequest $request)
     {
