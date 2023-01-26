@@ -129,7 +129,7 @@
                             <li class="nav-item ">
                                 <a href="{{ route('fuel') }}" class="nav-link @yield('fuel')">
                                     <i class="nav-icon fas fa-gas-pump"></i>
-                                    <p id='f-c'>
+                                    <p id='f-a'>
                                         Combustível
                                     </p>
                                 </a>
@@ -505,6 +505,7 @@
     @if (session('CESV')['profileType'] == 4)
         <script>
             window.onload = countFicha();
+            window.onload = countRequestFuel();
             var Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -512,6 +513,7 @@
                 timer: 8000
             })
             var count = 0
+            var countRequest = 0
 
             function countFicha() {
                 $.get("{{ route('getNewFichas') }}", function(result) {
@@ -526,8 +528,23 @@
                     count = result
                 })
             }
+
+            function countRequestFuel() {
+                $.get("{{ route('getNewRequestFuel') }}", function(result) {
+                    result == 0 ? '' : $('#f-a').html('Combustível <span class="badge badge-success right">' + result +
+                        '</span>')
+
+                    if (countRequest != result)
+                        Toast.fire({
+                            icon: 'success',
+                            title: '&nbsp&nbsp Novo abastecimento foi solicitado.'
+                        });
+                    countRequest = result
+                })
+            }
             setInterval(() => {
                 countFicha()
+                countRequestFuel()
             }, 30000);
         </script>
     @endif

@@ -53,6 +53,10 @@
 
                                                     <p id="nr_vtr" class="text-muted">xx</p>
                                                     <hr>
+                                                    <strong>Combustível</strong>
+
+                                                    <p id="fuel_vtr" class="text-muted">-</p>
+                                                    <hr>
                                                     <strong>Tipo</strong>
 
                                                     <p id="type_vtr" class="text-muted">xx</p>
@@ -109,6 +113,7 @@
         $.get(url, function(result) {
             modal.find('#mod_vtr').text(result.mod_vtr)
             modal.find('#ebplaca').text(result.ebplaca)
+            modal.find('#fuel_vtr').text(result.fuel ? result.fuel : 'Não especificado')
             modal.find('#eb_placa').val(result.ebplaca)
             modal.find('#nr_vtr').text(result.nr_vtr)
             modal.find('#ton').text(result.ton)

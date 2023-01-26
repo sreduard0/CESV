@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class FuelController extends Controller
 {
+    public function getNewRequestFuel()
+    {
+        return FuelModel::all()->count();
+    }
     // AÇÕES
     public function infoRequestFuel($id)
     {
@@ -20,7 +24,7 @@ class FuelController extends Controller
     {
         $data = $request->all();
 
-        $ficha = FichaModel::find($data['id_ficha']);
+        $ficha = FichaModel::with('vtrinfo')->find($data['id_ficha']);
 
         if (FuelModel::where('id_ficha', $data['id_ficha'])->where('status', '<', 4)->first()) {
             return 'ficha';
@@ -31,13 +35,41 @@ class FuelController extends Controller
         $fuel->id_ficha = $ficha->id;
         $fuel->id_mission = $ficha->id_mission;
         $fuel->id_mot = $ficha->id_mot;
-        $fuel->fuel = "Gasolina";
+        $fuel->fuel = $ficha->vtrinfo->fuel ? $ficha->vtrinfo->fuel : null;
         $fuel->status = 1;
         $fuel->od = str_replace('_', '', $data['od']);
         $fuel->destiny = $data['destiny'];
         $fuel->request_by = session('user')['rank'] . ' ' . session('user')['professionalName'];
         $fuel->obs = $data['obs'];
         $fuel->save();
+
+    }
+    public function actionRequestFuel(Request $request)
+    {
+        $data = $request->all();
+
+        if (FuelModel::where('id', $data['id'])->where('status', '!=', 1)->first()) {
+            return 'response';
+        }
+        $requestFuel = FuelModel::find($data['id']);
+        $requestFuel->status = $data['action'] == 1 ? 2 : 4;
+        $requestFuel->code_auth = $data['code'];
+        $requestFuel->qnt_released = $data['qtdAutorized'];
+        $requestFuel->autorized_by = session('user')['rank'] . ' ' . session('user')['professionalName'];
+        $requestFuel->obs_fiscadm = $data['obs'];
+        $requestFuel->save();
+
+    }
+    public function finishRequestFuel(Request $request)
+    {
+        $data = $request->all();
+
+        if (FuelModel::where('id', $data['id'])->where('status', 3)->first()) {
+            return 'response';
+        }
+        $requestFuel = FuelModel::find($data['id']);
+        $requestFuel->status = 3;
+        $requestFuel->save();
 
     }
 

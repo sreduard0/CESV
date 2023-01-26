@@ -18,6 +18,7 @@ class Viatura extends Migration
             $table->integer('ton');
             $table->integer('vol');
             $table->integer('status');
+            $table->string('fuel', 255)->nullable();
             $table->text('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();

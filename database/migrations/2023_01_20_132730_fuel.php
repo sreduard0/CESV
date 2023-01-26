@@ -15,7 +15,7 @@ class Fuel extends Migration
             $table->integer('id_ficha');
             $table->integer('id_mission');
             $table->integer('id_mot');
-            $table->string('fuel');
+            $table->string('fuel')->nullable();
             $table->integer('qnt_released')->nullable();
             $table->integer('status');
             $table->integer('od');

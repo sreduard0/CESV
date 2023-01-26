@@ -59,11 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('role:adj>cmtgda>trnp>fiscadm>adm');
 
 // COMBUSTIVEL
+    Route::get('getNewRequestFuel', [FuelController::class, 'getNewRequestFuel'])->name('getNewRequestFuel')->middleware('role:fiscadm');
     Route::get('info_request_fuel/{id}', [FuelController::class, 'infoRequestFuel'])->name('infoRequestFuel')->middleware('role:trnp>adt>fiscadm>adm');
-    // Route::get('get_new_ficha_count', [FichaController::class, 'getNewFichas'])->name('getNewFichas')->middleware('role:fiscadm>adm');
-    // Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm>adm');
-    // Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adt>fiscadm>adm');
-    Route::post('post_fuel_request', [FuelController::class, 'fuelRequestList'])->name('post_fuel_request')->middleware('role:trnp>fiscadm>adm');
+    Route::post('finish_request_fuel', [FuelController::class, 'finishRequestFuel'])->name('finishRequestFuel')->middleware('role:trnp>adm');
+    Route::post('post_fuel_request', [FuelController::class, 'fuelRequestList'])->name('post_fuel_request')->middleware('role:trnp>fiscadm>adt>adm');
 
 // RELA GUARDA
     Route::get('countRelGda', [GdaController::class, 'countRelGda'])->middleware('role:adj>trnp>cmtgda>adm');
@@ -106,6 +105,7 @@ Route::middleware('auth')->group(function () {
 
 //COMBUSTIVEL
     Route::post('request_fuel', [FuelController::class, 'requestFuel'])->middleware('role:trnp>adm');
+    Route::post('action_request_fuel', [FuelController::class, 'actionRequestFuel'])->middleware('role:fiscadm>adm');
 
 // RELA GDA
     Route::post('register_relgda', [GdaController::class, 'registerRelGda'])->middleware('role:adj>cmtgda>adm');

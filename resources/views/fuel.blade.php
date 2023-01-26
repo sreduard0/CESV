@@ -102,6 +102,7 @@
 @endsection
 @section('modal')
     @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
+
         <!-- MODAL SOLICITAR COMBUSTIVEL -->
         <div class="modal fade" id="request-fuel" tabindex="-1" role="dialog" aria-labelledby="request-fuelLabel"
             aria-hidden="true">
@@ -145,6 +146,11 @@
                                     <input disabled id="vtr" name="vtr" type="text" class="form-control"
                                         placeholder="EB | Viatura">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label for="fuelType">Combustível</label>
+                                    <input disabled id="fuelType" name="fuelType" type="text" class="form-control"
+                                        placeholder="Combustível">
+                                </div>
                                 <div class="od form-group col-md-3">
                                     <label for="od">Odômetro <span style="color:red">*</span></label>
                                     <div class="input-group">
@@ -156,20 +162,24 @@
                                             placeholder="Odômetro">
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
+
+
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="driver">Motorista</label>
+                                    <input disabled minlength="2" maxlength="200" id="driver" name="driver"
+                                        type="text" class="form-control" placeholder="Motorista">
+                                </div>
+                                <div class="form-group col-md-5">
                                     <label for="mission">Missão</label>
                                     <input disabled id="mission" name="mission" type="text" class="form-control"
                                         placeholder="Missão">
                                 </div>
 
-
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-5">
-                                    <label for="driver">Motorista</label>
-                                    <input disabled minlength="2" maxlength="200" id="driver" name="driver"
-                                        type="text" class="form-control" placeholder="Motorista">
-                                </div>
                                 <div class="form-group col">
                                     <label for="destiny">Etinerário <span style="color:red">*</span></label>
                                     <input minlength="2" maxlength="200" id="destiny" name="destiny" type="text"
@@ -179,8 +189,8 @@
                             </div>
                             <div class="obs row">
                                 <div class="form-group col">
-                                    <label for="obsFinish">Observações</label>
-                                    <textarea name="obsFinish" id="obsFinish" rows="8" placeholder="Ex: Carro com impressoras."
+                                    <label for="obs">Observações</label>
+                                    <textarea name="obs" id="obs" rows="8" placeholder="Ex: Carro com impressoras."
                                         class=" text form-control"></textarea>
                                 </div>
                             </div>
@@ -312,29 +322,5 @@
             });
 
         });
-        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
-            $('#edit-ficha').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                var id = button.data('id');
-                var modal = $(this);
-                var url = "{{ url('get_info_ficha') }}/" + id;
-                $.get(url, function(result) {
-                    modal.find('#id_ficha').val(result.id)
-                    modal.find('#e_nrFicha').val(result.nr_ficha)
-                    modal.find('#e_vtrFicha').val(result.id_vtr)
-                    modal.find('#e_missionFicha').val(result.id_mission)
-                    modal.find('#e_inOrderFicha').val(result.in_order)
-                    modal.find('#e_idMotFicha').val(result.id_mot)
-                    modal.find('#e_pgSegFicha').val(result.pg_seg)
-                    modal.find('#e_nameSegFicha').val(result.name_seg)
-                    modal.find('#e_natOfServFicha').val(result.nat_of_serv)
-                    modal.find('#e_dateClose').val(moment(result.date_close).format('DD-MM-YYYY'))
-                })
-            });
-            $('#edit-ficha').on('hide.bs.modal', function(event) {
-                $('#form-edit-ficha')[0].reset();
-            });
-        @endif
     </script>
-
 @endsection

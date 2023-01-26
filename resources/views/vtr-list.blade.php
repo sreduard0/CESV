@@ -158,7 +158,15 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group colmd-3">
+                                <div class="form-group col-md-3">
+                                    <label for="fuelVtr">Combustível <span style="color:red">*</span></label>
+                                    <select class="form-control" name="fuelVtr" id="fuelVtr">
+                                        <option value="">Selecione</option>
+                                        <option value="Gasolina">Gasolina</option>
+                                        <option value="Diesel">Diesel</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
                                     <label for="statusVtr">Status <span style="color:red">*</span></label>
                                     <select class="form-control" name="statusVtr" id="statusVtr">
                                         <option value="">Selecione</option>
@@ -259,7 +267,15 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group colmd-3">
+                                <div class="form-group col-md-3">
+                                    <label for="e_fuelVtr">Combustível <span style="color:red">*</span></label>
+                                    <select class="form-control" name="e_fuelVtr" id="e_fuelVtr">
+                                        <option value="">Selecione</option>
+                                        <option value="Gasolina">Gasolina</option>
+                                        <option value="Diesel">Diesel</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
                                     <label for="e_statusVtr">Status <span style="color:red">*</span></label>
                                     <select class="form-control" name="e_statusVtr" id="e_statusVtr">
                                         <option value="">Selecione</option>
@@ -363,6 +379,7 @@
                     modal.find('#e_ebPlacaVtr').val(result.ebplaca)
                     modal.find('#e_tonVtr').val(result.ton)
                     modal.find('#e_volVtr').val(result.vol)
+                    modal.find('#e_fuelVtr').val(result.fuel)
                     modal.find('#e_statusVtr').val(result.status)
                     modal.find('#e_obsVtr').summernote('code', result.obs)
                 })

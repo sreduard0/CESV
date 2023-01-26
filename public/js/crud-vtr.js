@@ -44,6 +44,12 @@ function registerVtr() {
     } else {
         $('#volVtr').removeClass('is-invalid');
     }
+    if (formData.get('fuelVtr') == '') {
+        $('#fuelVtr').addClass('is-invalid');
+        return false;
+    } else {
+        $('#fuelVtr').removeClass('is-invalid');
+    }
     if (formData.get('statusVtr') == '') {
         $('#statusVtr').addClass('is-invalid');
         return false;
@@ -58,6 +64,7 @@ function registerVtr() {
         ebPlacaVtr: formData.get('ebPlacaVtr'),
         tonVtr: formData.get('tonVtr'),
         volVtr: formData.get('volVtr'),
+        fuelVtr: formData.get('fuelVtr'),
         statusVtr: formData.get('statusVtr'),
         obsVtr: formData.get('obsVtr'),
 
@@ -157,6 +164,12 @@ function editVtr() {
     } else {
         $('#e_volVtr').removeClass('is-invalid');
     }
+    if (formData.get('e_fuelVtr') == '') {
+        $('#e_fuelVtr').addClass('is-invalid');
+        return false;
+    } else {
+        $('#e_fuelVtr').removeClass('is-invalid');
+    }
     if (formData.get('e_statusVtr') == '') {
         $('#e_statusVtr').addClass('is-invalid');
         return false;
@@ -172,6 +185,7 @@ function editVtr() {
         ebPlacaVtr: formData.get('e_ebPlacaVtr'),
         tonVtr: formData.get('e_tonVtr'),
         volVtr: formData.get('e_volVtr'),
+        fuelVtr: formData.get('e_fuelVtr'),
         statusVtr: formData.get('e_statusVtr'),
         obsVtr: formData.get('e_obsVtr'),
 

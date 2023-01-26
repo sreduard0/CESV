@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title card-title-background ">
+                        <h3 class="card-title title card-title-background ">
                         </h3>
                     </div>
                     <div class="card-body">
@@ -140,47 +140,136 @@
                     </div>
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <div class="link"></div>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <div class="card" id="panelInfoDenied" style="display: none">
+                    <div class="card-header">
+                        <h3 class="card-title card-title-background "> <i class="fas fa-info-circle mr-1"></i>
+                            Solicitação negada</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <strong>Solicitaçao negada por</strong>
+                                <p id="denied_request_modal" class="text-muted">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer actions">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-{{-- SCRIPTS --}}
-<script>
-    $('#info-request-fuel').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var id = button.data('id');
-        var modal = $(this);
-        var url = "{{ url('info_request_fuel') }}/" + id;
-        $.get(url, function(result) {
-            modal.find('.card-title').text('<i class="fas fa-info-circle mr-1"></i> Ficha ' + result
-                .infoficha.nr_ficha)
-            modal.find('#').text(moment(result.prev_date_chgd).format('DD-MM-YYYY HH:mm'))
+    {{-- SCRIPTS --}}
+    <script>
+        $('#info-request-fuel').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            var url = "{{ url('info_request_fuel') }}/" + id;
+            $.get(url, function(result) {
+                modal.find('.title').html('<i class="fas fa-info-circle mr-1"></i> Ficha ' + result
+                    .fichainfo.nr_ficha)
+                modal.find('#vtr_modal').text(result.vtrinfo.mod_vtr)
+                modal.find('#od_modal').text(result.od)
+                modal.find('#destiny_modal').text(result.destiny)
+                modal.find('#request_date_modal').text(moment(result.created_at).format(
+                    'DD-MM-YYYY '))
+                modal.find('#request_by_modal').text(result.request_by)
+                modal.find('#ebplaca_modal').text(result.vtrinfo.ebplaca)
+                if (result.missioninfo) {
+                    modal.find('#mission_modal').text(result.missioninfo.name_mission)
+                } else {
+                    modal.find('#mission_modal').text(result.fichainfo.nat_of_serv)
 
-            if (result.finish_mission) {
+                }
+                modal.find('#mot_modal').text(result.motinfo.pg + ' ' + result.motinfo.name)
+                modal.find('#fuel_modal').text(result.fuel ? result.fuel : 'Não especificado')
+                switch (result.status) {
+                    case 1:
+                        modal.find('#status_modal').text('Aguardando autorização')
+                        $("#panelInfoAbst").css("display", "none")
+                        @if (session('CESV')['profileType'] == 4 || session('CESV')['profileType'] == 6)
+                            $(".actions").html(
+                                ' <button title="Negar" class="btn btn-danger" onclick="authorize(' +
+                                id +
+                                ',2)">Negar</button>  <button title="Autorizar" class="btn btn-success" onclick="authorize(' +
+                                id +
+                                ',1)">Autorizar</button>'
+                            )
+                        @endif
+                        break;
+                    case 2:
+                        modal.find('#status_modal').text('Autorizado')
+                        $("#panelInfoAbst").css("display", "block")
+                        modal.find('#cede_sec_modal').text(result.code_auth)
+                        modal.find('#autorized_by_modal').text(result.autorized_by)
+                        modal.find('#qtd_autorized_modal').text(result.qnt_released)
+                        modal.find('#date_autorized_modal').text(moment(result.updated_at).format(
+                            'DD-MM-YYYY '))
+                        if (result.obs_fiscadm) {
+                            modal.find('#obs_fiscadm_modal').html(result.obs_fiscadm)
+                        }
+                        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 6)
+                            $(".actions").html(
+                                '<button title="Viatura abastecida" class="btn btn-success" onclick="finishRequestFuel(' +
+                                id + ')">Viatura abastecida</button>'
+                            )
+                        @endif
+                        break;
+                    case 3:
+                        modal.find('#status_modal').text('Abastecido')
+                        $("#panelInfoAbst").css("display", "block")
+                        modal.find('#cede_sec_modal').text(result.code_auth)
+                        modal.find('#autorized_by_modal').text(result.autorized_by)
+                        modal.find('#qtd_autorized_modal').text(result.qnt_released)
+                        modal.find('#date_autorized_modal').text(moment(result.updated_at).format(
+                            'DD-MM-YYYY '))
+                        if (result.obs_fiscadm) {
+                            modal.find('#obs_fiscadm_modal').html(result.obs_fiscadm)
+                        }
+                        break;
+                    case 4:
+                        modal.find('#status_modal').text('Não autorizado')
+                        $("#panelInfoDenied").css("display", "block")
+                        modal.find('#denied_request_modal').text(result.autorized_by)
+                        break;
+                }
 
-                $('#dateFinMission').text(result.finish_mission)
-                $('#obs').html(result.obs_alteration ? result.obs_alteration :
-                    'Sem observações')
+                if (result.obs) {
+                    modal.find('#obs_request_modal').html(result.obs)
+                }
 
-                $("#panelInfoCon").css("display", "block")
-
-            } else {
-
-                $("#panelInfoCon").css("display", "none")
-                $(".link").html(
-                    '<button title="Gerar link da missão" class="btn btn-primary" onclick="generatelink(' +
-                    id + ')">Gerar link de relatório</button>'
-                )
+            })
 
 
-            }
-        })
+        });
+        $('#info-request-fuel').on('hide.bs.modal', function(event) {
+            var modal = $(this);
+            modal.find('.title').html('<i class="fas fa-info-circle mr-1"></i>')
+            modal.find('#vtr_modal').text('-')
+            modal.find('#od_modal').text('-')
+            modal.find('#destiny_modal').text('-')
+            modal.find('#request_date_modal').text('-')
+            modal.find('#request_by_modal').text('-')
+            modal.find('#ebplaca_modal').text('-')
+            modal.find('#mission_modal').text('-')
+            modal.find('#mot_modal').text('-')
+            modal.find('#fuel_modal').text('-')
+            modal.find('#status_modal').text('-')
+            modal.find('#obs_request_modal').text('-')
+            modal.find('#cede_sec_modal').text('-')
+            modal.find('#autorized_by_modal').text('-')
+            modal.find('#qtd_autorized_modal').text('-')
+            modal.find('#date_autorized_modal').text('-')
+            modal.find('#obs_fiscadm_modal').html('-')
+            $("#panelInfoAbst").css("display", "none")
+            $("#panelInfoDenied").css("display", "none")
+            $(".actions").html(
+                '<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>'
+            )
 
-
-    });
-</script>
+        });
+    </script>
