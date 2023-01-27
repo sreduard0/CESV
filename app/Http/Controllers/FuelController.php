@@ -12,7 +12,7 @@ class FuelController extends Controller
 {
     public function getNewRequestFuel()
     {
-        return FuelModel::all()->count();
+        return FuelModel::where('status', 1)->count();
     }
     // AÇÕES
     public function infoRequestFuel($id)
