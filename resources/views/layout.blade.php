@@ -519,13 +519,6 @@
                 $.get("{{ route('getNewFichas') }}", function(result) {
                     result == 0 ? '' : $('#f-c').html('Fichas <span class="badge badge-success right">' + result +
                         '</span>')
-
-                    if (count != result)
-                        Toast.fire({
-                            icon: 'success',
-                            title: '&nbsp&nbsp Nova ficha foi solicitada.'
-                        });
-                    count = result
                 })
             }
 
@@ -534,12 +527,6 @@
                     result == 0 ? '' : $('#f-a').html('Combustível <span class="badge badge-success right">' + result +
                         '</span>')
 
-                    if (countRequest != result)
-                        Toast.fire({
-                            icon: 'success',
-                            title: '&nbsp&nbsp Novo abastecimento foi solicitado.'
-                        });
-                    countRequest = result
                 })
             }
             setInterval(() => {
