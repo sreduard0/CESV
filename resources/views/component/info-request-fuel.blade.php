@@ -206,7 +206,7 @@
                         $("#panelInfoAbst").css("display", "block")
                         modal.find('#cede_sec_modal').text(result.code_auth)
                         modal.find('#autorized_by_modal').text(result.autorized_by)
-                        modal.find('#qtd_autorized_modal').text(result.qnt_released)
+                        modal.find('#qtd_autorized_modal').text(result.qnt_released+' Litros')
                         modal.find('#date_autorized_modal').text(moment(result.updated_at).format(
                             'DD-MM-YYYY '))
                         if (result.obs_fiscadm) {
@@ -224,7 +224,7 @@
                         $("#panelInfoAbst").css("display", "block")
                         modal.find('#cede_sec_modal').text(result.code_auth)
                         modal.find('#autorized_by_modal').text(result.autorized_by)
-                        modal.find('#qtd_autorized_modal').text(result.qnt_released)
+                        modal.find('#qtd_autorized_modal').text(result.qnt_released+' Litros')
                         modal.find('#date_autorized_modal').text(moment(result.updated_at).format(
                             'DD-MM-YYYY '))
                         if (result.obs_fiscadm) {
