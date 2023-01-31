@@ -27,6 +27,9 @@ Route::get('logout', function () {
 // RELATÓRIO DA MISSÃO
 Route::post('save_report_cmt_mission', [MissionController::class, 'saveReport']);
 
+// RELATORIO DO CMT DA MISSAO
+Route::get('/relatorio/form/{id}', [ViewController::class, 'reportForm'])->name('reportForm');
+
 Route::middleware('auth')->group(function () {
 // VIEWS
     Route::get('/', [ViewController::class, 'home'])->name('home');
