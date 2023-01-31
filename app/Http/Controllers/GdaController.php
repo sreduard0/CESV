@@ -207,7 +207,7 @@ class GdaController extends Controller
                 $rel->pg_seg = $data['pgSeg'];
                 $rel->name_seg = $data['nameSeg'];
                 $rel->od_sai = str_replace('_', '', $data['odSai']);
-                $rel->od_ent = $data['dateEnt'] && $data['odEnt'] ? str_replace('_', '', $data['odSai']) : null;
+                $rel->od_ent = $data['dateEnt'] && $data['odEnt'] ? str_replace('_', '', $data['odEnt']) : null;
                 $rel->total_od = $data['odSai'] && $data['odEnt'] ? str_replace('_', '', $data['odEnt']) - str_replace('_', '', $data['odSai']) : null;
                 $rel->hour_ent = $data['dateEnt'] && $data['odEnt'] ? date('Y-m-d H:i', strtotime($data['dateEnt'])) : null;
                 $rel->hour_sai = date('Y-m-d H:i', strtotime($data['dateSai']));

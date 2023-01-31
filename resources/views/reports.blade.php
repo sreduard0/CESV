@@ -1012,8 +1012,31 @@
                 "buttons": [{
                         "extend": "print",
                         "text": "Imprimir",
+                        "customize": function(win) {
+
+                            var last = null;
+                            var current = null;
+                            var bod = [];
+
+                            var css = '@page { size: landscape; }',
+                                head = win.document.head || win.document.getElementsByTagName(
+                                    'head')[0],
+                                style = win.document.createElement('style');
+
+                            style.type = 'text/css';
+                            style.media = 'print';
+
+                            if (style.styleSheet) {
+                                style.styleSheet.cssText = css;
+                            } else {
+                                style.appendChild(win.document.createTextNode(css));
+                            }
+
+                            head.appendChild(style);
+                        },
+                        //"orientation": 'landscape',
                         'exportOptions': {
-                            'columns': [0, 1, 2, 3, 4, 5, 6],
+                            'columns': [0, 1, 2, 3, 4, 5, 6, 7],
                             'title': 'Relatório de entrada e saída de veículos ',
                             'pgUser': "{{ session('user')['rank'] }}",
                             'nameUser': "{{ session('user')['professionalName'] }}",
