@@ -149,11 +149,11 @@ class FuelController extends Controller
 
                     break;
                 case 2:
-                    $dado[] = 'Autorizada';
+                    $dado[] = 'Autorizado';
 
                     break;
                 case 3:
-                    $dado[] = 'Abastecida';
+                    $dado[] = 'Abastecido';
 
                     break;
                 case 4:
