@@ -3,6 +3,7 @@
     @switch(session('CESV')['profileType'])
         @case(1)
         @case(5)
+
         @case(6)
             Missões
         @break
@@ -119,9 +120,7 @@
                                     class="fa fa-search"></i></button>
                         </div>
                     </div>
-                    @if (session('CESV')['profileType'] == 3 ||
-                        session('CESV')['profileType'] == 4 ||
-                        session('CESV')['profileType'] == 6)
+                    @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4 || session('CESV')['profileType'] == 6)
                         <div class="d-flex justify-content-sm-end">
                             <div class="col">
                                 <button class="btn btn-primary" data-toggle="modal"
@@ -155,9 +154,7 @@
     </section>
 @endsection
 @section('modal')
-    @if (session('CESV')['profileType'] == 3 ||
-        session('CESV')['profileType'] == 4 ||
-        session('CESV')['profileType'] == 6)
+    @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4 || session('CESV')['profileType'] == 6)
         <!-- MODAL REGISTRAR MISSÃO-->
         <div class="modal fade" id="register-mission" tabindex="-1" role="dialog" aria-labelledby="register-missionLabel"
             aria-hidden="true">
@@ -537,7 +534,7 @@
 @endsection
 @section('plugins')
 
-    <script src="{{ asset('js/inputmask.js') }}"></script>
+
 
     <!-- Summernote -->
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
@@ -555,9 +552,7 @@
                 ]
             });
         });
-        @if (session('CESV')['profileType'] == 3 ||
-            session('CESV')['profileType'] == 4 ||
-            session('CESV')['profileType'] == 6)
+        @if (session('CESV')['profileType'] == 3 || session('CESV')['profileType'] == 4 || session('CESV')['profileType'] == 6)
             $('#edit-mission').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
