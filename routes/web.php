@@ -15,6 +15,9 @@ Route::get('/relatorio/form/{id}', [ViewController::class, 'reportForm'])->name(
 Route::get('/relatorio/print/{id}/{status}/{ass}', [MissionController::class, 'printReport']);
 Route::get('/relatorio/send/email/{id}/{email}/{ass}', [MissionController::class, 'sendEmailReport']);
 
+// SOLICITAÇÃO DE VTR
+Route::get('/solicitarVtr', [ViewController::class, 'requestVtr'])->name('requestVtr');
+
 // LOGIN
 Route::get('/login', [ViewController::class, 'login'])->name('login');
 Route::post('submit_login', [AdminController::class, 'loginSubmit'])->name('loginSubmit');

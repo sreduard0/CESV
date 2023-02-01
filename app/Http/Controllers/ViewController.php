@@ -130,6 +130,10 @@ class ViewController extends Controller
         return view('users');
     }
 
+    public function requestVtr()
+    {
+        return view('request-vtr');
+    }
     public function login()
     {
         if (session()->has('CESV') && session()->has('user')) {
