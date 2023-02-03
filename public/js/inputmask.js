@@ -47,9 +47,6 @@ $('.date').datetimepicker({
 $('.datet').datetimepicker({
     format: 'DD-MM-YYYY',
     locale: 'pt-br',
-    timePicker: true,
-    timePickerIncrement: 30,
-
 });
 
 $('[data-mask]').inputmask()
