@@ -48,107 +48,94 @@
                 <span class="login100-form-title padding-title">
                     <img src="{{ asset('/img/logo.png') }}" class="img-logo-vtr" alt="">
                 </span>
-
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="wrap-input100">
-                            <select style="background-color:#2e2e2e;" class="input100" name="rank_id" id="rank_id">
-                                <option value=""></option>
-                                <option value="Gen">Gen</option>
-                                <option value="Cel">Cel</option>
-                                <option value="TC">TC</option>
-                                <option value="Maj">Maj</option>
-                                <option value="Cap">Cap</option>
-                                <option value="1º Ten">1º Ten</option>
-                                <option value="2º Ten">2º Ten</option>
-                                <option value="Asp">Asp</option>
-                                <option value="ST">ST</option>
-                                <option value="1º Sgt">1º Sgt</option>
-                                <option value="2º Sgt">2º Sgt</option>
-                                <option value="3º Sgt">3º Sgt</option>
-                                <option value="Cb">Cb</option>
-                                <option value="Sd">Sd</option>
-                            </select>
-                            <span class="focus-input100" data-placeholder="Post/ Grad"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="wrap-input100">
-                            <input class="input100" type="text" name="professional_name" id="professional_name">
-                            <span class="focus-input100" data-placeholder="Nome de guerra"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="wrap-input100">
-                            <input class="input100" type="text" name="name" id="name">
-                            <span class="focus-input100" data-placeholder="Missão"></span>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="wrap-input100">
-                            <input class="input100" type="text" name="email" id="email">
-                            <span class="focus-input100" data-placeholder="Destino"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-
-
-
-
-                        <div class="form-group">
-                            <div data-target="#dateFinishTarget" data-toggle="datetimepicker" class="wrap-input100 date"
-                                id="dateFinishTarget" data-target-input="nearest">
-
-                                <input type="text" class="input100 datetimepicker-input"
-                                    data-target="#dateFinishTarget" id="dateFinish" name="dateFinish" value="">
-                                <span class="focus-input100" data-placeholder="Data prevista da missão"></span>
-
+                <form id="requestVtr">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="wrap-input100">
+                                <select style="background-color:#2e2e2e;" class="input100" name="rank_id"
+                                    id="rank_id">
+                                    <option value=""></option>
+                                    <option value="Gen">Gen</option>
+                                    <option value="Cel">Cel</option>
+                                    <option value="TC">TC</option>
+                                    <option value="Maj">Maj</option>
+                                    <option value="Cap">Cap</option>
+                                    <option value="1º Ten">1º Ten</option>
+                                    <option value="2º Ten">2º Ten</option>
+                                    <option value="Asp">Asp</option>
+                                    <option value="ST">ST</option>
+                                    <option value="1º Sgt">1º Sgt</option>
+                                    <option value="2º Sgt">2º Sgt</option>
+                                    <option value="3º Sgt">3º Sgt</option>
+                                    <option value="Cb">Cb</option>
+                                    <option value="Sd">Sd</option>
+                                </select>
+                                <span class="focus-input100" data-placeholder="Post/ Grad"></span>
                             </div>
-
                         </div>
-
-
-
-                    </div>
-
-
-
-
-
-                    <div class="col">
-                        <div class="wrap-input100">
-                            <input class="input100" type="text" name="idt_mil" id="idt_mil"
-                                data-inputmask="'mask': ['(99) 9 9999-9999 ']" data-mask="" inputmode="text">
-                            <span class="focus-input100" data-placeholder="Contato"></span>
+                        <div class="col">
+                            <div class="wrap-input100">
+                                <input class="input100" type="text" name="professional_name" id="professional_name">
+                                <span class="focus-input100" data-placeholder="Nome de guerra"></span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="wrap-input100">
-                            <input class="input100" type="text" name="idt_mil" id="idt_mil"
-                                data-inputmask="'mask': ['99']" data-mask="" inputmode="text">
-                            <span class="focus-input100" data-placeholder="Qtd de militares"></span>
+                    <div class="row">
+                        <div class="col">
+                            <div class="wrap-input100">
+                                <input class="input100" type="text" name="name" id="name">
+                                <span class="focus-input100" data-placeholder="Missão"></span>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="wrap-input100">
+                                <input class="input100" type="text" name="email" id="email">
+                                <span class="focus-input100" data-placeholder="Etinerário"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col">
-                        <textarea class="input100 text" type="text" name="email" id="email">
+                    <div class="row">
+                        <div class="col">
+                            <div class="wrap-input100 date" id="e_dateCloseTarget" data-target-input="nearest">
+                                <span data-target="#e_dateCloseTarget" data-toggle="datetimepicker" class="datebtn">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input type="text" class="input100 datetimepicker-input"
+                                    data-target="#e_dateCloseTarget" id="e_dateClose" name="e_dateClose" value="">
+                                <span class="focus-input100" data-placeholder="Data prev. da missão"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="wrap-input100">
+                                <input class="input100" type="text" name="idt_mil" id="idt_mil"
+                                    data-inputmask="'mask': ['(99) 9 9999-9999 ']" data-mask="" inputmode="text">
+                                <span class="focus-input100" data-placeholder="Contato"></span>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="wrap-input100">
+                                <input class="input100" type="text" name="idt_mil" id="idt_mil"
+                                    data-inputmask="'mask': ['99']" data-mask="" inputmode="text">
+                                <span class="focus-input100" data-placeholder="Qtd de militares"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <textarea class="input100 text" type="text" name="email" id="email">
                             </textarea>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <div class="container-login100-form-btn m-t-10">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <button onclick="return apply();" class="login100-form-btn">
+                        <button onclick="return requestVtr();" class="login100-form-btn">
                             SOLICITAR
                         </button>
                     </div>

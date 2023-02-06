@@ -94,7 +94,7 @@ class FuelController extends Controller
         //Se há pesquisa ou não
         if ($requestData['columns'][3]['search']['value'] == 'find') {
 
-            $search = FuelModel::query();
+            $search = FuelModel::query()->with('motinfo', 'vtrinfo', 'missioninfo', 'fichainfo');
 
             if ($requestData['columns'][1]['search']['value']) {
                 $search->where('status', $requestData['columns'][1]['search']['value']);
@@ -109,8 +109,7 @@ class FuelController extends Controller
                 $search->whereBetween('created_at', [date('Y-m-d', strtotime($betweenDate[0])) . ' 00:00', date('Y-m-d', strtotime($betweenDate[1])) . ' 23:59']);
             }
 
-            $requestsFuel = $search->with('motinfo', 'vtrinfo', 'missioninfo', 'fichainfo')
-                ->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
+            $requestsFuel = $search->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])
                 ->offset($requestData['start'])
                 ->take($requestData['length'])
                 ->get();
@@ -137,7 +136,7 @@ class FuelController extends Controller
             $dado[] = $requestFuel->vtrinfo->mod_vtr;
             $dado[] = $requestFuel->vtrinfo->ebplaca;
             if ($requestFuel->missioninfo) {
-                $dado[] = $requestFuel->missioninfo->name_mission;
+                $dado[] = $requestFuel->missioninfo->mission_name;
             } else {
                 $dado[] = $requestFuel->fichainfo->nat_of_serv;
             }
@@ -149,11 +148,11 @@ class FuelController extends Controller
 
                     break;
                 case 2:
-                    $dado[] = 'Autorizado';
+                    $dado[] = 'Autorizada';
 
                     break;
                 case 3:
-                    $dado[] = 'Abastecido';
+                    $dado[] = 'Abastecida';
 
                     break;
                 case 4:

@@ -180,7 +180,7 @@
                 modal.find('#request_by_modal').text(result.request_by)
                 modal.find('#ebplaca_modal').text(result.vtrinfo.ebplaca)
                 if (result.missioninfo) {
-                    modal.find('#mission_modal').text(result.missioninfo.name_mission)
+                    modal.find('#mission_modal').text(result.missioninfo.mission_name)
                 } else {
                     modal.find('#mission_modal').text(result.fichainfo.nat_of_serv)
 
@@ -206,7 +206,7 @@
                         $("#panelInfoAbst").css("display", "block")
                         modal.find('#cede_sec_modal').text(result.code_auth)
                         modal.find('#autorized_by_modal').text(result.autorized_by)
-                        modal.find('#qtd_autorized_modal').text(result.qnt_released+' Litros')
+                        modal.find('#qtd_autorized_modal').text(result.qnt_released + ' Litros')
                         modal.find('#date_autorized_modal').text(moment(result.updated_at).format(
                             'DD-MM-YYYY '))
                         if (result.obs_fiscadm) {
@@ -224,7 +224,7 @@
                         $("#panelInfoAbst").css("display", "block")
                         modal.find('#cede_sec_modal').text(result.code_auth)
                         modal.find('#autorized_by_modal').text(result.autorized_by)
-                        modal.find('#qtd_autorized_modal').text(result.qnt_released+' Litros')
+                        modal.find('#qtd_autorized_modal').text(result.qnt_released + ' Litros')
                         modal.find('#date_autorized_modal').text(moment(result.updated_at).format(
                             'DD-MM-YYYY '))
                         if (result.obs_fiscadm) {

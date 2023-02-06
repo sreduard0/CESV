@@ -923,3 +923,24 @@ iframe {
         padding: 50px 15px 33px 15px;
     }
 }
+
+.datebtn {
+    font-size: 15px;
+    color: #cfcfcf;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+    padding-right: 5px;
+    cursor: pointer;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
