@@ -47,6 +47,8 @@ $(function () {
             ['table'],
         ]
     });
+    $('.obs_requestVtr').summernote('code', '');
+
 });
 
 
@@ -54,11 +56,11 @@ $(function () {
 
 
 $('.date').datetimepicker({
-    format: 'DD-MM-YYYY HH:mm',
-    locale: 'pt-br',
     timePicker: true,
     timePickerIncrement: 30,
-
+    format: 'DD-MM-YYYY HH:mm',
+    locale: 'pt-br',
+    icons: { time: 'far fa-clock' }
 });
 
 $('.datet').datetimepicker({

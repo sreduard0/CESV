@@ -6,25 +6,21 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ReqVtrRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            //
+            'rank' => 'required | max:7',
+            'name' => 'required | max:255',
+            'mission' => 'required | max:255',
+            'destiny' => 'required | max:255',
+            'date_part' => 'required',
+            'contact' => 'required| max:17',
+            'qtd_mil' => 'required',
         ];
     }
 }

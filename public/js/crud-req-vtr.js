@@ -67,6 +67,8 @@ function requestVtr() {
         success: function (data) {
             $('#requestVtr')[0].reset();
             $('#obs').summernote('code', '');
+
+
         },
 
         error: function (data) {

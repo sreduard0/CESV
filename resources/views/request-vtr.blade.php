@@ -9,15 +9,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/logo.png') }}" />
+
+
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="{{ asset('css/gfonts.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css') }}">
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+    <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/all.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('js/crud-req-vtr.js') }}"></script>
     <style>
         .note-editable {

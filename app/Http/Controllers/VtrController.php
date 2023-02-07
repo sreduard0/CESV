@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReqVtrRequest;
 use App\Http\Requests\VtrRequest;
 use App\Models\ReqVtrModel;
 use App\Models\VtrModel;
@@ -76,7 +77,7 @@ class VtrController extends Controller
         VtrModel::find($id)->delete();
     }
 
-    public function requestVtr(Request $request)
+    public function requestVtr(ReqVtrRequest $request)
     {
         $data = $request->all();
 
