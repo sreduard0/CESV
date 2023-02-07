@@ -52,8 +52,8 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="wrap-input100">
-                                <select style="background-color:#2e2e2e;" class="input100" name="rank_id"
-                                    id="rank_id">
+                                <select style="background-color:#2e2e2e;" class="input100" name="rank"
+                                    id="rank">
                                     <option value=""></option>
                                     <option value="Gen">Gen</option>
                                     <option value="Cel">Cel</option>
@@ -84,33 +84,33 @@
                     <div class="row">
                         <div class="col">
                             <div class="wrap-input100">
-                                <input class="input100" type="text" name="name" id="name">
+                                <input class="input100" type="text" name="mission" id="mission">
                                 <span class="focus-input100" data-placeholder="Missão"></span>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="wrap-input100">
-                                <input class="input100" type="text" name="email" id="email">
-                                <span class="focus-input100" data-placeholder="Etinerário"></span>
+                                <input class="input100" type="text" name="destiny" id="destiny">
+                                <span class="focus-input100" data-placeholder="Destino"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <div class="wrap-input100 date" id="e_dateCloseTarget" data-target-input="nearest">
-                                <span data-target="#e_dateCloseTarget" data-toggle="datetimepicker" class="datebtn">
+                            <div class="wrap-input100 date" id="date_part" data-target-input="nearest">
+                                <span data-target="#date_partTarget" data-toggle="datetimepicker" class="datebtn">
                                     <i class="fa fa-calendar"></i>
                                 </span>
                                 <input type="text" class="input100 datetimepicker-input"
-                                    data-target="#e_dateCloseTarget" id="e_dateClose" name="e_dateClose" value="">
+                                    data-target="#date_partTarget" id="date_part" name="date_part" value="">
                                 <span class="focus-input100" data-placeholder="Data prev. da missão"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="wrap-input100">
-                                <input class="input100" type="text" name="idt_mil" id="idt_mil"
+                                <input class="input100" type="text" name="phone" id="phone"
                                     data-inputmask="'mask': ['(99) 9 9999-9999 ']" data-mask="" inputmode="text">
                                 <span class="focus-input100" data-placeholder="Contato"></span>
                             </div>
@@ -118,16 +118,17 @@
 
                         <div class="col">
                             <div class="wrap-input100">
-                                <input class="input100" type="text" name="idt_mil" id="idt_mil"
+                                <input class="input100" type="text" name="qtd_mil" id="qtd_mil"
                                     data-inputmask="'mask': ['99']" data-mask="" inputmode="text">
-                                <span class="focus-input100" data-placeholder="Qtd de militares"></span>
+                                <span class="focus-input100" data-placeholder="Qtd. de militares"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <textarea class="input100 text" type="text" name="email" id="email">
+                            <textarea class="input100 obs_requestVtr" type="text" name="obs" id="obs">
+
                             </textarea>
                         </div>
                     </div>
@@ -165,6 +166,7 @@
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
 
     <script src="{{ asset('js/inputmask.js') }}"></script>
+
     {{-- /SCRIPTS --}}
 </body>
 

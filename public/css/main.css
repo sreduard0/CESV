@@ -65,41 +65,48 @@ html {
 .fab {
     position: fixed;
     bottom: 30px;
-    right: 50px;
+    right: 30px;
     z-index: 10;
 }
 
-.fab button {
+.fab a {
     cursor: pointer;
     height: auto;
     border-radius: 30px;
-    background-color: rgb(207, 207, 0);
+    background-color: rgb(206, 206, 0);
     border: none;
     box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
-    font-size: 30px;
+    font-size: 17px;
+    text-align: center;
+    padding-top: 10px;
     color: rgb(0, 0, 0);
     -webkit-transition: .2s ease-out;
     -moz-transition: .2s ease-out;
     transition: .2s ease-out;
 }
 
-.fab button:focus {
+.fab a:hover {
+    background-color: #00664d;
+    font-size: 19px;
+    color: rgb(255, 255, 255);
+}
+
+.fab a:focus {
     outline: none;
 }
 
-.fab button.main {
+.fab a.main {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 180px;
+    height: 50px;
     border-radius: 30px;
-    background-color: rgba(255, 255, 0);
     right: 0;
     bottom: 0;
     z-index: 20;
 }
 
-.fab button.main:before {
-    content: '✉';
+.fab a.main:before {
+    content: 'Solicitar viatura';
 }
 
 .fab ul {
@@ -127,25 +134,25 @@ html {
     transition: .3s ease-out;
 }
 
-.fab.show button.main,
-.fab.show button.main {
+.fab.show a.main,
+.fab.show a.main {
     outline: none;
     background-color: rgb(235, 235, 3);
     box-shadow: 0 3px 8px rgba(0, 0, 0, .5);
 }
 
-.fab.show button.main:before,
-.fab.show button.main:before {
+.fab.show a.main:before,
+.fab.show a.main:before {
     content: '↑';
 }
 
-.fab.show button.main+ul,
-.fab.show button.main+ul {
+.fab.show a.main+ul,
+.fab.show a.main+ul {
     bottom: 70px;
 }
 
-.fab.show button.main+ul li,
-.fab.show button.main+ul li {
+.fab.show a.main+ul li,
+.fab.show a.main+ul li {
     margin-bottom: 10px;
     opacity: 1;
 }
@@ -922,6 +929,31 @@ iframe {
     .wrap-login100 {
         padding: 50px 15px 33px 15px;
     }
+
+
+    .fab a.main {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 30px;
+        right: 0;
+        bottom: 0;
+        z-index: 20;
+    }
+
+    .fab a.main:hover {
+        width: 180px;
+        height: 50px;
+    }
+
+    .fab a.main:before {
+        content: url("");
+
+    }
+
+
+
+
 }
 
 .datebtn {

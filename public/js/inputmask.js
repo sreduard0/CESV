@@ -36,6 +36,23 @@ $(function () {
     });
 });
 
+$(function () {
+    $('.obs_requestVtr').summernote({
+        placeholder: 'Observações para o cumprimento da missão.',
+        height: 150,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['fontsize', ['fontsize']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table'],
+        ]
+    });
+});
+
+
+
+
+
 $('.date').datetimepicker({
     format: 'DD-MM-YYYY HH:mm',
     locale: 'pt-br',

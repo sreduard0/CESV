@@ -18,6 +18,9 @@
 
 <body class="gradient">
 
+    <div class="fab">
+        <a class="main" href="{{ route('requestVtr') }}"></a>
+    </div>
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
@@ -88,6 +91,7 @@
             </div>
         </div>
     </div>
+
     <script src="{{ asset('js/form-login.js') }}"></script>
 </body>
 
