@@ -1,5 +1,4 @@
 /* Layout Main */
-
 html {
     height: 100%;
 }
@@ -754,7 +753,7 @@ iframe {
     display: block;
     width: 100%;
     height: 45px;
-    background: transparent;
+    background-color: #2e2e2e;
     padding: 0 5px;
 }
 
@@ -931,23 +930,23 @@ iframe {
     }
 
 
+    .fab a {
+        padding-top: 5px;
+    }
+
     .fab a.main {
         position: absolute;
-        width: 50px;
-        height: 50px;
+        width: 120px;
+        height: 35px;
         border-radius: 30px;
         right: 0;
         bottom: 0;
         z-index: 20;
-    }
-
-    .fab a.main:hover {
-        width: 180px;
-        height: 50px;
+        font-size: 12px;
     }
 
     .fab a.main:before {
-        content: url("");
+        content: "Solicitar viatura";
 
     }
 

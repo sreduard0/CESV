@@ -4,6 +4,7 @@
 <head>
     <title>CES Vtr - Solicitar viatura</title>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,14 +13,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/all.css') }}">
-
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-
-
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/crud-req-vtr.js') }}"></script>
     <style>
         .note-editable {
             background-color: #2e2e2e;
@@ -34,6 +33,11 @@
         .note-editor {
             background-color: #2e2e2e;
             color: white;
+        }
+
+        .error {
+            background-color: #911616;
+            color: #fff;
         }
     </style>
 </head>
@@ -50,10 +54,9 @@
                 </span>
                 <form id="requestVtr">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-md-2">
                             <div class="wrap-input100">
-                                <select style="background-color:#2e2e2e;" class="input100" name="rank"
-                                    id="rank">
+                                <select class="input100" name="rank" id="rank">
                                     <option value=""></option>
                                     <option value="Gen">Gen</option>
                                     <option value="Cel">Cel</option>
@@ -82,7 +85,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-5">
                             <div class="wrap-input100">
                                 <input class="input100" type="text" name="mission" id="mission">
                                 <span class="focus-input100" data-placeholder="Missão"></span>
@@ -98,17 +101,17 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
-                            <div class="wrap-input100 date" id="date_part" data-target-input="nearest">
+                        <div class="col-md-4">
+                            <div class="wrap-input100 date" id="date_partTarget" data-target-input="nearest">
                                 <span data-target="#date_partTarget" data-toggle="datetimepicker" class="datebtn">
                                     <i class="fa fa-calendar"></i>
                                 </span>
                                 <input type="text" class="input100 datetimepicker-input"
-                                    data-target="#date_partTarget" id="date_part" name="date_part" value="">
+                                    data-target="#date_partTarget" id="date_part" name="date_part">
                                 <span class="focus-input100" data-placeholder="Data prev. da missão"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="wrap-input100">
                                 <input class="input100" type="text" name="phone" id="phone"
                                     data-inputmask="'mask': ['(99) 9 9999-9999 ']" data-mask="" inputmode="text">
@@ -116,7 +119,7 @@
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="wrap-input100">
                                 <input class="input100" type="text" name="qtd_mil" id="qtd_mil"
                                     data-inputmask="'mask': ['99']" data-mask="" inputmode="text">

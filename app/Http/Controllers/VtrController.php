@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VtrRequest;
+use App\Models\ReqVtrModel;
 use App\Models\VtrModel;
 use Illuminate\Http\Request;
 
@@ -75,6 +76,23 @@ class VtrController extends Controller
         VtrModel::find($id)->delete();
     }
 
+    public function requestVtr(Request $request)
+    {
+        $data = $request->all();
+
+        $request = new ReqVtrModel;
+
+        $request->rank = $data['rank'];
+        $request->name = $data['name'];
+        $request->mission = $data['mission'];
+        $request->destiny = $data['destiny'];
+        $request->date_part = date('Y-m-d H:i', strtotime($data['date_part']));
+        $request->contact = $data['contact'];
+        $request->qtd_mil = $data['qtd_mil'];
+        $request->obs = $data['obs'];
+        $request->save();
+
+    }
     // TABELA DE VTRs
     public function listVtr(Request $request)
     {

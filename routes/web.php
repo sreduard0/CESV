@@ -121,8 +121,10 @@ Route::middleware('auth')->group(function () {
     Route::post('edit_mot', [MotController::class, 'editMot'])->middleware('role:trnp>adm');
     Route::get('delete_mot/{id}', [MotController::class, 'deleteMot'])->middleware('role:trnp>adm');
 
-// FIM CERUD ------------------------------------------------------------------
-});
 
+    // FIM CERUD ------------------------------------------------------------------
+});
+//SOLICITAÂO DE VTR
+Route::post('request_vtr',[VtrController::class, 'requestVtr']);
 // VERIFICAR SESSÃO
 Route::get('getSession', function () {return session()->has('user');})->name('getSession');
