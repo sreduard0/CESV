@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReqVtrRequest;
 use App\Http\Requests\VtrRequest;
@@ -11,6 +12,11 @@ use Illuminate\Http\Request;
 
 class VtrController extends Controller
 {
+    private $Tools;
+    public function __construct()
+    {
+        $this->Tools = new Tools();
+    }
     // AÇÕES
     public function get_info_vtr($id)
     {
@@ -88,10 +94,11 @@ class VtrController extends Controller
         $request->mission = $data['mission'];
         $request->destiny = $data['destiny'];
         $request->date_part = date('Y-m-d H:i', strtotime($data['date_part']));
-        $request->contact = $data['contact'];
+        $request->contact = str_replace([' ', '(', ')', '-'], '', $data['contact']);
         $request->qtd_mil = $data['qtd_mil'];
         $request->obs = $data['obs'];
         $request->save();
+        return 'success';
 
     }
     // TABELA DE VTRs
@@ -173,6 +180,93 @@ class VtrController extends Controller
                                         class="fa fa-trash"></i></button>';
                     break;
             }
+
+            $dados[] = $dado;
+        }
+
+        //Cria o array de informações a serem retornadas para o Javascript
+        $json_data = array(
+            "draw" => intval($requestData['draw']), //para cada requisição é enviado um número como parâmetro
+            "recordsTotal" => intval($filtered), //Quantidade de registros que há no banco de dados
+            "recordsFiltered" => intval($rows), //Total de registros quando houver pesquisa
+            "data" => $dados, //Array de dados completo dos dados retornados da tabela
+        );
+
+        return json_encode($json_data); //enviar dados como formato json
+    }
+    public function listReqVtr(Request $request)
+    {
+        //Receber a requisão da pesquisa
+        $requestData = $request->all();
+
+        //Indice da coluna na tabela visualizar resultado => nome da coluna no banco de dados
+        $columns = array(
+            0 => 'id',
+            1 => 'rank',
+            2 => 'name',
+            3 => 'mission',
+            4 => 'destiny',
+            5 => 'date_part',
+            6 => 'contact',
+            7 => 'id',
+        );
+
+        //Obtendo registros de número total sem qualquer pesquisa
+        $rows = count(ReqVtrModel::all());
+
+        //Se há pesquisa ou não
+        if ($requestData['search']['value']) {
+            $requests = ReqVtrModel::where('ebplaca', 'LIKE', '%' . $requestData['search']['value'] . '%')->with('infoFicha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $filtered = count($requests);
+            $rows = count(ReqVtrModel::all());
+        } elseif ($requestData['columns'][3]['search']['value']) {
+            $requests = ReqVtrModel::where('status', $requestData['columns'][3]['search']['value'])->with('infoFicha')->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $filtered = count($requests);
+            $rows = count(ReqVtrModel::all());
+        } else {
+            $requests = ReqVtrModel::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->take($requestData['length'])->get();
+            $filtered = count($requests);
+        }
+
+        // Ler e criar o array de dados
+        $dados = array();
+        $i = 1;
+        foreach ($requests as $data) {
+            $dado = array();
+            $dado[] = $data->id;
+            $dado[] = $data->rank;
+            $dado[] = $data->name;
+            $dado[] = $data->mission;
+            $dado[] = $data->destiny;
+            $dado[] = date('d-m-Y H:i', strtotime($data->date_part));
+            $dado[] = $this->Tools->mask('(##) # ####-####', $data->contact);
+            $dado[] = $data->qtd_mil;
+
+            $dado[] = '<button class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>';
+
+            // switch (session('CESV')['profileType']) {
+            //     case 5:
+            //         $dado[] = '
+            //             <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
+            //                             class="fa fa-car"></i></button>';
+            //         break;
+            //     case 3:
+            //         $dado[] = $vtr->infoFicha == null ? 'Livre' : $vtr->infoFicha->nat_of_serv;
+            //         $dado[] = '
+            //             <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
+            //                             class="fa fa-car"></i></button>';
+            //         break;
+            //     default:
+
+            //         $dado[] = '
+            //             <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
+            //                             class="fa fa-car"></i></button>
+            //             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-vtr" data-id="' . $vtr->id . '"><i
+            //                             class="fa fa-edit"></i></button>
+            //             <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteVtr(' . $vtr->id . ')"><i
+            //                             class="fa fa-trash"></i></button>';
+            //         break;
+            // }
 
             $dados[] = $dado;
         }

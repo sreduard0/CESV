@@ -40,12 +40,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('role:trnp>cost>fiscadm>adt>adm');
     Route::get('/usuarios', [ViewController::class, 'users'])->name('users')->middleware('role:adt>adm');
     Route::get('/combustivel', [ViewController::class, 'fuel'])->name('fuel')->middleware('role:trnp>adt>fiscadm>adm');
+    Route::get('/vtr/solicitacoes', [ViewController::class, 'requestfuel'])->name('request-fuel')->middleware('role:trnp>adt>fiscadm>adm');
 
 // AÇÕES --------------------------------------------------------------------
 
 // VIATURAS
     Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('role:adt>trnp>fiscadm>adm>cost');
     Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('role:trnp>adt>adm>cost');
+    Route::post('post_req_vtr_list', [VtrController::class, 'listReqVtr'])->name('listReqVtr')->middleware('role:trnp>adt>adm>fiscadm');
 
 // MISSÕES
     Route::get('info_mission/{id}', [MissionController::class, 'infoMission'])->name('info_mission')->middleware('role:cost>fiscadm>trnp>adt>adm');
@@ -121,10 +123,9 @@ Route::middleware('auth')->group(function () {
     Route::post('edit_mot', [MotController::class, 'editMot'])->middleware('role:trnp>adm');
     Route::get('delete_mot/{id}', [MotController::class, 'deleteMot'])->middleware('role:trnp>adm');
 
-
     // FIM CERUD ------------------------------------------------------------------
 });
 //SOLICITAÂO DE VTR
-Route::post('request_vtr',[VtrController::class, 'requestVtr']);
+Route::post('request_vtr', [VtrController::class, 'requestVtr']);
 // VERIFICAR SESSÃO
 Route::get('getSession', function () {return session()->has('user');})->name('getSession');

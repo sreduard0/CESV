@@ -1,4 +1,5 @@
 function requestVtr() {
+
     const formData = new FormData(document.getElementById('requestVtr'))
 
     // Verificação
@@ -56,6 +57,8 @@ function requestVtr() {
         obs: formData.get('obs'),
     }
 
+
+    $("#loading-request").addClass('loading-request').html('<div class="c-loader"></div>')
     const URL = 'request_vtr'
 
     $.ajax({
@@ -65,14 +68,20 @@ function requestVtr() {
         data: values,
         dataType: 'text',
         success: function (data) {
-            $('#requestVtr')[0].reset();
-            $('#obs').summernote('code', '');
-
+            if (data == 'success') {
+                setTimeout(function () {
+                    $("#loading-request").html('<div><div class= "row" ><i class="fs-60 fa fa-check" style="color:#00664d; margin: 0% 45% 0% 45%;"></i></div ><div class="row"><span class="c-w">Sua solicitação enviada com sucesso, aguarde o contato da Seção de Transporte.</span></div></div >')
+                }, 1000);
+            } else {
+                $("#loading-request").html('<div><div class= "row" ><i class="fs-50 fa fa-times text-danger" style="margin: 0% 45% 0% 45%;"></i></div ><div class="row"><span class="c-w">Ouve algum erro em sua solicitação, tente novamente.</span></div></div >')
+            }
 
         },
 
         error: function (data) {
 
+
         }
     });
 }
+

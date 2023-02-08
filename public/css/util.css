@@ -11826,6 +11826,16 @@
     z-index: 999999;
 }
 
+
+.loading-request {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
 .border-s {
     border: 2px solid #00664d;
 }
@@ -11853,7 +11863,6 @@
 .c-loader {
 
     margin: 10px;
-    /* margin-left: 210px; */
     animation: is-rotating 1s infinite;
     border: 6px solid #e5e5e5;
     border-radius: 50%;

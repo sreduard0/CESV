@@ -53,8 +53,7 @@
     </style>
     {{-- QR Code --}}
     <link rel="stylesheet" href="{{ asset('plugins/qr-scanner/style-qr-code.css') }}">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+
     {{-- CRUD .JS --}}
     <script src="{{ asset('js/crud-missions.js') }}"></script>
     @switch(session('CESV')['profileType'])
@@ -535,9 +534,9 @@
 @section('plugins')
 
 
+    <script src="{{ asset('js/inputmask.js') }}"></script>
 
     <!-- Summernote -->
-    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
         $(function() {
             $('.text').summernote({

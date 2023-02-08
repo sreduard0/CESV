@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
     <script src="{{ asset('js/crud-req-vtr.js') }}"></script>
     <style>
         .note-editable {
@@ -58,7 +59,7 @@
 <body class="gradient">
     <div class="limiter">
         <div class="container-login100">
-            <div class="wrap-register100">
+            <div id='loading-request' class="wrap-register100">
                 <span class="login100-form-title m-b-10">
                     Solicitar viatura
                 </span>
