@@ -1,12 +1,14 @@
 @extends('layout')
 @section('title', 'Solicitações de viatura')
-@section('fuel', 'active')
+@section('vtrmenu', 'menu-is-opening menu-open')
+@section('vtr', 'active')
+@section('requestVtr', 'active')
 @section('title-header', 'Solicitações de viatura')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('css')
-    <script src="{{ asset('js/crud-fuel.js') }}"></script>
+    <script src="{{ asset('js/crud-req-vtr.js') }}"></script>
     <style>
         .dataTables_wrapper .dataTables_filter {
             float: right;
@@ -32,7 +34,7 @@
                             <th width="150px">Data de part.</th>
                             <th width="150px">Contato</th>
                             <th width="70px">Efetivo</th>
-                            <th width="35px">Ações</th>
+                            <th width="65px">Ações</th>
                         </tr>
                     </thead>
                 </table>

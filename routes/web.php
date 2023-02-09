@@ -40,14 +40,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/missoes', [ViewController::class, 'missions'])->name('missions')->middleware('role:trnp>cost>fiscadm>adt>adm');
     Route::get('/usuarios', [ViewController::class, 'users'])->name('users')->middleware('role:adt>adm');
     Route::get('/combustivel', [ViewController::class, 'fuel'])->name('fuel')->middleware('role:trnp>adt>fiscadm>adm');
-    Route::get('/vtr/solicitacoes', [ViewController::class, 'requestfuel'])->name('request-fuel')->middleware('role:trnp>adt>fiscadm>adm');
+    Route::get('/vtr/solicitacoes', [ViewController::class, 'requestVtrList'])->name('request-vtr-list')->middleware('role:trnp>adt>adm');
 
 // AÇÕES --------------------------------------------------------------------
 
 // VIATURAS
     Route::get('get_info_vtr/{id}', [VtrController::class, 'get_info_vtr'])->name('get_info_vtr')->middleware('role:adt>trnp>fiscadm>adm>cost');
     Route::post('post_vtr_list', [VtrController::class, 'listVtr'])->name('listVtr')->middleware('role:trnp>adt>adm>cost');
-    Route::post('post_req_vtr_list', [VtrController::class, 'listReqVtr'])->name('listReqVtr')->middleware('role:trnp>adt>adm>fiscadm');
+    Route::post('post_req_vtr_list', [VtrController::class, 'listReqVtr'])->name('listReqVtr')->middleware('role:trnp>adt>adm');
+    Route::get('get_new_reqvtr_count', [VtrController::class, 'getNewReqVtr'])->name('getNewReqVtr')->middleware('role:trnp');
+    Route::get('obs_req_vtr/{id}', [VtrController::class, 'getObsReqVtr'])->middleware('role:trnp>adt>adm');
+    Route::get('req_vtr_action/{action}/{id}', [VtrController::class, 'reqVtrAction'])->middleware('role:trnp>adm');
 
 // MISSÕES
     Route::get('info_mission/{id}', [MissionController::class, 'infoMission'])->name('info_mission')->middleware('role:cost>fiscadm>trnp>adt>adm');
@@ -59,7 +62,7 @@ Route::middleware('auth')->group(function () {
 // FICHAS
     Route::get('get_info_ficha/{id}', [FichaController::class, 'infoFicha'])->name('infoFicha')->middleware('role:cmtgda>adj>trnp>adt>fiscadm>adm');
     Route::get('get_new_ficha_count', [FichaController::class, 'getNewFichas'])->name('getNewFichas')->middleware('role:fiscadm>adm');
-    Route::get('/auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm>adm');
+    Route::get('auth_ficha/{id}', [FichaController::class, 'authFicha'])->middleware('role:fiscadm>adm');
     Route::post('post_fichas_list', [FichaController::class, 'listFichas'])->name('post_fichas_list')->middleware('role:trnp>adt>fiscadm>adm');
     Route::post('fichas_layout', [FichaController::class, 'fichasLayout'])->name('fichas_layout')->middleware('role:adj>cmtgda>trnp>fiscadm>adm');
 
@@ -125,6 +128,7 @@ Route::middleware('auth')->group(function () {
 
     // FIM CERUD ------------------------------------------------------------------
 });
+
 //SOLICITAÂO DE VTR
 Route::post('request_vtr', [VtrController::class, 'requestVtr']);
 // VERIFICAR SESSÃO

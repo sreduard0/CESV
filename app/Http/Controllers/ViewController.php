@@ -99,7 +99,7 @@ class ViewController extends Controller
     {
         return view('vtr-list');
     }
-    public function requestfuel()
+    public function requestVtrList()
     {
         return view('request-vtr-list');
     }

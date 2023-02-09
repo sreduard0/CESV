@@ -18,6 +18,11 @@ class VtrController extends Controller
         $this->Tools = new Tools();
     }
     // AÇÕES
+    public function getNewReqVtr()
+    {
+        return ReqVtrModel::all()->count();
+    }
+
     public function get_info_vtr($id)
     {
         return VtrModel::withTrashed()->find($id);
@@ -83,6 +88,18 @@ class VtrController extends Controller
         VtrModel::find($id)->delete();
     }
 
+    public function getObsReqVtr($id)
+    {
+        return ReqVtrModel::select('obs')->find($id);
+    }
+    public function reqVtrAction($action, $id)
+    {
+        if ($action == 'acept') {
+            //MONTAR ESTRUTURA DE MISSAO
+        } else {
+            ReqVtrModel::find($id)->forceDelete();
+        }
+    }
     public function requestVtr(ReqVtrRequest $request)
     {
         $data = $request->all();
@@ -242,31 +259,14 @@ class VtrController extends Controller
             $dado[] = $this->Tools->mask('(##) # ####-####', $data->contact);
             $dado[] = $data->qtd_mil;
 
-            $dado[] = '<button class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>';
-
-            // switch (session('CESV')['profileType']) {
-            //     case 5:
-            //         $dado[] = '
-            //             <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
-            //                             class="fa fa-car"></i></button>';
-            //         break;
-            //     case 3:
-            //         $dado[] = $vtr->infoFicha == null ? 'Livre' : $vtr->infoFicha->nat_of_serv;
-            //         $dado[] = '
-            //             <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
-            //                             class="fa fa-car"></i></button>';
-            //         break;
-            //     default:
-
-            //         $dado[] = '
-            //             <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#info-vtr" data-id="' . $vtr->id . '"><i
-            //                             class="fa fa-car"></i></button>
-            //             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-vtr" data-id="' . $vtr->id . '"><i
-            //                             class="fa fa-edit"></i></button>
-            //             <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" onclick="deleteVtr(' . $vtr->id . ')"><i
-            //                             class="fa fa-trash"></i></button>';
-            //         break;
-            // }
+            switch (session('CESV')['profileType']) {
+                case 5:
+                    $dado[] = '<button class="btn btn-sm btn-success"><i class="fa fa-list"></i></button>';
+                case 6:
+                case 1:
+                    $dado[] = '<button onclick="denyReqVtr(' . $data->id . ')" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button> <button onclick="aceptReqVtr(' . $data->id . ')" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>';
+                    break;
+            }
 
             $dados[] = $dado;
         }

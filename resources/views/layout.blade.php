@@ -136,23 +136,46 @@
                             </li>
                         @else
                         @endif
-                        @if (session('CESV')['profileType'] == 1 ||
-                                session('CESV')['profileType'] == 5 ||
-                                session('CESV')['profileType'] == 3 ||
-                                session('CESV')['profileType'] == 6)
-                            <li class="nav-item ">
-                                <a href="{{ route('vtr') }}" class="nav-link @yield('vtr')">
+                        @if (session('CESV')['profileType'] == 1 || session('CESV')['profileType'] == 5 || session('CESV')['profileType'] == 6)
+                            <li class="nav-item @yield('vtrmenu')">
+                                <a href="#" class="rvtr nav-link @yield('vtr')">
                                     <i class="nav-icon fas fa-car"></i>
                                     <p>
-                                        Viaturas
+                                        Viatura
+                                        <i class="fas fa-angle-left right"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item ">
+                                        <a href="{{ route('vtr') }}" class="nav-link @yield('vtrlist')">
+                                            <i class="nav-icon fas fa-car"></i>
+                                            <p>Todas viaturas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('request-vtr-list') }}" class="nav-link @yield('requestVtr')">
+                                            <i class="nav-icon fas fa-plus-circle"></i>
+                                            <p id="r-v-c">Solicitações</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                             <li class="nav-item ">
                                 <a href="{{ route('drivers') }}" class="nav-link @yield('mot')">
                                     <i class="nav-icon fas fa-tire"></i>
                                     <p>
                                         Motoristas
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
+                        @if (session('CESV')['profileType'] == 3)
+                            <li class="nav-item ">
+                                <a href="{{ route('vtr') }}" class="nav-link @yield('vtr')">
+                                    <i class="nav-icon fas fa-car"></i>
+                                    <p>
+                                        Viaturas
                                     </p>
                                 </a>
                             </li>
@@ -532,6 +555,33 @@
             setInterval(() => {
                 countFicha()
                 countRequestFuel()
+            }, 30000);
+        </script>
+    @endif
+    @if (session('CESV')['profileType'] == 1)
+        <script>
+            window.onload = countReqVtr();
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 8000
+            })
+
+            function countReqVtr() {
+                $.get("{{ route('getNewReqVtr') }}", function(result) {
+                    if (result > 0) {
+                        $('#r-v-c').html('Solicitações <span class="badge badge-success right">' + result + '</span>')
+                        $('.rvtr').addClass('active')
+                    } else {
+                        $('#r-v-c').html('Solicitações')
+                        $('.rvtr').removeClass('active')
+                    }
+
+                })
+            }
+            setInterval(() => {
+                countReqVtr()
             }, 30000);
         </script>
     @endif

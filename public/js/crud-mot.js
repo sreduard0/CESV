@@ -265,7 +265,7 @@ function deleteMot(id) {
         timer: 4000
     });
     bootbox.confirm({
-        title: ' Deseja fechar esta militar?',
+        title: ' Deseja excluir este militar?',
         message: '<strong>Essa operação não pode ser desfeita.</strong><br> Se ouver alguma ficha com este militar será finalizada!',
         callback: function (confirmacao) {
 
@@ -290,7 +290,7 @@ function deleteMot(id) {
                     error: function (data) {
                         Toast.fire({
                             icon: 'error',
-                            title: '&nbsp&nbsp Erro ao escluir.'
+                            title: '&nbsp&nbsp Erro ao excluir.'
                         });
 
                     }

@@ -1,6 +1,8 @@
 @extends('layout')
 @section('title', 'Viaturas')
+@section('vtrmenu', 'menu-is-opening menu-open')
 @section('vtr', 'active')
+@section('vtrlist', 'active')
 @section('title-header', 'Viaturas')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">

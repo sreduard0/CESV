@@ -72,6 +72,8 @@ function requestVtr() {
                 setTimeout(function () {
                     $("#loading-request").html('<div><div class= "row" ><i class="fs-60 fa fa-check" style="color:#00664d; margin: 0% 45% 0% 45%;"></i></div ><div class="row"><span class="c-w">Sua solicitação enviada com sucesso, aguarde o contato da Seção de Transporte.</span></div></div >')
                 }, 1000);
+                $('#requestVtr')[0].reset();
+                $('#obs').summernote('code', '');
             } else {
                 $("#loading-request").html('<div><div class= "row" ><i class="fs-50 fa fa-times text-danger" style="margin: 0% 45% 0% 45%;"></i></div ><div class="row"><span class="c-w">Ouve algum erro em sua solicitação, tente novamente.</span></div></div >')
             }
@@ -79,9 +81,108 @@ function requestVtr() {
         },
 
         error: function (data) {
-
-
+            $("#loading-request").html('<div><div class= "row" ><i class="fs-50 fa fa-times text-danger" style="margin: 0% 45% 0% 45%;"></i></div ><div class="row"><span class="c-w">Ouve algum erro em sua solicitação, tente novamente.</span></div></div >')
         }
     });
+}
+
+function denyReqVtr(id) {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    });
+    $.get('/obs_req_vtr/' + id, function (result) {
+        bootbox.confirm({
+            title: 'Negar esta solicitação de viatura?',
+            message: '<strong class="text-danger">Essa operação não pode ser desfeita.</strong><br> O militar pode solicitar novamente se for necessário.<br><br><strong>Observações do solicitante:</strong><br>' + result.obs,
+            callback: function (confirmacao) {
+
+                if (confirmacao) {
+                    $.ajax({
+                        url: '/req_vtr_action/deny/' + id,
+                        type: "GET",
+                        success: function (data) {
+                            Toast.fire({
+                                icon: 'error',
+                                title: '&nbsp&nbsp Solicitação foi negada com sucesso.'
+                            });
+                            $("#table").DataTable().clear().draw();
+                        },
+                        error: function (data) {
+                            Toast.fire({
+                                icon: 'error',
+                                title: '&nbsp&nbsp Erro ao negar.'
+                            });
+
+                        }
+                    });
+                }
+
+            },
+            buttons: {
+                cancel: {
+                    label: 'Cancelar',
+                    className: 'btn-default'
+                },
+                confirm: {
+                    label: 'Negar',
+                    className: 'btn-danger'
+                }
+
+            }
+        });
+    })
+
+}
+function aceptReqVtr(id) {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    });
+    $.get('/obs_req_vtr/' + id, function (result) {
+        bootbox.confirm({
+            title: 'Aceitar esta solicitação de viatura?',
+            message: '<strong class="text-danger">Essa operação não pode ser desfeita.</strong><br> Ao aceitar esta solicitação será gerada uma missão OM.<br><br><strong>Observações do solicitante:</strong><br>' + result.obs,
+            callback: function (confirmacao) {
+
+                if (confirmacao) {
+                    $.ajax({
+                        url: '/CESV/public/req_vtr_action/acept/' + id,
+                        type: "GET",
+                        success: function (data) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: '&nbsp&nbsp Solicitação aceita com sucesso.'
+                            });
+                            $("#table").DataTable().clear().draw();
+                        },
+                        error: function (data) {
+                            Toast.fire({
+                                icon: 'error',
+                                title: '&nbsp&nbsp Erro ao aceitar.'
+                            });
+
+                        }
+                    });
+                }
+
+            },
+            buttons: {
+                cancel: {
+                    label: 'Cancelar',
+                    className: 'btn-default'
+                },
+                confirm: {
+                    label: 'Aceitar',
+                    className: 'btn-success'
+                }
+
+            }
+        });
+    })
 }
 
