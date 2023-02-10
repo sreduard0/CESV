@@ -589,14 +589,9 @@
                 "lengthChange": true,
                 "autoWidth": false,
                 "aoColumnDefs": [{
-                        'bSortable': false,
-                        'aTargets': [0, 8]
-                    },
-                    {
-                        'className': 'w-1 text-center',
-                        "targets": [9]
-                    }
-                ],
+                    'className': 'w-1 text-center',
+                    "targets": [9]
+                }],
                 "language": {
                     "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
