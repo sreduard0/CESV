@@ -142,9 +142,10 @@ function aceptReqVtr(id) {
         timer: 4000
     });
     $.get('/obs_req_vtr/' + id, function (result) {
+        var obs = result.obs ? '<br><br><strong>Observações do solicitante:</strong><br>' + result.obs : ''
         bootbox.confirm({
             title: 'Aceitar esta solicitação de viatura?',
-            message: '<strong class="text-danger">Essa operação não pode ser desfeita.</strong><br> Ao aceitar esta solicitação será gerada uma missão OM.<br><br><strong>Observações do solicitante:</strong><br>' + result.obs,
+            message: '<strong class="text-danger">Essa operação não pode ser desfeita.</strong><br> Ao aceitar esta solicitação será gerada uma missão OM.' + obs,
             callback: function (confirmacao) {
 
                 if (confirmacao) {
