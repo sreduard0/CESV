@@ -316,7 +316,7 @@ class MissionController extends Controller
                     break;
             }
             $filtered = count($missions);
-            $rows = count(MissionModel::where('status', 1)->get());
+            $rows = count(MissionModel::all());
 
         }
 
