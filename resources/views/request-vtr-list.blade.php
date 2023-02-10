@@ -32,7 +32,7 @@
                             <th>Missão</th>
                             <th>Destino</th>
                             <th width="150px">Data de part.</th>
-                            <th width="150px">Contato</th>
+                            <th width="190px">Contato</th>
                             <th width="70px">Efetivo</th>
                             <th width="65px">Ações</th>
                         </tr>

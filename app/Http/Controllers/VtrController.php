@@ -6,6 +6,7 @@ use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReqVtrRequest;
 use App\Http\Requests\VtrRequest;
+use App\Models\MissionModel;
 use App\Models\ReqVtrModel;
 use App\Models\VtrModel;
 use Illuminate\Http\Request;
@@ -96,6 +97,27 @@ class VtrController extends Controller
     {
         if ($action == 'acept') {
             //MONTAR ESTRUTURA DE MISSAO
+            $dataRequest = ReqVtrModel::find($id);
+
+            $mission = new MissionModel;
+            $mission->type_mission = 'OM';
+            $mission->status = 1;
+            $mission->mission_name = $dataRequest->mission;
+            $mission->destiny = $dataRequest->destiny;
+            $mission->class = ' - ';
+            $mission->doc = 'Missão gerada por solicitação de viatura';
+            $mission->origin = '3° B Sup';
+            $mission->pg_seg = $dataRequest->rank;
+            $mission->name_seg = $dataRequest->name;
+            $mission->prev_date_part = $dataRequest->date_part;
+            $mission->prev_date_chgd = '00-00-0000 00:00';
+            $mission->contact = $dataRequest->contact;
+            $mission->obs = $dataRequest->obs;
+
+            if ($mission->save()) {
+                ReqVtrModel::find($id)->forceDelete();
+            }
+
         } else {
             ReqVtrModel::find($id)->forceDelete();
         }
@@ -256,7 +278,7 @@ class VtrController extends Controller
             $dado[] = $data->mission;
             $dado[] = $data->destiny;
             $dado[] = date('d-m-Y H:i', strtotime($data->date_part));
-            $dado[] = $this->Tools->mask('(##) # ####-####', $data->contact);
+            $dado[] = $this->Tools->mask('(##) # ####-####', $data->contact) . " <a href='https://api.whatsapp.com/send?phone=55" . $data->contact . "' target='_blank' title='WhatsApp' class='float-r btn btn-sm btn-success'><i class='fab fa-whatsapp'></i></a>";
             $dado[] = $data->qtd_mil;
 
             switch (session('CESV')['profileType']) {

@@ -143,7 +143,7 @@ function aceptReqVtr(id) {
         showConfirmButton: false,
         timer: 4000
     });
-    $.get('/obs_req_vtr/' + id, function (result) {
+    $.get('/CESV/public/obs_req_vtr/' + id, function (result) {
         bootbox.confirm({
             title: 'Aceitar esta solicitação de viatura?',
             message: '<strong class="text-danger">Essa operação não pode ser desfeita.</strong><br> Ao aceitar esta solicitação será gerada uma missão OM.<br><br><strong>Observações do solicitante:</strong><br>' + result.obs,
