@@ -134,7 +134,7 @@ class VtrController extends Controller
         $request->destiny = $data['destiny'];
         $request->date_part = date('Y-m-d H:i', strtotime($data['date_part']));
         $request->contact = str_replace([' ', '(', ')', '-'], '', $data['contact']);
-        $request->qtd_mil = $data['qtd_mil'];
+        $request->qtd_mil = str_replace([' ', '_'], '', $data['qtd_mil']);
         $request->obs = $data['obs'];
         $request->save();
         return 'success';

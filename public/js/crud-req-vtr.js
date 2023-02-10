@@ -59,7 +59,7 @@ function requestVtr() {
 
 
     $("#loading-request").addClass('loading-request').html('<div class="c-loader"></div>')
-    const URL = 'request_vtr'
+    const URL = '/request_vtr'
 
     $.ajax({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -72,8 +72,6 @@ function requestVtr() {
                 setTimeout(function () {
                     $("#loading-request").html('<div><div class= "row" ><i class="fs-60 fa fa-check" style="color:#00664d; margin: 0% 45% 0% 45%;"></i></div ><div class="row"><span class="c-w">Sua solicitação enviada com sucesso, aguarde o contato da Seção de Transporte.</span></div></div >')
                 }, 1000);
-                $('#requestVtr')[0].reset();
-                $('#obs').summernote('code', '');
             } else {
                 $("#loading-request").html('<div><div class= "row" ><i class="fs-50 fa fa-times text-danger" style="margin: 0% 45% 0% 45%;"></i></div ><div class="row"><span class="c-w">Ouve algum erro em sua solicitação, tente novamente.</span></div></div >')
             }
