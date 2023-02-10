@@ -105,7 +105,7 @@ class VtrController extends Controller
             $mission->mission_name = $dataRequest->mission;
             $mission->destiny = $dataRequest->destiny;
             $mission->class = ' - ';
-            $mission->doc = 'Missão gerada por solicitação de viatura';
+            $mission->doc = $dataRequest->id . '-CESV/SOL-VTR';
             $mission->origin = '3° B Sup';
             $mission->pg_seg = $dataRequest->rank;
             $mission->name_seg = $dataRequest->name;
