@@ -283,7 +283,7 @@ class VtrController extends Controller
 
             switch (session('CESV')['profileType']) {
                 case 5:
-                    $dado[] = '<button class="btn btn-sm btn-success"><i class="fa fa-list"></i></button>';
+                    $dado[] = '-';
                 case 6:
                 case 1:
                     $dado[] = '<button onclick="denyReqVtr(' . $data->id . ')" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button> <button onclick="aceptReqVtr(' . $data->id . ')" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>';
