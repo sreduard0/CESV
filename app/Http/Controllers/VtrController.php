@@ -110,7 +110,7 @@ class VtrController extends Controller
             $mission->pg_seg = $dataRequest->rank;
             $mission->name_seg = $dataRequest->name;
             $mission->prev_date_part = $dataRequest->date_part;
-            $mission->prev_date_chgd = '00-00-0000 00:00';
+            $mission->prev_date_chgd = date('Y-m-d H:i', strtotime($dataRequest->date_part . " +1 days"));
             $mission->contact = $dataRequest->contact;
             $mission->obs = $dataRequest->obs;
 

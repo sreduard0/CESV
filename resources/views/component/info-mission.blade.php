@@ -254,10 +254,12 @@
              } else {
                  $("#panelInfoCon").css("display", "none")
                  @if (session('CESV')['profileType'] != 5)
-                     $(".link").html(
-                         '<button title="Gerar link da missão" class="btn btn-primary" onclick="generatelink(' +
-                         id + ')">Gerar link de relatório</button>'
-                     )
+                     if (result.status == 3) {
+                         $(".link").html(
+                             '<button title="Gerar link da missão" class="btn btn-primary" onclick="generatelink(' +
+                             id + ')">Gerar link de relatório</button>'
+                         )
+                     }
                  @endif
              }
          })
