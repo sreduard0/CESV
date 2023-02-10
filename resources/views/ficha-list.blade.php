@@ -261,7 +261,7 @@
                                     <select class="form-control" name="e_vtrFicha" id="e_vtrFicha">
                                         <option selected value="">Selecione</option>
                                         @foreach ($viaturas as $viatura)
-                                            <option value="{{ $viatura->id }}">{{ $viatura->nr_vtr }} |
+                                            <option value="{{ $viatura->id }}">{{ $viatura->ebplaca }} |
                                                 {{ $viatura->mod_vtr }}
                                             </option>
                                         @endforeach
