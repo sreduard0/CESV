@@ -191,15 +191,17 @@
                      var segName = 'Não informado'
                  }
                  var od = vtr.od_total ? '<p class="m-l-30 text-muted">Km(s) rodados: ' + vtr
-                     .od_total +
-                     '</p>' : ''
+                     .od_total + '</p>' : ''
+                 var fuel = vtr.fuelinfo ?
+                     '<p class="m-l-30 text-muted">Combustível liberado: ' + vtr
+                     .fuelinfo.qnt_released + ' L</p>' : ''
                  var data = '<tr data-widget="expandable-table" aria-expanded="false"><td>' +
                      count + ' - ' + vtr.vtrinfo.mod_vtr +
                      ' <i class="text-success float-r fa fa-eye"></i></td></tr><tr class="expandable-body d-none"><td><p class="m-l-30 text-muted">Ficha: ' +
                      vtr.nr_ficha + '</p><p class="m-l-30 text-muted">Motorista:' + vtr.motinfo
                      .pg + ' ' + vtr.motinfo.name +
                      '</p><p class=" m-l-30 text-muted">Segurança:   ' +
-                     segName + '</p>' + od + '</td></tr>'
+                     segName + '</p>' + fuel + od + '</td></tr>'
                  return data
              })
              if (result.obs == null) {

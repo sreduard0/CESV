@@ -12,6 +12,10 @@ class FichaModel extends Model
     {
         return $this->hasOne('App\Models\MotModel', 'id', 'id_mot')->withTrashed();
     }
+    public function fuelinfo()
+    {
+        return $this->hasOne('App\Models\FuelModel', 'id_ficha', 'id')->where('status', 3)->withTrashed();
+    }
     public function vtrinfo()
     {
         return $this->hasOne('App\Models\VtrModel', 'id', 'id_vtr')->withTrashed();
