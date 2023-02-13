@@ -160,9 +160,11 @@
                                                             <p class=" m-l-30 text-muted">Segurança:
                                                                 {{ $vtr->pg_seg . ' ' . $vtr->name_seg }}
                                                             </p>
-                                                            <p class="m-l-30 text-muted">Combustível liberado:
-                                                                {{ $vtr->fuelinfo->qnt_released }} L
-                                                            </p>
+                                                            @if ($vtr->fuelinfo)
+                                                                <p class="m-l-30 text-muted">Combustível liberado:
+                                                                    {{ $vtr->fuelinfo->qnt_released }} L
+                                                                </p>
+                                                            @endif
                                                             <p class="m-l-30 text-muted">Km(s) rodados:
                                                                 {{ $vtr->od_total }}
                                                             </p>
